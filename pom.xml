@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2021, RTE (http://www.rte-france.com)
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.powsybl</groupId>
+        <artifactId>powsybl-parent</artifactId>
+        <version>4</version>
+        <relativePath/>
+    </parent>
+    <artifactId>powsybl-network-area-diagram</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Network area diagram</name>
+    <description>PowSyBl network area diagram</description>
+    <url>http://www.powsybl.org</url>
+
+    <scm>
+        <connection>scm:git:https://github.com/powsybl/powsybl-network-area-diagram.git</connection>
+        <developerConnection>scm:git:https://github.com/powsybl/powsybl-network-area-diagram.git</developerConnection>
+        <url>https://github.com/powsybl/powsybl-network-area-diagram</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Florian DUPUY</name>
+            <email>florian.dupuy@rte-france.com</email>
+            <organization>RTE</organization>
+            <organizationUrl>http://www.rte-france.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <slf4j.version>1.7.22</slf4j.version>
+
+        <sonar.exclusions>
+            **/generated/**/*
+        </sonar.exclusions>
+
+        <powsybl-core.version>4.4.0</powsybl-core.version>
+        <powsybl-sld.version>2.4.0</powsybl-sld.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.version}</version>
+                        <executions>
+                            <execution>
+                                <id>javadoc-aggregate-jar</id>
+                                <phase>package</phase>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>aggregate-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-core</artifactId>
+                <version>${powsybl-core.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
