@@ -102,4 +102,12 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <!-- Compile dependencies -->
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-api</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

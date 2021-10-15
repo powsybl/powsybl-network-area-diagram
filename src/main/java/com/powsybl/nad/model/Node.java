@@ -15,8 +15,9 @@ public interface Node {
 
     String getDiagramId();
 
+    String getEquipmentId();
+
     List<? extends Edge> getAdjacentEdges();
 
     void setPosition(double x, double y);
-
 }

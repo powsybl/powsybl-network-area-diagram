@@ -29,6 +29,11 @@ public class TextEdge implements Edge {
     }
 
     @Override
+    public String getEquipmentId() {
+        return null;
+    }
+
+    @Override
     public List<Node> getAdjacentNodes() {
         return Arrays.asList(vlNode, textNode);
     }

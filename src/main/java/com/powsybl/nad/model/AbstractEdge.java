@@ -11,14 +11,21 @@ package com.powsybl.nad.model;
  */
 public abstract class AbstractEdge implements Edge {
 
-    private final String id;
+    private final String diagramId;
+    private final String equipmentId;
 
-    protected AbstractEdge(String id) {
-        this.id = id;
+    protected AbstractEdge(String diagramId, String equipmentId) {
+        this.diagramId = diagramId;
+        this.equipmentId = equipmentId;
     }
 
     @Override
     public String getDiagramId() {
-        return id;
+        return diagramId;
+    }
+
+    @Override
+    public String getEquipmentId() {
+        return equipmentId;
     }
 }

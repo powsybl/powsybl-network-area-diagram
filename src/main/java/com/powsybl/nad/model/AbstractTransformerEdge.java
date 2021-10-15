@@ -19,14 +19,14 @@ public abstract class AbstractTransformerEdge extends AbstractEdge implements Br
     private final Point transformerPosition = new Point();
     private final List<List<Point>> polylines = new ArrayList<>();
 
-    protected AbstractTransformerEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2) {
-        super(id);
+    protected AbstractTransformerEdge(String diagramId, String id, VoltageLevelNode node1, VoltageLevelNode node2) {
+        super(diagramId, id);
         adjacentNodes.add(node1);
         adjacentNodes.add(node2);
     }
 
-    protected AbstractTransformerEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2, VoltageLevelNode node3) {
-        super(id);
+    protected AbstractTransformerEdge(String diagramId, String id, VoltageLevelNode node1, VoltageLevelNode node2, VoltageLevelNode node3) {
+        super(diagramId, id);
         adjacentNodes.add(node1);
         adjacentNodes.add(node2);
         adjacentNodes.add(node3);

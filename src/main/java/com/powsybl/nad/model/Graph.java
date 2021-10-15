@@ -20,11 +20,11 @@ public class Graph {
     private final Map<String, Edge> edges = new LinkedHashMap<>();
 
     public void addNode(Node node) {
-        nodes.put(node.getDiagramId(), node);
+        nodes.put(node.getEquipmentId(), node);
     }
 
     public void addEdge(Edge edge) {
-        edges.put(edge.getDiagramId(), edge);
+        edges.put(edge.getEquipmentId(), edge);
     }
 
     public Stream<Node> getNodesStream() {
@@ -35,8 +35,12 @@ public class Graph {
         return edges.values().stream();
     }
 
-    public Optional<Node> getNode(String diagramId) {
-        return Optional.ofNullable(nodes.get(diagramId));
+    public Optional<Node> getNode(String equipmentId) {
+        return Optional.ofNullable(nodes.get(equipmentId));
+    }
+
+    public Optional<VoltageLevelNode> getVoltageLevelNode(String voltageLevelId) {
+        return getNode(voltageLevelId).filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
     }
 
     public Optional<Edge> getEdge(String diagramId) {

@@ -4,13 +4,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.nad.model;
+package com.powsybl.nad.build.iidm;
+
+import com.powsybl.iidm.network.Identifiable;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TwoWindingsTransformerEdge extends AbstractTransformerEdge {
-    public TwoWindingsTransformerEdge(String diagramId, String id, VoltageLevelNode node1, VoltageLevelNode node2) {
-        super(diagramId, id, node1, node2);
+public class IntIdProvider implements IdProvider {
+    private int count;
+
+    public IntIdProvider() {
+        count = 0;
+    }
+
+    @Override
+    public String createId(Identifiable<?> identifiable) {
+        return String.valueOf(count++);
     }
 }

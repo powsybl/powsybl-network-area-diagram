@@ -15,6 +15,7 @@ public interface Edge {
 
     String getDiagramId();
 
-    List<? extends Node> getAdjacentNodes();
+    String getEquipmentId();
 
+    List<? extends Node> getAdjacentNodes();
 }

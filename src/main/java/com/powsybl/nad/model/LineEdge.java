@@ -18,8 +18,8 @@ public class LineEdge extends AbstractEdge implements BranchEdge {
     private final List<VoltageLevelNode> adjacentNodes = new LinkedList<>();
     private List<Point> polyline = new ArrayList<>();
 
-    public LineEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2) {
-        super(id);
+    public LineEdge(String diagramId, String id, VoltageLevelNode node1, VoltageLevelNode node2) {
+        super(diagramId, id);
         adjacentNodes.add(node1);
         adjacentNodes.add(node2);
     }

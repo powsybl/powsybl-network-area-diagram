@@ -10,7 +10,7 @@ package com.powsybl.nad.model;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class ThreeWindingsTransformerEdge extends AbstractTransformerEdge {
-    protected ThreeWindingsTransformerEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2, VoltageLevelNode node3) {
-        super(id, node1, node2, node3);
+    public ThreeWindingsTransformerEdge(String diagramId, String id, VoltageLevelNode node1, VoltageLevelNode node2, VoltageLevelNode node3) {
+        super(diagramId, id, node1, node2, node3);
     }
 }
