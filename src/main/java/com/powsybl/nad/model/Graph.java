@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import org.jgrapht.graph.Pseudograph;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -18,6 +20,10 @@ public class Graph {
 
     private final Map<String, Node> nodes = new LinkedHashMap<>();
     private final Map<String, Edge> edges = new LinkedHashMap<>();
+    private double minX = 0;
+    private double minY = 0;
+    private double maxX = 0;
+    private double maxY = 0;
 
     public void addNode(Node node) {
         nodes.put(node.getEquipmentId(), node);
@@ -47,4 +53,41 @@ public class Graph {
         return Optional.ofNullable(edges.get(diagramId));
     }
 
+    public org.jgrapht.Graph<Node, Edge> toJgrapht() {
+        org.jgrapht.Graph<Node, Edge> graph = new Pseudograph<>(Edge.class);
+        nodes.values().forEach(graph::addVertex);
+        edges.values().forEach(e -> graph.addEdge(e.getNode1(), e.getNode2(), e));
+        return graph;
+    }
+
+    public double getWidth() {
+        return maxX - minX;
+    }
+
+    public double getHeight() {
+        return maxY - minY;
+    }
+
+    public double getMinX() {
+        return minX;
+    }
+
+    public double getMinY() {
+        return minY;
+    }
+
+    public double getMaxX() {
+        return maxX;
+    }
+
+    public double getMaxY() {
+        return maxY;
+    }
+
+    public void setDimensions(double minX, double maxX, double minY, double maxY) {
+        this.minX = minX;
+        this.maxX = maxX;
+        this.minY = minY;
+        this.maxY = maxY;
+    }
 }

@@ -4,25 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.nad.model;
-
-import java.util.List;
+package com.powsybl.nad.layout;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public interface Node {
-
-    String getDiagramId();
-
-    String getEquipmentId();
-
-    List<? extends Edge> getAdjacentEdges();
-
-    void setPosition(double x, double y);
-
-    double getX();
-
-    double getY();
-
+public interface LayoutFactory {
+    Layout create();
 }

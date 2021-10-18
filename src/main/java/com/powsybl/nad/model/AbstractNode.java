@@ -40,6 +40,16 @@ public abstract class AbstractNode implements Node {
         position = new Point(x, y);
     }
 
+    @Override
+    public double getX() {
+        return position.getX();
+    }
+
+    @Override
+    public double getY() {
+        return position.getY();
+    }
+
     public int getWidth() {
         return width;
     }
