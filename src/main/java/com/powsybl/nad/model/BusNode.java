@@ -10,4 +10,19 @@ package com.powsybl.nad.model;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class BusNode {
+    private final String diagramId;
+    private final String id;
+
+    public BusNode(String diagramId, String id) {
+        this.diagramId = diagramId;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDiagramId() {
+        return diagramId;
+    }
 }

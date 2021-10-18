@@ -43,7 +43,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     voltageLevel.getId(), voltageLevel.getNameOrId(), voltageLevel.getNominalV());
             graph.addNode(vlNode);
             voltageLevel.getBusView().getBusStream()
-                    .map(bus -> new BusNode())
+                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
                     .forEach(vlNode::addBusNode);
         }
     }
