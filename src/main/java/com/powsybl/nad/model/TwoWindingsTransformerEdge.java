@@ -4,10 +4,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.gd.model;
+package com.powsybl.nad.model;
 
-public class ThreeWindingsTransformerEdge extends AbstractTransformerEdge {
-    protected ThreeWindingsTransformerEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2, VoltageLevelNode node3) {
-        super(id, node1, node2, node3);
+public class TwoWindingsTransformerEdge extends AbstractTransformerEdge {
+    protected TwoWindingsTransformerEdge(String id, VoltageLevelNode node1, VoltageLevelNode node2) {
+        super(id, node1, node2);
     }
 }
