@@ -7,10 +7,15 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.iidm.network.Identifiable;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface IdProvider {
+
     String createId(Identifiable<?> identifiable);
+
+    String createId(ThreeWindingsTransformer.Leg leg);
+
 }

@@ -6,16 +6,54 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public interface Edge {
+public class Edge {
 
-    String getDiagramId();
+    private final String diagramId;
+    private final Node node1;
+    private final Node node2;
+    private final String equipmentId;
+    private List<Point> polyline = new ArrayList<>();
 
-    String getEquipmentId();
+    public Edge(String diagramId, String equipmentId, Node node1, Node node2) {
+        this.diagramId = diagramId;
+        this.equipmentId = equipmentId;
+        this.node1 = node1;
+        this.node2 = node2;
+    }
 
-    List<? extends Node> getAdjacentNodes();
+    public List<Node> getAdjacentNodes() {
+        return Arrays.asList(node1, node2);
+    }
+
+    public Node getNode1() {
+        return node1;
+    }
+
+    public Node getNode2() {
+        return node2;
+    }
+
+    public List<Point> getPolyline() {
+        return Collections.unmodifiableList(polyline);
+    }
+
+    public void setPolyline(List<Point> polyline) {
+        this.polyline = new ArrayList<>(polyline);
+    }
+
+    public String getDiagramId() {
+        return diagramId;
+    }
+
+    public String getEquipmentId() {
+        return equipmentId;
+    }
 }

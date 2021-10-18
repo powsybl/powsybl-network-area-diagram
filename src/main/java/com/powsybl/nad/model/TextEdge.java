@@ -6,44 +6,20 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TextEdge implements Edge {
+public class TextEdge extends Edge {
 
-    private final String id;
-
-    private VoltageLevelNode vlNode;
-    private TextNode textNode;
-
-    public TextEdge(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getDiagramId() {
-        return id;
-    }
-
-    @Override
-    public String getEquipmentId() {
-        return null;
-    }
-
-    @Override
-    public List<Node> getAdjacentNodes() {
-        return Arrays.asList(vlNode, textNode);
+    public TextEdge(String diagramId, VoltageLevelNode vlNode, TextNode textNode) {
+        super(diagramId, null, vlNode, textNode);
     }
 
     public VoltageLevelNode getVoltageLevelNode() {
-        return vlNode;
+        return (VoltageLevelNode) getNode1();
     }
 
     public TextNode getTextNode() {
-        return textNode;
+        return (TextNode) getNode2();
     }
-
 }

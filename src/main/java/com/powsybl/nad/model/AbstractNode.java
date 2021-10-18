@@ -12,12 +12,14 @@ package com.powsybl.nad.model;
 public abstract class AbstractNode implements Node {
 
     private final String diagramId;
+    private final String equipmentId;
     private int width;
     private int height;
     private Point position;
 
-    protected AbstractNode(String diagramId) {
+    protected AbstractNode(String diagramId, String equipmentId) {
         this.diagramId = diagramId;
+        this.equipmentId = equipmentId;
         position = new Point();
         width = 0;
         height = 0;
@@ -26,6 +28,11 @@ public abstract class AbstractNode implements Node {
     @Override
     public String getDiagramId() {
         return diagramId;
+    }
+
+    @Override
+    public String getEquipmentId() {
+        return equipmentId;
     }
 
     @Override

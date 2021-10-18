@@ -7,6 +7,7 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.iidm.network.Identifiable;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -20,6 +21,15 @@ public class IntIdProvider implements IdProvider {
 
     @Override
     public String createId(Identifiable<?> identifiable) {
+        return nextId();
+    }
+
+    @Override
+    public String createId(ThreeWindingsTransformer.Leg leg) {
+        return nextId();
+    }
+
+    private String nextId() {
         return String.valueOf(count++);
     }
 }
