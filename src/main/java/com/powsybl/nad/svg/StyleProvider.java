@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.nad.model.Node;
+
 import java.util.List;
 
 /**
@@ -15,4 +17,6 @@ public interface StyleProvider {
     List<String> getCssFilenames();
 
     String getStyleDefs();
+
+    List<String> getNodeStyleClasses(Node node);
 }

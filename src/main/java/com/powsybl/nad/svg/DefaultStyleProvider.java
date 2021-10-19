@@ -6,20 +6,26 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.sld.styles.BaseVoltageStyle;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class DefaultStyleProvider implements StyleProvider {
-    @Override
-    public List<String> getCssFilenames() {
-        return Collections.emptyList();
+public class DefaultStyleProvider extends AbstractStyleProvider {
+
+    public DefaultStyleProvider() {
+        super();
+    }
+
+    public DefaultStyleProvider(BaseVoltageStyle baseVoltageStyle) {
+        super(baseVoltageStyle);
     }
 
     @Override
-    public String getStyleDefs() {
-        return "circle {fill: lightblue} polyline {stroke: black; stroke-width: 0.2}";
+    public List<String> getCssFilenames() {
+        return Collections.singletonList("defaultStyle.css");
     }
 }

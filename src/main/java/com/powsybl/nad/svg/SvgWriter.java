@@ -104,6 +104,7 @@ public class SvgWriter {
         for (Node node : graph.getNodesStream().collect(Collectors.toList())) {
             writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
             writer.writeAttribute(ID_ATTRIBUTE, node.getDiagramId());
+            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getNodeStyleClasses(node)));
             insertName(writer, node::getName);
             writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, "translate(" +
