@@ -14,29 +14,46 @@ public class SvgParameters {
     private Padding diagramPadding = new Padding(2);
     private boolean insertName = false;
     private boolean svgWidthAndHeightAdded = false;
+    private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
 
     public Padding getDiagramPadding() {
         return diagramPadding;
     }
 
-    public void setDiagramPadding(Padding padding) {
+    public SvgParameters setDiagramPadding(Padding padding) {
         this.diagramPadding = padding;
+        return this;
     }
 
     public boolean isInsertName() {
         return insertName;
     }
 
-    public void setInsertName(boolean insertName) {
+    public SvgParameters setInsertName(boolean insertName) {
         this.insertName = insertName;
+        return this;
+    }
+
+    public CssLocation getCssLocation() {
+        return cssLocation;
+    }
+
+    public SvgParameters setCssLocation(CssLocation cssLocation) {
+        this.cssLocation = cssLocation;
+        return this;
+    }
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
     }
 
     public boolean isSvgWidthAndHeightAdded() {
         return svgWidthAndHeightAdded;
     }
 
-    public void setSvgWidthAndHeightAdded(boolean svgWidthAndHeightAdded) {
+    public SvgParameters setSvgWidthAndHeightAdded(boolean svgWidthAndHeightAdded) {
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
+        return this;
     }
 
 }

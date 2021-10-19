@@ -53,9 +53,11 @@ public class SvgWriter {
     private static final double LINE_WIDTH = 0.2;
 
     private final SvgParameters svgParameters;
+    private final StyleProvider styleProvider;
 
-    public SvgWriter(SvgParameters svgParameters) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider) {
         this.svgParameters = svgParameters;
+        this.styleProvider = styleProvider;
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
@@ -147,10 +149,23 @@ public class SvgWriter {
     }
 
     private void addStyle(XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(STYLE_ELEMENT_NAME);
-        writer.writeCData("\ncircle {fill: lightblue}\npolyline {stroke: black; stroke-width: " +
-                getFormattedValue(LINE_WIDTH) + "}\n");
-        writer.writeEndElement();
+        switch (svgParameters.getCssLocation()) {
+            case INSERTED_IN_SVG:
+                writer.writeStartElement(STYLE_ELEMENT_NAME);
+                writer.writeCData(styleProvider.getStyleDefs());
+                writer.writeEndElement();
+                break;
+            case EXTERNAL_IMPORTED:
+                writer.writeStartElement(STYLE_ELEMENT_NAME);
+                for (String cssFilename : styleProvider.getCssFilenames()) {
+                    writer.writeCharacters("@import url(" + cssFilename + ");");
+                }
+                writer.writeEndElement();
+                break;
+            case EXTERNAL_NO_IMPORT:
+                // nothing to do
+                break;
+        }
     }
 
     private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
@@ -172,19 +187,24 @@ public class SvgWriter {
     }
 
     public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, new ForcedLayoutFactory());
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, new DefaultStyleProvider());
     }
 
     public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
-                                   LayoutFactory layoutFactory) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, layoutFactory, new IntIdProvider());
+                                   StyleProvider styleProvider) {
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, new ForcedLayoutFactory());
     }
 
     public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
-                                   LayoutFactory layoutFactory, IdProvider idProvider) {
+                                   StyleProvider styleProvider, LayoutFactory layoutFactory) {
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, layoutFactory, new IntIdProvider());
+    }
+
+    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                                   StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters).writeSvg(graph, svgFile);
+        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);
     }
 
 }
