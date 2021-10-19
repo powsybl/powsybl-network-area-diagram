@@ -1,0 +1,190 @@
+/**
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package com.powsybl.nad.svg;
+
+import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.build.iidm.IntIdProvider;
+import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
+import com.powsybl.nad.layout.ForcedLayoutFactory;
+import com.powsybl.nad.layout.LayoutFactory;
+import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+/**
+ * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ */
+public class SvgWriter {
+
+    private static final String INDENT = "   ";
+    public static final String NAMESPACE_URI = "http://www.w3.org/2000/svg";
+    private static final String SVG_ROOT_ELEMENT_NAME = "svg";
+    private static final String STYLE_ELEMENT_NAME = "style";
+    private static final String METADATA_ELEMENT_NAME = "metadata";
+    private static final String POLYLINE_ELEMENT_NAME = "polyline";
+    private static final String CIRCLE_ELEMENT_NAME = "circle";
+    private static final String ID_ATTRIBUTE = "id";
+    private static final String WIDTH_ATTRIBUTE = "width";
+    private static final String HEIGHT_ATTRIBUTE = "height";
+    private static final String VIEW_BOX_ATTRIBUTE = "viewBox";
+    private static final String TITLE_ATTRIBUTE = "title";
+    private static final String CLASS_ATTRIBUTE = "class";
+    private static final String TRANSFORM_ATTRIBUTE = "transform";
+    private static final double CIRCLE_RADIUS = 0.6;
+    private static final double LINE_WIDTH = 0.2;
+
+    private final SvgParameters svgParameters;
+
+    public SvgWriter(SvgParameters svgParameters) {
+        this.svgParameters = svgParameters;
+    }
+
+    public void writeSvg(Graph graph, Path svgFile) {
+        Path dir = svgFile.toAbsolutePath().getParent();
+        String svgFileName = svgFile.getFileName().toString();
+        if (!svgFileName.endsWith(".svg")) {
+            svgFileName = svgFileName + ".svg";
+        }
+        try (OutputStream svgOs = new BufferedOutputStream(Files.newOutputStream(dir.resolve(svgFileName)))) {
+            writeSvg(graph, svgOs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeSvg(Graph graph, OutputStream svgWriter) {
+        try {
+            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgWriter);
+            addSvgRoot(graph, writer);
+            addStyle(writer);
+            addMetadata(writer);
+            drawEdges(graph, writer);
+            drawNodes(graph, writer);
+            writer.writeEndDocument();
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void drawEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        for (Edge edge : graph.getEdgesStream().collect(Collectors.toList())) {
+            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
+            insertName(writer, edge::getName);
+
+            String lineFormatted = edge.getPolyline().stream()
+                    .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                    .collect(Collectors.joining(" "));
+            writer.writeAttribute("points", lineFormatted);
+        }
+    }
+
+    private void drawNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        for (Node node : graph.getNodesStream().collect(Collectors.toList())) {
+            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, node.getDiagramId());
+            insertName(writer, node::getName);
+            writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, "translate(" +
+                    getFormattedValue(node.getX()) + "," + getFormattedValue(node.getY()) + ")");
+        }
+
+    }
+
+    private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {
+        if (svgParameters.isInsertName()) {
+            Optional<String> nodeName = getName.get();
+            if (nodeName.isPresent()) {
+                writer.writeAttribute(TITLE_ATTRIBUTE, nodeName.get());
+            }
+        }
+    }
+
+    private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement("", SVG_ROOT_ELEMENT_NAME, NAMESPACE_URI);
+        if (svgParameters.isSvgWidthAndHeightAdded()) {
+            writer.writeAttribute(WIDTH_ATTRIBUTE, getFormattedValue(getDiagramWidth(graph)));
+            writer.writeAttribute(HEIGHT_ATTRIBUTE, getFormattedValue(getDiagramHeight(graph)));
+        }
+        writer.writeAttribute(VIEW_BOX_ATTRIBUTE, getViewBoxValue(graph));
+        writer.writeDefaultNamespace(NAMESPACE_URI);
+    }
+
+    private double getDiagramHeight(Graph graph) {
+        Padding diagramPadding = svgParameters.getDiagramPadding();
+        return graph.getHeight() + diagramPadding.getTop() + diagramPadding.getBottom();
+    }
+
+    private double getDiagramWidth(Graph graph) {
+        Padding diagramPadding = svgParameters.getDiagramPadding();
+        return graph.getWidth() + diagramPadding.getLeft() + diagramPadding.getRight();
+    }
+
+    private String getViewBoxValue(Graph graph) {
+        Padding diagramPadding = svgParameters.getDiagramPadding();
+        return getFormattedValue(graph.getMinX() - diagramPadding.getLeft()) + " "
+                + getFormattedValue(graph.getMinY() - diagramPadding.getTop()) + " "
+                + getFormattedValue(getDiagramWidth(graph)) + " " + getFormattedValue(getDiagramHeight(graph));
+    }
+
+    private void addStyle(XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(STYLE_ELEMENT_NAME);
+        writer.writeCData("\ncircle {fill: lightblue}\npolyline {stroke: black; stroke-width: " +
+                getFormattedValue(LINE_WIDTH) + "}\n");
+        writer.writeEndElement();
+    }
+
+    private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(METADATA_ELEMENT_NAME);
+        // TODO: add the graph metadata in the SVG
+        writer.writeEndElement();
+    }
+
+    private static String getFormattedValue(double value) {
+        return String.format(Locale.US, "%.2f", value);
+    }
+
+    public static void drawNetwork(Network network, Path svgFile) {
+        drawNetwork(network, svgFile, new LayoutParameters());
+    }
+
+    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters) {
+        drawNetwork(network, svgFile, layoutParameters, new SvgParameters());
+    }
+
+    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, new ForcedLayoutFactory());
+    }
+
+    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                                   LayoutFactory layoutFactory) {
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, layoutFactory, new IntIdProvider());
+    }
+
+    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                                   LayoutFactory layoutFactory, IdProvider idProvider) {
+        Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
+        layoutFactory.create().run(graph, layoutParameters);
+        new SvgWriter(svgParameters).writeSvg(graph, svgFile);
+    }
+
+}
