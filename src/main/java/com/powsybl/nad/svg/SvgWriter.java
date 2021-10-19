@@ -73,7 +73,7 @@ public class SvgWriter {
         }
     }
 
-    private void writeSvg(Graph graph, OutputStream svgWriter) {
+    public void writeSvg(Graph graph, OutputStream svgWriter) {
         try {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgWriter);
             addSvgRoot(graph, writer);

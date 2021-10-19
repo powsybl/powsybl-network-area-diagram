@@ -36,7 +36,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public String getStyleDefs() {
-        StringBuilder styleSheetBuilder = new StringBuilder();
+        StringBuilder styleSheetBuilder = new StringBuilder("\n");
         for (URL cssUrl : getCssUrls()) {
             try {
                 styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
@@ -44,8 +44,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
                 throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
             }
         }
-        String graphStyle = "\n" + styleSheetBuilder + "\n";
-        return graphStyle
+        return styleSheetBuilder.toString()
                 .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
                 .replace("\r", "\n");
     }
