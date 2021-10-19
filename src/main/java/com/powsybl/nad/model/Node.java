@@ -7,6 +7,7 @@
 package com.powsybl.nad.model;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -25,4 +26,5 @@ public interface Node {
 
     double getY();
 
+    Optional<String> getName();
 }

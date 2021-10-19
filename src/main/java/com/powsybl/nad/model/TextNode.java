@@ -18,7 +18,7 @@ public class TextNode extends AbstractNode {
     private TextEdge edge;
 
     protected TextNode(String diagramId, String text) {
-        super(diagramId, null);
+        super(diagramId, null, null);
         this.text = text;
     }
 

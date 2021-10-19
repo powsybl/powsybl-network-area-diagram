@@ -77,7 +77,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(line.getTerminal1().getVoltageLevel().getId());
             Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(line.getTerminal2().getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent()) {
-                graph.addEdge(new Edge(idProvider.createId(line), line.getId(), vlNode1.get(), vlNode2.get()));
+                graph.addEdge(new Edge(idProvider.createId(line), line.getId(), line.getNameOrId(), vlNode1.get(), vlNode2.get()));
             } else {
                 throw new PowsyblException("Cannot add line, voltage level unknown");
             }
@@ -88,7 +88,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(twoWindingsTransformer.getTerminal1().getVoltageLevel().getId());
             Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(twoWindingsTransformer.getTerminal2().getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent()) {
-                graph.addEdge(new Edge(idProvider.createId(twoWindingsTransformer), twoWindingsTransformer.getId(), vlNode1.get(), vlNode2.get()));
+                Edge edge = new Edge(idProvider.createId(twoWindingsTransformer), twoWindingsTransformer.getId(),
+                        twoWindingsTransformer.getNameOrId(), vlNode1.get(), vlNode2.get());
+                graph.addEdge(edge);
             } else {
                 throw new PowsyblException("Cannot add line, one voltage level unknown");
             }
@@ -102,10 +104,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Optional<VoltageLevelNode> vlNode3 = graph.getVoltageLevelNode(terminals.get(2).getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent() && vlNode3.isPresent()) {
                 String transformerId = threeWindingsTransformer.getId();
-                TransformerNode tn = new TransformerNode(idProvider.createId(threeWindingsTransformer), transformerId);
-                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg1()), transformerId + LEG1_SUFFIX, vlNode1.get(), tn));
-                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg2()), transformerId + LEG2_SUFFIX, vlNode2.get(), tn));
-                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg3()), transformerId + LEG3_SUFFIX, vlNode3.get(), tn));
+                String transformerName = threeWindingsTransformer.getNameOrId();
+                TransformerNode tn = new TransformerNode(idProvider.createId(threeWindingsTransformer), transformerId, threeWindingsTransformer.getNameOrId());
+                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg1()), transformerId + LEG1_SUFFIX, transformerName, vlNode1.get(), tn));
+                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg2()), transformerId + LEG2_SUFFIX, transformerName, vlNode2.get(), tn));
+                graph.addEdge(new Edge(idProvider.createId(threeWindingsTransformer.getLeg3()), transformerId + LEG3_SUFFIX, transformerName, vlNode3.get(), tn));
             } else {
                 throw new PowsyblException("Cannot add three-windings transformer, one voltage level unknown");
             }

@@ -16,13 +16,11 @@ import java.util.List;
 public class VoltageLevelNode extends AbstractNode {
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
-    private final String nameOrId;
     private final double nominalV;
     private final List<BusNode> busNodes = new ArrayList<>();
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV) {
-        super(diagramId, equipmentId);
-        this.nameOrId = nameOrId;
+        super(diagramId, equipmentId, nameOrId);
         this.nominalV = nominalV;
     }
 
@@ -37,10 +35,6 @@ public class VoltageLevelNode extends AbstractNode {
 
     public void addEdge(Edge edge) {
         adjacentEdges.add(edge);
-    }
-
-    public String getNameOrId() {
-        return nameOrId;
     }
 
     public void addBusNode(BusNode busNode) {

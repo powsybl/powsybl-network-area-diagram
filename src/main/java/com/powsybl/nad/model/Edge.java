@@ -6,10 +6,7 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -17,14 +14,16 @@ import java.util.List;
 public class Edge {
 
     private final String diagramId;
+    private final String equipmentId;
+    private final String name;
     private final Node node1;
     private final Node node2;
-    private final String equipmentId;
     private List<Point> polyline = new ArrayList<>();
 
-    public Edge(String diagramId, String equipmentId, Node node1, Node node2) {
+    public Edge(String diagramId, String equipmentId, String nameOrId, Node node1, Node node2) {
         this.diagramId = diagramId;
         this.equipmentId = equipmentId;
+        this.name = nameOrId;
         this.node1 = node1;
         this.node2 = node2;
     }
@@ -55,5 +54,9 @@ public class Edge {
 
     public String getEquipmentId() {
         return equipmentId;
+    }
+
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 }

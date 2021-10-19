@@ -17,8 +17,8 @@ public class TransformerNode extends AbstractNode {
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
 
-    public TransformerNode(String diagramId, String equipmentId) {
-        super(diagramId, equipmentId);
+    public TransformerNode(String diagramId, String equipmentId, String nameOrId) {
+        super(diagramId, equipmentId, nameOrId);
     }
 
     public void addEdge(Edge edge) {
