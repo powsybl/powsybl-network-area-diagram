@@ -11,7 +11,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IdProvider;
 import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
-import com.powsybl.nad.layout.ForcedLayoutFactory;
+import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Edge;
@@ -212,7 +212,7 @@ public class SvgWriter {
 
     public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
                                    StyleProvider styleProvider) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, new ForcedLayoutFactory());
+        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, new BasicForceLayoutFactory());
     }
 
     public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,

@@ -18,7 +18,7 @@ import java.util.Arrays;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class ForcedLayout implements Layout {
+public class BasicForceLayout implements Layout {
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {

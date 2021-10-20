@@ -10,7 +10,7 @@ import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
-import com.powsybl.nad.layout.ForcedLayout;
+import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.StyleProvider;
@@ -37,7 +37,7 @@ public abstract class AbstractTest {
 
     protected String generateSvgString(Network network, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, new IntIdProvider()).buildGraph();
-        new ForcedLayout().run(graph, getLayoutParameters());
+        new BasicForceLayout().run(graph, getLayoutParameters());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new SvgWriter(getSvgParameters(), getStyleProvider()).writeSvg(graph, baos);
         if (debugSvg) {
