@@ -13,8 +13,6 @@ import com.powsybl.nad.model.Point;
 import com.powsybl.sld.force.layout.ForceLayout;
 import com.powsybl.sld.force.layout.Vector;
 
-import java.util.Arrays;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -40,9 +38,11 @@ public class BasicForceLayout implements Layout {
         graph.getEdgesStream().forEach(edge -> {
             Node node1 = graph.getNode1(edge);
             Node node2 = graph.getNode2(edge);
-            edge.setPolyline(Arrays.asList(
-                    new Point(node1.getX(), node1.getY()),
-                    new Point(node2.getX(), node2.getY())));
+            Point point1 = new Point(node1.getX(), node1.getY());
+            Point point2 = new Point(node2.getX(), node2.getY());
+            Point middle = Point.createMiddlePoint(point1, point2);
+            edge.setSide1(point1, middle);
+            edge.setSide2(point2, middle);
         });
 
     }

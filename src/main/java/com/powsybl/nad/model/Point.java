@@ -23,6 +23,10 @@ public class Point {
         this(0, 0);
     }
 
+    public static Point createMiddlePoint(Point point1, Point point2) {
+        return new Point(0.5 * (point1.x + point2.x), 0.5 * (point1.y + point2.y));
+    }
+
     public double getY() {
         return y;
     }

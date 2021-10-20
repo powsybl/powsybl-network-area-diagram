@@ -19,6 +19,10 @@ public class BranchEdge extends AbstractEdge {
         this.side2Connected = side2Connected;
     }
 
+    public boolean isConnected(Side side) {
+        return side == Side.ONE ? isSide1Connected() : isSide2Connected();
+    }
+
     public boolean isSide1Connected() {
         return side1Connected;
     }

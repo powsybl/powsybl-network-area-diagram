@@ -14,9 +14,19 @@ import java.util.Optional;
  */
 public interface Edge {
 
-    List<Point> getPolyline();
+    enum Side {
+        ONE, TWO
+    }
 
-    void setPolyline(List<Point> polyline);
+    List<Point> getLine(Side side);
+
+    List<Point> getSide1();
+
+    List<Point> getSide2();
+
+    void setSide1(Point origin, Point end);
+
+    void setSide2(Point origin, Point end);
 
     String getDiagramId();
 

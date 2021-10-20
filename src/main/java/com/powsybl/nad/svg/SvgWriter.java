@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -91,15 +92,31 @@ public class SvgWriter {
 
     private void drawEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         for (Edge edge : graph.getEdgesStream().collect(Collectors.toList())) {
-            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
+            List<String> edgeStyleClasses = styleProvider.getEdgeStyleClasses(edge);
+            if (!edgeStyleClasses.isEmpty()) {
+                writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeStyleClasses));
+            }
             insertName(writer, edge::getName);
 
-            String lineFormatted = edge.getPolyline().stream()
-                    .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
-                    .collect(Collectors.joining(" "));
-            writer.writeAttribute("points", lineFormatted);
+            drawSideLine(writer, edge, Edge.Side.ONE);
+            drawSideLine(writer, edge, Edge.Side.TWO);
+
+            writer.writeEndElement();
         }
+    }
+
+    private void drawSideLine(XMLStreamWriter writer, Edge edge, Edge.Side side) throws XMLStreamException {
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        List<String> edgeSideStyleClasses = styleProvider.getSideEdgeStyleClasses(edge, side);
+        if (!edgeSideStyleClasses.isEmpty()) {
+            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeSideStyleClasses));
+        }
+        String lineFormatted1 = edge.getLine(side).stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+        writer.writeAttribute("points", lineFormatted1);
     }
 
     private void drawNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {

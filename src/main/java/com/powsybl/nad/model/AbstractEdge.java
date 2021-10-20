@@ -16,7 +16,8 @@ public abstract class AbstractEdge implements Edge {
     private final String diagramId;
     private final String equipmentId;
     private final String name;
-    private List<Point> polyline = new ArrayList<>();
+    private List<Point> line1 = Collections.emptyList();
+    private List<Point> line2 = Collections.emptyList();
 
     protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
         this.diagramId = diagramId;
@@ -24,14 +25,28 @@ public abstract class AbstractEdge implements Edge {
         this.name = nameOrId;
     }
 
-    @Override
-    public List<Point> getPolyline() {
-        return Collections.unmodifiableList(polyline);
+    public List<Point> getLine(Side side) {
+        return side == Side.ONE ? getSide1() : getSide2();
     }
 
     @Override
-    public void setPolyline(List<Point> polyline) {
-        this.polyline = new ArrayList<>(polyline);
+    public List<Point> getSide1() {
+        return Collections.unmodifiableList(line1);
+    }
+
+    @Override
+    public List<Point> getSide2() {
+        return Collections.unmodifiableList(line2);
+    }
+
+    @Override
+    public void setSide1(Point origin, Point end) {
+        this.line1 = Arrays.asList(origin, end);
+    }
+
+    @Override
+    public void setSide2(Point origin, Point end) {
+        this.line2 = Arrays.asList(origin, end);
     }
 
     @Override
