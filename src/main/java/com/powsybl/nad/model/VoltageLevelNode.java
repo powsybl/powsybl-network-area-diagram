@@ -7,7 +7,6 @@
 package com.powsybl.nad.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,7 +14,6 @@ import java.util.List;
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final List<Edge> adjacentEdges = new ArrayList<>();
     private final double nominalV;
     private final List<BusNode> busNodes = new ArrayList<>();
 
@@ -24,17 +22,8 @@ public class VoltageLevelNode extends AbstractNode {
         this.nominalV = nominalV;
     }
 
-    @Override
-    public List<Edge> getAdjacentEdges() {
-        return Collections.unmodifiableList(adjacentEdges);
-    }
-
     public double getNominalV() {
         return nominalV;
-    }
-
-    public void addEdge(Edge edge) {
-        adjacentEdges.add(edge);
     }
 
     public void addBusNode(BusNode busNode) {

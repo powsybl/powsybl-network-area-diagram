@@ -16,28 +16,12 @@ public class Edge {
     private final String diagramId;
     private final String equipmentId;
     private final String name;
-    private final Node node1;
-    private final Node node2;
     private List<Point> polyline = new ArrayList<>();
 
-    public Edge(String diagramId, String equipmentId, String nameOrId, Node node1, Node node2) {
+    public Edge(String diagramId, String equipmentId, String nameOrId) {
         this.diagramId = diagramId;
         this.equipmentId = equipmentId;
         this.name = nameOrId;
-        this.node1 = node1;
-        this.node2 = node2;
-    }
-
-    public List<Node> getAdjacentNodes() {
-        return Arrays.asList(node1, node2);
-    }
-
-    public Node getNode1() {
-        return node1;
-    }
-
-    public Node getNode2() {
-        return node2;
     }
 
     public List<Point> getPolyline() {

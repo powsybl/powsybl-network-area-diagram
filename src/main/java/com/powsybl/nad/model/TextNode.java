@@ -6,29 +6,16 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class TextNode extends AbstractNode {
 
     private final String text;
-    private TextEdge edge;
 
     protected TextNode(String diagramId, String text) {
         super(diagramId, null, null);
         this.text = text;
-    }
-
-    @Override
-    public List<TextEdge> getAdjacentEdges() {
-        return Collections.singletonList(edge);
-    }
-
-    public void setEdge(TextEdge edge) {
-        this.edge =  edge;
     }
 
     public String getText() {

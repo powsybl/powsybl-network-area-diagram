@@ -22,7 +22,7 @@ public class BasicForceLayout implements Layout {
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.toJgrapht())
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.getJgraphtGraph())
                 .setMaxSpeed(1e3);
         forceLayout.execute();
 
@@ -37,11 +37,13 @@ public class BasicForceLayout implements Layout {
         });
         graph.setDimensions(dims[0], dims[1], dims[2], dims[3]);
 
-        graph.getEdgesStream().forEach(edge ->
-                edge.setPolyline(Arrays.asList(
-                        new Point(edge.getNode1().getX(), edge.getNode1().getY()),
-                        new Point(edge.getNode2().getX(), edge.getNode2().getY())))
-        );
+        graph.getEdgesStream().forEach(edge -> {
+            Node node1 = graph.getNode1(edge);
+            Node node2 = graph.getNode2(edge);
+            edge.setPolyline(Arrays.asList(
+                    new Point(node1.getX(), node1.getY()),
+                    new Point(node2.getX(), node2.getY())));
+        });
 
     }
 }

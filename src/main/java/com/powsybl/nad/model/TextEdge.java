@@ -12,14 +12,7 @@ package com.powsybl.nad.model;
 public class TextEdge extends Edge {
 
     public TextEdge(String diagramId, VoltageLevelNode vlNode, TextNode textNode) {
-        super(diagramId, null, null, vlNode, textNode);
+        super(diagramId, null, null);
     }
 
-    public VoltageLevelNode getVoltageLevelNode() {
-        return (VoltageLevelNode) getNode1();
-    }
-
-    public TextNode getTextNode() {
-        return (TextNode) getNode2();
-    }
 }

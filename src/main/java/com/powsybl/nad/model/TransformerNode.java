@@ -6,27 +6,13 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class TransformerNode extends AbstractNode {
 
-    private final List<Edge> adjacentEdges = new ArrayList<>();
-
     public TransformerNode(String diagramId, String equipmentId, String nameOrId) {
         super(diagramId, equipmentId, nameOrId);
     }
 
-    public void addEdge(Edge edge) {
-        adjacentEdges.add(edge);
-    }
-
-    @Override
-    public List<Edge> getAdjacentEdges() {
-        return Collections.unmodifiableList(adjacentEdges);
-    }
 }

@@ -6,7 +6,7 @@
  */
 package com.powsybl.nad.model;
 
-import org.jgrapht.graph.Pseudograph;
+import org.jgrapht.graph.WeightedPseudograph;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,12 +25,16 @@ public class Graph {
     private double maxX = 0;
     private double maxY = 0;
 
+    private final org.jgrapht.Graph<Node, Edge> jgrapht = new WeightedPseudograph<>(Edge.class);
+
     public void addNode(Node node) {
         nodes.put(node.getEquipmentId(), node);
+        jgrapht.addVertex(node);
     }
 
-    public void addEdge(Edge edge) {
+    public void addEdge(Node node1, Node node2, Edge edge) {
         edges.put(edge.getEquipmentId(), edge);
+        jgrapht.addEdge(node1, node2, edge);
     }
 
     public Stream<Node> getNodesStream() {
@@ -61,15 +65,8 @@ public class Graph {
         return getNode(voltageLevelId).filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
     }
 
-    public Optional<Edge> getEdge(String diagramId) {
-        return Optional.ofNullable(edges.get(diagramId));
-    }
-
-    public org.jgrapht.Graph<Node, Edge> toJgrapht() {
-        org.jgrapht.Graph<Node, Edge> graph = new Pseudograph<>(Edge.class);
-        nodes.values().forEach(graph::addVertex);
-        edges.values().forEach(e -> graph.addEdge(e.getNode1(), e.getNode2(), e));
-        return graph;
+    public org.jgrapht.Graph<Node, Edge> getJgraphtGraph() {
+        return jgrapht;
     }
 
     public double getWidth() {
@@ -101,5 +98,13 @@ public class Graph {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+    }
+
+    public Node getNode1(Edge edge) {
+        return jgrapht.getEdgeSource(edge);
+    }
+
+    public Node getNode2(Edge edge) {
+        return jgrapht.getEdgeTarget(edge);
     }
 }
