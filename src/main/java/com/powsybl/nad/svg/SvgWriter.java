@@ -7,13 +7,6 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.build.iidm.IdProvider;
-import com.powsybl.nad.build.iidm.IntIdProvider;
-import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactory;
-import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.VoltageLevelNode;
@@ -213,35 +206,6 @@ public class SvgWriter {
 
     private static String getFormattedValue(double value) {
         return String.format(Locale.US, "%.2f", value);
-    }
-
-    public static void drawNetwork(Network network, Path svgFile) {
-        drawNetwork(network, svgFile, new LayoutParameters());
-    }
-
-    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters) {
-        drawNetwork(network, svgFile, layoutParameters, new SvgParameters());
-    }
-
-    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, new DefaultStyleProvider());
-    }
-
-    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
-                                   StyleProvider styleProvider) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, new BasicForceLayoutFactory());
-    }
-
-    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
-                                   StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        drawNetwork(network, svgFile, layoutParameters, svgParameters, styleProvider, layoutFactory, new IntIdProvider());
-    }
-
-    public static void drawNetwork(Network network, Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
-                                   StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
-        layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);
     }
 
 }
