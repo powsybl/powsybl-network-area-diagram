@@ -6,41 +6,21 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class Edge {
+public interface Edge {
 
-    private final String diagramId;
-    private final String equipmentId;
-    private final String name;
-    private List<Point> polyline = new ArrayList<>();
+    List<Point> getPolyline();
 
-    public Edge(String diagramId, String equipmentId, String nameOrId) {
-        this.diagramId = diagramId;
-        this.equipmentId = equipmentId;
-        this.name = nameOrId;
-    }
+    void setPolyline(List<Point> polyline);
 
-    public List<Point> getPolyline() {
-        return Collections.unmodifiableList(polyline);
-    }
+    String getDiagramId();
 
-    public void setPolyline(List<Point> polyline) {
-        this.polyline = new ArrayList<>(polyline);
-    }
+    String getEquipmentId();
 
-    public String getDiagramId() {
-        return diagramId;
-    }
-
-    public String getEquipmentId() {
-        return equipmentId;
-    }
-
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
-    }
+    Optional<String> getName();
 }

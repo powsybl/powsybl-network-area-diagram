@@ -77,19 +77,21 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(line.getTerminal1().getVoltageLevel().getId());
             Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(line.getTerminal2().getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent()) {
-                graph.addEdge(vlNode1.get(), vlNode2.get(), new Edge(idProvider.createId(line), line.getId(), line.getNameOrId()));
+                graph.addEdge(vlNode1.get(), vlNode2.get(),
+                        new BranchEdge(idProvider.createId(line), line.getId(), line.getNameOrId(),
+                                line.getTerminal1().isConnected(), line.getTerminal2().isConnected()));
             } else {
                 throw new PowsyblException("Cannot add line, voltage level unknown");
             }
         }
 
         @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer twoWindingsTransformer, Branch.Side side) {
-            Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(twoWindingsTransformer.getTerminal1().getVoltageLevel().getId());
-            Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(twoWindingsTransformer.getTerminal2().getVoltageLevel().getId());
+        public void visitTwoWindingsTransformer(TwoWindingsTransformer twt, Branch.Side side) {
+            Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(twt.getTerminal1().getVoltageLevel().getId());
+            Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(twt.getTerminal2().getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent()) {
-                Edge edge = new Edge(idProvider.createId(twoWindingsTransformer), twoWindingsTransformer.getId(),
-                        twoWindingsTransformer.getNameOrId());
+                BranchEdge edge = new BranchEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(),
+                        twt.getTerminal1().isConnected(), twt.getTerminal2().isConnected());
                 graph.addEdge(vlNode1.get(), vlNode2.get(), edge);
             } else {
                 throw new PowsyblException("Cannot add line, one voltage level unknown");
@@ -97,18 +99,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        public void visitThreeWindingsTransformer(ThreeWindingsTransformer threeWindingsTransformer, ThreeWindingsTransformer.Side side) {
-            List<? extends Terminal> terminals = threeWindingsTransformer.getTerminals();
+        public void visitThreeWindingsTransformer(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
+            List<? extends Terminal> terminals = twt.getTerminals();
             Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(terminals.get(0).getVoltageLevel().getId());
             Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(terminals.get(1).getVoltageLevel().getId());
             Optional<VoltageLevelNode> vlNode3 = graph.getVoltageLevelNode(terminals.get(2).getVoltageLevel().getId());
             if (vlNode1.isPresent() && vlNode2.isPresent() && vlNode3.isPresent()) {
-                String transformerId = threeWindingsTransformer.getId();
-                String transformerName = threeWindingsTransformer.getNameOrId();
-                TransformerNode tn = new TransformerNode(idProvider.createId(threeWindingsTransformer), transformerId, threeWindingsTransformer.getNameOrId());
-                graph.addEdge(vlNode1.get(), tn, new Edge(idProvider.createId(threeWindingsTransformer.getLeg1()), transformerId + LEG1_SUFFIX, transformerName));
-                graph.addEdge(vlNode2.get(), tn, new Edge(idProvider.createId(threeWindingsTransformer.getLeg2()), transformerId + LEG2_SUFFIX, transformerName));
-                graph.addEdge(vlNode3.get(), tn, new Edge(idProvider.createId(threeWindingsTransformer.getLeg3()), transformerId + LEG3_SUFFIX, transformerName));
+                String transformerId = twt.getId();
+                String transformerName = twt.getNameOrId();
+                TransformerNode tn = new TransformerNode(idProvider.createId(twt), transformerId, twt.getNameOrId());
+                graph.addEdge(vlNode1.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg1()), transformerId + LEG1_SUFFIX, transformerName, twt.getLeg1().getTerminal().isConnected()));
+                graph.addEdge(vlNode2.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg2()), transformerId + LEG2_SUFFIX, transformerName, twt.getLeg2().getTerminal().isConnected()));
+                graph.addEdge(vlNode3.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg3()), transformerId + LEG3_SUFFIX, transformerName, twt.getLeg3().getTerminal().isConnected()));
             } else {
                 throw new PowsyblException("Cannot add three-windings transformer, one voltage level unknown");
             }

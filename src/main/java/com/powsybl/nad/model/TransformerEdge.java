@@ -9,10 +9,15 @@ package com.powsybl.nad.model;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TextEdge extends AbstractEdge {
+public class TransformerEdge extends AbstractEdge {
+    private final boolean connected;
 
-    public TextEdge(String diagramId, VoltageLevelNode vlNode, TextNode textNode) {
-        super(diagramId, null, null);
+    public TransformerEdge(String diagramId, String transformerId, String transformerName, boolean connected) {
+        super(diagramId, transformerId, transformerName);
+        this.connected = connected;
     }
 
+    public boolean isConnected() {
+        return connected;
+    }
 }
