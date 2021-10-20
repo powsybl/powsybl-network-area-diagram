@@ -2,7 +2,7 @@
 <svg viewBox="-9.85 -10.79 20.23 21.56" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 circle {fill: lightblue}
-polyline {stroke: black; stroke-width: 0.2}
+polyline {stroke: black; stroke-width: 0.1}
 .nad-vl0to30 {fill: #AFB42B}
 .nad-vl30to50 {fill: #EF9A9A}
 .nad-vl50to70 {fill: #9C27B0}
@@ -11,46 +11,161 @@ polyline {stroke: black; stroke-width: 0.2}
 .nad-vl180to300 {fill: #2E7D32}
 .nad-vl300to500 {fill: #D32F2F}
 .nad-vl-nodes text {font: 0.6px "Verdana"}
+.nad-disconnected {stroke-dasharray: .1,.1}
 ]]></style>
     <metadata></metadata>
-    <polyline id="51" title="L-1-2-1 " points="-2.56,6.78 -0.81,8.72"/>
-    <polyline id="55" title="L-3-1-1 " points="-2.74,3.22 -2.56,6.78"/>
-    <polyline id="62" title="L-1-5-1 " points="-2.56,6.78 0.89,6.90"/>
-    <polyline id="59" title="L-2-4-1 " points="-0.81,8.72 -0.63,5.48"/>
-    <polyline id="81" title="L-2-6-1 " points="-0.81,8.72 2.43,8.76"/>
-    <polyline id="57" title="T-24-3-1 " points="-4.85,0.21 -2.74,3.22"/>
-    <polyline id="65" title="L-3-9-1 " points="-2.74,3.22 1.52,3.27"/>
-    <polyline id="95" title="L-15-24-1 " points="-4.99,-3.40 -4.85,0.21"/>
-    <polyline id="66" title="L-4-9-1 " points="-0.63,5.48 1.52,3.27"/>
-    <polyline id="68" title="T-5-10-1 " points="0.89,6.90 3.27,4.91"/>
-    <polyline id="73" title="T-11-9-1 " points="1.98,0.84 1.52,3.27"/>
-    <polyline id="77" title="T-9-12-1 " points="1.52,3.27 4.61,1.66"/>
-    <polyline id="85" title="L-8-9-1 " points="5.53,5.20 1.52,3.27"/>
-    <polyline id="74" title="T-11-10-1 " points="1.98,0.84 3.27,4.91"/>
-    <polyline id="78" title="T-12-10-1 " points="4.61,1.66 3.27,4.91"/>
-    <polyline id="82" title="L-10-6-1 " points="3.27,4.91 2.43,8.76"/>
-    <polyline id="86" title="L-8-10-1 " points="5.53,5.20 3.27,4.91"/>
-    <polyline id="87" title="L-11-13-1 " points="1.98,0.84 4.52,-0.53"/>
-    <polyline id="90" title="L-11-14-1 " points="1.98,0.84 0.00,-2.36"/>
-    <polyline id="88" title="L-12-13-1 " points="4.61,1.66 4.52,-0.53"/>
-    <polyline id="120" title="L-12-23-1 " points="4.61,1.66 5.84,-2.24"/>
-    <polyline id="84" title="L-7-8-1 " points="8.37,6.37 5.53,5.20"/>
-    <polyline id="121" title="L-23-13-1 " points="5.84,-2.24 4.52,-0.53"/>
-    <polyline id="96" title="L-14-16-1 " points="0.00,-2.36 -1.85,-5.21"/>
-    <polyline id="97" title="L-16-15-1 " points="-1.85,-5.21 -4.99,-3.40"/>
-    <polyline id="113" title="L-15-21-1 " points="-4.99,-3.40 -6.54,-5.38"/>
-    <polyline id="114" title="L-21-15-2 " points="-6.54,-5.38 -4.99,-3.40"/>
-    <polyline id="100" title="L-16-17-1 " points="-1.85,-5.21 -4.44,-7.47"/>
-    <polyline id="106" title="L-16-19-1 " points="-1.85,-5.21 1.59,-6.46"/>
-    <polyline id="103" title="L-17-18-1 " points="-4.44,-7.47 -7.85,-7.16"/>
-    <polyline id="118" title="L-17-22-1 " points="-4.44,-7.47 -6.18,-8.79"/>
-    <polyline id="115" title="L-18-21-1 " points="-7.85,-7.16 -6.54,-5.38"/>
-    <polyline id="116" title="L-18-21-2 " points="-7.85,-7.16 -6.54,-5.38"/>
-    <polyline id="109" title="L-19-20-1 " points="1.59,-6.46 4.64,-5.38"/>
-    <polyline id="110" title="L-19-20-2 " points="1.59,-6.46 4.64,-5.38"/>
-    <polyline id="122" title="L-20-23-1 " points="4.64,-5.38 5.84,-2.24"/>
-    <polyline id="123" title="L-20-23-2 " points="4.64,-5.38 5.84,-2.24"/>
-    <polyline id="119" title="L-21-22-1 " points="-6.54,-5.38 -6.18,-8.79"/>
+    <g id="51" title="L-1-2-1 ">
+        <polyline points="-2.56,6.78 -1.68,7.75"/>
+        <polyline points="-0.81,8.72 -1.68,7.75"/>
+    </g>
+    <g id="55" title="L-3-1-1 ">
+        <polyline points="-2.74,3.22 -2.65,5.00"/>
+        <polyline points="-2.56,6.78 -2.65,5.00"/>
+    </g>
+    <g id="62" title="L-1-5-1 ">
+        <polyline points="-2.56,6.78 -0.83,6.84"/>
+        <polyline points="0.89,6.90 -0.83,6.84"/>
+    </g>
+    <g id="59" title="L-2-4-1 ">
+        <polyline points="-0.81,8.72 -0.72,7.10"/>
+        <polyline points="-0.63,5.48 -0.72,7.10"/>
+    </g>
+    <g id="81" title="L-2-6-1 ">
+        <polyline points="-0.81,8.72 0.81,8.74"/>
+        <polyline points="2.43,8.76 0.81,8.74"/>
+    </g>
+    <g id="57" title="T-24-3-1 ">
+        <polyline points="-4.85,0.21 -3.80,1.72"/>
+        <polyline points="-2.74,3.22 -3.80,1.72"/>
+    </g>
+    <g id="65" title="L-3-9-1 ">
+        <polyline points="-2.74,3.22 -0.61,3.25"/>
+        <polyline points="1.52,3.27 -0.61,3.25"/>
+    </g>
+    <g id="95" title="L-15-24-1 ">
+        <polyline points="-4.99,-3.40 -4.92,-1.59"/>
+        <polyline points="-4.85,0.21 -4.92,-1.59"/>
+    </g>
+    <g id="66" title="L-4-9-1 ">
+        <polyline points="-0.63,5.48 0.45,4.38"/>
+        <polyline points="1.52,3.27 0.45,4.38"/>
+    </g>
+    <g id="68" title="T-5-10-1 ">
+        <polyline points="0.89,6.90 2.08,5.90"/>
+        <polyline points="3.27,4.91 2.08,5.90"/>
+    </g>
+    <g id="73" title="T-11-9-1 ">
+        <polyline points="1.98,0.84 1.75,2.06"/>
+        <polyline points="1.52,3.27 1.75,2.06"/>
+    </g>
+    <g id="77" title="T-9-12-1 ">
+        <polyline points="1.52,3.27 3.07,2.47"/>
+        <polyline points="4.61,1.66 3.07,2.47"/>
+    </g>
+    <g id="85" title="L-8-9-1 ">
+        <polyline points="5.53,5.20 3.53,4.24"/>
+        <polyline points="1.52,3.27 3.53,4.24"/>
+    </g>
+    <g id="74" title="T-11-10-1 ">
+        <polyline points="1.98,0.84 2.62,2.87"/>
+        <polyline points="3.27,4.91 2.62,2.87"/>
+    </g>
+    <g id="78" title="T-12-10-1 ">
+        <polyline points="4.61,1.66 3.94,3.28"/>
+        <polyline points="3.27,4.91 3.94,3.28"/>
+    </g>
+    <g id="82" title="L-10-6-1 ">
+        <polyline points="3.27,4.91 2.85,6.83"/>
+        <polyline points="2.43,8.76 2.85,6.83"/>
+    </g>
+    <g id="86" title="L-8-10-1 ">
+        <polyline points="5.53,5.20 4.40,5.05"/>
+        <polyline points="3.27,4.91 4.40,5.05"/>
+    </g>
+    <g id="87" title="L-11-13-1 ">
+        <polyline points="1.98,0.84 3.25,0.16"/>
+        <polyline points="4.52,-0.53 3.25,0.16"/>
+    </g>
+    <g id="90" title="L-11-14-1 ">
+        <polyline points="1.98,0.84 0.99,-0.76"/>
+        <polyline points="0.00,-2.36 0.99,-0.76"/>
+    </g>
+    <g id="88" title="L-12-13-1 ">
+        <polyline points="4.61,1.66 4.56,0.57"/>
+        <polyline points="4.52,-0.53 4.56,0.57"/>
+    </g>
+    <g id="120" title="L-12-23-1 ">
+        <polyline points="4.61,1.66 5.23,-0.29"/>
+        <polyline points="5.84,-2.24 5.23,-0.29"/>
+    </g>
+    <g id="84" title="L-7-8-1 ">
+        <polyline points="8.37,6.37 6.95,5.78"/>
+        <polyline points="5.53,5.20 6.95,5.78"/>
+    </g>
+    <g id="121" title="L-23-13-1 ">
+        <polyline points="5.84,-2.24 5.18,-1.38"/>
+        <polyline points="4.52,-0.53 5.18,-1.38"/>
+    </g>
+    <g id="96" title="L-14-16-1 ">
+        <polyline points="0.00,-2.36 -0.92,-3.79"/>
+        <polyline points="-1.85,-5.21 -0.92,-3.79"/>
+    </g>
+    <g id="97" title="L-16-15-1 ">
+        <polyline points="-1.85,-5.21 -3.42,-4.31"/>
+        <polyline points="-4.99,-3.40 -3.42,-4.31"/>
+    </g>
+    <g id="113" title="L-15-21-1 ">
+        <polyline points="-4.99,-3.40 -5.77,-4.39"/>
+        <polyline points="-6.54,-5.38 -5.77,-4.39"/>
+    </g>
+    <g id="114" title="L-21-15-2 ">
+        <polyline points="-6.54,-5.38 -5.77,-4.39"/>
+        <polyline points="-4.99,-3.40 -5.77,-4.39"/>
+    </g>
+    <g id="100" title="L-16-17-1 ">
+        <polyline points="-1.85,-5.21 -3.14,-6.34"/>
+        <polyline points="-4.44,-7.47 -3.14,-6.34"/>
+    </g>
+    <g id="106" title="L-16-19-1 ">
+        <polyline points="-1.85,-5.21 -0.13,-5.83"/>
+        <polyline points="1.59,-6.46 -0.13,-5.83"/>
+    </g>
+    <g id="103" title="L-17-18-1 ">
+        <polyline points="-4.44,-7.47 -6.15,-7.32"/>
+        <polyline points="-7.85,-7.16 -6.15,-7.32"/>
+    </g>
+    <g id="118" title="L-17-22-1 ">
+        <polyline points="-4.44,-7.47 -5.31,-8.13"/>
+        <polyline points="-6.18,-8.79 -5.31,-8.13"/>
+    </g>
+    <g id="115" title="L-18-21-1 ">
+        <polyline points="-7.85,-7.16 -7.19,-6.27"/>
+        <polyline points="-6.54,-5.38 -7.19,-6.27"/>
+    </g>
+    <g id="116" title="L-18-21-2 ">
+        <polyline points="-7.85,-7.16 -7.19,-6.27"/>
+        <polyline points="-6.54,-5.38 -7.19,-6.27"/>
+    </g>
+    <g id="109" title="L-19-20-1 ">
+        <polyline points="1.59,-6.46 3.11,-5.92"/>
+        <polyline points="4.64,-5.38 3.11,-5.92"/>
+    </g>
+    <g id="110" title="L-19-20-2 ">
+        <polyline points="1.59,-6.46 3.11,-5.92"/>
+        <polyline points="4.64,-5.38 3.11,-5.92"/>
+    </g>
+    <g id="122" title="L-20-23-1 ">
+        <polyline points="4.64,-5.38 5.24,-3.81"/>
+        <polyline points="5.84,-2.24 5.24,-3.81"/>
+    </g>
+    <g id="123" title="L-20-23-2 ">
+        <polyline points="4.64,-5.38 5.24,-3.81"/>
+        <polyline points="5.84,-2.24 5.24,-3.81"/>
+    </g>
+    <g id="119" title="L-21-22-1 ">
+        <polyline points="-6.54,-5.38 -6.36,-7.09"/>
+        <polyline points="-6.18,-8.79 -6.36,-7.09"/>
+    </g>
     <g class="nad-vl-nodes">
         <g transform="translate(-2.56,6.78)">
             <circle id="0" class="nad-vl120to180" title="VL1" r="0.60"/>

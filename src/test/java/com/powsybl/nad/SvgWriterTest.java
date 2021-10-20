@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad;
 
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -41,15 +42,13 @@ public class SvgWriterTest extends AbstractTest {
 
     @Test
     void testIEEE30() {
-        URL url = Objects.requireNonNull(getClass().getResource("/IEEE_30_bus.xiidm"));
-        Network network = Importers.loadNetwork(url.getFile());
+        Network network = IeeeCdfNetworkFactory.create30();
         assertEquals(toString("/IEEE_30_bus.svg"), generateSvgString(network, "/IEEE_30_bus.svg"));
     }
 
     @Test
     void testIEEE14() {
-        URL url = Objects.requireNonNull(getClass().getResource("/IEEE_14_bus.xiidm"));
-        Network network = Importers.loadNetwork(url.getFile());
+        Network network = IeeeCdfNetworkFactory.create14();
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
     }
 
@@ -62,15 +61,13 @@ public class SvgWriterTest extends AbstractTest {
 
     @Test
     void testIEEE57() {
-        URL url = Objects.requireNonNull(getClass().getResource("/IEEE_57_bus.xiidm"));
-        Network network = Importers.loadNetwork(url.getFile());
+        Network network = IeeeCdfNetworkFactory.create57();
         assertEquals(toString("/IEEE_57_bus.svg"), generateSvgString(network, "/IEEE_57_bus.svg"));
     }
 
     @Test
     void testIEEE118() {
-        URL url = Objects.requireNonNull(getClass().getResource("/IEEE_118_bus.xiidm"));
-        Network network = Importers.loadNetwork(url.getFile());
+        Network network = IeeeCdfNetworkFactory.create118();
         assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
     }
 
