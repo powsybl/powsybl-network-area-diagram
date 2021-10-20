@@ -22,7 +22,8 @@ public class ForcedLayout implements Layout {
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.toJgrapht());
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.toJgrapht())
+                .setMaxSpeed(1e3);
         forceLayout.execute();
 
         double[] dims = new double[4];
