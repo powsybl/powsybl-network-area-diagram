@@ -13,7 +13,6 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.layout.ForcedLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.svg.DefaultStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
@@ -27,24 +26,47 @@ import java.util.Objects;
  */
 public abstract class AbstractTest {
 
-    protected LayoutParameters getLayoutParameters() {
-        return new LayoutParameters();
-    }
+    protected boolean debugSvg = false;
+    protected boolean overrideTestReferences = false;
 
-    private SvgParameters getSvgParameters() {
-        return new SvgParameters();
-    }
+    protected abstract LayoutParameters getLayoutParameters();
 
-    private StyleProvider getStyleProvider() {
-        return new DefaultStyleProvider();
-    }
+    protected abstract SvgParameters getSvgParameters();
 
-    protected String generateSvgString(Network network) {
+    protected abstract StyleProvider getStyleProvider();
+
+    protected String generateSvgString(Network network, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, new IntIdProvider()).buildGraph();
         new ForcedLayout().run(graph, getLayoutParameters());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new SvgWriter(getSvgParameters(), getStyleProvider()).writeSvg(graph, baos);
+        if (debugSvg) {
+            writeToHomeDir(refFilename, baos);
+        }
+        if (overrideTestReferences) {
+            overrideTestReference(refFilename, baos);
+        }
         return baos.toString();
+    }
+
+    private void writeToHomeDir(String refFilename, ByteArrayOutputStream baos) {
+        try (OutputStream fos = new FileOutputStream(new File(System.getProperty("user.home"), refFilename))) {
+            baos.writeTo(fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void overrideTestReference(String filename, ByteArrayOutputStream baos) {
+        File testReference = new File("src/test/resources", filename);
+        if (!testReference.exists()) {
+            return;
+        }
+        try (OutputStream os = new FileOutputStream(testReference)) {
+            baos.writeTo(os);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     protected String toString(String resourceName) {
