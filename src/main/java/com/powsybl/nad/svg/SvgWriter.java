@@ -16,7 +16,7 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.VoltageLevelNode;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -35,13 +35,15 @@ import java.util.stream.Collectors;
  */
 public class SvgWriter {
 
-    private static final String INDENT = "   ";
+    private static final String INDENT = "    ";
     public static final String NAMESPACE_URI = "http://www.w3.org/2000/svg";
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
     private static final String METADATA_ELEMENT_NAME = "metadata";
+    private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
+    private static final String TEXT_ELEMENT_NAME = "text";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
@@ -101,16 +103,33 @@ public class SvgWriter {
     }
 
     private void drawNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        for (Node node : graph.getNodesStream().collect(Collectors.toList())) {
-            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, node.getDiagramId());
-            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getNodeStyleClasses(node)));
-            insertName(writer, node::getName);
-            writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, styleProvider.getVoltageLevelNodeStyle());
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().collect(Collectors.toList())) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, "translate(" +
-                    getFormattedValue(node.getX()) + "," + getFormattedValue(node.getY()) + ")");
+                    getFormattedValue(vlNode.getX()) + "," + getFormattedValue(vlNode.getY()) + ")");
+            drawCircle(writer, vlNode);
+            writeNbBuses(writer, vlNode);
+            writer.writeEndElement();
         }
+        writer.writeEndElement();
 
+    }
+
+    private void drawCircle(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
+        writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getNodeStyleClasses(vlNode)));
+        insertName(writer, vlNode::getName);
+        writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
+    }
+
+    private void writeNbBuses(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+        writer.writeStartElement(TEXT_ELEMENT_NAME);
+        writer.writeAttribute(STYLE_ELEMENT_NAME, "text-anchor:middle;dominant-baseline:middle");
+        writer.writeCharacters(String.valueOf(vlNode.getBusNodesCount()));
+        writer.writeEndElement();
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {

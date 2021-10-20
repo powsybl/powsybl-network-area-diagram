@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractStyleProvider implements StyleProvider {
 
+    private static final String CLASSES_PREFIX = "nad-";
+    private static final String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
+
     private final BaseVoltageStyle baseVoltageStyle;
 
     public AbstractStyleProvider() {
@@ -64,5 +67,10 @@ public abstract class AbstractStyleProvider implements StyleProvider {
                     .ifPresent(styles::add);
         }
         return styles;
+    }
+
+    @Override
+    public String getVoltageLevelNodeStyle() {
+        return VOLTAGE_LEVEL_NODES_CLASS;
     }
 }

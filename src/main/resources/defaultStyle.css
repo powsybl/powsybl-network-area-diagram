@@ -7,3 +7,4 @@ polyline {stroke: black; stroke-width: 0.2}
 .nad-vl70to120 {fill: #E65100}
 .nad-vl180to300 {fill: #2E7D32}
 .nad-vl300to500 {fill: #D32F2F}
+.nad-vl-nodes text {font: 0.6px "Verdana"}

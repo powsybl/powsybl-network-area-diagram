@@ -19,4 +19,6 @@ public interface StyleProvider {
     String getStyleDefs();
 
     List<String> getNodeStyleClasses(Node node);
+
+    String getVoltageLevelNodeStyle();
 }

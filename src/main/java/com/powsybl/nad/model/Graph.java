@@ -37,6 +37,18 @@ public class Graph {
         return nodes.values().stream();
     }
 
+    public Stream<VoltageLevelNode> getVoltageLevelNodesStream() {
+        return nodes.values().stream().filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
+    }
+
+    public Stream<TransformerNode> getTransformerNodesStream() {
+        return nodes.values().stream().filter(TransformerNode.class::isInstance).map(TransformerNode.class::cast);
+    }
+
+    public Stream<TextNode> getTextNodesStream() {
+        return nodes.values().stream().filter(TextNode.class::isInstance).map(TextNode.class::cast);
+    }
+
     public Stream<Edge> getEdgesStream() {
         return edges.values().stream();
     }
