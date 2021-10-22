@@ -8,9 +8,7 @@ package com.powsybl.nad.model;
 
 import org.jgrapht.graph.WeightedPseudograph;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -55,6 +53,18 @@ public class Graph {
 
     public Stream<Edge> getEdgesStream() {
         return edges.values().stream();
+    }
+
+    public Stream<Edge> getNonMultiEdgesStream() {
+        return edges.values().stream()
+                .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);
+    }
+
+    public Stream<Set<Edge>> getMultiEdgesStream() {
+        return edges.values().stream()
+                .map(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)))
+                .filter(edges -> edges.size() > 1)
+                .distinct();
     }
 
     public Optional<Node> getNode(String equipmentId) {
@@ -106,5 +116,13 @@ public class Graph {
 
     public Node getNode2(Edge edge) {
         return jgrapht.getEdgeTarget(edge);
+    }
+
+    public boolean containsEdge(String equipmentId) {
+        return edges.containsKey(equipmentId);
+    }
+
+    public boolean containsNode(String equipmentId) {
+        return nodes.containsKey(equipmentId);
     }
 }
