@@ -1,5 +1,5 @@
 circle {fill: lightblue}
-polyline {stroke: black; stroke-width: 0.1}
+polyline {stroke: black; stroke-width: 0.1; fill: none}
 .nad-vl0to30 {fill: #AFB42B}
 .nad-vl30to50 {fill: #EF9A9A}
 .nad-vl50to70 {fill: #9C27B0}

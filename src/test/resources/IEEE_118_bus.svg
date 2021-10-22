@@ -2,7 +2,7 @@
 <svg viewBox="-27.41 -26.21 56.44 51.20" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 circle {fill: lightblue}
-polyline {stroke: black; stroke-width: 0.1}
+polyline {stroke: black; stroke-width: 0.1; fill: none}
 .nad-vl0to30 {fill: #AFB42B}
 .nad-vl30to50 {fill: #EF9A9A}
 .nad-vl50to70 {fill: #9C27B0}
@@ -283,12 +283,12 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="-4.05,13.53 -3.31,14.67"/>
     </g>
     <g id="303" title="L42-49-1">
-        <polyline points="-4.05,13.53 -6.13,9.64"/>
-        <polyline points="-8.20,5.75 -6.13,9.64"/>
+        <polyline points="-4.05,13.53 -4.02,12.73 -5.77,9.45"/>
+        <polyline points="-8.20,5.75 -7.52,6.18 -5.77,9.45"/>
     </g>
     <g id="304" title="L42-49-2">
-        <polyline points="-4.05,13.53 -6.13,9.64"/>
-        <polyline points="-8.20,5.75 -6.13,9.64"/>
+        <polyline points="-4.05,13.53 -4.73,13.11 -6.48,9.83"/>
+        <polyline points="-8.20,5.75 -8.23,6.55 -6.48,9.83"/>
     </g>
     <g id="305" title="L43-44-1">
         <polyline points="1.89,11.30 -0.49,9.35"/>
@@ -335,20 +335,20 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="-13.42,6.08 -10.81,5.92"/>
     </g>
     <g id="316" title="L49-54-1">
-        <polyline points="-8.20,5.75 -6.56,10.97"/>
-        <polyline points="-4.92,16.19 -6.56,10.97"/>
+        <polyline points="-8.20,5.75 -8.38,6.53 -6.94,11.09"/>
+        <polyline points="-4.92,16.19 -5.51,15.65 -6.94,11.09"/>
     </g>
     <g id="317" title="L49-54-2">
-        <polyline points="-8.20,5.75 -6.56,10.97"/>
-        <polyline points="-4.92,16.19 -6.56,10.97"/>
+        <polyline points="-8.20,5.75 -7.61,6.29 -6.18,10.85"/>
+        <polyline points="-4.92,16.19 -4.74,15.41 -6.18,10.85"/>
     </g>
     <g id="318" title="L49-66-1">
-        <polyline points="-8.20,5.75 -11.51,6.29"/>
-        <polyline points="-14.81,6.82 -11.51,6.29"/>
+        <polyline points="-8.20,5.75 -8.95,5.47 -11.57,5.89"/>
+        <polyline points="-14.81,6.82 -14.19,6.32 -11.57,5.89"/>
     </g>
     <g id="319" title="L49-66-2">
-        <polyline points="-8.20,5.75 -11.51,6.29"/>
-        <polyline points="-14.81,6.82 -11.51,6.29"/>
+        <polyline points="-8.20,5.75 -8.82,6.26 -11.44,6.68"/>
+        <polyline points="-14.81,6.82 -14.06,7.10 -11.44,6.68"/>
     </g>
     <g id="320" title="L49-69-1">
         <polyline points="-8.20,5.75 -10.17,-0.57"/>
@@ -403,12 +403,12 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="-13.58,8.12 -11.54,11.89"/>
     </g>
     <g id="333" title="L56-59-1">
-        <polyline points="-9.51,15.65 -10.02,15.15"/>
-        <polyline points="-10.53,14.64 -10.02,15.15"/>
+        <polyline points="-9.51,15.65 -9.72,14.88 -9.74,14.86"/>
+        <polyline points="-10.53,14.64 -9.76,14.84 -9.74,14.86"/>
     </g>
     <g id="334" title="L56-59-2">
-        <polyline points="-9.51,15.65 -10.02,15.15"/>
-        <polyline points="-10.53,14.64 -10.02,15.15"/>
+        <polyline points="-9.51,15.65 -10.28,15.45 -10.30,15.43"/>
+        <polyline points="-10.53,14.64 -10.32,15.41 -10.30,15.43"/>
     </g>
     <g id="335" title="L59-60-1">
         <polyline points="-10.53,14.64 -8.77,16.63"/>
@@ -535,12 +535,12 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="-10.09,-5.31 -8.72,-4.84"/>
     </g>
     <g id="366" title="L77-80-1">
-        <polyline points="-7.34,-4.37 -7.65,-7.01"/>
-        <polyline points="-7.95,-9.65 -7.65,-7.01"/>
+        <polyline points="-7.34,-4.37 -7.02,-5.10 -7.25,-7.05"/>
+        <polyline points="-7.95,-9.65 -7.48,-9.00 -7.25,-7.05"/>
     </g>
     <g id="367" title="L77-80-2">
-        <polyline points="-7.34,-4.37 -7.65,-7.01"/>
-        <polyline points="-7.95,-9.65 -7.65,-7.01"/>
+        <polyline points="-7.34,-4.37 -7.82,-5.01 -8.04,-6.96"/>
+        <polyline points="-7.95,-9.65 -8.27,-8.91 -8.04,-6.96"/>
     </g>
     <g id="368" title="L77-82-1">
         <polyline points="-7.34,-4.37 -9.94,-6.22"/>
@@ -615,20 +615,20 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="-16.45,-14.23 -17.81,-14.19"/>
     </g>
     <g id="386" title="L89-90-1">
-        <polyline points="-16.45,-14.23 -16.62,-15.87"/>
-        <polyline points="-16.78,-17.52 -16.62,-15.87"/>
+        <polyline points="-16.45,-14.23 -16.12,-14.96 -16.22,-15.92"/>
+        <polyline points="-16.78,-17.52 -16.31,-16.87 -16.22,-15.92"/>
     </g>
     <g id="387" title="L89-90-2">
-        <polyline points="-16.45,-14.23 -16.62,-15.87"/>
-        <polyline points="-16.78,-17.52 -16.62,-15.87"/>
+        <polyline points="-16.45,-14.23 -16.92,-14.88 -17.01,-15.83"/>
+        <polyline points="-16.78,-17.52 -17.11,-16.79 -17.01,-15.83"/>
     </g>
     <g id="388" title="L89-92-1">
-        <polyline points="-16.45,-14.23 -15.36,-17.53"/>
-        <polyline points="-14.28,-20.83 -15.36,-17.53"/>
+        <polyline points="-16.45,-14.23 -15.85,-14.77 -14.98,-17.41"/>
+        <polyline points="-14.28,-20.83 -14.11,-20.05 -14.98,-17.41"/>
     </g>
     <g id="389" title="L89-92-2">
-        <polyline points="-16.45,-14.23 -15.36,-17.53"/>
-        <polyline points="-14.28,-20.83 -15.36,-17.53"/>
+        <polyline points="-16.45,-14.23 -16.61,-15.02 -15.74,-17.66"/>
+        <polyline points="-14.28,-20.83 -14.87,-20.30 -15.74,-17.66"/>
     </g>
     <g id="390" title="L90-91-1">
         <polyline points="-16.78,-17.52 -15.15,-17.36"/>

@@ -2,7 +2,7 @@
 <svg viewBox="-14.64 -20.78 30.77 37.59" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 circle {fill: lightblue}
-polyline {stroke: black; stroke-width: 0.1}
+polyline {stroke: black; stroke-width: 0.1; fill: none}
 .nad-vl0to30 {fill: #AFB42B}
 .nad-vl30to50 {fill: #EF9A9A}
 .nad-vl50to70 {fill: #9C27B0}
@@ -51,12 +51,12 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="2.46,11.32 2.15,12.30"/>
     </g>
     <g id="123" title="T4-18-1">
-        <polyline points="1.83,13.29 4.16,13.01"/>
-        <polyline points="6.49,12.74 4.16,13.01"/>
+        <polyline points="1.83,13.29 2.57,13.60 4.21,13.41"/>
+        <polyline points="6.49,12.74 5.85,13.22 4.21,13.41"/>
     </g>
     <g id="124" title="T4-18-2">
-        <polyline points="1.83,13.29 4.16,13.01"/>
-        <polyline points="6.49,12.74 4.16,13.01"/>
+        <polyline points="1.83,13.29 2.48,12.81 4.11,12.62"/>
+        <polyline points="6.49,12.74 5.75,12.42 4.11,12.62"/>
     </g>
     <g id="125" title="L5-6-1">
         <polyline points="3.21,14.80 2.83,13.06"/>
@@ -187,12 +187,12 @@ polyline {stroke: black; stroke-width: 0.1}
         <polyline points="12.23,-5.38 10.58,-4.86"/>
     </g>
     <g id="157" title="T24-25-1">
-        <polyline points="12.23,-5.38 12.39,-7.06"/>
-        <polyline points="12.54,-8.75 12.39,-7.06"/>
+        <polyline points="12.23,-5.38 12.69,-6.03 12.78,-7.03"/>
+        <polyline points="12.54,-8.75 12.87,-8.02 12.78,-7.03"/>
     </g>
     <g id="158" title="T24-25-2">
-        <polyline points="12.23,-5.38 12.39,-7.06"/>
-        <polyline points="12.54,-8.75 12.39,-7.06"/>
+        <polyline points="12.23,-5.38 11.90,-6.10 11.99,-7.10"/>
+        <polyline points="12.54,-8.75 12.08,-8.09 11.99,-7.10"/>
     </g>
     <g id="159" title="T24-26-1">
         <polyline points="12.23,-5.38 13.18,-3.94"/>

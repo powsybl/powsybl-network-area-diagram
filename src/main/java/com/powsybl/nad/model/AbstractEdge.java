@@ -40,13 +40,13 @@ public abstract class AbstractEdge implements Edge {
     }
 
     @Override
-    public void setSide1(Point origin, Point end) {
-        this.line1 = Arrays.asList(origin, end);
+    public void setSide1(Point... points) {
+        this.line1 = Arrays.asList(points);
     }
 
     @Override
-    public void setSide2(Point origin, Point end) {
-        this.line2 = Arrays.asList(origin, end);
+    public void setSide2(Point... points) {
+        this.line2 = Arrays.asList(points);
     }
 
     @Override

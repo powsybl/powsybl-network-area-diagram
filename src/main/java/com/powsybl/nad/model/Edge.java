@@ -24,9 +24,9 @@ public interface Edge {
 
     List<Point> getSide2();
 
-    void setSide1(Point origin, Point end);
+    void setSide1(Point... points);
 
-    void setSide2(Point origin, Point end);
+    void setSide2(Point... points);
 
     String getDiagramId();
 
