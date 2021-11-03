@@ -9,11 +9,11 @@ package com.powsybl.nad.model;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class BusNode {
+public class BusInnerNode {
     private final String diagramId;
     private final String id;
 
-    public BusNode(String diagramId, String id) {
+    public BusInnerNode(String diagramId, String id) {
         this.diagramId = diagramId;
         this.id = id;
     }

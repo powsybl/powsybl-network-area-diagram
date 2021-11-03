@@ -15,7 +15,7 @@ import java.util.List;
 public class VoltageLevelNode extends AbstractNode {
 
     private final double nominalV;
-    private final List<BusNode> busNodes = new ArrayList<>();
+    private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV) {
         super(diagramId, equipmentId, nameOrId);
@@ -26,11 +26,11 @@ public class VoltageLevelNode extends AbstractNode {
         return nominalV;
     }
 
-    public void addBusNode(BusNode busNode) {
-        busNodes.add(busNode);
+    public void addBusNode(BusInnerNode busInnerNode) {
+        busInnerNodes.add(busInnerNode);
     }
 
     public int getBusNodesCount() {
-        return busNodes.size();
+        return busInnerNodes.size();
     }
 }
