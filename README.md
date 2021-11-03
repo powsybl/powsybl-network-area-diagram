@@ -27,4 +27,58 @@ By participating, you are expected to uphold this code. Please report unacceptab
 
 PowSyBl Network Area Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible for generating a concise diagram of the whole network or of a part of the network, showing in particular the interconnections between the different voltage levels.
 A network area diagram emphasizes the electrical structure of the network, and may differ substantially from the network physical geography.
+It displays the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels.
+Additional information
 
+## Getting started
+In order to generate a SVG from a given network, we need to add some Maven dependencies:
+- `powsybl-network-area-diagram` for the network area diagram itself
+- `powsybl-iidm-impl` for the network model
+- `powsybl-config-test` and `powsybl-ieee-cdf-converter` to load the `Network` example
+- `slf4j-simple` for simple logging capabilities
+
+```xml
+<properties>
+    <powsybl.nad.version>0.1.0-SNAPSHOT</powsybl.nad.version>
+    <powsybl.core.version>4.4.0</powsybl.core.version>
+    <slf4j.version>1.7.22</slf4j.version>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>com.powsybl</groupId>
+        <artifactId>powsybl-network-area-diagram</artifactId>
+        <version>${powsybl.nad.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.powsybl</groupId>
+        <artifactId>powsybl-iidm-impl</artifactId>
+        <version>${powsybl.core.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.powsybl</groupId>
+        <artifactId>powsybl-config-test</artifactId>
+        <version>${powsybl.core.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.powsybl</groupId>
+        <artifactId>powsybl-ieee-cdf-converter</artifactId>
+        <version>${powsybl.core.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+    </dependency>
+</dependencies>
+```
+
+Then we simply need to load the example network and then generate the corresponding network area diagram SVG.
+Note that the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
+```java
+Network network = IeeeCdfNetworkFactory.create30();
+new NetworkAreaDiagram(network).draw(Path.of("/tmp/diagram.svg"));
+```
+We obtain the following SVG:
+
+![Diagram demo](.github/diagram_example.svg)
