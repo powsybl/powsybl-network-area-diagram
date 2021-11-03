@@ -19,6 +19,11 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 /**
@@ -59,5 +64,44 @@ public class NetworkAreaDiagram {
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);
+    }
+
+    public void draw(OutputStream os) {
+        draw(os, new LayoutParameters());
+    }
+
+    public void draw(OutputStream os, LayoutParameters layoutParameters) {
+        draw(os, layoutParameters, new SvgParameters());
+    }
+
+    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        draw(os, layoutParameters, svgParameters, new DefaultStyleProvider());
+    }
+
+    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                     StyleProvider styleProvider) {
+        draw(os, layoutParameters, svgParameters, styleProvider, new BasicForceLayoutFactory());
+    }
+
+    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                     StyleProvider styleProvider, LayoutFactory layoutFactory) {
+        draw(os, layoutParameters, svgParameters, styleProvider, layoutFactory, new IntIdProvider());
+    }
+
+    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+                     StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+        Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
+        layoutFactory.create().run(graph, layoutParameters);
+        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, os);
+    }
+
+    public String drawToString(SvgParameters svgParameters) {
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+            draw(os, new LayoutParameters(), svgParameters);
+            os.flush();
+            return os.toString(StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
