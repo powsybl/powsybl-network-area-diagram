@@ -96,6 +96,8 @@ public class SvgWriter {
     }
 
     private void drawEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, styleProvider.getEdgesStyle());
         for (Edge edge : graph.getEdgesStream().collect(Collectors.toList())) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
@@ -110,6 +112,7 @@ public class SvgWriter {
 
             writer.writeEndElement();
         }
+        writer.writeEndElement();
     }
 
     private void drawSideLine(XMLStreamWriter writer, Edge edge, Edge.Side side) throws XMLStreamException {
@@ -136,7 +139,6 @@ public class SvgWriter {
             writer.writeEndElement();
         }
         writer.writeEndElement();
-
     }
 
     private void drawCircle(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {

@@ -21,6 +21,8 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
+    String getEdgesStyle();
+
     String getVoltageLevelNodeStyle();
 
     List<String> getEdgeStyleClasses(Edge edge);

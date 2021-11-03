@@ -31,6 +31,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     private static final String CLASSES_PREFIX = "nad-";
     private static final String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
     private static final String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
+    private static final String EDGES_CLASS = CLASSES_PREFIX + "edges";
 
     private final BaseVoltageStyle baseVoltageStyle;
 
@@ -72,6 +73,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
                     .ifPresent(styles::add);
         }
         return styles;
+    }
+
+    @Override
+    public String getEdgesStyle() {
+        return EDGES_CLASS;
     }
 
     @Override
