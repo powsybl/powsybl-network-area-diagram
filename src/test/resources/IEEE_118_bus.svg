@@ -2,7 +2,7 @@
 <svg width="800.00" height="725.76" viewBox="-27.41 -26.21 56.44 51.20" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 circle {fill: lightblue}
-polyline {stroke: black; stroke-width: 0.1; fill: none}
+polyline {stroke: black; stroke-width: 0.05; fill: none}
 .nad-vl0to30 {fill: #AFB42B}
 .nad-vl30to50 {fill: #EF9A9A}
 .nad-vl50to70 {fill: #9C27B0}
