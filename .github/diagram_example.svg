@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="-12.47 -11.21 23.46 23.08" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[
+.nad-edges {stroke: black; stroke-width: 0.05; fill: none}
+.nad-disconnected {stroke-dasharray: .1,.1}
+.nad-vl-nodes text {font: 0.6px "Verdana"; fill: white}
+.nad-vl-nodes {fill: lightblue}
+.nad-vl0to30 {fill: #AFB42B}
+.nad-vl30to50 {fill: #EF9A9A}
+.nad-vl50to70 {fill: #9C27B0}
+.nad-vl120to180 {fill: #00ACC1}
+.nad-vl70to120 {fill: #E65100}
+.nad-vl180to300 {fill: #2E7D32}
+.nad-vl300to500 {fill: #D32F2F}
+]]></style>
+    <metadata></metadata>
+    <g class="nad-edges">
+        <g id="60">
+            <polyline points="3.43,-8.61 2.21,-7.58"/>
+            <polyline points="0.99,-6.56 2.21,-7.58"/>
+        </g>
+        <g id="61">
+            <polyline points="3.43,-8.61 4.11,-7.56"/>
+            <polyline points="4.78,-6.52 4.11,-7.56"/>
+        </g>
+        <g id="62">
+            <polyline points="0.99,-6.56 1.87,-5.15"/>
+            <polyline points="2.76,-3.75 1.87,-5.15"/>
+        </g>
+        <g id="63">
+            <polyline points="0.99,-6.56 0.18,-7.89"/>
+            <polyline points="-0.63,-9.21 0.18,-7.89"/>
+        </g>
+        <g id="64">
+            <polyline points="0.99,-6.56 -0.39,-5.11"/>
+            <polyline points="-1.77,-3.65 -0.39,-5.11"/>
+        </g>
+        <g id="65">
+            <polyline points="4.78,-6.52 3.77,-5.13"/>
+            <polyline points="2.76,-3.75 3.77,-5.13"/>
+        </g>
+        <g id="66">
+            <polyline points="2.76,-3.75 0.50,-3.70"/>
+            <polyline points="-1.77,-3.65 0.50,-3.70"/>
+        </g>
+        <g id="67">
+            <polyline points="2.76,-3.75 4.46,-0.93"/>
+            <polyline points="6.15,1.89 4.46,-0.93"/>
+        </g>
+        <g id="68">
+            <polyline points="-0.63,-9.21 -1.48,-8.27"/>
+            <polyline points="-2.32,-7.33 -1.48,-8.27"/>
+        </g>
+        <g id="69">
+            <polyline points="-1.77,-3.65 -2.04,-5.49"/>
+            <polyline points="-2.32,-7.33 -2.04,-5.49"/>
+        </g>
+        <g id="70">
+            <polyline points="-1.77,-3.65 -3.47,-3.00"/>
+            <polyline points="-5.17,-2.35 -3.47,-3.00"/>
+        </g>
+        <g id="71">
+            <polyline points="-1.77,-3.65 -2.80,-3.96"/>
+            <polyline points="-3.83,-4.28 -2.80,-3.96"/>
+        </g>
+        <g id="72">
+            <polyline points="-1.77,-3.65 -1.18,-2.23"/>
+            <polyline points="-0.59,-0.81 -1.18,-2.23"/>
+        </g>
+        <g id="73">
+            <polyline points="-1.77,-3.65 -3.72,-1.87"/>
+            <polyline points="-5.67,-0.09 -3.72,-1.87"/>
+        </g>
+        <g id="74">
+            <polyline points="-5.17,-2.35 -5.42,-1.22"/>
+            <polyline points="-5.67,-0.09 -5.42,-1.22"/>
+        </g>
+        <g id="75">
+            <polyline points="-3.83,-4.28 -5.24,-5.26"/>
+            <polyline points="-6.64,-6.25 -5.24,-5.26"/>
+        </g>
+        <g id="76">
+            <polyline points="-3.83,-4.28 -2.21,-2.54"/>
+            <polyline points="-0.59,-0.81 -2.21,-2.54"/>
+        </g>
+        <g id="77">
+            <polyline points="-0.59,-0.81 1.70,-1.13"/>
+            <polyline points="3.99,-1.46 1.70,-1.13"/>
+        </g>
+        <g id="78">
+            <polyline points="-0.59,-0.81 0.45,0.16"/>
+            <polyline points="1.50,1.13 0.45,0.16"/>
+        </g>
+        <g id="79">
+            <polyline points="-0.59,-0.81 -1.43,0.26"/>
+            <polyline points="-2.26,1.32 -1.43,0.26"/>
+        </g>
+        <g id="80">
+            <polyline points="-0.59,-0.81 -0.94,1.26"/>
+            <polyline points="-1.28,3.32 -0.94,1.26"/>
+        </g>
+        <g id="81">
+            <polyline points="6.15,1.89 7.22,3.88"/>
+            <polyline points="8.28,5.88 7.22,3.88"/>
+        </g>
+        <g id="82">
+            <polyline points="6.15,1.89 7.52,2.62"/>
+            <polyline points="8.90,3.36 7.52,2.62"/>
+        </g>
+        <g id="83">
+            <polyline points="6.15,1.89 6.37,2.99"/>
+            <polyline points="6.58,4.09 6.37,2.99"/>
+        </g>
+        <g id="84">
+            <polyline points="6.15,1.89 4.91,2.22"/>
+            <polyline points="3.66,2.54 4.91,2.22"/>
+        </g>
+        <g id="85">
+            <polyline points="8.90,3.36 7.74,3.72"/>
+            <polyline points="6.58,4.09 7.74,3.72"/>
+        </g>
+        <g id="86">
+            <polyline points="6.58,4.09 7.79,2.40"/>
+            <polyline points="8.99,0.72 7.79,2.40"/>
+        </g>
+        <g id="87">
+            <polyline points="6.58,4.09 4.79,5.37"/>
+            <polyline points="3.00,6.66 4.79,5.37"/>
+        </g>
+        <g id="88">
+            <polyline points="3.66,2.54 2.58,1.83"/>
+            <polyline points="1.50,1.13 2.58,1.83"/>
+        </g>
+        <g id="89">
+            <polyline points="8.99,0.72 8.27,-0.49"/>
+            <polyline points="7.55,-1.71 8.27,-0.49"/>
+        </g>
+        <g id="90">
+            <polyline points="7.55,-1.71 5.77,-1.58"/>
+            <polyline points="3.99,-1.46 5.77,-1.58"/>
+        </g>
+        <g id="91">
+            <polyline points="-2.26,1.32 -1.77,2.32"/>
+            <polyline points="-1.28,3.32 -1.77,2.32"/>
+        </g>
+        <g id="92">
+            <polyline points="-1.28,3.32 -1.14,4.96"/>
+            <polyline points="-1.01,6.59 -1.14,4.96"/>
+        </g>
+        <g id="93">
+            <polyline points="3.00,6.66 1.00,6.62"/>
+            <polyline points="-1.01,6.59 1.00,6.62"/>
+        </g>
+        <g id="94">
+            <polyline points="-1.01,6.59 -2.93,6.80"/>
+            <polyline points="-4.86,7.02 -2.93,6.80"/>
+        </g>
+        <g id="95">
+            <polyline points="-4.86,7.02 -5.22,8.44"/>
+            <polyline points="-5.57,9.86 -5.22,8.44"/>
+        </g>
+        <g id="96">
+            <polyline points="-4.86,7.02 -6.22,5.49"/>
+            <polyline points="-7.57,3.96 -6.22,5.49"/>
+        </g>
+        <g id="97">
+            <polyline points="-5.67,-0.09 -6.62,1.94"/>
+            <polyline points="-7.57,3.96 -6.62,1.94"/>
+        </g>
+        <g id="98">
+            <polyline points="-7.57,3.96 -9.02,3.74"/>
+            <polyline points="-10.47,3.51 -9.02,3.74"/>
+        </g>
+        <g id="99">
+            <polyline points="-7.57,3.96 -8.78,4.79"/>
+            <polyline points="-9.99,5.61 -8.78,4.79"/>
+        </g>
+        <g id="100">
+            <polyline points="-10.47,3.51 -10.23,4.56"/>
+            <polyline points="-9.99,5.61 -10.23,4.56"/>
+        </g>
+    </g>
+    <g class="nad-vl-nodes">
+        <g transform="translate(3.43,-8.61)">
+            <circle id="0" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(0.99,-6.56)">
+            <circle id="2" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(4.78,-6.52)">
+            <circle id="4" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(2.76,-3.75)">
+            <circle id="6" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-0.63,-9.21)">
+            <circle id="8" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-1.77,-3.65)">
+            <circle id="10" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-2.32,-7.33)">
+            <circle id="12" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-5.17,-2.35)">
+            <circle id="14" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-3.83,-4.28)">
+            <circle id="16" class="nad-vl0to30" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-0.59,-0.81)">
+            <circle id="18" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-6.64,-6.25)">
+            <circle id="20" class="nad-vl0to30" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(6.15,1.89)">
+            <circle id="22" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(8.28,5.88)">
+            <circle id="24" class="nad-vl0to30" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(8.90,3.36)">
+            <circle id="26" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(6.58,4.09)">
+            <circle id="28" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(3.66,2.54)">
+            <circle id="30" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(1.50,1.13)">
+            <circle id="32" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(8.99,0.72)">
+            <circle id="34" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(7.55,-1.71)">
+            <circle id="36" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(3.99,-1.46)">
+            <circle id="38" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-2.26,1.32)">
+            <circle id="40" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-1.28,3.32)">
+            <circle id="42" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(3.00,6.66)">
+            <circle id="44" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-1.01,6.59)">
+            <circle id="46" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-4.86,7.02)">
+            <circle id="48" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-5.57,9.86)">
+            <circle id="50" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-7.57,3.96)">
+            <circle id="52" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-5.67,-0.09)">
+            <circle id="54" class="nad-vl120to180" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-10.47,3.51)">
+            <circle id="56" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+        <g transform="translate(-9.99,5.61)">
+            <circle id="58" class="nad-vl30to50" r="0.60"/>
+            <text style="text-anchor:middle;dominant-baseline:middle">1</text>
+        </g>
+    </g>
+</svg>
