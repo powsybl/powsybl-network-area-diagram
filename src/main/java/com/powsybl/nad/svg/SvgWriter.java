@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -52,11 +53,12 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
 
     public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider) {
-        this.svgParameters = svgParameters;
-        this.styleProvider = styleProvider;
+        this.svgParameters = Objects.requireNonNull(svgParameters);
+        this.styleProvider = Objects.requireNonNull(styleProvider);
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
+        Objects.requireNonNull(svgFile);
         Path dir = svgFile.toAbsolutePath().getParent();
         String svgFileName = svgFile.getFileName().toString();
         if (!svgFileName.endsWith(".svg")) {
@@ -70,6 +72,8 @@ public class SvgWriter {
     }
 
     public void writeSvg(Graph graph, OutputStream svgWriter) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(svgWriter);
         try {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgWriter);
             addSvgRoot(graph, writer);

@@ -25,8 +25,8 @@ public class Spring {
     public Spring(Point source, Point target, double length, double stiffness) {
         this.length = length;
         this.stiffness = stiffness;
-        this.source = source;
-        this.target = target;
+        this.source = Objects.requireNonNull(source);
+        this.target = Objects.requireNonNull(target);
     }
 
     public Spring(Point source, Point target, double length) {

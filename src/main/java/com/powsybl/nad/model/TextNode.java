@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -15,7 +17,7 @@ public class TextNode extends AbstractNode {
 
     protected TextNode(String diagramId, String text) {
         super(diagramId, null, null);
-        this.text = text;
+        this.text = Objects.requireNonNull(text);
     }
 
     public String getText() {

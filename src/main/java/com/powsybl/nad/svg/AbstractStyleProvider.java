@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +39,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     public AbstractStyleProvider(BaseVoltageStyle baseVoltageStyle) {
-        this.baseVoltageStyle = baseVoltageStyle;
+        this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
     }
 
     @Override
@@ -80,6 +81,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side) {
+        Objects.requireNonNull(side);
         if (edge instanceof BranchEdge && !((BranchEdge) edge).isConnected(side)) {
             return Collections.singletonList(DISCONNECTED_SIDE_EDGE_CLASS);
         }

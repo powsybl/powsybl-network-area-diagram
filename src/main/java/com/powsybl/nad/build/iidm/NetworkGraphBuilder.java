@@ -13,6 +13,7 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -28,8 +29,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private final IdProvider idProvider;
 
     public NetworkGraphBuilder(Network network, IdProvider idProvider) {
-        this.network = network;
-        this.idProvider = idProvider;
+        this.network = Objects.requireNonNull(network);
+        this.idProvider = Objects.requireNonNull(idProvider);
     }
 
     public NetworkGraphBuilder(Network network) {

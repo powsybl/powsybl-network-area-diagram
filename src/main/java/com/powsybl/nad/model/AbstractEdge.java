@@ -20,7 +20,7 @@ public abstract class AbstractEdge implements Edge {
     private List<Point> line2 = Collections.emptyList();
 
     protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
-        this.diagramId = diagramId;
+        this.diagramId = Objects.requireNonNull(diagramId);
         this.equipmentId = equipmentId;
         this.name = nameOrId;
     }
@@ -41,11 +41,13 @@ public abstract class AbstractEdge implements Edge {
 
     @Override
     public void setSide1(Point... points) {
+        Arrays.stream(points).forEach(Objects::requireNonNull);
         this.line1 = Arrays.asList(points);
     }
 
     @Override
     public void setSide2(Point... points) {
+        Arrays.stream(points).forEach(Objects::requireNonNull);
         this.line2 = Arrays.asList(points);
     }
 

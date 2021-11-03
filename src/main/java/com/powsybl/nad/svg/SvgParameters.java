@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.svg;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -21,7 +23,7 @@ public class SvgParameters {
     }
 
     public SvgParameters setDiagramPadding(Padding padding) {
-        this.diagramPadding = padding;
+        this.diagramPadding = Objects.requireNonNull(padding);
         return this;
     }
 
@@ -39,7 +41,7 @@ public class SvgParameters {
     }
 
     public SvgParameters setCssLocation(CssLocation cssLocation) {
-        this.cssLocation = cssLocation;
+        this.cssLocation = Objects.requireNonNull(cssLocation);
         return this;
     }
 

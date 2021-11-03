@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -24,20 +26,25 @@ public class Point {
     }
 
     public static Point createMiddlePoint(Point point1, Point point2) {
+        Objects.requireNonNull(point1);
+        Objects.requireNonNull(point2);
         return new Point(0.5 * (point1.x + point2.x), 0.5 * (point1.y + point2.y));
     }
 
     public double distanceSquare(Point other) {
+        Objects.requireNonNull(other);
         double dx = other.x - x;
         double dy = other.y - y;
         return dx * dx + dy * dy;
     }
 
     public double distance(Point other) {
+        Objects.requireNonNull(other);
         return Math.sqrt(distanceSquare(other));
     }
 
     public Point shift(Point shift) {
+        Objects.requireNonNull(shift);
         return new Point(x + shift.x, y + shift.y);
     }
 

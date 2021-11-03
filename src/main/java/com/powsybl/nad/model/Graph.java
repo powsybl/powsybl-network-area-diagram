@@ -26,11 +26,15 @@ public class Graph {
     private final org.jgrapht.Graph<Node, Edge> jgrapht = new WeightedPseudograph<>(Edge.class);
 
     public void addNode(Node node) {
+        Objects.requireNonNull(node);
         nodes.put(node.getEquipmentId(), node);
         jgrapht.addVertex(node);
     }
 
     public void addEdge(Node node1, Node node2, Edge edge) {
+        Objects.requireNonNull(node1);
+        Objects.requireNonNull(node2);
+        Objects.requireNonNull(edge);
         edges.put(edge.getEquipmentId(), edge);
         jgrapht.addEdge(node1, node2, edge);
     }

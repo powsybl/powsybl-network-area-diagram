@@ -6,6 +6,8 @@
  */
 package com.powsybl.forcedlayout;
 
+import java.util.Objects;
+
 /**
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
@@ -17,7 +19,7 @@ public class Canvas {
     private final double scale;
 
     public Canvas(BoundingBox boundingBox, double height, double margin) {
-        this.boundingBox = boundingBox;
+        this.boundingBox = Objects.requireNonNull(boundingBox);
         this.height = height;
         this.scale = (height - 2 * margin) / boundingBox.getHeight(); // scale has to be computed and used without margins
         this.width = boundingBox.getWidth() * scale + 2 * margin;

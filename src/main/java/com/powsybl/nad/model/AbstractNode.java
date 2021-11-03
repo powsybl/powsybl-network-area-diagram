@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -21,7 +22,7 @@ public abstract class AbstractNode implements Node {
     private Point position;
 
     protected AbstractNode(String diagramId, String equipmentId, String name) {
-        this.diagramId = diagramId;
+        this.diagramId = Objects.requireNonNull(diagramId);
         this.equipmentId = equipmentId;
         this.name = name;
         position = new Point();

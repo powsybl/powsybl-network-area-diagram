@@ -83,7 +83,7 @@ public class ForceLayout<V, E> {
         this.damping = DEFAULT_DAMPING;
         this.maxSpeed = DEFAULT_MAX_SPEED;
 
-        this.graph = graph;
+        this.graph = Objects.requireNonNull(graph);
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {

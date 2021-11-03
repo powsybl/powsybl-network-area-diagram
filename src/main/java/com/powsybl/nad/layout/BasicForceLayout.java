@@ -12,6 +12,8 @@ import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -19,6 +21,9 @@ public class BasicForceLayout extends AbstractLayout {
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(layoutParameters);
+
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.getJgraphtGraph())
                 .setMaxSpeed(1e3);
         forceLayout.execute();

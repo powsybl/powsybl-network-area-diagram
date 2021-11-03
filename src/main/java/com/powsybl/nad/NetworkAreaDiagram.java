@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -34,7 +35,7 @@ public class NetworkAreaDiagram {
     private final Network network;
 
     public NetworkAreaDiagram(Network network) {
-        this.network = network;
+        this.network = Objects.requireNonNull(network);
     }
 
     public void draw(Path svgFile) {
@@ -61,6 +62,13 @@ public class NetworkAreaDiagram {
 
     public void draw(Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
                                    StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+        Objects.requireNonNull(svgFile);
+        Objects.requireNonNull(layoutParameters);
+        Objects.requireNonNull(svgParameters);
+        Objects.requireNonNull(styleProvider);
+        Objects.requireNonNull(layoutFactory);
+        Objects.requireNonNull(idProvider);
+
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);

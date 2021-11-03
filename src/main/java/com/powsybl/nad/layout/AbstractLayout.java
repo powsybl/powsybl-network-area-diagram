@@ -5,11 +5,14 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class AbstractLayout implements Layout {
 
     protected void edgeLayout(Graph graph, LayoutParameters layoutParameters) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(layoutParameters);
         graph.getNonMultiEdgesStream().forEach(edge -> singleEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
         graph.getMultiEdgesStream().forEach(edges -> multiEdgesLayout(graph, edges, layoutParameters));
     }
