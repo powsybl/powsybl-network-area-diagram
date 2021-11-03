@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="-27.41 -26.21 56.44 51.20" xmlns="http://www.w3.org/2000/svg">
+<svg width="800.00" height="725.76" viewBox="-27.41 -26.21 56.44 51.20" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 circle {fill: lightblue}
 polyline {stroke: black; stroke-width: 0.1; fill: none}

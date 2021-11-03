@@ -32,7 +32,10 @@ public class SvgWriterTest extends AbstractTest {
 
     @Override
     protected SvgParameters getSvgParameters() {
-        return new SvgParameters().setInsertName(true);
+        return new SvgParameters()
+                .setInsertName(true)
+                .setSvgWidthAndHeightAdded(true)
+                .setFixedWidth(800);
     }
 
     @Override

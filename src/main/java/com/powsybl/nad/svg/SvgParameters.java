@@ -17,6 +17,17 @@ public class SvgParameters {
     private boolean insertName = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
+    private SizeConstraint sizeConstraint = SizeConstraint.NONE;
+    private int fixedWidth = -1;
+    private int fixedHeight = -1;
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
+    }
+
+    public enum SizeConstraint {
+        NONE, FIXED_WIDTH, FIXED_HEIGHT
+    }
 
     public Padding getDiagramPadding() {
         return diagramPadding;
@@ -45,8 +56,33 @@ public class SvgParameters {
         return this;
     }
 
-    public enum CssLocation {
-        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
+    public int getFixedWidth() {
+        return fixedWidth;
+    }
+
+    public SvgParameters setFixedWidth(int fixedWidth) {
+        this.fixedWidth = fixedWidth;
+        sizeConstraint = SizeConstraint.FIXED_WIDTH;
+        return this;
+    }
+
+    public int getFixedHeight() {
+        return fixedHeight;
+    }
+
+    public SvgParameters setFixedHeight(int fixedHeight) {
+        this.fixedHeight = fixedHeight;
+        sizeConstraint = SizeConstraint.FIXED_HEIGHT;
+        return this;
+    }
+
+    public SizeConstraint getSizeConstraint() {
+        return sizeConstraint;
+    }
+
+    public SvgParameters setSizeConstraint(SizeConstraint sizeConstraint) {
+        this.sizeConstraint = sizeConstraint;
+        return this;
     }
 
     public boolean isSvgWidthAndHeightAdded() {

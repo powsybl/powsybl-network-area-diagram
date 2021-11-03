@@ -166,11 +166,30 @@ public class SvgWriter {
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement("", SVG_ROOT_ELEMENT_NAME, NAMESPACE_URI);
         if (svgParameters.isSvgWidthAndHeightAdded()) {
-            writer.writeAttribute(WIDTH_ATTRIBUTE, getFormattedValue(getDiagramWidth(graph)));
-            writer.writeAttribute(HEIGHT_ATTRIBUTE, getFormattedValue(getDiagramHeight(graph)));
+            double[] diagramDimension = getDiagramDimensions(graph);
+            writer.writeAttribute(WIDTH_ATTRIBUTE, getFormattedValue(diagramDimension[0]));
+            writer.writeAttribute(HEIGHT_ATTRIBUTE, getFormattedValue(diagramDimension[1]));
         }
         writer.writeAttribute(VIEW_BOX_ATTRIBUTE, getViewBoxValue(graph));
         writer.writeDefaultNamespace(NAMESPACE_URI);
+    }
+
+    private double[] getDiagramDimensions(Graph graph) {
+        double width = getDiagramWidth(graph);
+        double height = getDiagramHeight(graph);
+        double scale;
+        switch (svgParameters.getSizeConstraint()) {
+            case FIXED_WIDTH:
+                scale = svgParameters.getFixedWidth() / width;
+                break;
+            case FIXED_HEIGHT:
+                scale = svgParameters.getFixedHeight() / height;
+                break;
+            default:
+                scale = 20;
+                break;
+        }
+        return new double[] {width * scale, height * scale};
     }
 
     private double getDiagramHeight(Graph graph) {
