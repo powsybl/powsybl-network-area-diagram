@@ -39,28 +39,28 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(Path svgFile) {
-        draw(svgFile, new LayoutParameters());
+        draw(svgFile, new SvgParameters());
     }
 
-    public void draw(Path svgFile, LayoutParameters layoutParameters) {
-        draw(svgFile, layoutParameters, new SvgParameters());
+    public void draw(Path svgFile, SvgParameters svgParameters) {
+        draw(svgFile, svgParameters, new LayoutParameters());
     }
 
-    public void draw(Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        draw(svgFile, layoutParameters, svgParameters, new DefaultStyleProvider());
+    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters) {
+        draw(svgFile, svgParameters, layoutParameters, new DefaultStyleProvider());
     }
 
-    public void draw(Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider) {
-        draw(svgFile, layoutParameters, svgParameters, styleProvider, new BasicForceLayoutFactory());
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
     }
 
-    public void draw(Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        draw(svgFile, layoutParameters, svgParameters, styleProvider, layoutFactory, new IntIdProvider());
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
     }
 
-    public void draw(Path svgFile, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
         Objects.requireNonNull(svgFile);
         Objects.requireNonNull(layoutParameters);
@@ -75,28 +75,28 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(OutputStream os) {
-        draw(os, new LayoutParameters());
+        draw(os, new SvgParameters());
     }
 
-    public void draw(OutputStream os, LayoutParameters layoutParameters) {
-        draw(os, layoutParameters, new SvgParameters());
+    public void draw(OutputStream os, SvgParameters svgParameters) {
+        draw(os, svgParameters, new LayoutParameters());
     }
 
-    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        draw(os, layoutParameters, svgParameters, new DefaultStyleProvider());
+    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters) {
+        draw(os, svgParameters, layoutParameters, new DefaultStyleProvider());
     }
 
-    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider) {
-        draw(os, layoutParameters, svgParameters, styleProvider, new BasicForceLayoutFactory());
+        draw(os, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
     }
 
-    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        draw(os, layoutParameters, svgParameters, styleProvider, layoutFactory, new IntIdProvider());
+        draw(os, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
     }
 
-    public void draw(OutputStream os, LayoutParameters layoutParameters, SvgParameters svgParameters,
+    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
@@ -105,7 +105,7 @@ public class NetworkAreaDiagram {
 
     public String drawToString(SvgParameters svgParameters) {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-            draw(os, new LayoutParameters(), svgParameters);
+            draw(os, svgParameters);
             os.flush();
             return os.toString(StandardCharsets.UTF_8);
         } catch (IOException e) {
