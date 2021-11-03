@@ -74,7 +74,6 @@ In order to generate a SVG from a given network, we need to add some Maven depen
 ```
 
 Then we simply need to load the example network and then generate the corresponding network area diagram SVG.
-Note that the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
 ```java
 Network network = IeeeCdfNetworkFactory.create30();
 new NetworkAreaDiagram(network).draw(Path.of("/tmp/diagram.svg"));
@@ -82,3 +81,6 @@ new NetworkAreaDiagram(network).draw(Path.of("/tmp/diagram.svg"));
 We obtain the following SVG:
 
 ![Diagram demo](.github/diagram_example.svg)
+
+
+Note that the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
