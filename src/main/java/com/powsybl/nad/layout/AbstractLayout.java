@@ -49,8 +49,8 @@ public abstract class AbstractLayout implements Layout {
                 double alpha = -forkAperture / 2 + i * angleStep;
                 double angleFork1 = angle - alpha;
                 double angleFork2 = angle + Math.PI + alpha;
-                Point fork1 = new Point(forkLength * Math.cos(angleFork1), forkLength * Math.sin(angleFork1)).shift(pointA);
-                Point fork2 = new Point(forkLength * Math.cos(angleFork2), forkLength * Math.sin(angleFork2)).shift(pointB);
+                Point fork1 = pointA.shift(forkLength * Math.cos(angleFork1), forkLength * Math.sin(angleFork1));
+                Point fork2 = pointB.shift(forkLength * Math.cos(angleFork2), forkLength * Math.sin(angleFork2));
 
                 Point middle = Point.createMiddlePoint(fork1, fork2);
                 edge.setSide1(pointA, fork1, middle);

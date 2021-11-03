@@ -43,9 +43,8 @@ public class Point {
         return Math.sqrt(distanceSquare(other));
     }
 
-    public Point shift(Point shift) {
-        Objects.requireNonNull(shift);
-        return new Point(x + shift.x, y + shift.y);
+    public Point shift(double shiftX, double shiftY) {
+        return new Point(x + shiftX, y + shiftY);
     }
 
     public double getY() {
