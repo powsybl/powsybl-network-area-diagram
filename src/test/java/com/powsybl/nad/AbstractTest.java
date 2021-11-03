@@ -38,32 +38,33 @@ public abstract class AbstractTest {
     protected String generateSvgString(Network network, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        new SvgWriter(getSvgParameters(), getStyleProvider()).writeSvg(graph, baos);
+        StringWriter writer = new StringWriter();
+        new SvgWriter(getSvgParameters(), getStyleProvider()).writeSvg(graph, writer);
+        String svgString = writer.toString();
         if (debugSvg) {
-            writeToHomeDir(refFilename, baos);
+            writeToHomeDir(refFilename, svgString);
         }
         if (overrideTestReferences) {
-            overrideTestReference(refFilename, baos);
+            overrideTestReference(refFilename, svgString);
         }
-        return baos.toString();
+        return svgString;
     }
 
-    private void writeToHomeDir(String refFilename, ByteArrayOutputStream baos) {
+    private void writeToHomeDir(String refFilename, String svgString) {
         try (OutputStream fos = new FileOutputStream(new File(System.getProperty("user.home"), refFilename))) {
-            baos.writeTo(fos);
+            fos.write(svgString.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UncheckedIOException(e);
         }
     }
 
-    private void overrideTestReference(String filename, ByteArrayOutputStream baos) {
+    private void overrideTestReference(String filename, String svgString) {
         File testReference = new File("src/test/resources", filename);
         if (!testReference.exists()) {
             return;
         }
         try (OutputStream os = new FileOutputStream(testReference)) {
-            baos.writeTo(os);
+            os.write(svgString.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

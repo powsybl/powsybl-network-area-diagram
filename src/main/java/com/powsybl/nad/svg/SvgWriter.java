@@ -6,16 +6,17 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.VoltageLevelNode;
+import org.apache.commons.io.output.WriterOutputStream;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -66,15 +67,23 @@ public class SvgWriter {
         try (OutputStream svgOs = new BufferedOutputStream(Files.newOutputStream(dir.resolve(svgFileName)))) {
             writeSvg(graph, svgOs);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UncheckedIOException(e);
         }
     }
 
-    public void writeSvg(Graph graph, OutputStream svgWriter) {
+    public void writeSvg(Graph graph, Writer svgWriter) {
+        try (WriterOutputStream svgOs = new WriterOutputStream(svgWriter, StandardCharsets.UTF_8)) {
+            writeSvg(graph, svgOs);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private void writeSvg(Graph graph, OutputStream svgOs) {
         Objects.requireNonNull(graph);
-        Objects.requireNonNull(svgWriter);
+        Objects.requireNonNull(svgOs);
         try {
-            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgWriter);
+            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
             addMetadata(writer);
@@ -82,7 +91,7 @@ public class SvgWriter {
             drawNodes(graph, writer);
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
-            e.printStackTrace();
+            throw new UncheckedXmlStreamException(e);
         }
     }
 

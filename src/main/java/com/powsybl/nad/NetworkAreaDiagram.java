@@ -19,11 +19,10 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -74,40 +73,39 @@ public class NetworkAreaDiagram {
         new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);
     }
 
-    public void draw(OutputStream os) {
-        draw(os, new SvgParameters());
+    public void draw(Writer writer) {
+        draw(writer, new SvgParameters());
     }
 
-    public void draw(OutputStream os, SvgParameters svgParameters) {
-        draw(os, svgParameters, new LayoutParameters());
+    public void draw(Writer writer, SvgParameters svgParameters) {
+        draw(writer, svgParameters, new LayoutParameters());
     }
 
-    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(os, svgParameters, layoutParameters, new DefaultStyleProvider());
+    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters) {
+        draw(writer, svgParameters, layoutParameters, new DefaultStyleProvider());
     }
 
-    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
+    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider) {
-        draw(os, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
+        draw(writer, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
     }
 
-    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
+    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        draw(os, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
+        draw(writer, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
     }
 
-    public void draw(OutputStream os, SvgParameters svgParameters, LayoutParameters layoutParameters,
+    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, os);
+        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, writer);
     }
 
     public String drawToString(SvgParameters svgParameters) {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-            draw(os, svgParameters);
-            os.flush();
-            return os.toString(StandardCharsets.UTF_8);
+        try (StringWriter writer = new StringWriter()) {
+            draw(writer, svgParameters);
+            return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
