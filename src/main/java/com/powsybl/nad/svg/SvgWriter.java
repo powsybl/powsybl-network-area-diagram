@@ -47,7 +47,6 @@ public class SvgWriter {
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
     private static final double CIRCLE_RADIUS = 0.6;
-    private static final double LINE_WIDTH = 0.2;
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
