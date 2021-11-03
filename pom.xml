@@ -112,11 +112,6 @@
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-force-layout</artifactId>
-            <version>${powsybl-sld.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
             <version>${powsybl-sld.version}</version>
         </dependency>

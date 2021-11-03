@@ -6,11 +6,11 @@
  */
 package com.powsybl.nad.layout;
 
+import com.powsybl.forcedlayout.ForceLayout;
+import com.powsybl.forcedlayout.Vector;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
-import com.powsybl.sld.force.layout.ForceLayout;
-import com.powsybl.sld.force.layout.Vector;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
