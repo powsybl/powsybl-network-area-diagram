@@ -62,15 +62,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private class VisitorBuilder implements TopologyVisitor {
+    private class VisitorBuilder extends DefaultTopologyVisitor {
         private final Graph graph;
 
         public VisitorBuilder(Graph graph) {
             this.graph = graph;
-        }
-
-        @Override
-        public void visitBusbarSection(BusbarSection busbarSection) {
         }
 
         @Override
@@ -124,26 +120,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addEdge(vlNode1.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg1()), twtId + LEG1_SUFFIX, twtName, twt.getLeg1().getTerminal().isConnected()));
             graph.addEdge(vlNode2.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg2()), twtId + LEG2_SUFFIX, twtName, twt.getLeg2().getTerminal().isConnected()));
             graph.addEdge(vlNode3.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg3()), twtId + LEG3_SUFFIX, twtName, twt.getLeg3().getTerminal().isConnected()));
-        }
-
-        @Override
-        public void visitGenerator(Generator generator) {
-        }
-
-        @Override
-        public void visitLoad(Load load) {
-        }
-
-        @Override
-        public void visitShuntCompensator(ShuntCompensator shuntCompensator) {
-        }
-
-        @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-        }
-
-        @Override
-        public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
         }
     }
 }
