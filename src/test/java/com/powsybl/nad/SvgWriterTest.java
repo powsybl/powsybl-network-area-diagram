@@ -7,16 +7,13 @@
 package com.powsybl.nad;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
-import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.DefaultStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import org.junit.jupiter.api.Test;
-
-import java.net.URL;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,8 +54,7 @@ public class SvgWriterTest extends AbstractTest {
 
     @Test
     void testIEEE24() {
-        URL url = Objects.requireNonNull(getClass().getResource("/IEEE_24_bus.xiidm"));
-        Network network = Importers.loadNetwork(url.getFile());
+        Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
     }
 
