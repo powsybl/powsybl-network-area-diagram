@@ -6,11 +6,11 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.VoltageLevelNode;
-import com.powsybl.sld.styles.BaseVoltageStyle;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -33,14 +33,14 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     private static final String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
     private static final String EDGES_CLASS = CLASSES_PREFIX + "edges";
 
-    private final BaseVoltageStyle baseVoltageStyle;
+    private final BaseVoltagesConfig baseVoltagesConfig;
 
     public AbstractStyleProvider() {
-        this(BaseVoltageStyle.fromPlatformConfig());
+        this(BaseVoltagesConfig.fromPlatformConfig());
     }
 
-    public AbstractStyleProvider(BaseVoltageStyle baseVoltageStyle) {
-        this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
+    public AbstractStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
+        this.baseVoltagesConfig = Objects.requireNonNull(baseVoltagesConfig);
     }
 
     @Override
@@ -69,7 +69,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         List<String> styles = new ArrayList<>();
         if (node instanceof VoltageLevelNode) {
             double nominalV = ((VoltageLevelNode) node).getNominalV();
-            baseVoltageStyle.getBaseVoltageName(nominalV, baseVoltageStyle.getDefaultProfile())
+            baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())
                     .ifPresent(styles::add);
         }
         return styles;
