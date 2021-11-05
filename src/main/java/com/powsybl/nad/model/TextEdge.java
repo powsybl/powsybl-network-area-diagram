@@ -11,7 +11,7 @@ package com.powsybl.nad.model;
  */
 public class TextEdge extends AbstractEdge {
 
-    public TextEdge(String diagramId, VoltageLevelNode vlNode, TextNode textNode) {
+    public TextEdge(String diagramId) {
         super(diagramId, null, null);
     }
 

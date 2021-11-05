@@ -35,11 +35,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     private final BaseVoltagesConfig baseVoltagesConfig;
 
-    public AbstractStyleProvider() {
+    protected AbstractStyleProvider() {
         this(BaseVoltagesConfig.fromPlatformConfig());
     }
 
-    public AbstractStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
+    protected AbstractStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
         this.baseVoltagesConfig = Objects.requireNonNull(baseVoltagesConfig);
     }
 
