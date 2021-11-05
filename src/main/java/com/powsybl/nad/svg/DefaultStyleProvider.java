@@ -6,8 +6,8 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.Edge;
-import com.powsybl.sld.styles.BaseVoltageStyle;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
         super();
     }
 
-    public DefaultStyleProvider(BaseVoltageStyle baseVoltageStyle) {
+    public DefaultStyleProvider(BaseVoltagesConfig baseVoltageStyle) {
         super(baseVoltageStyle);
     }
 

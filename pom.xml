@@ -50,7 +50,6 @@
         </sonar.exclusions>
 
         <powsybl-core.version>4.5.0-RC1</powsybl-core.version>
-        <powsybl-sld.version>2.4.0</powsybl-sld.version>
         <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -110,11 +109,6 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-commons</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-core</artifactId>
-            <version>${powsybl-sld.version}</version>
-        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -145,7 +139,7 @@
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-config-classic</artifactId>
+            <artifactId>powsybl-config-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
