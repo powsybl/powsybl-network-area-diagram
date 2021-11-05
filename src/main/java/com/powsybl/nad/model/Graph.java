@@ -67,7 +67,7 @@ public class Graph {
     public Stream<Set<Edge>> getMultiEdgesStream() {
         return edges.values().stream()
                 .map(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)))
-                .filter(edges -> edges.size() > 1)
+                .filter(e -> e.size() > 1)
                 .distinct();
     }
 

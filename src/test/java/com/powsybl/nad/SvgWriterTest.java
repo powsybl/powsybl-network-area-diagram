@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class SvgWriterTest extends AbstractTest {
+class SvgWriterTest extends AbstractTest {
 
     @Override
     protected LayoutParameters getLayoutParameters() {

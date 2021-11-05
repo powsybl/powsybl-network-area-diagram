@@ -233,7 +233,6 @@ public class SvgWriter {
 
     private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(METADATA_ELEMENT_NAME);
-        // TODO: add the graph metadata in the SVG
         writer.writeEndElement();
     }
 
