@@ -59,6 +59,10 @@ public class Graph {
         return edges.values().stream();
     }
 
+    public Collection<Edge> getEdges() {
+        return Collections.unmodifiableCollection(edges.values());
+    }
+
     public Stream<Edge> getNonMultiEdgesStream() {
         return edges.values().stream()
                 .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);

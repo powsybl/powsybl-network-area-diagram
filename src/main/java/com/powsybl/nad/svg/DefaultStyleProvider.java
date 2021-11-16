@@ -7,7 +7,6 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.nad.model.Edge;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,11 +27,6 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     @Override
     public List<String> getCssFilenames() {
         return Collections.singletonList("defaultStyle.css");
-    }
-
-    @Override
-    public List<String> getEdgeStyleClasses(Edge edge) {
-        return Collections.emptyList();
     }
 
 }

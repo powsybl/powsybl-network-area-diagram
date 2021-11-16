@@ -62,4 +62,10 @@ public class Point {
     public void setX(double x) {
         this.x = x;
     }
+
+    public Point atDistance(double dist, Point direction) {
+        double r = dist / distance(direction);
+        return new Point(x + r * (direction.x - x),
+                y + r * (direction.y - y));
+    }
 }

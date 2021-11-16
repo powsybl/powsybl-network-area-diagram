@@ -80,9 +80,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (vlNode1.isEmpty() || vlNode2.isEmpty()) {
                 throw new PowsyblException("Cannot add line, voltage level unknown");
             }
+            double nominalV = vlNode1.get().getNominalV();
             graph.addEdge(vlNode1.get(), vlNode2.get(),
-                    new BranchEdge(idProvider.createId(line), line.getId(), line.getNameOrId(),
-                            line.getTerminal1().isConnected(), line.getTerminal2().isConnected()));
+                    new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId(),
+                            line.getTerminal1().isConnected(), line.getTerminal2().isConnected(), nominalV));
         }
 
         @Override
@@ -91,13 +92,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (graph.containsEdge(twt.getId())) {
                 return;
             }
-            Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(twt.getTerminal1().getVoltageLevel().getId());
-            Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(twt.getTerminal2().getVoltageLevel().getId());
+            VoltageLevel vl1 = twt.getTerminal1().getVoltageLevel();
+            VoltageLevel vl2 = twt.getTerminal2().getVoltageLevel();
+            Optional<VoltageLevelNode> vlNode1 = graph.getVoltageLevelNode(vl1.getId());
+            Optional<VoltageLevelNode> vlNode2 = graph.getVoltageLevelNode(vl2.getId());
             if (vlNode1.isEmpty() || vlNode2.isEmpty()) {
                 throw new PowsyblException("Cannot add line, one voltage level unknown");
             }
-            BranchEdge edge = new BranchEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(),
-                    twt.getTerminal1().isConnected(), twt.getTerminal2().isConnected());
+            AbstractBranchEdge edge = new TwoWtEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(),
+                    twt.getTerminal1().isConnected(), twt.getTerminal2().isConnected(),
+                    vl1.getNominalV(), vl2.getNominalV());
             graph.addEdge(vlNode1.get(), vlNode2.get(), edge);
         }
 
@@ -117,9 +121,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
             TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
-            graph.addEdge(vlNode1.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg1()), twtId + LEG1_SUFFIX, twtName, twt.getLeg1().getTerminal().isConnected()));
-            graph.addEdge(vlNode2.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg2()), twtId + LEG2_SUFFIX, twtName, twt.getLeg2().getTerminal().isConnected()));
-            graph.addEdge(vlNode3.get(), tn, new TransformerEdge(idProvider.createId(twt.getLeg3()), twtId + LEG3_SUFFIX, twtName, twt.getLeg3().getTerminal().isConnected()));
+            graph.addEdge(vlNode1.get(), tn, new ThreeWtEdge(idProvider.createId(twt.getLeg1()), twtId + LEG1_SUFFIX, twtName, twt.getLeg1().getTerminal().isConnected()));
+            graph.addEdge(vlNode2.get(), tn, new ThreeWtEdge(idProvider.createId(twt.getLeg2()), twtId + LEG2_SUFFIX, twtName, twt.getLeg2().getTerminal().isConnected()));
+            graph.addEdge(vlNode3.get(), tn, new ThreeWtEdge(idProvider.createId(twt.getLeg3()), twtId + LEG3_SUFFIX, twtName, twt.getLeg3().getTerminal().isConnected()));
         }
     }
 }
