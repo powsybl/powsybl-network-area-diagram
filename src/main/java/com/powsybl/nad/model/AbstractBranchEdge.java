@@ -13,7 +13,7 @@ public abstract class AbstractBranchEdge extends AbstractEdge {
     private final boolean side1Connected;
     private final boolean side2Connected;
 
-    public AbstractBranchEdge(String diagramId, String equipmentId, String nameOrId, boolean side1Connected, boolean side2Connected) {
+    protected AbstractBranchEdge(String diagramId, String equipmentId, String nameOrId, boolean side1Connected, boolean side2Connected) {
         super(diagramId, equipmentId, nameOrId);
         this.side1Connected = side1Connected;
         this.side2Connected = side2Connected;

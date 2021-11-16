@@ -45,6 +45,7 @@ public class SvgWriter {
     private static final String TITLE_ATTRIBUTE = "title";
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
+    public static final String CIRCLE_RADIUS_ATTRIBUTE = "r";
     private static final double CIRCLE_RADIUS = 0.6;
     private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
 
@@ -127,19 +128,19 @@ public class SvgWriter {
                 .collect(Collectors.joining(" "));
         writer.writeAttribute("points", lineFormatted1);
         if (edge instanceof TwoWtEdge) {
-            drawTransformer(writer, (TwoWtEdge) edge, half);
+            drawTransformer(writer, half);
         }
         writer.writeEndElement();
     }
 
-    private void drawTransformer(XMLStreamWriter writer, TwoWtEdge edge, List<Point> half) throws XMLStreamException {
+    private void drawTransformer(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         Point point1 = half.get(half.size() - 1); // point in the middle
         Point point2 = half.get(half.size() - 2); // point before
         Point circleCenter = point1.atDistance(TRANSFORMER_CIRCLE_RADIUS / 2, point2);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
-        writer.writeAttribute("r", getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
     }
 
     private void drawNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -161,7 +162,7 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
         writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getNodeStyleClasses(vlNode)));
         insertName(writer, vlNode::getName);
-        writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(CIRCLE_RADIUS));
     }
 
     private void writeNbBuses(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
