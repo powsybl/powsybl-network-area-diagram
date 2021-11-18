@@ -90,14 +90,14 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side) {
         Objects.requireNonNull(side);
+        List<String> result = new ArrayList<>();
         if (edge instanceof AbstractBranchEdge && !((AbstractBranchEdge) edge).isConnected(side)) {
-            return Collections.singletonList(DISCONNECTED_SIDE_EDGE_CLASS);
+            result.add(DISCONNECTED_SIDE_EDGE_CLASS);
         }
         if (edge instanceof TwoWtEdge) {
-            return getBaseVoltageStyle(((TwoWtEdge) edge).getNominalV(side))
-                    .map(Collections::singletonList).orElse(Collections.emptyList());
+            getBaseVoltageStyle(((TwoWtEdge) edge).getNominalV(side)).ifPresent(result::add);
         }
-        return Collections.emptyList();
+        return result;
     }
 
     private Optional<String> getBaseVoltageStyle(double nominalV) {
