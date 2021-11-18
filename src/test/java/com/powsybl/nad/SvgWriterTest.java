@@ -56,6 +56,7 @@ class SvgWriterTest extends AbstractTest {
     void testDisconnection() {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getLine("L3-4-1").getTerminal1().disconnect();
+        network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
         assertEquals(toString("/IEEE_14_bus_disconnection.svg"), generateSvgString(network, "/IEEE_14_bus_disconnection.svg"));
     }
 
