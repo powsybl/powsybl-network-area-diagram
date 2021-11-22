@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 public abstract class AbstractTest {
 
-    protected boolean debugSvg = false;
+    protected boolean debugSvg = true;
     protected boolean overrideTestReferences = false;
 
     protected abstract LayoutParameters getLayoutParameters();
