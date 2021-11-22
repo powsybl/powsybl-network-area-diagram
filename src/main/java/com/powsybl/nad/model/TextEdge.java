@@ -6,13 +6,25 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class TextEdge extends AbstractEdge {
 
+    private Point[] points;
+
     public TextEdge(String diagramId) {
         super(diagramId, null, null);
     }
 
+    public void setPoints(Point... points) {
+        this.points = points;
+    }
+
+    public List<Point> getPoints() {
+        return Arrays.asList(points);
+    }
 }

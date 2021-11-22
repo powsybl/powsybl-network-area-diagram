@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Node;
 
@@ -25,7 +26,11 @@ public interface StyleProvider {
 
     String getVoltageLevelNodeStyle();
 
+    String getBusesTextStyle();
+
+    String getTextNodeStyle();
+
     List<String> getEdgeStyleClasses(Edge edge);
 
-    List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side);
+    List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 }

@@ -37,10 +37,13 @@ public class Graph {
         Objects.requireNonNull(edge);
         edges.put(edge.getEquipmentId(), edge);
         jgrapht.addEdge(node1, node2, edge);
+        if (edge instanceof TextEdge) {
+            jgrapht.setEdgeWeight(edge, 1);
+        }
     }
 
     public Stream<Node> getNodesStream() {
-        return nodes.values().stream();
+        return jgrapht.vertexSet().stream();
     }
 
     public Stream<VoltageLevelNode> getVoltageLevelNodesStream() {
@@ -60,16 +63,25 @@ public class Graph {
     }
 
     public Collection<Edge> getEdges() {
-        return Collections.unmodifiableCollection(edges.values());
+        return Collections.unmodifiableCollection(jgrapht.edgeSet());
     }
 
-    public Stream<Edge> getNonMultiEdgesStream() {
-        return edges.values().stream()
+    public Stream<TextEdge> getTextEdgesStream() {
+        return jgrapht.edgeSet().stream()
+                .filter(TextEdge.class::isInstance)
+                .map(TextEdge.class::cast)
                 .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);
     }
 
-    public Stream<Set<Edge>> getMultiEdgesStream() {
-        return edges.values().stream()
+    public Stream<BranchEdge> getNonMultiBranchEdgesStream() {
+        return jgrapht.edgeSet().stream()
+                .filter(BranchEdge.class::isInstance)
+                .map(BranchEdge.class::cast)
+                .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);
+    }
+
+    public Stream<Set<Edge>> getMultiBranchEdgesStream() {
+        return jgrapht.edgeSet().stream()
                 .map(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct();

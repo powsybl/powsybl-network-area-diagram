@@ -15,7 +15,7 @@ public class TextNode extends AbstractNode {
 
     private final String text;
 
-    protected TextNode(String diagramId, String text) {
+    public TextNode(String diagramId, String text) {
         super(diagramId, null, null);
         this.text = Objects.requireNonNull(text);
     }

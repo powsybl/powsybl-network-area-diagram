@@ -1,8 +1,10 @@
 .nad-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
+.nad-edges .nad-text-edges {stroke-width: 0.02; ; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
-.nad-vl-nodes text {font: 0.6px "Verdana"; fill: white}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue)}
+.nad-vl-nodes .nad-text-buses {font: 0.6px "Verdana"; fill: white}
+.nad-text-node {font: 0.3px "Verdana"}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
 .nad-vl30to50 {--nad-vl-color: #EF9A9A}
 .nad-vl50to70 {--nad-vl-color: #9C27B0}

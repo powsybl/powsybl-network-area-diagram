@@ -6,27 +6,12 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface Edge {
-
-    enum Side {
-        ONE, TWO
-    }
-
-    List<Point> getLine(Side side);
-
-    List<Point> getSide1();
-
-    List<Point> getSide2();
-
-    void setSide1(Point... points);
-
-    void setSide2(Point... points);
 
     String getDiagramId();
 

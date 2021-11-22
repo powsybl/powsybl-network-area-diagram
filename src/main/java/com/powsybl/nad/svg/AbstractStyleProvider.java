@@ -24,8 +24,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     private static final String CLASSES_PREFIX = "nad-";
     private static final String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
+    private static final String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
+    private static final String TEXT_NODE_CLASS = CLASSES_PREFIX + "text-node";
     private static final String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
     private static final String EDGES_CLASS = CLASSES_PREFIX + "edges";
+    private static final String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
 
     private final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -79,16 +82,29 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
+    public String getBusesTextStyle() {
+        return BUSES_TEXT_CLASS;
+    }
+
+    @Override
+    public String getTextNodeStyle() {
+        return TEXT_NODE_CLASS;
+    }
+
+    @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
         if (edge instanceof LineEdge) {
             return getBaseVoltageStyle(((LineEdge) edge).getNominalV())
                     .map(Collections::singletonList).orElse(Collections.emptyList());
         }
+        if (edge instanceof TextEdge) {
+            return Collections.singletonList(TEXT_EDGES_CLASS);
+        }
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side) {
+    public List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();
         if (edge instanceof AbstractBranchEdge && !((AbstractBranchEdge) edge).isConnected(side)) {

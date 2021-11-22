@@ -16,39 +16,11 @@ public abstract class AbstractEdge implements Edge {
     private final String diagramId;
     private final String equipmentId;
     private final String name;
-    private List<Point> line1 = Collections.emptyList();
-    private List<Point> line2 = Collections.emptyList();
 
     protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
         this.diagramId = Objects.requireNonNull(diagramId);
         this.equipmentId = equipmentId;
         this.name = nameOrId;
-    }
-
-    public List<Point> getLine(Side side) {
-        return side == Side.ONE ? getSide1() : getSide2();
-    }
-
-    @Override
-    public List<Point> getSide1() {
-        return Collections.unmodifiableList(line1);
-    }
-
-    @Override
-    public List<Point> getSide2() {
-        return Collections.unmodifiableList(line2);
-    }
-
-    @Override
-    public void setSide1(Point... points) {
-        Arrays.stream(points).forEach(Objects::requireNonNull);
-        this.line1 = Arrays.asList(points);
-    }
-
-    @Override
-    public void setSide2(Point... points) {
-        Arrays.stream(points).forEach(Objects::requireNonNull);
-        this.line2 = Arrays.asList(points);
     }
 
     @Override
