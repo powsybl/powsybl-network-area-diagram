@@ -8,9 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.VoltageLevelNode;
+import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
 
 import javax.xml.stream.XMLStreamException;
@@ -47,7 +45,9 @@ public class SvgWriter {
     private static final String TITLE_ATTRIBUTE = "title";
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
+    public static final String CIRCLE_RADIUS_ATTRIBUTE = "r";
     private static final double CIRCLE_RADIUS = 0.6;
+    private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -98,7 +98,7 @@ public class SvgWriter {
     private void drawEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, styleProvider.getEdgesStyle());
-        for (Edge edge : graph.getEdgesStream().collect(Collectors.toList())) {
+        for (Edge edge : graph.getEdges()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
             List<String> edgeStyleClasses = styleProvider.getEdgeStyleClasses(edge);
@@ -107,24 +107,40 @@ public class SvgWriter {
             }
             insertName(writer, edge::getName);
 
-            drawSideLine(writer, edge, Edge.Side.ONE);
-            drawSideLine(writer, edge, Edge.Side.TWO);
+            drawHalfEdge(writer, edge, Edge.Side.ONE);
+            drawHalfEdge(writer, edge, Edge.Side.TWO);
 
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void drawSideLine(XMLStreamWriter writer, Edge edge, Edge.Side side) throws XMLStreamException {
-        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+    private void drawHalfEdge(XMLStreamWriter writer, Edge edge, Edge.Side side) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
         List<String> edgeSideStyleClasses = styleProvider.getSideEdgeStyleClasses(edge, side);
         if (!edgeSideStyleClasses.isEmpty()) {
             writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeSideStyleClasses));
         }
-        String lineFormatted1 = edge.getLine(side).stream()
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        List<Point> half = edge.getLine(side);
+        String lineFormatted1 = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute("points", lineFormatted1);
+        if (edge instanceof TwoWtEdge) {
+            drawTransformer(writer, half);
+        }
+        writer.writeEndElement();
+    }
+
+    private void drawTransformer(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        Point point1 = half.get(half.size() - 1); // point in the middle
+        Point point2 = half.get(half.size() - 2); // point before
+        Point circleCenter = point1.atDistance(TRANSFORMER_CIRCLE_RADIUS / 2, point2);
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
     }
 
     private void drawNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -134,19 +150,19 @@ public class SvgWriter {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, "translate(" +
                     getFormattedValue(vlNode.getX()) + "," + getFormattedValue(vlNode.getY()) + ")");
-            drawCircle(writer, vlNode);
+            drawNodeCircle(writer, vlNode);
             writeNbBuses(writer, vlNode);
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void drawCircle(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+    private void drawNodeCircle(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
         writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getNodeStyleClasses(vlNode)));
         insertName(writer, vlNode::getName);
-        writer.writeAttribute("r", getFormattedValue(CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(CIRCLE_RADIUS));
     }
 
     private void writeNbBuses(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {

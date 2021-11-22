@@ -7,20 +7,14 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.model.VoltageLevelNode;
+import com.powsybl.nad.model.*;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -69,8 +63,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         List<String> styles = new ArrayList<>();
         if (node instanceof VoltageLevelNode) {
             double nominalV = ((VoltageLevelNode) node).getNominalV();
-            baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())
-                    .ifPresent(styles::add);
+            getBaseVoltageStyle(nominalV).ifPresent(styles::add);
         }
         return styles;
     }
@@ -86,11 +79,29 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side) {
-        Objects.requireNonNull(side);
-        if (edge instanceof BranchEdge && !((BranchEdge) edge).isConnected(side)) {
-            return Collections.singletonList(DISCONNECTED_SIDE_EDGE_CLASS);
+    public List<String> getEdgeStyleClasses(Edge edge) {
+        if (edge instanceof LineEdge) {
+            return getBaseVoltageStyle(((LineEdge) edge).getNominalV())
+                    .map(Collections::singletonList).orElse(Collections.emptyList());
         }
         return Collections.emptyList();
     }
+
+    @Override
+    public List<String> getSideEdgeStyleClasses(Edge edge, Edge.Side side) {
+        Objects.requireNonNull(side);
+        List<String> result = new ArrayList<>();
+        if (edge instanceof AbstractBranchEdge && !((AbstractBranchEdge) edge).isConnected(side)) {
+            result.add(DISCONNECTED_SIDE_EDGE_CLASS);
+        }
+        if (edge instanceof TwoWtEdge) {
+            getBaseVoltageStyle(((TwoWtEdge) edge).getNominalV(side)).ifPresent(result::add);
+        }
+        return result;
+    }
+
+    private Optional<String> getBaseVoltageStyle(double nominalV) {
+        return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile());
+    }
+
 }

@@ -57,7 +57,7 @@
             </g>
         </g>
         <g id="33" class="nad-vl120to180" title="L3-4-1">
-            <g>
+            <g class="nad-disconnected">
                 <polyline points="-0.54,-5.19 -0.83,-3.77"/>
             </g>
             <g>
@@ -73,7 +73,7 @@
             </g>
         </g>
         <g id="35" title="T4-7-1">
-            <g class="nad-vl120to180">
+            <g class="nad-disconnected nad-vl120to180">
                 <polyline points="-1.12,-2.35 -2.69,-2.12"/>
                 <circle cx="-2.59" cy="-2.14" r="0.20"/>
             </g>
