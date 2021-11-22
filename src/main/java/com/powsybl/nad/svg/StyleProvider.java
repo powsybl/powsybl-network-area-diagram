@@ -22,15 +22,18 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
-    String getEdgesStyle();
+    String getBranchEdgesStyle();
 
-    String getVoltageLevelNodeStyle();
+    String getTextEdgesStyle();
+
+    String getVoltageLevelNodesStyle();
+
+    String getTextNodesStyle();
 
     String getBusesTextStyle();
-
-    String getTextNodeStyle();
 
     List<String> getEdgeStyleClasses(Edge edge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
+
 }

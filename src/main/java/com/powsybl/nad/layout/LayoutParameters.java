@@ -12,6 +12,7 @@ package com.powsybl.nad.layout;
 public class LayoutParameters {
     private double edgesForkAperture = Math.toRadians(60);
     private double edgesForkLength = 0.8;
+    private boolean textNodesForceLayout = false;
 
     public double getEdgesForkAperture() {
         return edgesForkAperture;
@@ -28,6 +29,15 @@ public class LayoutParameters {
 
     public LayoutParameters setEdgesForkLength(double edgesForkLength) {
         this.edgesForkLength = edgesForkLength;
+        return this;
+    }
+
+    public boolean isTextNodesForceLayout() {
+        return textNodesForceLayout;
+    }
+
+    public LayoutParameters setTextNodesForceLayout(boolean textNodesForceLayout) {
+        this.textNodesForceLayout = textNodesForceLayout;
         return this;
     }
 }

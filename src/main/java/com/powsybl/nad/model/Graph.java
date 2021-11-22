@@ -9,6 +9,7 @@ package com.powsybl.nad.model;
 import org.jgrapht.graph.WeightedPseudograph;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -66,11 +67,21 @@ public class Graph {
         return Collections.unmodifiableCollection(jgrapht.edgeSet());
     }
 
+    public List<BranchEdge> getBranchEdges() {
+        return jgrapht.edgeSet().stream()
+                .filter(BranchEdge.class::isInstance)
+                .map(BranchEdge.class::cast)
+                .collect(Collectors.toList());
+    }
+
     public Stream<TextEdge> getTextEdgesStream() {
         return jgrapht.edgeSet().stream()
                 .filter(TextEdge.class::isInstance)
-                .map(TextEdge.class::cast)
-                .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);
+                .map(TextEdge.class::cast);
+    }
+
+    public List<TextEdge> getTextEdges() {
+        return getTextEdgesStream().collect(Collectors.toList());
     }
 
     public Stream<BranchEdge> getNonMultiBranchEdgesStream() {
@@ -145,4 +156,5 @@ public class Graph {
     public boolean containsNode(String equipmentId) {
         return nodes.containsKey(equipmentId);
     }
+
 }

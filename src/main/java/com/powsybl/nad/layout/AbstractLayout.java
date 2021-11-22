@@ -4,24 +4,42 @@ import com.powsybl.nad.model.*;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class AbstractLayout implements Layout {
 
-    private static final double TEXT_EDGE_SHIFT = 0.5;
+    private static final Point TEXT_NODE_FIXED_SHIFT = new Point(1, 0);
 
     protected void edgeLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
         graph.getNonMultiBranchEdgesStream().forEach(edge -> singleEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> multiEdgesLayout(graph, edges, layoutParameters));
-        graph.getTextEdgesStream().forEach(edge -> textEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
+
+        if (layoutParameters.isTextNodesForceLayout()) {
+            graph.getTextEdgesStream().forEach(edge -> textEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
+        } else {
+            graph.getVoltageLevelNodesStream().forEach(this::fixedTextNodeLayout);
+            graph.getVoltageLevelNodesStream().collect(Collectors.toList())
+                    .forEach(vlNode -> {
+                        TextEdge textEdge = new TextEdge(vlNode.getTextNode().getDiagramId() + "_edge");
+                        textEdgeLayout(vlNode, vlNode.getTextNode(), textEdge);
+                        graph.addNode(vlNode.getTextNode());
+                        graph.addEdge(vlNode, vlNode.getTextNode(), textEdge);
+                    });
+        }
+
+    }
+
+    private void fixedTextNodeLayout(VoltageLevelNode vln) {
+        vln.getTextNode().setPosition(vln.getX() + TEXT_NODE_FIXED_SHIFT.getX(),
+                vln.getY() + TEXT_NODE_FIXED_SHIFT.getY());
     }
 
     protected void textEdgeLayout(Node node1, Node node2, TextEdge edge) {
         Point point1 = new Point(node1.getX(), node1.getY());
         Point point2 = new Point(node2.getX(), node2.getY());
-        Point point3 = point2.atDistance(TEXT_EDGE_SHIFT, point1);
-        edge.setPoints(point1, point3);
+        edge.setPoints(point1, point2);
     }
 
     private void singleEdgeLayout(Node node1, Node node2, BranchEdge edge) {
