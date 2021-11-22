@@ -13,6 +13,7 @@ import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.DefaultStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,9 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class SvgWriterTest extends AbstractTest {
 
+    private LayoutParameters layoutParameters;
+
+    @BeforeEach
+    public void setup() {
+        this.layoutParameters = new LayoutParameters();
+    }
+
     @Override
     protected LayoutParameters getLayoutParameters() {
-        return new LayoutParameters();
+        return layoutParameters;
     }
 
     @Override
@@ -50,6 +58,13 @@ class SvgWriterTest extends AbstractTest {
     void testIEEE14() {
         Network network = IeeeCdfNetworkFactory.create14();
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
+    }
+
+    @Test
+    void testIEEE14ForceLayoutWithTextNodes() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        getLayoutParameters().setTextNodesForceLayout(true);
+        assertEquals(toString("/IEEE_14_bus_text_nodes.svg"), generateSvgString(network, "/IEEE_14_bus_text_nodes.svg"));
     }
 
     @Test
