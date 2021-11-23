@@ -50,6 +50,7 @@
         </sonar.exclusions>
 
         <powsybl-core.version>4.5.0-RC1</powsybl-core.version>
+        <powsybl-olf.version>0.14.0</powsybl-olf.version>
         <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -140,6 +141,12 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-config-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-open-loadflow</artifactId>
+            <version>${powsybl-olf.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -9,6 +9,7 @@ package com.powsybl.nad;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.xml.NetworkXml;
+import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +61,7 @@ class SvgWriterTest extends AbstractTest {
     @Test
     void testIEEE14() {
         Network network = IeeeCdfNetworkFactory.create14();
+        LoadFlow.run(network);
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
     }
 
