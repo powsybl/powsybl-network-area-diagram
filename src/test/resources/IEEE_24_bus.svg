@@ -556,29 +556,29 @@
         </g>
     </g>
     <g class="nad-text-nodes">
-        <text transform="translate(-1.56,6.78)" style="dominant-baseline:middle">VL1</text>
-        <text transform="translate(0.19,8.72)" style="dominant-baseline:middle">VL2</text>
-        <text transform="translate(-1.74,3.22)" style="dominant-baseline:middle">VL3</text>
-        <text transform="translate(-3.85,0.21)" style="dominant-baseline:middle">VL24</text>
-        <text transform="translate(0.37,5.48)" style="dominant-baseline:middle">VL4</text>
-        <text transform="translate(1.89,6.90)" style="dominant-baseline:middle">VL5</text>
-        <text transform="translate(2.52,3.27)" style="dominant-baseline:middle">VL9</text>
-        <text transform="translate(4.27,4.91)" style="dominant-baseline:middle">VL10</text>
-        <text transform="translate(2.98,0.84)" style="dominant-baseline:middle">VL11</text>
-        <text transform="translate(5.61,1.66)" style="dominant-baseline:middle">VL12</text>
-        <text transform="translate(3.43,8.76)" style="dominant-baseline:middle">VL6</text>
-        <text transform="translate(9.37,6.37)" style="dominant-baseline:middle">VL7</text>
-        <text transform="translate(6.53,5.20)" style="dominant-baseline:middle">VL8</text>
-        <text transform="translate(5.52,-0.53)" style="dominant-baseline:middle">VL13</text>
-        <text transform="translate(1.00,-2.36)" style="dominant-baseline:middle">VL14</text>
-        <text transform="translate(-3.99,-3.40)" style="dominant-baseline:middle">VL15</text>
-        <text transform="translate(-0.85,-5.21)" style="dominant-baseline:middle">VL16</text>
-        <text transform="translate(-3.44,-7.47)" style="dominant-baseline:middle">VL17</text>
-        <text transform="translate(-6.85,-7.16)" style="dominant-baseline:middle">VL18</text>
-        <text transform="translate(2.59,-6.46)" style="dominant-baseline:middle">VL19</text>
-        <text transform="translate(5.64,-5.38)" style="dominant-baseline:middle">VL20</text>
-        <text transform="translate(-5.54,-5.38)" style="dominant-baseline:middle">VL21</text>
-        <text transform="translate(-5.18,-8.79)" style="dominant-baseline:middle">VL22</text>
-        <text transform="translate(6.84,-2.24)" style="dominant-baseline:middle">VL23</text>
+        <text x="-1.56" y="6.78" style="dominant-baseline:middle">VL1</text>
+        <text x="0.19" y="8.72" style="dominant-baseline:middle">VL2</text>
+        <text x="-1.74" y="3.22" style="dominant-baseline:middle">VL3</text>
+        <text x="-3.85" y="0.21" style="dominant-baseline:middle">VL24</text>
+        <text x="0.37" y="5.48" style="dominant-baseline:middle">VL4</text>
+        <text x="1.89" y="6.90" style="dominant-baseline:middle">VL5</text>
+        <text x="2.52" y="3.27" style="dominant-baseline:middle">VL9</text>
+        <text x="4.27" y="4.91" style="dominant-baseline:middle">VL10</text>
+        <text x="2.98" y="0.84" style="dominant-baseline:middle">VL11</text>
+        <text x="5.61" y="1.66" style="dominant-baseline:middle">VL12</text>
+        <text x="3.43" y="8.76" style="dominant-baseline:middle">VL6</text>
+        <text x="9.37" y="6.37" style="dominant-baseline:middle">VL7</text>
+        <text x="6.53" y="5.20" style="dominant-baseline:middle">VL8</text>
+        <text x="5.52" y="-0.53" style="dominant-baseline:middle">VL13</text>
+        <text x="1.00" y="-2.36" style="dominant-baseline:middle">VL14</text>
+        <text x="-3.99" y="-3.40" style="dominant-baseline:middle">VL15</text>
+        <text x="-0.85" y="-5.21" style="dominant-baseline:middle">VL16</text>
+        <text x="-3.44" y="-7.47" style="dominant-baseline:middle">VL17</text>
+        <text x="-6.85" y="-7.16" style="dominant-baseline:middle">VL18</text>
+        <text x="2.59" y="-6.46" style="dominant-baseline:middle">VL19</text>
+        <text x="5.64" y="-5.38" style="dominant-baseline:middle">VL20</text>
+        <text x="-5.54" y="-5.38" style="dominant-baseline:middle">VL21</text>
+        <text x="-5.18" y="-8.79" style="dominant-baseline:middle">VL22</text>
+        <text x="6.84" y="-2.24" style="dominant-baseline:middle">VL23</text>
     </g>
 </svg>

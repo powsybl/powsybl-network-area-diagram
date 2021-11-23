@@ -46,6 +46,8 @@ public class SvgWriter {
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
     public static final String CIRCLE_RADIUS_ATTRIBUTE = "r";
+    private static final String X_ATTRIBUTE = "x";
+    private static final String Y_ATTRIBUTE = "y";
     private static final double CIRCLE_RADIUS = 0.6;
     private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
 
@@ -173,7 +175,8 @@ public class SvgWriter {
 
     private void writeTextNode(XMLStreamWriter writer, TextNode textNode) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(textNode));
+        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         writer.writeAttribute(STYLE_ELEMENT_NAME, "dominant-baseline:middle");
         writer.writeCharacters(textNode.getText());
         writer.writeEndElement();

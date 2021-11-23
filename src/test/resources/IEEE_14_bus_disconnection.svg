@@ -316,19 +316,19 @@
         </g>
     </g>
     <g class="nad-text-nodes">
-        <text transform="translate(4.84,-3.02)" style="dominant-baseline:middle">VL1</text>
-        <text transform="translate(2.37,-3.57)" style="dominant-baseline:middle">VL2</text>
-        <text transform="translate(0.46,-5.19)" style="dominant-baseline:middle">VL3</text>
-        <text transform="translate(-0.12,-2.35)" style="dominant-baseline:middle">VL4</text>
-        <text transform="translate(2.88,-0.91)" style="dominant-baseline:middle">VL5</text>
-        <text transform="translate(2.76,3.74)" style="dominant-baseline:middle">VL6</text>
-        <text transform="translate(-3.25,-1.90)" style="dominant-baseline:middle">VL7</text>
-        <text transform="translate(-5.95,-2.90)" style="dominant-baseline:middle">VL8</text>
-        <text transform="translate(-1.59,0.50)" style="dominant-baseline:middle">VL9</text>
-        <text transform="translate(-2.34,3.67)" style="dominant-baseline:middle">VL10</text>
-        <text transform="translate(-0.08,5.40)" style="dominant-baseline:middle">VL11</text>
-        <text transform="translate(5.12,5.30)" style="dominant-baseline:middle">VL12</text>
-        <text transform="translate(4.56,2.95)" style="dominant-baseline:middle">VL13</text>
-        <text transform="translate(1.26,1.77)" style="dominant-baseline:middle">VL14</text>
+        <text x="4.84" y="-3.02" style="dominant-baseline:middle">VL1</text>
+        <text x="2.37" y="-3.57" style="dominant-baseline:middle">VL2</text>
+        <text x="0.46" y="-5.19" style="dominant-baseline:middle">VL3</text>
+        <text x="-0.12" y="-2.35" style="dominant-baseline:middle">VL4</text>
+        <text x="2.88" y="-0.91" style="dominant-baseline:middle">VL5</text>
+        <text x="2.76" y="3.74" style="dominant-baseline:middle">VL6</text>
+        <text x="-3.25" y="-1.90" style="dominant-baseline:middle">VL7</text>
+        <text x="-5.95" y="-2.90" style="dominant-baseline:middle">VL8</text>
+        <text x="-1.59" y="0.50" style="dominant-baseline:middle">VL9</text>
+        <text x="-2.34" y="3.67" style="dominant-baseline:middle">VL10</text>
+        <text x="-0.08" y="5.40" style="dominant-baseline:middle">VL11</text>
+        <text x="5.12" y="5.30" style="dominant-baseline:middle">VL12</text>
+        <text x="4.56" y="2.95" style="dominant-baseline:middle">VL13</text>
+        <text x="1.26" y="1.77" style="dominant-baseline:middle">VL14</text>
     </g>
 </svg>
