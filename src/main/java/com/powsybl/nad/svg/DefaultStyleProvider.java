@@ -34,12 +34,12 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     public List<String> getEdgeInfoStyles(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
         if (info.getInfoType().equals(EdgeInfo.ACTIVE_POWER)) {
-            styles.add(AbstractStyleProvider.CLASSES_PREFIX + "active");
+            styles.add(CLASSES_PREFIX + "active");
         } else if (info.getInfoType().equals(EdgeInfo.REACTIVE_POWER)) {
-            styles.add(AbstractStyleProvider.CLASSES_PREFIX + "reactive");
+            styles.add(CLASSES_PREFIX + "reactive");
         }
         info.getDirection().ifPresent(direction -> styles.add(
-                AbstractStyleProvider.CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
+                CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
         return styles;
     }
 
