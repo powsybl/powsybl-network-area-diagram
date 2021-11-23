@@ -6,25 +6,23 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TextEdge extends AbstractEdge {
-
-    private Point[] points;
-
-    public TextEdge(String diagramId) {
-        super(diagramId, null, null);
+public interface BranchEdge extends Edge {
+    enum Side {
+        ONE, TWO
     }
 
-    public void setPoints(Point... points) {
-        this.points = points;
-    }
+    List<Point> getLine(Side side);
 
-    public List<Point> getPoints() {
-        return Arrays.asList(points);
-    }
+    List<Point> getSide1();
+
+    List<Point> getSide2();
+
+    void setSide1(Point... points);
+
+    void setSide2(Point... points);
 }

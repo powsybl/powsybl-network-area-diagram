@@ -16,10 +16,12 @@ public class VoltageLevelNode extends AbstractNode {
 
     private final double nominalV;
     private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
+    private final TextNode textNode;
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV, TextNode textNode) {
         super(diagramId, equipmentId, nameOrId);
         this.nominalV = nominalV;
+        this.textNode = textNode;
     }
 
     public double getNominalV() {
@@ -32,5 +34,9 @@ public class VoltageLevelNode extends AbstractNode {
 
     public int getBusNodesCount() {
         return busInnerNodes.size();
+    }
+
+    public TextNode getTextNode() {
+        return textNode;
     }
 }

@@ -8,11 +8,10 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.forcedlayout.ForceLayout;
 import com.powsybl.forcedlayout.Vector;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.*;
 
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -24,22 +23,34 @@ public class BasicForceLayout extends AbstractLayout {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
 
+        if (layoutParameters.isTextNodesForceLayout()) {
+            graph.getVoltageLevelNodesStream().collect(Collectors.toList()).forEach(vlNode -> {
+                TextNode textNode = vlNode.getTextNode();
+                graph.addNode(textNode);
+                graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
+            });
+        }
+
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.getJgraphtGraph())
                 .setMaxSpeed(1e3);
         forceLayout.execute();
 
-        double[] dims = new double[4];
         graph.getNodesStream().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
             node.setPosition(p.getX(), p.getY());
-            dims[0] = Math.min(dims[0], p.getX());
-            dims[1] = Math.max(dims[1], p.getX());
-            dims[2] = Math.min(dims[2], p.getY());
-            dims[3] = Math.max(dims[3], p.getY());
+        });
+
+        edgeLayout(graph, layoutParameters);
+
+        double[] dims = new double[4];
+        graph.getNodesStream().forEach(node -> {
+            dims[0] = Math.min(dims[0], node.getX());
+            dims[1] = Math.max(dims[1], node.getX());
+            dims[2] = Math.min(dims[2], node.getY());
+            dims[3] = Math.max(dims[3], node.getY());
         });
         graph.setDimensions(dims[0], dims[1], dims[2], dims[3]);
 
-        edgeLayout(graph, layoutParameters);
     }
 
 }

@@ -47,8 +47,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addGraphNodes(Graph graph) {
         for (VoltageLevel voltageLevel : network.getVoltageLevels()) {
+            TextNode textNode = new TextNode(idProvider.createId(voltageLevel), voltageLevel.getNameOrId());
             VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(voltageLevel),
-                    voltageLevel.getId(), voltageLevel.getNameOrId(), voltageLevel.getNominalV());
+                    voltageLevel.getId(), voltageLevel.getNameOrId(), voltageLevel.getNominalV(), textNode);
             graph.addNode(vlNode);
             voltageLevel.getBusView().getBusStream()
                     .map(bus -> new BusInnerNode(idProvider.createId(bus), bus.getId()))
