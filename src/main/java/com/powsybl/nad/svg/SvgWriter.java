@@ -147,7 +147,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(edge, side)));
         double angle = getEdgeYAxisAngle(edge, side);
-        double textAngle = angle > Math.PI / 2 ? angle - Math.PI : (angle < -Math.PI / 2 ? angle + Math.PI : angle);
+        double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styleProvider.getEdgeInfoStyles(info)));
