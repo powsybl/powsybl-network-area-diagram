@@ -10,9 +10,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.svg.DefaultStyleProvider;
-import com.powsybl.nad.svg.StyleProvider;
-import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,6 +44,11 @@ class SvgWriterTest extends AbstractTest {
     @Override
     protected StyleProvider getStyleProvider() {
         return new DefaultStyleProvider();
+    }
+
+    @Override
+    protected LabelProvider getLabelProvider(Network network) {
+        return new DefaultLabelProvider(network);
     }
 
     @Test

@@ -22,14 +22,6 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractStyleProvider implements StyleProvider {
 
-    private static final String CLASSES_PREFIX = "nad-";
-    private static final String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
-    private static final String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
-    private static final String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
-    private static final String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
-    private static final String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
-    private static final String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
-
     private final BaseVoltagesConfig baseVoltagesConfig;
 
     protected AbstractStyleProvider() {
@@ -69,31 +61,6 @@ public abstract class AbstractStyleProvider implements StyleProvider {
             getBaseVoltageStyle(nominalV).ifPresent(styles::add);
         }
         return styles;
-    }
-
-    @Override
-    public String getBranchEdgesStyle() {
-        return BRANCH_EDGES_CLASS;
-    }
-
-    @Override
-    public String getTextEdgesStyle() {
-        return TEXT_EDGES_CLASS;
-    }
-
-    @Override
-    public String getVoltageLevelNodesStyle() {
-        return VOLTAGE_LEVEL_NODES_CLASS;
-    }
-
-    @Override
-    public String getTextNodesStyle() {
-        return TEXT_NODES_CLASS;
-    }
-
-    @Override
-    public String getBusesTextStyle() {
-        return BUSES_TEXT_CLASS;
     }
 
     @Override

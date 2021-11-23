@@ -16,24 +16,27 @@ import java.util.List;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface StyleProvider {
+
+    String CLASSES_PREFIX = "nad-";
+    String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
+    String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
+    String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
+    String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
+    String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
+    String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
+    String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
+    String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
+    String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
+
     List<String> getCssFilenames();
 
     String getStyleDefs();
 
     List<String> getNodeStyleClasses(Node node);
 
-    String getBranchEdgesStyle();
-
-    String getTextEdgesStyle();
-
-    String getVoltageLevelNodesStyle();
-
-    String getTextNodesStyle();
-
-    String getBusesTextStyle();
-
     List<String> getEdgeStyleClasses(Edge edge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
+    List<String> getEdgeInfoStyles(EdgeInfo info);
 }
