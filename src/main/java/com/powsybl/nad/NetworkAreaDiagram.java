@@ -14,10 +14,7 @@ import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.svg.DefaultStyleProvider;
-import com.powsybl.nad.svg.StyleProvider;
-import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.SvgWriter;
+import com.powsybl.nad.svg.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -51,16 +48,22 @@ public class NetworkAreaDiagram {
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
+                                   StyleProvider styleProvider, LabelProvider labelProvider) {
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
+    }
+
+    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
+                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
+                                   IdProvider idProvider) {
         Objects.requireNonNull(svgFile);
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);
@@ -70,7 +73,7 @@ public class NetworkAreaDiagram {
 
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, svgFile);
+        new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
     }
 
     public void draw(Writer writer) {
@@ -87,19 +90,25 @@ public class NetworkAreaDiagram {
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, new BasicForceLayoutFactory());
+        draw(writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LayoutFactory layoutFactory) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, layoutFactory, new IntIdProvider());
+                     StyleProvider styleProvider, LabelProvider labelProvider) {
+        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
+        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
+    }
+
+    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
+                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
+                     IdProvider idProvider) {
         Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider).writeSvg(graph, writer);
+        new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, writer);
     }
 
     public String drawToString(SvgParameters svgParameters) {

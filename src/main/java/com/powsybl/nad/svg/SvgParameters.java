@@ -20,9 +20,11 @@ public class SvgParameters {
     private SizeConstraint sizeConstraint = SizeConstraint.NONE;
     private int fixedWidth = -1;
     private int fixedHeight = -1;
+    private double arrowShift = 0.3;
+    private double arrowLabelShift = 0.12;
 
     public enum CssLocation {
-        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
     }
 
     public enum SizeConstraint {
@@ -94,4 +96,21 @@ public class SvgParameters {
         return this;
     }
 
+    public double getArrowShift() {
+        return arrowShift;
+    }
+
+    public SvgParameters setArrowShift(double arrowShift) {
+        this.arrowShift = arrowShift;
+        return this;
+    }
+
+    public double getArrowLabelShift() {
+        return arrowLabelShift;
+    }
+
+    public SvgParameters setArrowLabelShift(double arrowLabelShift) {
+        this.arrowLabelShift = arrowLabelShift;
+        return this;
+    }
 }

@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,6 +28,19 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     @Override
     public List<String> getCssFilenames() {
         return Collections.singletonList("defaultStyle.css");
+    }
+
+    @Override
+    public List<String> getEdgeInfoStyles(EdgeInfo info) {
+        List<String> styles = new LinkedList<>();
+        if (info.getInfoType().equals(EdgeInfo.ACTIVE_POWER)) {
+            styles.add(CLASSES_PREFIX + "active");
+        } else if (info.getInfoType().equals(EdgeInfo.REACTIVE_POWER)) {
+            styles.add(CLASSES_PREFIX + "reactive");
+        }
+        info.getDirection().ifPresent(direction -> styles.add(
+                CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
+        return styles;
     }
 
 }

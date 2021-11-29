@@ -13,6 +13,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
@@ -35,11 +36,13 @@ public abstract class AbstractTest {
 
     protected abstract StyleProvider getStyleProvider();
 
+    protected abstract LabelProvider getLabelProvider(Network network);
+
     protected String generateSvgString(Network network, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider()).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getStyleProvider(), getLabelProvider(network)).writeSvg(graph, writer);
         String svgString = writer.toString();
         if (debugSvg) {
             writeToHomeDir(refFilename, svgString);
