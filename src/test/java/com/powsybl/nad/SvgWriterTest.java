@@ -7,6 +7,7 @@
 package com.powsybl.nad;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
@@ -96,6 +97,12 @@ class SvgWriterTest extends AbstractTest {
     void testIEEE118() {
         Network network = IeeeCdfNetworkFactory.create118();
         assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
+    }
+
+    @Test
+    void testEurope() {
+        Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
     }
 
 }
