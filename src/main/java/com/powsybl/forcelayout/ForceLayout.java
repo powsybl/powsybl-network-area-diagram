@@ -25,7 +25,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.powsybl.forcedlayout;
+package com.powsybl.forcelayout;
 
 import org.jgrapht.Graph;
 import org.slf4j.Logger;

@@ -6,8 +6,8 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.forcedlayout.ForceLayout;
-import com.powsybl.forcedlayout.Vector;
+import com.powsybl.forcelayout.ForceLayout;
+import com.powsybl.forcelayout.Vector;
 import com.powsybl.nad.model.*;
 
 import java.util.Objects;
