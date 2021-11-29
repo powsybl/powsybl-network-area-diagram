@@ -126,7 +126,9 @@ public class ForceLayout<V, E> {
         for (E e : graph.edgeSet()) {
             Point pointSource = points.get(graph.getEdgeSource(e));
             Point pointTarget = points.get(graph.getEdgeTarget(e));
-            springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
+            if (pointSource != pointTarget) { // no use in force layout to add loops
+                springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
+            }
         }
     }
 
