@@ -86,7 +86,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     private Optional<String> getBaseVoltageStyle(double nominalV) {
-        return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile());
+        return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())
+                .map(bvName -> CLASSES_PREFIX + bvName);
     }
 
 }
