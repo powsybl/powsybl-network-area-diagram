@@ -11,6 +11,7 @@ import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -97,6 +98,13 @@ class SvgWriterTest extends AbstractTest {
     void testIEEE118() {
         Network network = IeeeCdfNetworkFactory.create118();
         assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
+    }
+
+    @Test
+    void testIEEE118PartialGraph() {
+        Network network = IeeeCdfNetworkFactory.create118();
+        VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL92", 4);
+        assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
     }
 
     @Test
