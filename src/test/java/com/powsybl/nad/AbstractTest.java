@@ -39,7 +39,7 @@ public abstract class AbstractTest {
     protected abstract LabelProvider getLabelProvider(Network network);
 
     protected String generateSvgString(Network network, String refFilename) {
-        Graph graph = new NetworkGraphBuilder(network, new IntIdProvider()).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(), getLabelProvider(network)).writeSvg(graph, writer);
