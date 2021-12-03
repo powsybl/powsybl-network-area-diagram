@@ -33,24 +33,32 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     public static VoltageLevelFilter createVoltageLevelDepthFilter(Network network, String voltageLevelId, int depth) {
         Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
-        traverseVoltageLevels(vl, depth, voltageLevels);
+        Set<VoltageLevel> startingSet = new HashSet<>();
+        startingSet.add(vl);
+        traverseVoltageLevels(startingSet, depth, voltageLevels);
         return new VoltageLevelFilter(voltageLevels);
     }
 
-    private static void traverseVoltageLevels(VoltageLevel vl, int depth, Set<VoltageLevel> visitedVoltageLevels) {
-        if (visitedVoltageLevels.contains(vl) || depth <= 0) {
+    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
+        if (depth < 0) {
             return;
         }
-        visitedVoltageLevels.add(vl);
-        vl.visitEquipments(new VlVisitor(depth - 1, visitedVoltageLevels));
+        Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
+        for (VoltageLevel vl : voltageLevelsDepth) {
+            if (!visitedVoltageLevels.contains(vl)) {
+                visitedVoltageLevels.add(vl);
+                vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
+            }
+        }
+        traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
     }
 
     private static class VlVisitor extends DefaultTopologyVisitor {
-        private final int depth;
+        private final Set<VoltageLevel> nextDepthVoltageLevels;
         private final Set<VoltageLevel> visitedVoltageLevels;
 
-        public VlVisitor(int depth, Set<VoltageLevel> visitedVoltageLevels) {
-            this.depth = depth;
+        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels) {
+            this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
         }
 
@@ -84,7 +92,10 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
 
         private void visitTerminal(Terminal terminal) {
-            traverseVoltageLevels(terminal.getVoltageLevel(), depth, visitedVoltageLevels);
+            VoltageLevel voltageLevel = terminal.getVoltageLevel();
+            if (!visitedVoltageLevels.contains(voltageLevel)) {
+                nextDepthVoltageLevels.add(voltageLevel);
+            }
         }
     }
 
