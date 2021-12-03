@@ -25,4 +25,8 @@ public interface BranchEdge extends Edge {
     void setSide1(Point... points);
 
     void setSide2(Point... points);
+
+    boolean isVisible(Side side);
+
+    void setVisible(Side side, boolean visible);
 }

@@ -12,8 +12,8 @@ package com.powsybl.nad.model;
 public class ThreeWtEdge extends AbstractEdge {
     private final boolean connected;
 
-    public ThreeWtEdge(String diagramId, String transformerId, String transformerName, boolean connected) {
-        super(diagramId, transformerId, transformerName);
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, boolean connected) {
+        super(diagramId, equipmentId, transformerName);
         this.connected = connected;
     }
 

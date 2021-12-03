@@ -7,6 +7,8 @@
 package com.powsybl.nad;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.build.iidm.IdProvider;
 import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
@@ -22,6 +24,7 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -29,9 +32,19 @@ import java.util.Objects;
 public class NetworkAreaDiagram {
 
     private final Network network;
+    private final Predicate<VoltageLevel> voltageLevelFilter;
 
     public NetworkAreaDiagram(Network network) {
+        this(network, VoltageLevelFilter.NO_FILTER);
+    }
+
+    public NetworkAreaDiagram(Network network, String voltageLevelId, int depth) {
+        this(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
         this.network = Objects.requireNonNull(network);
+        this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
     }
 
     public void draw(Path svgFile) {
@@ -71,7 +84,7 @@ public class NetworkAreaDiagram {
         Objects.requireNonNull(layoutFactory);
         Objects.requireNonNull(idProvider);
 
-        Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
     }
@@ -106,7 +119,7 @@ public class NetworkAreaDiagram {
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
                      IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, idProvider).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, writer);
     }
