@@ -137,8 +137,8 @@ public class Graph {
             jgrapht.vertexSet().forEach(graphWithTextNodes::addVertex);
             jgrapht.edgeSet().forEach(e -> graphWithTextNodes.addEdge(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e), e));
             textNodes.forEach(graphWithTextNodes::addVertex);
-            textEdges.forEach((edge, nodes) -> {
-                graphWithTextNodes.addEdge(nodes.getFirst(), nodes.getSecond(), edge);
+            textEdges.forEach((edge, nodePair) -> {
+                graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
                 graphWithTextNodes.setEdgeWeight(edge, 1);
             });
             return graphWithTextNodes;

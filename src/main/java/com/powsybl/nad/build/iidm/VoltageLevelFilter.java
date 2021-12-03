@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  */
 public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
-    public static Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
+    public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
     private final Set<VoltageLevel> voltageLevels;
 
