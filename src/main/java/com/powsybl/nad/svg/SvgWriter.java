@@ -251,6 +251,9 @@ public class SvgWriter {
     }
 
     private void writeTextNode(XMLStreamWriter writer, TextNode textNode) throws XMLStreamException {
+        if (textNode == null) {
+            return;
+        }
         writer.writeStartElement(TEXT_ELEMENT_NAME);
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));

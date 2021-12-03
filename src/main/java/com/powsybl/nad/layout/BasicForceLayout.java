@@ -11,7 +11,6 @@ import com.powsybl.forcelayout.Vector;
 import com.powsybl.nad.model.*;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -23,27 +22,24 @@ public class BasicForceLayout extends AbstractLayout {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
 
-        if (layoutParameters.isTextNodesForceLayout()) {
-            graph.getVoltageLevelNodesStream().collect(Collectors.toList()).forEach(vlNode -> {
-                TextNode textNode = vlNode.getTextNode();
-                graph.addNode(textNode);
-                graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
-            });
-        }
-
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(graph.getJgraphtGraph())
+        org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
                 .setMaxSpeed(1e3);
         forceLayout.execute();
 
-        graph.getNodesStream().forEach(node -> {
+        jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
             node.setPosition(p.getX(), p.getY());
         });
 
+        if (!layoutParameters.isTextNodesForceLayout()) {
+            graph.getVoltageLevelNodesStream().forEach(this::fixedTextNodeLayout);
+        }
+
         edgeLayout(graph, layoutParameters);
 
         double[] dims = new double[4];
-        graph.getNodesStream().forEach(node -> {
+        jgraphtGraph.vertexSet().forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
             dims[1] = Math.max(dims[1], node.getX());
             dims[2] = Math.min(dims[2], node.getY());
@@ -53,4 +49,15 @@ public class BasicForceLayout extends AbstractLayout {
 
     }
 
+    private void fixedTextNodeLayout(VoltageLevelNode vln) {
+        TextNode textNode = vln.getTextNode();
+        if (textNode != null) {
+            Point fixedShift = getTextNodeFixedShift();
+            textNode.setPosition(vln.getX() + fixedShift.getX(), vln.getY() + fixedShift.getY());
+        }
+    }
+
+    protected Point getTextNodeFixedShift() {
+        return new Point(1, 0);
+    }
 }
