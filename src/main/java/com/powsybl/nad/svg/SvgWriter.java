@@ -297,28 +297,24 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_EDGES_CLASS);
         for (TextEdge edge : graph.getTextEdges()) {
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
-            List<String> edgeStyleClasses = styleProvider.getEdgeStyleClasses(edge);
-            if (!edgeStyleClasses.isEmpty()) {
-                writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeStyleClasses));
-            }
             drawTextEdge(writer, edge);
-            writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge) throws XMLStreamException {
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
+        List<String> edgeStyleClasses = styleProvider.getEdgeStyleClasses(edge);
+        if (!edgeStyleClasses.isEmpty()) {
+            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeStyleClasses));
+        }
         List<Point> points = edge.getPoints();
         shiftEdgeStart(points);
         String lineFormatted1 = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute("points", lineFormatted1);
-        writer.writeEndElement();
     }
 
     private void shiftEdgeStart(List<Point> points) {
