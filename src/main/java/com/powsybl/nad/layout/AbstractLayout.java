@@ -26,8 +26,9 @@ public abstract class AbstractLayout implements Layout {
         Point point2 = new Point(node2.getX(), node2.getY());
         Point middle = Point.createMiddlePoint(point1, point2);
         edge.setSide1(point1, middle);
-        if (!(node2 instanceof VoltageLevelNode) || ((VoltageLevelNode) node2).isVisible()) {
-            edge.setSide2(point2, middle);
+        edge.setSide2(point2, middle);
+        if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
+            edge.setVisible(BranchEdge.Side.TWO, false);
         }
     }
 
@@ -64,8 +65,9 @@ public abstract class AbstractLayout implements Layout {
 
                 Point middle = Point.createMiddlePoint(fork1, fork2);
                 branchEdge.setSide1(pointA, fork1, middle);
-                if (!(node2 instanceof VoltageLevelNode) || ((VoltageLevelNode) node2).isVisible()) {
-                    branchEdge.setSide2(pointB, fork2, middle);
+                branchEdge.setSide2(pointB, fork2, middle);
+                if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
+                    branchEdge.setVisible(BranchEdge.Side.TWO, false);
                 }
             }
             i++;

@@ -124,6 +124,10 @@ public class SvgWriter {
     }
 
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+        // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
+        if (!edge.isVisible(side) && !(edge instanceof TwoWtEdge)) {
+            return;
+        }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         List<String> edgeSideStyleClasses = styleProvider.getSideEdgeStyleClasses(edge, side);
         if (!edgeSideStyleClasses.isEmpty()) {
@@ -131,7 +135,7 @@ public class SvgWriter {
         }
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         List<Point> half = edge.getLine(side);
-        if (!half.isEmpty()) {
+        if (edge.isVisible(side)) {
             String lineFormatted = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));

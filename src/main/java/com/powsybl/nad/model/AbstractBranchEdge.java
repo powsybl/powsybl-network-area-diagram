@@ -19,6 +19,7 @@ public abstract class AbstractBranchEdge extends AbstractEdge implements BranchE
     private final boolean side2Connected;
     private List<Point> line1 = Collections.emptyList();
     private List<Point> line2 = Collections.emptyList();
+    private final boolean[] visible = new boolean[] {true, true};
 
     protected AbstractBranchEdge(String diagramId, String equipmentId, String nameOrId, boolean side1Connected, boolean side2Connected) {
         super(diagramId, equipmentId, nameOrId);
@@ -27,6 +28,7 @@ public abstract class AbstractBranchEdge extends AbstractEdge implements BranchE
     }
 
     public List<Point> getLine(Side side) {
+        Objects.requireNonNull(side);
         return side == Side.ONE ? getSide1() : getSide2();
     }
 
@@ -52,7 +54,20 @@ public abstract class AbstractBranchEdge extends AbstractEdge implements BranchE
         this.line2 = Arrays.asList(points);
     }
 
+    @Override
+    public boolean isVisible(Side side) {
+        Objects.requireNonNull(side);
+        return visible[side.ordinal()];
+    }
+
+    @Override
+    public void setVisible(Side side, boolean visible) {
+        Objects.requireNonNull(side);
+        this.visible[side.ordinal()] = visible;
+    }
+
     public boolean isConnected(Side side) {
+        Objects.requireNonNull(side);
         return side == Side.ONE ? isSide1Connected() : isSide2Connected();
     }
 
