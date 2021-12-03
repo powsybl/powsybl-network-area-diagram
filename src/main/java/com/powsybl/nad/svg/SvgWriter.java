@@ -131,14 +131,16 @@ public class SvgWriter {
         }
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         List<Point> half = edge.getLine(side);
-        String lineFormatted1 = half.stream()
+        if (!half.isEmpty()) {
+            String lineFormatted = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-        writer.writeAttribute("points", lineFormatted1);
+            writer.writeAttribute("points", lineFormatted);
+            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+        }
         if (edge instanceof TwoWtEdge) {
             drawTransformer(writer, half);
         }
-        drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
         writer.writeEndElement();
     }
 
