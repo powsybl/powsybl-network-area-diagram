@@ -12,7 +12,7 @@ public abstract class AbstractLayout implements Layout {
         Objects.requireNonNull(layoutParameters);
         graph.getNonMultiBranchEdgesStream().forEach(edge -> singleEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> multiEdgesLayout(graph, edges, layoutParameters));
-        graph.getTextEdgesStream().forEach(edge -> textEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
+        graph.getTextEdgesMap().forEach((edge, nodes) -> textEdgeLayout(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
     protected void textEdgeLayout(Node node1, Node node2, TextEdge edge) {

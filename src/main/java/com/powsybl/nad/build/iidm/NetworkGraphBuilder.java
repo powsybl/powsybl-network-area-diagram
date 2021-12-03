@@ -48,10 +48,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addGraphNodes(Graph graph) {
         network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> {
-            TextNode textNode = new TextNode(idProvider.createId(vl), vl.getNameOrId());
             VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl),
-                    vl.getId(), vl.getNameOrId(), vl.getNominalV(), textNode);
+                    vl.getId(), vl.getNameOrId(), vl.getNominalV());
+            TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
             graph.addNode(vlNode);
+            graph.addNode(textNode);
+            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
             vl.getBusView().getBusStream()
                     .map(bus -> new BusInnerNode(idProvider.createId(bus), bus.getId()))
                     .forEach(vlNode::addBusNode);
@@ -165,7 +167,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private VoltageLevelNode createInvisibleVoltageLevelNode(VoltageLevel vl) {
-            VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.getNominalV(), null, false);
+            VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.getNominalV(), false);
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
         }

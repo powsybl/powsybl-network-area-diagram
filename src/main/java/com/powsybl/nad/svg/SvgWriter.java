@@ -238,8 +238,8 @@ public class SvgWriter {
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().collect(Collectors.toList())) {
-            writeTextNode(writer, vlNode.getTextNode());
+        for (TextNode tn : graph.getTextNodes()) {
+            writeTextNode(writer, tn);
         }
         writer.writeEndElement();
     }

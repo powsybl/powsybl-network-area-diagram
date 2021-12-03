@@ -16,17 +16,15 @@ public class VoltageLevelNode extends AbstractNode {
 
     private final double nominalV;
     private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
-    private final TextNode textNode;
     private final boolean visible;
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV, TextNode textNode) {
-        this(diagramId, equipmentId, nameOrId, nominalV, textNode, true);
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV) {
+        this(diagramId, equipmentId, nameOrId, nominalV, true);
     }
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV, TextNode textNode, boolean visible) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV, boolean visible) {
         super(diagramId, equipmentId, nameOrId);
         this.nominalV = nominalV;
-        this.textNode = textNode;
         this.visible = visible;
     }
 
@@ -40,10 +38,6 @@ public class VoltageLevelNode extends AbstractNode {
 
     public int getBusNodesCount() {
         return busInnerNodes.size();
-    }
-
-    public TextNode getTextNode() {
-        return textNode;
     }
 
     public boolean isVisible() {

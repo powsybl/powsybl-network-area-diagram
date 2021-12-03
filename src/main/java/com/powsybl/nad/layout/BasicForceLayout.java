@@ -9,6 +9,7 @@ package com.powsybl.nad.layout;
 import com.powsybl.forcelayout.ForceLayout;
 import com.powsybl.forcelayout.Vector;
 import com.powsybl.nad.model.*;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class BasicForceLayout extends AbstractLayout {
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
-            graph.getVoltageLevelNodesStream().forEach(this::fixedTextNodeLayout);
+            graph.getTextEdgesMap().forEach(this::fixedTextNodeLayout);
         }
 
         edgeLayout(graph, layoutParameters);
@@ -49,12 +50,10 @@ public class BasicForceLayout extends AbstractLayout {
 
     }
 
-    private void fixedTextNodeLayout(VoltageLevelNode vln) {
-        TextNode textNode = vln.getTextNode();
-        if (textNode != null) {
-            Point fixedShift = getTextNodeFixedShift();
-            textNode.setPosition(vln.getX() + fixedShift.getX(), vln.getY() + fixedShift.getY());
-        }
+    private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
+        VoltageLevelNode vlNode = nodes.getFirst();
+        Point fixedShift = getTextNodeFixedShift();
+        nodes.getSecond().setPosition(vlNode.getX() + fixedShift.getX(), vlNode.getY() + fixedShift.getY());
     }
 
     protected Point getTextNodeFixedShift() {
