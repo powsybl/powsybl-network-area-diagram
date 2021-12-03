@@ -27,7 +27,7 @@ public class Graph {
 
     private final org.jgrapht.Graph<Node, Edge> jgrapht = new WeightedPseudograph<>(Edge.class);
     private final List<TextNode> textNodes = new ArrayList<>();
-    private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new HashMap<>();
+    private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
