@@ -6,9 +6,11 @@
  */
 package com.powsybl.nad.build.iidm;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -31,8 +33,15 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     }
 
     public static VoltageLevelFilter createVoltageLevelDepthFilter(Network network, String voltageLevelId, int depth) {
+        Objects.requireNonNull(network);
+        Objects.requireNonNull(voltageLevelId);
+
         Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
+        if (vl == null) {
+            throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
+        }
+
         Set<VoltageLevel> startingSet = new HashSet<>();
         startingSet.add(vl);
         traverseVoltageLevels(startingSet, depth, voltageLevels);
