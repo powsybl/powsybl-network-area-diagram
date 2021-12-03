@@ -104,7 +104,7 @@ class SvgWriterTest extends AbstractTest {
     void testIEEE118PartialGraph() {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL92", 4);
-        assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
+        assertEquals(toString("/IEEE_118_bus_partial.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
     }
 
     @Test

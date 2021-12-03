@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="800.00" height="733.01" viewBox="-6.24 -6.44 14.26 13.07" xmlns="http://www.w3.org/2000/svg">
+<svg width="800.00" height="792.29" viewBox="-6.66 -5.35 12.24 12.12" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
@@ -29,48 +29,48 @@
     <g class="nad-branch-edges">
         <g id="32" class="nad-vl300to500" title="BBE1AA1  BBE2AA1  1">
             <g>
-                <polyline points="-4.24,0.84 -4.45,1.61 -4.34,2.04"/>
-                <g class="nad-edge-infos" transform="translate(-4.38,1.90)">
+                <polyline points="3.49,2.20 2.74,2.49 2.27,3.09"/>
+                <g class="nad-edge-infos" transform="translate(2.56,2.73)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(165.31)">
+                        <g transform="rotate(-141.71)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(165.31)">
+                        <g transform="rotate(-141.71)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-3.66,3.05 -4.23,2.48 -4.34,2.04"/>
-                <g class="nad-edge-infos" transform="translate(-4.30,2.19)">
+                <polyline points="1.69,4.47 1.81,3.68 2.27,3.09"/>
+                <g class="nad-edge-infos" transform="translate(1.99,3.45)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-14.69)">
+                        <g transform="rotate(38.29)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-14.69)">
+                        <g transform="rotate(38.29)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="33" class="nad-vl300to500" title="BBE1AA1  BBE3AA1  1">
             <g>
-                <polyline points="-4.24,0.84 -3.55,1.24 -4.24,1.24"/>
-                <g class="nad-edge-infos" transform="translate(-3.85,1.24)">
+                <polyline points="3.49,2.20 4.18,2.60 3.49,2.60"/>
+                <g class="nad-edge-infos" transform="translate(3.88,2.60)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -88,8 +88,8 @@
                 </g>
             </g>
             <g>
-                <polyline points="-4.24,0.84 -4.94,1.24 -4.24,1.24"/>
-                <g class="nad-edge-infos" transform="translate(-4.64,1.24)">
+                <polyline points="3.49,2.20 2.79,2.60 3.49,2.60"/>
+                <g class="nad-edge-infos" transform="translate(3.09,2.60)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -109,29 +109,28 @@
         </g>
         <g id="34" title="BBE1AA1  BBE3AA1  2">
             <g class="nad-vl300to500">
-                <polyline points="-4.24,0.84 -3.55,0.44 -4.24,0.44"/>
-                <circle cx="-4.14" cy="0.44" r="0.20"/>
-                <g class="nad-edge-infos" transform="translate(-3.85,0.44)">
+                <polyline points="3.49,2.20 4.18,1.80 3.49,1.80"/>
+                <g class="nad-edge-infos" transform="translate(3.88,1.80)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(90.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-90.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(90.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-90.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
+                <circle cx="3.59" cy="1.80" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="-4.24,0.84 -4.94,0.44 -4.24,0.44"/>
-                <circle cx="-4.34" cy="0.44" r="0.20"/>
-                <g class="nad-edge-infos" transform="translate(-4.64,0.44)">
+                <polyline points="3.49,2.20 2.79,1.80 3.49,1.80"/>
+                <g class="nad-edge-infos" transform="translate(3.09,1.80)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -147,332 +146,333 @@
                         <text transform="rotate(90.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
+                <circle cx="3.39" cy="1.80" r="0.20"/>
             </g>
         </g>
         <g id="35" class="nad-vl300to500" title="BBE2AA1  BBE3AA1  1">
             <g>
-                <polyline points="-4.24,0.84 -3.68,1.41 -3.57,1.84"/>
-                <g class="nad-edge-infos" transform="translate(-3.60,1.70)">
+                <polyline points="3.49,2.20 3.37,2.99 2.90,3.58"/>
+                <g class="nad-edge-infos" transform="translate(3.19,3.23)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(165.31)">
+                        <g transform="rotate(-141.71)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(165.31)">
+                        <g transform="rotate(-141.71)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-3.66,3.05 -3.45,2.28 -3.57,1.84"/>
-                <g class="nad-edge-infos" transform="translate(-3.53,1.99)">
+                <polyline points="1.69,4.47 2.43,4.18 2.90,3.58"/>
+                <g class="nad-edge-infos" transform="translate(2.62,3.94)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-14.69)">
+                        <g transform="rotate(38.29)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-14.69)">
+                        <g transform="rotate(38.29)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.29)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="36" class="nad-vl300to500" title="NNL2AA1  BBE3AA1  1">
             <g>
-                <polyline points="-2.99,-2.01 -3.62,-0.59"/>
-                <g class="nad-edge-infos" transform="translate(-3.35,-1.19)">
+                <polyline points="3.49,2.20 3.42,0.68"/>
+                <g class="nad-edge-infos" transform="translate(3.44,1.30)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-156.23)">
+                        <g transform="rotate(-2.69)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(23.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-2.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-156.23)">
+                        <g transform="rotate(-2.69)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(23.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-2.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-4.24,0.84 -3.62,-0.59"/>
-                <g class="nad-edge-infos" transform="translate(-3.88,0.01)">
+                <polyline points="3.34,-0.84 3.42,0.68"/>
+                <g class="nad-edge-infos" transform="translate(3.39,0.06)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(23.77)">
+                        <g transform="rotate(177.31)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(23.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-2.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(23.77)">
+                        <g transform="rotate(177.31)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(23.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-2.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="37" class="nad-vl300to500" title="BBE2AA1  FFR3AA1  1">
             <g>
-                <polyline points="-3.66,3.05 -2.42,3.84"/>
-                <g class="nad-edge-infos" transform="translate(-2.90,3.53)">
+                <polyline points="1.69,4.47 0.26,4.63"/>
+                <g class="nad-edge-infos" transform="translate(0.79,4.57)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(122.41)">
+                        <g transform="rotate(-96.06)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-57.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(122.41)">
+                        <g transform="rotate(-96.06)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-57.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-1.18,4.62 -2.42,3.84"/>
-                <g class="nad-edge-infos" transform="translate(-1.94,4.14)">
+                <polyline points="-1.17,4.78 0.26,4.63"/>
+                <g class="nad-edge-infos" transform="translate(-0.27,4.68)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-57.59)">
+                        <g transform="rotate(83.94)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-57.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-57.59)">
+                        <g transform="rotate(83.94)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-57.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="38" class="nad-vl300to500" title="DDE1AA1  DDE2AA1  1">
             <g>
-                <polyline points="5.02,-0.48 3.81,-0.91"/>
-                <g class="nad-edge-infos" transform="translate(4.17,-0.78)">
+                <polyline points="-4.66,-2.47 -3.38,-2.38"/>
+                <g class="nad-edge-infos" transform="translate(-3.76,-2.41)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-70.58)">
+                        <g transform="rotate(93.97)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-70.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-86.03)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-70.58)">
+                        <g transform="rotate(93.97)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-70.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-86.03)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="2.60,-1.33 3.81,-0.91"/>
-                <g class="nad-edge-infos" transform="translate(3.45,-1.03)">
+                <polyline points="-2.11,-2.29 -3.38,-2.38"/>
+                <g class="nad-edge-infos" transform="translate(-3.01,-2.36)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(109.42)">
+                        <g transform="rotate(-86.03)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-70.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-86.03)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(109.42)">
+                        <g transform="rotate(-86.03)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-70.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-86.03)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="39" class="nad-vl300to500" title="DDE1AA1  DDE3AA1  1">
             <g>
-                <polyline points="5.02,-0.48 4.19,0.47"/>
-                <g class="nad-edge-infos" transform="translate(4.42,0.20)">
+                <polyline points="-4.66,-2.47 -4.28,-1.27"/>
+                <g class="nad-edge-infos" transform="translate(-4.39,-1.61)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-138.83)">
+                        <g transform="rotate(162.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(41.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-17.58)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-138.83)">
+                        <g transform="rotate(162.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(41.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-17.58)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="3.36,1.41 4.19,0.47"/>
-                <g class="nad-edge-infos" transform="translate(3.95,0.74)">
+                <polyline points="-3.90,-0.07 -4.28,-1.27"/>
+                <g class="nad-edge-infos" transform="translate(-4.17,-0.93)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(41.17)">
+                        <g transform="rotate(-17.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(41.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-17.58)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(41.17)">
+                        <g transform="rotate(-17.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(41.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-17.58)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="40" class="nad-vl300to500" title="DDE2AA1  DDE3AA1  1">
             <g>
-                <polyline points="2.60,-1.33 2.98,0.04"/>
-                <g class="nad-edge-infos" transform="translate(2.84,-0.46)">
+                <polyline points="-2.11,-2.29 -3.00,-1.18"/>
+                <g class="nad-edge-infos" transform="translate(-2.67,-1.59)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(164.60)">
+                        <g transform="rotate(-141.11)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-15.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.89)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(164.60)">
+                        <g transform="rotate(-141.11)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-15.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.89)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="3.36,1.41 2.98,0.04"/>
-                <g class="nad-edge-infos" transform="translate(3.12,0.55)">
+                <polyline points="-3.90,-0.07 -3.00,-1.18"/>
+                <g class="nad-edge-infos" transform="translate(-3.33,-0.78)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-15.40)">
+                        <g transform="rotate(38.89)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-15.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.89)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-15.40)">
+                        <g transform="rotate(38.89)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-15.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(38.89)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="41" class="nad-vl300to500" title="DDE2AA1  NNL3AA1  1">
             <g>
-                <polyline points="2.60,-1.33 1.17,-2.11"/>
-                <g class="nad-edge-infos" transform="translate(1.81,-1.76)">
+                <polyline points="-2.11,-2.29 -0.49,-2.47"/>
+                <g class="nad-edge-infos" transform="translate(-1.21,-2.39)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-61.59)">
+                        <g transform="rotate(83.94)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-61.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-61.59)">
+                        <g transform="rotate(83.94)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-61.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-0.26,-2.88 1.17,-2.11"/>
-                <g class="nad-edge-infos" transform="translate(0.53,-2.45)">
+                <polyline points="1.13,-2.64 -0.49,-2.47"/>
+                <g class="nad-edge-infos" transform="translate(0.23,-2.54)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(118.41)">
+                        <g transform="rotate(-96.06)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-61.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(118.41)">
+                        <g transform="rotate(-96.06)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-61.59)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(83.94)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="42" class="nad-vl300to500" title="FFR2AA1  DDE3AA1  1">
             <g>
-                <polyline points="1.65,3.94 2.50,2.68"/>
-                <g class="nad-edge-infos" transform="translate(2.15,3.19)">
+                <polyline points="-3.90,-0.07 -3.65,1.43"/>
+                <g class="nad-edge-infos" transform="translate(-3.75,0.81)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(34.13)">
+                        <g transform="rotate(170.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(34.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.42)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(34.13)">
+                        <g transform="rotate(170.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(34.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.42)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="3.36,1.41 2.50,2.68"/>
-                <g class="nad-edge-infos" transform="translate(2.85,2.16)">
+                <polyline points="-3.40,2.93 -3.65,1.43"/>
+                <g class="nad-edge-infos" transform="translate(-3.55,2.04)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-145.87)">
+                        <g transform="rotate(-9.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(34.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.42)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-145.87)">
+                        <g transform="rotate(-9.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(34.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.42)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="43" class="nad-vl300to500" title="FFR1AA1  FFR2AA1  1">
             <g>
-                <polyline points="1.65,3.94 2.34,4.34 1.65,4.34"/>
-                <g class="nad-edge-infos" transform="translate(2.04,4.34)">
+                <polyline points="-3.40,2.93 -2.71,3.33 -3.40,3.33"/>
+                <g class="nad-edge-infos" transform="translate(-3.01,3.33)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -490,8 +490,8 @@
                 </g>
             </g>
             <g>
-                <polyline points="1.65,3.94 0.96,4.34 1.65,4.34"/>
-                <g class="nad-edge-infos" transform="translate(1.26,4.34)">
+                <polyline points="-3.40,2.93 -4.09,3.33 -3.40,3.33"/>
+                <g class="nad-edge-infos" transform="translate(-3.79,3.33)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -511,49 +511,48 @@
         </g>
         <g id="44" class="nad-vl300to500" title="FFR1AA1  FFR3AA1  1">
             <g>
-                <polyline points="1.65,3.94 0.88,3.71 0.14,3.89"/>
-                <g class="nad-edge-infos" transform="translate(0.59,3.78)">
+                <polyline points="-3.40,2.93 -3.12,3.68 -2.54,4.16"/>
+                <g class="nad-edge-infos" transform="translate(-2.89,3.87)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-103.64)">
+                        <g transform="rotate(129.60)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-103.64)">
+                        <g transform="rotate(129.60)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-1.18,4.62 -0.60,4.07 0.14,3.89"/>
-                <g class="nad-edge-infos" transform="translate(-0.31,4.00)">
+                <polyline points="-1.17,4.78 -1.95,4.64 -2.54,4.16"/>
+                <g class="nad-edge-infos" transform="translate(-2.19,4.45)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(76.36)">
+                        <g transform="rotate(-50.40)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(76.36)">
+                        <g transform="rotate(-50.40)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="45" title="FFR1AA1  FFR2AA1  2">
             <g class="nad-vl300to500">
-                <polyline points="1.65,3.94 2.34,3.54 1.65,3.54"/>
-                <circle cx="1.75" cy="3.54" r="0.20"/>
-                <g class="nad-edge-infos" transform="translate(2.04,3.54)">
+                <polyline points="-3.40,2.93 -2.71,2.53 -3.40,2.53"/>
+                <g class="nad-edge-infos" transform="translate(-3.01,2.53)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -569,11 +568,11 @@
                         <text transform="rotate(-90.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
+                <circle cx="-3.30" cy="2.53" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="1.65,3.94 0.96,3.54 1.65,3.54"/>
-                <circle cx="1.55" cy="3.54" r="0.20"/>
-                <g class="nad-edge-infos" transform="translate(1.26,3.54)">
+                <polyline points="-3.40,2.93 -4.09,2.53 -3.40,2.53"/>
+                <g class="nad-edge-infos" transform="translate(-3.79,2.53)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(90.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -589,273 +588,223 @@
                         <text transform="rotate(90.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
+                <circle cx="-3.50" cy="2.53" r="0.20"/>
             </g>
         </g>
         <g id="46" class="nad-vl300to500" title="FFR2AA1  FFR3AA1  1">
             <g>
-                <polyline points="1.65,3.94 1.07,4.49 0.33,4.67"/>
-                <g class="nad-edge-infos" transform="translate(0.78,4.56)">
+                <polyline points="-3.40,2.93 -2.61,3.06 -2.03,3.54"/>
+                <g class="nad-edge-infos" transform="translate(-2.38,3.25)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-103.64)">
+                        <g transform="rotate(129.60)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-103.64)">
+                        <g transform="rotate(129.60)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-1.18,4.62 -0.42,4.85 0.33,4.67"/>
-                <g class="nad-edge-infos" transform="translate(-0.12,4.78)">
+                <polyline points="-1.17,4.78 -1.44,4.03 -2.03,3.54"/>
+                <g class="nad-edge-infos" transform="translate(-1.68,3.84)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(76.36)">
+                        <g transform="rotate(-50.40)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(76.36)">
+                        <g transform="rotate(-50.40)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(76.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-50.40)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="47" class="nad-vl300to500" title="NNL1AA1  NNL2AA1  1">
             <g>
-                <polyline points="-2.28,-4.44 -2.64,-3.23"/>
-                <g class="nad-edge-infos" transform="translate(-2.54,-3.58)">
+                <polyline points="3.58,-3.35 3.46,-2.09"/>
+                <g class="nad-edge-infos" transform="translate(3.50,-2.45)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-163.85)">
+                        <g transform="rotate(-174.53)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.15)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(5.47)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-163.85)">
+                        <g transform="rotate(-174.53)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.15)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(5.47)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-2.99,-2.01 -2.64,-3.23"/>
-                <g class="nad-edge-infos" transform="translate(-2.74,-2.88)">
+                <polyline points="3.34,-0.84 3.46,-2.09"/>
+                <g class="nad-edge-infos" transform="translate(3.43,-1.74)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(16.15)">
+                        <g transform="rotate(5.47)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.15)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(5.47)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(16.15)">
+                        <g transform="rotate(5.47)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.15)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(5.47)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="48" class="nad-vl300to500" title="NNL1AA1  NNL3AA1  1">
             <g>
-                <polyline points="-2.28,-4.44 -1.27,-3.66"/>
-                <g class="nad-edge-infos" transform="translate(-1.57,-3.89)">
+                <polyline points="3.58,-3.35 2.36,-2.99"/>
+                <g class="nad-edge-infos" transform="translate(2.72,-3.10)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(127.64)">
+                        <g transform="rotate(-106.08)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-52.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(73.92)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(127.64)">
+                        <g transform="rotate(-106.08)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-52.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(73.92)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-0.26,-2.88 -1.27,-3.66"/>
-                <g class="nad-edge-infos" transform="translate(-0.97,-3.43)">
+                <polyline points="1.13,-2.64 2.36,-2.99"/>
+                <g class="nad-edge-infos" transform="translate(1.99,-2.89)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-52.36)">
+                        <g transform="rotate(73.92)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-52.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(73.92)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-52.36)">
+                        <g transform="rotate(73.92)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-52.36)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(73.92)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
         <g id="49" class="nad-vl300to500" title="NNL2AA1  NNL3AA1  1">
             <g>
-                <polyline points="-2.99,-2.01 -1.62,-2.45"/>
-                <g class="nad-edge-infos" transform="translate(-2.13,-2.29)">
+                <polyline points="3.34,-0.84 2.24,-1.74"/>
+                <g class="nad-edge-infos" transform="translate(2.64,-1.41)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(72.40)">
+                        <g transform="rotate(-51.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(72.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-51.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(72.40)">
+                        <g transform="rotate(-51.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(72.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-51.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <polyline points="-0.26,-2.88 -1.62,-2.45"/>
-                <g class="nad-edge-infos" transform="translate(-1.12,-2.61)">
+                <polyline points="1.13,-2.64 2.24,-1.74"/>
+                <g class="nad-edge-infos" transform="translate(1.83,-2.07)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-107.60)">
+                        <g transform="rotate(129.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(72.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-51.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-107.60)">
+                        <g transform="rotate(129.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(72.40)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-51.00)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
         </g>
     </g>
     <g class="nad-vl-nodes">
-        <g transform="translate(-4.24,0.84)">
+        <g transform="translate(3.49,2.20)">
             <circle id="1" class="nad-vl300to500" title="BBE1AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">2</text>
         </g>
-        <g transform="translate(-3.66,3.05)">
+        <g transform="translate(1.69,4.47)">
             <circle id="5" class="nad-vl300to500" title="BBE2AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(5.02,-0.48)">
+        <g transform="translate(-4.66,-2.47)">
             <circle id="8" class="nad-vl300to500" title="DDE1AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(2.60,-1.33)">
+        <g transform="translate(-2.11,-2.29)">
             <circle id="11" class="nad-vl300to500" title="DDE2AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(3.36,1.41)">
+        <g transform="translate(-3.90,-0.07)">
             <circle id="14" class="nad-vl300to500" title="DDE3AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(1.65,3.94)">
+        <g transform="translate(-3.40,2.93)">
             <circle id="17" class="nad-vl300to500" title="FFR1AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">2</text>
         </g>
-        <g transform="translate(-1.18,4.62)">
+        <g transform="translate(-1.17,4.78)">
             <circle id="21" class="nad-vl300to500" title="FFR3AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(-2.28,-4.44)">
+        <g transform="translate(3.58,-3.35)">
             <circle id="24" class="nad-vl300to500" title="NNL1AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(-2.99,-2.01)">
+        <g transform="translate(3.34,-0.84)">
             <circle id="27" class="nad-vl300to500" title="NNL2AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
-        <g transform="translate(-0.26,-2.88)">
+        <g transform="translate(1.13,-2.64)">
             <circle id="30" class="nad-vl300to500" title="NNL3AA1" r="0.60"/>
             <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
         </g>
     </g>
-    <g class="nad-text-edges">
-        <g id="0_edge">
-            <g>
-                <polyline points="-3.64,0.84 -3.24,0.84"/>
-            </g>
-        </g>
-        <g id="4_edge">
-            <g>
-                <polyline points="-3.06,3.05 -2.66,3.05"/>
-            </g>
-        </g>
-        <g id="7_edge">
-            <g>
-                <polyline points="5.62,-0.48 6.02,-0.48"/>
-            </g>
-        </g>
-        <g id="10_edge">
-            <g>
-                <polyline points="3.20,-1.33 3.60,-1.33"/>
-            </g>
-        </g>
-        <g id="13_edge">
-            <g>
-                <polyline points="3.96,1.41 4.36,1.41"/>
-            </g>
-        </g>
-        <g id="16_edge">
-            <g>
-                <polyline points="2.25,3.94 2.65,3.94"/>
-            </g>
-        </g>
-        <g id="20_edge">
-            <g>
-                <polyline points="-0.58,4.62 -0.18,4.62"/>
-            </g>
-        </g>
-        <g id="23_edge">
-            <g>
-                <polyline points="-1.68,-4.44 -1.28,-4.44"/>
-            </g>
-        </g>
-        <g id="26_edge">
-            <g>
-                <polyline points="-2.39,-2.01 -1.99,-2.01"/>
-            </g>
-        </g>
-        <g id="29_edge">
-            <g>
-                <polyline points="0.34,-2.88 0.74,-2.88"/>
-            </g>
-        </g>
-    </g>
+    <g class="nad-text-edges"></g>
     <g class="nad-text-nodes">
-        <text x="-3.24" y="0.84" style="dominant-baseline:middle">BBE1AA1</text>
-        <text x="-2.66" y="3.05" style="dominant-baseline:middle">BBE2AA1</text>
-        <text x="6.02" y="-0.48" style="dominant-baseline:middle">DDE1AA1</text>
-        <text x="3.60" y="-1.33" style="dominant-baseline:middle">DDE2AA1</text>
-        <text x="4.36" y="1.41" style="dominant-baseline:middle">DDE3AA1</text>
-        <text x="2.65" y="3.94" style="dominant-baseline:middle">FFR1AA1</text>
-        <text x="-0.18" y="4.62" style="dominant-baseline:middle">FFR3AA1</text>
-        <text x="-1.28" y="-4.44" style="dominant-baseline:middle">NNL1AA1</text>
-        <text x="-1.99" y="-2.01" style="dominant-baseline:middle">NNL2AA1</text>
-        <text x="0.74" y="-2.88" style="dominant-baseline:middle">NNL3AA1</text>
+        <text x="4.49" y="2.20" style="dominant-baseline:middle">BBE1AA1</text>
+        <text x="2.69" y="4.47" style="dominant-baseline:middle">BBE2AA1</text>
+        <text x="-3.66" y="-2.47" style="dominant-baseline:middle">DDE1AA1</text>
+        <text x="-1.11" y="-2.29" style="dominant-baseline:middle">DDE2AA1</text>
+        <text x="-2.90" y="-0.07" style="dominant-baseline:middle">DDE3AA1</text>
+        <text x="-2.40" y="2.93" style="dominant-baseline:middle">FFR1AA1</text>
+        <text x="-0.17" y="4.78" style="dominant-baseline:middle">FFR3AA1</text>
+        <text x="4.58" y="-3.35" style="dominant-baseline:middle">NNL1AA1</text>
+        <text x="4.34" y="-0.84" style="dominant-baseline:middle">NNL2AA1</text>
+        <text x="2.13" y="-2.64" style="dominant-baseline:middle">NNL3AA1</text>
     </g>
 </svg>
