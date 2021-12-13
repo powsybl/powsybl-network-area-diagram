@@ -56,33 +56,18 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.version}</version>
-                        <executions>
-                            <execution>
-                                <id>javadoc-aggregate-jar</id>
-                                <phase>package</phase>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>aggregate-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -109,6 +94,10 @@
        <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-tools</artifactId>
         </dependency>
 
         <!-- Test dependencies -->
