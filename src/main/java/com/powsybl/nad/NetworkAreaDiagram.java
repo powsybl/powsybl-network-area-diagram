@@ -17,9 +17,6 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.*;
-import com.powsybl.nad.util.PowsyblNetworkAreaDiagramVersion;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -33,8 +30,6 @@ import java.util.function.Predicate;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class NetworkAreaDiagram {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkAreaDiagram.class);
 
     private final Network network;
     private final Predicate<VoltageLevel> voltageLevelFilter;
@@ -88,8 +83,6 @@ public class NetworkAreaDiagram {
         Objects.requireNonNull(styleProvider);
         Objects.requireNonNull(layoutFactory);
         Objects.requireNonNull(idProvider);
-
-        LOGGER.info("Version: {}", new PowsyblNetworkAreaDiagramVersion());
 
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
