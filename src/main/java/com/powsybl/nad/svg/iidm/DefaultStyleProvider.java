@@ -7,17 +7,14 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.LineEdge;
+import com.powsybl.nad.model.TwoWtEdge;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -59,6 +56,26 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
         Branch<?> b = network.getBranch(edge.getEquipmentId());
         Terminal terminal = b.getTerminal(edgeSideToIidmSide(side));
         return terminal == null || !terminal.isConnected();
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(LineEdge edge) {
+        Line line = network.getLine(edge.getEquipmentId());
+        double nominalVoltage = 0;
+        if (line.getTerminal1() != null) {
+            nominalVoltage = line.getTerminal1().getVoltageLevel().getNominalV();
+        } else if (line.getTerminal2() != null) {
+            nominalVoltage = line.getTerminal2().getVoltageLevel().getNominalV();
+        }
+        return getBaseVoltageStyle(nominalVoltage);
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(TwoWtEdge edge, BranchEdge.Side side) {
+        TwoWindingsTransformer transfo = network.getTwoWindingsTransformer(edge.getEquipmentId());
+        Terminal terminal = transfo.getTerminal(edgeSideToIidmSide(side));
+        double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
+        return getBaseVoltageStyle(nominalVoltage);
     }
 
     private Branch.Side edgeSideToIidmSide(BranchEdge.Side side) {

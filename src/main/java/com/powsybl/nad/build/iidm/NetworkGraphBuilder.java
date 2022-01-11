@@ -85,8 +85,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add line, its voltage level is unknown"));
             VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(line.getTerminal(otherSide));
 
-            double nominalV = vlNode.getNominalV();
-            LineEdge edge = new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId(), nominalV);
+            LineEdge edge = new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId());
             graph.addEdge(vlNode, vlOtherNode, edge);
         }
 
@@ -102,9 +101,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add two-windings transformer, its voltage level is unknown"));
             VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide));
 
-            AbstractBranchEdge edge = new TwoWtEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(),
-                    twt.getTerminal(side).getVoltageLevel().getNominalV(), twt.getTerminal(otherSide).getVoltageLevel().getNominalV());
-            graph.addEdge(vlNode, vlOtherNode, edge);
+            AbstractBranchEdge edge = new TwoWtEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId());
+            if (side == Branch.Side.ONE) {
+                graph.addEdge(vlNode, vlOtherNode, edge);
+            } else {
+                graph.addEdge(vlOtherNode, vlNode, edge);
+            }
         }
 
         @Override
