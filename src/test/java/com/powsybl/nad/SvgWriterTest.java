@@ -14,6 +14,7 @@ import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.*;
+import com.powsybl.nad.svg.iidm.DefaultStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,8 +46,8 @@ class SvgWriterTest extends AbstractTest {
     }
 
     @Override
-    protected StyleProvider getStyleProvider() {
-        return new DefaultStyleProvider();
+    protected StyleProvider getStyleProvider(Network network) {
+        return new DefaultStyleProvider(network);
     }
 
     @Override

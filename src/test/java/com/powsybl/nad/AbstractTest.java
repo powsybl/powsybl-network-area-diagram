@@ -36,7 +36,7 @@ public abstract class AbstractTest {
 
     protected abstract SvgParameters getSvgParameters();
 
-    protected abstract StyleProvider getStyleProvider();
+    protected abstract StyleProvider getStyleProvider(Network network);
 
     protected abstract LabelProvider getLabelProvider(Network network);
 
@@ -48,7 +48,7 @@ public abstract class AbstractTest {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(), getLabelProvider(network)).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
         String svgString = writer.toString();
         if (debugSvg) {
             writeToHomeDir(refFilename, svgString);

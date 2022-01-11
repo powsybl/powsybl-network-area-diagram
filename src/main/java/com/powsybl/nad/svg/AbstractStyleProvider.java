@@ -76,7 +76,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     public List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();
-        if (edge instanceof AbstractBranchEdge && !((AbstractBranchEdge) edge).isConnected(side)) {
+        if (isDisconnectedBranch(edge, side)) {
             result.add(DISCONNECTED_SIDE_EDGE_CLASS);
         }
         if (edge instanceof TwoWtEdge) {
@@ -84,6 +84,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         }
         return result;
     }
+
+    protected abstract boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side);
 
     private Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

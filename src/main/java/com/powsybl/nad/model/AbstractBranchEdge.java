@@ -15,16 +15,12 @@ import java.util.Objects;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public abstract class AbstractBranchEdge extends AbstractEdge implements BranchEdge {
-    private final boolean side1Connected;
-    private final boolean side2Connected;
     private List<Point> line1 = Collections.emptyList();
     private List<Point> line2 = Collections.emptyList();
     private final boolean[] visible = new boolean[] {true, true};
 
-    protected AbstractBranchEdge(String diagramId, String equipmentId, String nameOrId, boolean side1Connected, boolean side2Connected) {
+    protected AbstractBranchEdge(String diagramId, String equipmentId, String nameOrId) {
         super(diagramId, equipmentId, nameOrId);
-        this.side1Connected = side1Connected;
-        this.side2Connected = side2Connected;
     }
 
     public List<Point> getLine(Side side) {
@@ -64,18 +60,5 @@ public abstract class AbstractBranchEdge extends AbstractEdge implements BranchE
     public void setVisible(Side side, boolean visible) {
         Objects.requireNonNull(side);
         this.visible[side.ordinal()] = visible;
-    }
-
-    public boolean isConnected(Side side) {
-        Objects.requireNonNull(side);
-        return side == Side.ONE ? isSide1Connected() : isSide2Connected();
-    }
-
-    public boolean isSide1Connected() {
-        return side1Connected;
-    }
-
-    public boolean isSide2Connected() {
-        return side2Connected;
     }
 }

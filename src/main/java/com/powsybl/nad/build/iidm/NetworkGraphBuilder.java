@@ -86,8 +86,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(line.getTerminal(otherSide));
 
             double nominalV = vlNode.getNominalV();
-            LineEdge edge = new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId(),
-                    line.getTerminal1().isConnected(), line.getTerminal2().isConnected(), nominalV);
+            LineEdge edge = new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId(), nominalV);
             graph.addEdge(vlNode, vlOtherNode, edge);
         }
 
@@ -104,7 +103,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide));
 
             AbstractBranchEdge edge = new TwoWtEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(),
-                    twt.getTerminal(side).isConnected(), twt.getTerminal(otherSide).isConnected(),
                     twt.getTerminal(side).getVoltageLevel().getNominalV(), twt.getTerminal(otherSide).getVoltageLevel().getNominalV());
             graph.addEdge(vlNode, vlOtherNode, edge);
         }

@@ -5,9 +5,8 @@ public class TwoWtEdge extends AbstractBranchEdge {
     private final double nominalV1;
     private final double nominalV2;
 
-    public TwoWtEdge(String diagramId, String equipmentId, String nameOrId, boolean side1Connected, boolean side2Connected,
-                     double nominalV1, double nominalV2) {
-        super(diagramId, equipmentId, nameOrId, side1Connected, side2Connected);
+    public TwoWtEdge(String diagramId, String equipmentId, String nameOrId, double nominalV1, double nominalV2) {
+        super(diagramId, equipmentId, nameOrId);
         this.nominalV1 = nominalV1;
         this.nominalV2 = nominalV2;
     }
