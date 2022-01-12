@@ -27,6 +27,9 @@ public abstract class AbstractLayout implements Layout {
         Point middle = Point.createMiddlePoint(point1, point2);
         edge.setSide1(point1, middle);
         edge.setSide2(point2, middle);
+        if (node1 instanceof VoltageLevelNode && !((VoltageLevelNode) node1).isVisible()) {
+            edge.setVisible(BranchEdge.Side.ONE, false);
+        }
         if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
             edge.setVisible(BranchEdge.Side.TWO, false);
         }

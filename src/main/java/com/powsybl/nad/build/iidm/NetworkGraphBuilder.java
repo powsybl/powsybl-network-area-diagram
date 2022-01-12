@@ -87,6 +87,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             LineEdge edge = new LineEdge(idProvider.createId(line), line.getId(), line.getNameOrId());
             graph.addEdge(vlNode, vlOtherNode, edge);
+            if (side == Branch.Side.ONE) {
+                graph.addEdge(vlNode, vlOtherNode, edge);
+            } else {
+                graph.addEdge(vlOtherNode, vlNode, edge);
+            }
         }
 
         @Override
