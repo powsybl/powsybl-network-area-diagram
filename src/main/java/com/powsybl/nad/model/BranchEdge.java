@@ -6,27 +6,67 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public interface BranchEdge extends Edge {
-    enum Side {
+public class BranchEdge extends AbstractEdge {
+
+    public enum Side {
         ONE, TWO
     }
 
-    List<Point> getLine(Side side);
+    public static final String TWO_WT_EDGE = "TwoWtEdge";
+    public static final String LINE_EDGE = "LineEdge";
 
-    List<Point> getSide1();
+    private List<Point> line1 = Collections.emptyList();
+    private List<Point> line2 = Collections.emptyList();
+    private final boolean[] visible = new boolean[] {true, true};
+    private final String type;
 
-    List<Point> getSide2();
+    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
+        super(diagramId, equipmentId, nameOrId);
+        this.type = type;
+    }
 
-    void setSide1(Point... points);
+    public String getType() {
+        return type;
+    }
 
-    void setSide2(Point... points);
+    public List<Point> getLine(Side side) {
+        Objects.requireNonNull(side);
+        return side == Side.ONE ? getSide1() : getSide2();
+    }
 
-    boolean isVisible(Side side);
+    public List<Point> getSide1() {
+        return Collections.unmodifiableList(line1);
+    }
 
-    void setVisible(Side side, boolean visible);
+    public List<Point> getSide2() {
+        return Collections.unmodifiableList(line2);
+    }
+
+    public void setSide1(Point... points) {
+        Arrays.stream(points).forEach(Objects::requireNonNull);
+        this.line1 = Arrays.asList(points);
+    }
+
+    public void setSide2(Point... points) {
+        Arrays.stream(points).forEach(Objects::requireNonNull);
+        this.line2 = Arrays.asList(points);
+    }
+
+    public boolean isVisible(Side side) {
+        Objects.requireNonNull(side);
+        return visible[side.ordinal()];
+    }
+
+    public void setVisible(Side side, boolean visible) {
+        Objects.requireNonNull(side);
+        this.visible[side.ordinal()] = visible;
+    }
 }

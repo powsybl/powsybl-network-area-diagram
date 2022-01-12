@@ -65,8 +65,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
-        if (edge instanceof LineEdge) {
-            return getBaseVoltageStyle((LineEdge) edge)
+        if (edge instanceof BranchEdge) {
+            return getBaseVoltageStyle((BranchEdge) edge)
                     .map(Collections::singletonList)
                     .orElse(Collections.emptyList());
         }
@@ -80,17 +80,15 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         if (isDisconnectedBranch(edge, side)) {
             result.add(DISCONNECTED_SIDE_EDGE_CLASS);
         }
-        if (edge instanceof TwoWtEdge) {
-            getBaseVoltageStyle((TwoWtEdge) edge, side).ifPresent(result::add);
-        }
+        getBaseVoltageStyle(edge, side).ifPresent(result::add);
         return result;
     }
 
     protected abstract boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side);
 
-    protected abstract Optional<String> getBaseVoltageStyle(LineEdge edge);
+    protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge);
 
-    protected abstract Optional<String> getBaseVoltageStyle(TwoWtEdge edge, BranchEdge.Side side);
+    protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

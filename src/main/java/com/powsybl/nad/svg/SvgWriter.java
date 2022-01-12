@@ -122,7 +122,7 @@ public class SvgWriter {
 
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
-        if (!edge.isVisible(side) && !(edge instanceof TwoWtEdge)) {
+        if (!edge.isVisible(side) && !(edge.getType().equals(BranchEdge.TWO_WT_EDGE))) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -136,7 +136,7 @@ public class SvgWriter {
             writer.writeAttribute("points", lineFormatted);
             drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
         }
-        if (edge instanceof TwoWtEdge) {
+        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             drawTransformer(writer, half);
         }
         writer.writeEndElement();

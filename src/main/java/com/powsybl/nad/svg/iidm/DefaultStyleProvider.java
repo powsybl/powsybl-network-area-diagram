@@ -9,8 +9,6 @@ package com.powsybl.nad.svg.iidm;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.LineEdge;
-import com.powsybl.nad.model.TwoWtEdge;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
@@ -59,23 +57,29 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(LineEdge edge) {
-        Line line = network.getLine(edge.getEquipmentId());
-        double nominalVoltage = 0;
-        if (line.getTerminal1() != null) {
-            nominalVoltage = line.getTerminal1().getVoltageLevel().getNominalV();
-        } else if (line.getTerminal2() != null) {
-            nominalVoltage = line.getTerminal2().getVoltageLevel().getNominalV();
+    protected Optional<String> getBaseVoltageStyle(BranchEdge edge) {
+        if (edge.getType().equals(BranchEdge.LINE_EDGE)) {
+            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            double nominalVoltage = 0;
+            if (branch.getTerminal1() != null) {
+                nominalVoltage = branch.getTerminal1().getVoltageLevel().getNominalV();
+            } else if (branch.getTerminal2() != null) {
+                nominalVoltage = branch.getTerminal2().getVoltageLevel().getNominalV();
+            }
+            return getBaseVoltageStyle(nominalVoltage);
         }
-        return getBaseVoltageStyle(nominalVoltage);
+        return Optional.empty();
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(TwoWtEdge edge, BranchEdge.Side side) {
-        TwoWindingsTransformer transfo = network.getTwoWindingsTransformer(edge.getEquipmentId());
-        Terminal terminal = transfo.getTerminal(edgeSideToIidmSide(side));
-        double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
-        return getBaseVoltageStyle(nominalVoltage);
+    protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
+        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
+            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            Terminal terminal = branch.getTerminal(edgeSideToIidmSide(side));
+            double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
+            return getBaseVoltageStyle(nominalVoltage);
+        }
+        return Optional.empty();
     }
 
     private Branch.Side edgeSideToIidmSide(BranchEdge.Side side) {
