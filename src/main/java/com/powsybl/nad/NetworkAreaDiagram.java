@@ -17,6 +17,7 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.*;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.DefaultStyleProvider;
 
 import java.io.IOException;
