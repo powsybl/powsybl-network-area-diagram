@@ -192,7 +192,7 @@ public class ForceLayout<V, E> {
         for (Point point : points.values()) {
             Vector direction = point.getPosition().multiply(-1);
 
-            point.applyForce(direction.multiply(repulsion / 100.0));
+            point.applyForce(direction.multiply(repulsion / 200.0));
         }
     }
 
