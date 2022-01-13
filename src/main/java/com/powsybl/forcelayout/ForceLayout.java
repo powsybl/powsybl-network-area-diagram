@@ -58,7 +58,7 @@ public class ForceLayout<V, E> {
     private static final int DEFAULT_MAX_STEPS = 2000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
     private static final double DEFAULT_DELTA_TIME = 0.05;
-    private static final double DEFAULT_REPULSION = 400.0;
+    private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
 
@@ -168,7 +168,6 @@ public class ForceLayout<V, E> {
 
                     Vector force = direction.multiply(repulsion).divide(distance.magnitudeSquare() * 0.5 + 0.1);
                     point.applyForce(force);
-                    otherPoint.applyForce(force.multiply(-1));
                 }
             }
         }
@@ -193,7 +192,7 @@ public class ForceLayout<V, E> {
         for (Point point : points.values()) {
             Vector direction = point.getPosition().multiply(-1);
 
-            point.applyForce(direction.multiply(repulsion / 50.0));
+            point.applyForce(direction.multiply(repulsion / 100.0));
         }
     }
 
