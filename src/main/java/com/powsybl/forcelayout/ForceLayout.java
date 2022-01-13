@@ -164,10 +164,9 @@ public class ForceLayout<V, E> {
             for (Point otherPoint : points.values()) {
                 if (!point.equals(otherPoint)) {
                     Vector distance = point.getPosition().subtract(otherPoint.getPosition());
-                    double magnitude = distance.magnitude() + 0.1;
                     Vector direction = distance.normalize();
 
-                    Vector force = direction.multiply(repulsion).divide(magnitude * magnitude * 0.5);
+                    Vector force = direction.multiply(repulsion).divide(distance.magnitudeSquare() * 0.5 + 0.1);
                     point.applyForce(force);
                     otherPoint.applyForce(force.multiply(-1));
                 }

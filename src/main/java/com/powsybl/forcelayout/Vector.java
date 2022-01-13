@@ -38,6 +38,10 @@ public class Vector {
         return Math.sqrt(x * x + y * y);
     }
 
+    public double magnitudeSquare() {
+        return x * x + y * y;
+    }
+
     public Vector normalize() {
         return this.divide(this.magnitude());
     }
