@@ -61,8 +61,7 @@ public class Point {
     }
 
     public double getEnergy() {
-        double speed = velocity.magnitude();
-        return 0.5 * mass * speed * speed;
+        return 0.5 * mass * velocity.magnitudeSquare();
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {
