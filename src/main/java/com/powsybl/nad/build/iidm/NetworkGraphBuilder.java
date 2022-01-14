@@ -140,6 +140,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
             TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
+            graph.addNode(tn);
             graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), get3wtEquipmentId(twtId, side), twtName));
             graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), get3wtEquipmentId(twtId, otherSide1), twtName));
             graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), get3wtEquipmentId(twtId, otherSide2), twtName));
