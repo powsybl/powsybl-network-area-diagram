@@ -60,7 +60,7 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     @Override
     public Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
         Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
-                .getTerminal(threeWtSideToIidmSide(side));
+                .getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(side));
         return terminal != null
                 ? getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
                 : Optional.empty();
@@ -69,7 +69,7 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     @Override
     protected boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side) {
         Branch<?> b = network.getBranch(edge.getEquipmentId());
-        Terminal terminal = b.getTerminal(edgeSideToIidmSide(side));
+        Terminal terminal = b.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
         return terminal == null || !terminal.isConnected();
     }
 
@@ -87,7 +87,7 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
             }
         } else if (edge instanceof ThreeWtEdge) {
             terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
-                    .getTerminal(threeWtSideToIidmSide(((ThreeWtEdge) edge).getSide()));
+                    .getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(((ThreeWtEdge) edge).getSide()));
         }
 
         return terminal != null
@@ -99,26 +99,10 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             Branch<?> branch = network.getBranch(edge.getEquipmentId());
-            Terminal terminal = branch.getTerminal(edgeSideToIidmSide(side));
+            Terminal terminal = branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
             double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
             return getBaseVoltageStyle(nominalVoltage);
         }
         return Optional.empty();
-    }
-
-    private Branch.Side edgeSideToIidmSide(BranchEdge.Side side) {
-        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
-    }
-
-    private ThreeWindingsTransformer.Side threeWtSideToIidmSide(ThreeWtEdge.Side side) {
-        switch (Objects.requireNonNull(side)) {
-            case ONE:
-                return ThreeWindingsTransformer.Side.ONE;
-            case TWO:
-                return ThreeWindingsTransformer.Side.TWO;
-            case THREE:
-                return ThreeWindingsTransformer.Side.THREE;
-        }
-        return null;
     }
 }

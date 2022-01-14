@@ -43,8 +43,8 @@ public class Graph {
         addNodeEdge(node1, node2, edge);
     }
 
-    public void addEdge(ThreeWtNode tNode, VoltageLevelNode vlNode, ThreeWtEdge edge) {
-        addNodeEdge(tNode, vlNode, edge);
+    public void addEdge(VoltageLevelNode vlNode, ThreeWtNode tNode, ThreeWtEdge edge) {
+        addNodeEdge(vlNode, tNode, edge);
     }
 
     public void addEdge(VoltageLevelNode vlNode, TextNode textNode, TextEdge edge) {

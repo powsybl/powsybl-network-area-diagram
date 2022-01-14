@@ -153,7 +153,7 @@ public class SvgWriter {
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
             writer.writeAttribute("points", lineFormatted);
-            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+            drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             draw2WtWinding(writer, half);
@@ -172,7 +172,7 @@ public class SvgWriter {
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute("points", lineFormatted);
-//            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side)); TODO: !!
+        drawEdgeInfo(writer, points, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
     }
 
@@ -220,11 +220,11 @@ public class SvgWriter {
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(edge, side)));
-        double angle = getEdgeYAxisAngle(edge, side);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(line)));
+        double angle = getEdgeYAxisAngle(line);
         double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -268,8 +268,7 @@ public class SvgWriter {
         return "rotate(" + getFormattedValue(Math.toDegrees(angleRad)) + ")";
     }
 
-    private Point getArrowCenter(BranchEdge edge, BranchEdge.Side side) {
-        List<Point> line = edge.getLine(side);
+    private Point getArrowCenter(List<Point> line) {
         if (line.size() > 2) {
             return line.get(1).atDistance(svgParameters.getArrowShift(), line.get(2));
         } else {
@@ -277,8 +276,7 @@ public class SvgWriter {
         }
     }
 
-    private double getEdgeYAxisAngle(BranchEdge edge, BranchEdge.Side side) {
-        List<Point> line = edge.getLine(side);
+    private double getEdgeYAxisAngle(List<Point> line) {
         Point point1 = line.get(line.size() - 1);
         Point point0 = line.get(line.size() - 2);
         return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
