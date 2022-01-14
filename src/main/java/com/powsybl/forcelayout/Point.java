@@ -18,7 +18,7 @@ public class Point {
 
     private Vector position;
     private Vector velocity;
-    private Vector acceleration;
+    private Vector forces;
     private final double mass;
 
     public Point(double x, double y) {
@@ -28,12 +28,12 @@ public class Point {
     public Point(double x, double y, double mass) {
         this.position = new Vector(x, y);
         this.velocity = new Vector(0, 0);
-        this.acceleration = new Vector(0, 0);
+        this.forces = new Vector(0, 0);
         this.mass = mass;
     }
 
     public void applyForce(Vector force) {
-        acceleration = acceleration.add(force.divide(mass));
+        forces = forces.add(force);
     }
 
     public Vector getPosition() {
@@ -44,8 +44,8 @@ public class Point {
         return velocity;
     }
 
-    public Vector getAcceleration() {
-        return acceleration;
+    public Vector getForces() {
+        return forces;
     }
 
     public void setPosition(Vector position) {
@@ -56,12 +56,16 @@ public class Point {
         this.velocity = velocity;
     }
 
-    public void setAcceleration(Vector acceleration) {
-        this.acceleration = acceleration;
-    }
-
     public double getEnergy() {
         return 0.5 * mass * velocity.magnitudeSquare();
+    }
+
+    public double getMass() {
+        return this.mass;
+    }
+
+    public void resetForces() {
+        this.forces = new Vector(0, 0);
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {

@@ -59,14 +59,14 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
     private static final double DEFAULT_DELTA_TIME = 0.05;
     private static final double DEFAULT_REPULSION = 800.0;
-    private static final double DEFAULT_DAMPING = 0.5;
+    private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
 
     private int maxSteps;
     private double minEnergyThreshold;
     private double deltaTime;
     private double repulsion;
-    private double damping;
+    private double friction;
     private double maxSpeed;
 
     private final Graph<V, E> graph;
@@ -80,7 +80,7 @@ public class ForceLayout<V, E> {
         this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
         this.deltaTime = DEFAULT_DELTA_TIME;
         this.repulsion = DEFAULT_REPULSION;
-        this.damping = DEFAULT_DAMPING;
+        this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
 
         this.graph = Objects.requireNonNull(graph);
@@ -106,8 +106,8 @@ public class ForceLayout<V, E> {
         return this;
     }
 
-    public ForceLayout<V, E> setDamping(double damping) {
-        this.damping = damping;
+    public ForceLayout<V, E> setFriction(double friction) {
+        this.friction = friction;
         return this;
     }
 
@@ -198,15 +198,15 @@ public class ForceLayout<V, E> {
 
     private void updateVelocity() {
         for (Point point : points.values()) {
-            Vector velocity = point.getVelocity().add(point.getAcceleration().multiply(deltaTime)).multiply(damping);
-            point.setVelocity(velocity);
+            Vector newVelocity = point.getForces().multiply((1 - Math.exp(-deltaTime * friction / point.getMass())) / friction);
+            point.setVelocity(newVelocity);
 
             if (point.getVelocity().magnitude() > maxSpeed) {
-                velocity = point.getVelocity().normalize().multiply(maxSpeed);
+                Vector velocity = point.getVelocity().normalize().multiply(maxSpeed);
                 point.setVelocity(velocity);
             }
 
-            point.setAcceleration(new Vector(0, 0));
+            point.resetForces();
         }
     }
 
