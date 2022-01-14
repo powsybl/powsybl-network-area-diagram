@@ -10,14 +10,8 @@ package com.powsybl.nad.model;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class ThreeWtEdge extends AbstractEdge {
-    private final boolean connected;
 
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, boolean connected) {
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName) {
         super(diagramId, equipmentId, transformerName);
-        this.connected = connected;
-    }
-
-    public boolean isConnected() {
-        return connected;
     }
 }

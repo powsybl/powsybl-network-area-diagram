@@ -12,8 +12,8 @@ import java.util.Optional;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class EdgeInfo {
-    static final String ACTIVE_POWER = "ActivePower";
-    static final String REACTIVE_POWER = "ReactivePower";
+    public static final String ACTIVE_POWER = "ActivePower";
+    public static final String REACTIVE_POWER = "ReactivePower";
 
     private final String infoType;
     private final Direction arrowDirection;

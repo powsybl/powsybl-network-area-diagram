@@ -17,6 +17,8 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.*;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
+import com.powsybl.nad.svg.iidm.DefaultStyleProvider;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -56,7 +58,7 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(svgFile, svgParameters, layoutParameters, new DefaultStyleProvider());
+        draw(svgFile, svgParameters, layoutParameters, new DefaultStyleProvider(network));
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
@@ -98,7 +100,7 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(writer, svgParameters, layoutParameters, new DefaultStyleProvider());
+        draw(writer, svgParameters, layoutParameters, new DefaultStyleProvider(network));
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
