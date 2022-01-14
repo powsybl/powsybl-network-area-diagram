@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;
-    private static final double DEFAULT_STIFFNESS = 400.0;
+    private static final double DEFAULT_STIFFNESS = 100.0;
 
     private final double length;
     private final double stiffness;

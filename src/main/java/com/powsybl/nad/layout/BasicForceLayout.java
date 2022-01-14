@@ -24,8 +24,7 @@ public class BasicForceLayout extends AbstractLayout {
         Objects.requireNonNull(layoutParameters);
 
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
-                .setMaxSpeed(1e3);
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {
