@@ -15,34 +15,34 @@ import java.util.Objects;
  */
 public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;
-    private static final double DEFAULT_STIFFNESS = 400.0;
+    private static final double DEFAULT_STIFFNESS = 100.0;
 
     private final double length;
     private final double stiffness;
-    private final Point source;
-    private final Point target;
+    private final Point point1;
+    private final Point point2;
 
-    public Spring(Point source, Point target, double length, double stiffness) {
+    public Spring(Point point1, Point point2, double length, double stiffness) {
         this.length = length;
         this.stiffness = stiffness;
-        this.source = Objects.requireNonNull(source);
-        this.target = Objects.requireNonNull(target);
+        this.point1 = Objects.requireNonNull(point1);
+        this.point2 = Objects.requireNonNull(point2);
     }
 
-    public Spring(Point source, Point target, double length) {
-        this(source, target, length, DEFAULT_STIFFNESS);
+    public Spring(Point point1, Point point2, double length) {
+        this(point1, point2, length, DEFAULT_STIFFNESS);
     }
 
-    public Spring(Point source, Point target) {
-        this(source, target, DEFAULT_LENGTH);
+    public Spring(Point point1, Point point2) {
+        this(point1, point2, DEFAULT_LENGTH);
     }
 
     public Point getNode1() {
-        return source;
+        return point1;
     }
 
     public Point getNode2() {
-        return target;
+        return point2;
     }
 
     public double getLength() {
@@ -54,8 +54,8 @@ public class Spring {
     }
 
     public void toSVG(PrintWriter printWriter, Canvas canvas) {
-        Vector screenPosition1 = canvas.toScreen(target.getPosition());
-        Vector screenPosition2 = canvas.toScreen(source.getPosition());
+        Vector screenPosition1 = canvas.toScreen(point2.getPosition());
+        Vector screenPosition2 = canvas.toScreen(point1.getPosition());
         printWriter.printf(Locale.US, "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
             screenPosition1.getX(), screenPosition1.getY(), screenPosition2.getX(), screenPosition2.getY());
     }
@@ -69,11 +69,12 @@ public class Spring {
             return false;
         }
         Spring spring = (Spring) o;
-        return source == spring.source && target == spring.target;
+        return point1 == spring.point1 && point2 == spring.point2
+                || point1 == spring.point2 && point2 == spring.point1;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(source, target);
+        return Objects.hash(point1) + Objects.hash(point2);
     }
 }
