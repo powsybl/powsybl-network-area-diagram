@@ -140,9 +140,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
             TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
-            graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), get3wtEquipmentId(twtId, side), twtName, twt.getTerminal(side).isConnected()));
-            graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), get3wtEquipmentId(twtId, otherSide1), twtName, twt.getTerminal(otherSide1).isConnected()));
-            graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), get3wtEquipmentId(twtId, otherSide2), twtName, twt.getTerminal(otherSide2).isConnected()));
+            graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), get3wtEquipmentId(twtId, side), twtName));
+            graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), get3wtEquipmentId(twtId, otherSide1), twtName));
+            graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), get3wtEquipmentId(twtId, otherSide2), twtName));
         }
 
         private ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
