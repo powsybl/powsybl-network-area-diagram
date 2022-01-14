@@ -43,7 +43,7 @@ public class Graph {
         addNodeEdge(node1, node2, edge);
     }
 
-    public void addEdge(TransformerNode tNode, VoltageLevelNode vlNode, ThreeWtEdge edge) {
+    public void addEdge(ThreeWtNode tNode, VoltageLevelNode vlNode, ThreeWtEdge edge) {
         addNodeEdge(tNode, vlNode, edge);
     }
 
@@ -70,8 +70,8 @@ public class Graph {
         return nodes.values().stream().filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
     }
 
-    public Stream<TransformerNode> getTransformerNodesStream() {
-        return nodes.values().stream().filter(TransformerNode.class::isInstance).map(TransformerNode.class::cast);
+    public Stream<ThreeWtNode> getThreeWtNodesStream() {
+        return nodes.values().stream().filter(ThreeWtNode.class::isInstance).map(ThreeWtNode.class::cast);
     }
 
     public Stream<TextNode> getTextNodesStream() {

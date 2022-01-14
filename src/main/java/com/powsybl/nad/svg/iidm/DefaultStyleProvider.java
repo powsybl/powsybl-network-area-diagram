@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
@@ -49,6 +50,20 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
         info.getDirection().ifPresent(direction -> styles.add(
                 CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
         return styles;
+    }
+
+    @Override
+    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
+        return Optional.of(CLASSES_PREFIX + "3wt-bg");
+    }
+
+    @Override
+    public Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
+        Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
+                .getTerminal(threeWtSideToIidmSide(side));
+        return terminal != null
+                ? getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
+                : Optional.empty();
     }
 
     @Override

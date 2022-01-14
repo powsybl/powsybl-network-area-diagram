@@ -81,6 +81,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         return result;
     }
 
+    @Override
+    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
+        return Optional.empty();
+    }
+
     protected abstract boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(Edge edge);

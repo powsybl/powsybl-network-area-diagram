@@ -96,6 +96,7 @@ public class SvgWriter {
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawVoltageLevelNodes(graph, writer);
+            drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
             writer.writeEndDocument();
@@ -155,7 +156,7 @@ public class SvgWriter {
             drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
-            drawTransformer(writer, half);
+            draw2WtWinding(writer, half);
         }
         writer.writeEndElement();
     }
@@ -173,6 +174,50 @@ public class SvgWriter {
         writer.writeAttribute("points", lineFormatted);
 //            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side)); TODO: !!
         writer.writeEndElement();
+    }
+
+    private void drawThreeWtNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<ThreeWtNode> threeWtNodes = graph.getThreeWtNodesStream().collect(Collectors.toList());
+        if (threeWtNodes.isEmpty()) {
+            return;
+        }
+
+        double dNodeCenter = TRANSFORMER_CIRCLE_RADIUS * 0.6;
+        Point point1 = Point.createPointFromRhoTheta(dNodeCenter, 90);
+        Point point2 = Point.createPointFromRhoTheta(dNodeCenter, 210);
+        Point point3 = Point.createPointFromRhoTheta(dNodeCenter, 330);
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
+        for (ThreeWtNode threeWtNode : threeWtNodes) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(threeWtNode));
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(threeWtNode));
+            Optional<String> backgroundStyle = styleProvider.getThreeWtNodeBackgroundStyle(threeWtNode);
+            if (backgroundStyle.isPresent()) {
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, backgroundStyle.get());
+                draw3WtWinding(point1, null, writer);
+                draw3WtWinding(point2, null, writer);
+                draw3WtWinding(point3, null, writer);
+                writer.writeEndElement();
+            }
+            draw3WtWinding(point1, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.ONE).orElse(null), writer);
+            draw3WtWinding(point2, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.TWO).orElse(null), writer);
+            draw3WtWinding(point3, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.THREE).orElse(null), writer);
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void draw3WtWinding(Point circleCenter, String style, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        if (style != null) {
+            writer.writeAttribute(CLASS_ATTRIBUTE, style);
+        }
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
@@ -239,7 +284,7 @@ public class SvgWriter {
         return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
     }
 
-    private void drawTransformer(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
+    private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         Point point1 = half.get(half.size() - 1); // point in the middle
         Point point2 = half.get(half.size() - 2); // point before

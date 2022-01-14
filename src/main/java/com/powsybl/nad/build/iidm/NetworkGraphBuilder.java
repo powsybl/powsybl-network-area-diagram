@@ -7,7 +7,7 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.nad.model.TransformerNode;
+import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
@@ -139,7 +139,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
-            TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
+            ThreeWtNode tn = new ThreeWtNode(idProvider.createId(twt), twtId, twtName);
             graph.addNode(tn);
             graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), twtId, twtName, iidmSideToSide(side), vlNode.isVisible()));
             graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), twtId, twtName, iidmSideToSide(otherSide1), vlOtherNode1.isVisible()));

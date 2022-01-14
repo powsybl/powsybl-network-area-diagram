@@ -9,9 +9,9 @@ package com.powsybl.nad.model;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TransformerNode extends AbstractNode {
+public class ThreeWtNode extends AbstractNode {
 
-    public TransformerNode(String diagramId, String equipmentId, String nameOrId) {
+    public ThreeWtNode(String diagramId, String equipmentId, String nameOrId) {
         super(diagramId, equipmentId, nameOrId);
     }
 
