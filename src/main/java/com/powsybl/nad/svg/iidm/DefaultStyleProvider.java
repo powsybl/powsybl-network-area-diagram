@@ -9,6 +9,8 @@ package com.powsybl.nad.svg.iidm;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
@@ -57,18 +59,25 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(BranchEdge edge) {
-        if (edge.getType().equals(BranchEdge.LINE_EDGE)) {
-            Branch<?> branch = network.getBranch(edge.getEquipmentId());
-            double nominalVoltage = 0;
-            if (branch.getTerminal1() != null) {
-                nominalVoltage = branch.getTerminal1().getVoltageLevel().getNominalV();
-            } else if (branch.getTerminal2() != null) {
-                nominalVoltage = branch.getTerminal2().getVoltageLevel().getNominalV();
+    protected Optional<String> getBaseVoltageStyle(Edge edge) {
+        Terminal terminal = null;
+        if (edge instanceof BranchEdge) {
+            if (((BranchEdge) edge).getType().equals(BranchEdge.LINE_EDGE)) {
+                Branch<?> branch = network.getBranch(edge.getEquipmentId());
+                if (branch.getTerminal1() != null) {
+                    terminal = branch.getTerminal1();
+                } else if (branch.getTerminal2() != null) {
+                    terminal = branch.getTerminal2();
+                }
             }
-            return getBaseVoltageStyle(nominalVoltage);
+        } else if (edge instanceof ThreeWtEdge) {
+            terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
+                    .getTerminal(threeWtSideToIidmSide(((ThreeWtEdge) edge).getSide()));
         }
-        return Optional.empty();
+
+        return terminal != null
+                ? getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
+                : Optional.empty();
     }
 
     @Override
@@ -84,5 +93,17 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
 
     private Branch.Side edgeSideToIidmSide(BranchEdge.Side side) {
         return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
+    }
+
+    private ThreeWindingsTransformer.Side threeWtSideToIidmSide(ThreeWtEdge.Side side) {
+        switch (Objects.requireNonNull(side)) {
+            case ONE:
+                return ThreeWindingsTransformer.Side.ONE;
+            case TWO:
+                return ThreeWindingsTransformer.Side.TWO;
+            case THREE:
+                return ThreeWindingsTransformer.Side.THREE;
+        }
+        return null;
     }
 }

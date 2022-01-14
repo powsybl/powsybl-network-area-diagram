@@ -1,5 +1,6 @@
 .nad-branch-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
+.nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue)}
