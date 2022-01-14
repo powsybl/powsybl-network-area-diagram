@@ -166,17 +166,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
         }
-    }
 
-    private ThreeWtEdge.Side iidmSideToSide(ThreeWindingsTransformer.Side side) {
-        switch (Objects.requireNonNull(side)) {
-            case ONE:
-                return ThreeWtEdge.Side.ONE;
-            case TWO:
-                return ThreeWtEdge.Side.TWO;
-            case THREE:
-                return ThreeWtEdge.Side.THREE;
+        private ThreeWtEdge.Side iidmSideToSide(ThreeWindingsTransformer.Side side) {
+            switch (Objects.requireNonNull(side)) {
+                case ONE:
+                    return ThreeWtEdge.Side.ONE;
+                case TWO:
+                    return ThreeWtEdge.Side.TWO;
+                case THREE:
+                    return ThreeWtEdge.Side.THREE;
+            }
+            return null;
         }
-        return null;
     }
 }

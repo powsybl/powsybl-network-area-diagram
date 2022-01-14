@@ -52,6 +52,7 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final double CIRCLE_RADIUS = 0.6;
     private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
+    private static final String POINTS_ATTRIBUTE = "points";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -152,7 +153,7 @@ public class SvgWriter {
             String lineFormatted = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-            writer.writeAttribute("points", lineFormatted);
+            writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
             drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
@@ -171,7 +172,7 @@ public class SvgWriter {
         String lineFormatted = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-        writer.writeAttribute("points", lineFormatted);
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
         drawEdgeInfo(writer, points, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
     }
@@ -381,7 +382,7 @@ public class SvgWriter {
         String lineFormatted1 = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-        writer.writeAttribute("points", lineFormatted1);
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted1);
     }
 
     private void addStylesIfAny(XMLStreamWriter writer, List<String> edgeStyleClasses) throws XMLStreamException {
