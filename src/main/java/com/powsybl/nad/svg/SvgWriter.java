@@ -94,6 +94,7 @@ public class SvgWriter {
             addStyle(writer);
             addMetadata(writer);
             drawBranchEdges(graph, writer);
+            drawThreeWtEdges(graph, writer);
             drawVoltageLevelNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
@@ -120,6 +121,23 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<ThreeWtEdge> threeWtEdges = graph.getThreeWtEdges();
+        if (threeWtEdges.isEmpty()) {
+            return;
+        }
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
+        for (ThreeWtEdge edge : threeWtEdges) {
+            if (!edge.isVisible()) {
+                continue;
+            }
+            drawThreeWtEdge(graph, writer, edge);
+        }
+        writer.writeEndElement();
+    }
+
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
         if (!edge.isVisible(side) && !(edge.getType().equals(BranchEdge.TWO_WT_EDGE))) {
@@ -139,6 +157,21 @@ public class SvgWriter {
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             drawTransformer(writer, half);
         }
+        writer.writeEndElement();
+    }
+
+    private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
+        addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+        insertName(writer, edge::getName);
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        List<Point> points = edge.getPoints();
+        String lineFormatted = points.stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+        writer.writeAttribute("points", lineFormatted);
+//            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side)); TODO: !!
         writer.writeEndElement();
     }
 

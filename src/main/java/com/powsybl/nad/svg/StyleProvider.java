@@ -23,6 +23,7 @@ public interface StyleProvider {
     String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
     String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
+    String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
