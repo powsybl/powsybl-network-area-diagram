@@ -119,14 +119,14 @@ class SvgWriterTest extends AbstractTest {
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/3wt-test2.svg"));
+        assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
     }
 
     @Test
     void testPartial3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL_11", 0);
-        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, filter, "/3wt-test2.svg"));
+        assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
     }
 
 }
