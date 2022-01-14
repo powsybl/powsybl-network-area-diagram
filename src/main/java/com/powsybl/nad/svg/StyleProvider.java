@@ -6,11 +6,10 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -20,9 +19,11 @@ public interface StyleProvider {
     String CLASSES_PREFIX = "nad-";
     String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
     String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
+    String THREE_WT_NODES_CLASS = CLASSES_PREFIX + "3wt-nodes";
     String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
     String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
+    String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
@@ -39,4 +40,8 @@ public interface StyleProvider {
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
     List<String> getEdgeInfoStyles(EdgeInfo info);
+
+    Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode);
+
+    Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
 }

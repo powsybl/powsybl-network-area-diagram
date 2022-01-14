@@ -31,6 +31,11 @@ public class Point {
         return new Point(0.5 * (point1.x + point2.x), 0.5 * (point1.y + point2.y));
     }
 
+    public static Point createPointFromRhoTheta(double rho, double thetaDeg) {
+        return new Point(rho * Math.cos(Math.toRadians(thetaDeg)),
+                rho * Math.sin(Math.toRadians(thetaDeg)));
+    }
+
     public double distanceSquare(Point other) {
         Objects.requireNonNull(other);
         double dx = other.x - x;

@@ -9,6 +9,9 @@ package com.powsybl.nad.svg.iidm;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
@@ -50,39 +53,56 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
+    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
+        return Optional.of(CLASSES_PREFIX + "3wt-bg");
+    }
+
+    @Override
+    public Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
+        Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
+                .getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(side));
+        return terminal != null
+                ? getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
+                : Optional.empty();
+    }
+
+    @Override
     protected boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side) {
         Branch<?> b = network.getBranch(edge.getEquipmentId());
-        Terminal terminal = b.getTerminal(edgeSideToIidmSide(side));
+        Terminal terminal = b.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
         return terminal == null || !terminal.isConnected();
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(BranchEdge edge) {
-        if (edge.getType().equals(BranchEdge.LINE_EDGE)) {
-            Branch<?> branch = network.getBranch(edge.getEquipmentId());
-            double nominalVoltage = 0;
-            if (branch.getTerminal1() != null) {
-                nominalVoltage = branch.getTerminal1().getVoltageLevel().getNominalV();
-            } else if (branch.getTerminal2() != null) {
-                nominalVoltage = branch.getTerminal2().getVoltageLevel().getNominalV();
+    protected Optional<String> getBaseVoltageStyle(Edge edge) {
+        Terminal terminal = null;
+        if (edge instanceof BranchEdge) {
+            if (((BranchEdge) edge).getType().equals(BranchEdge.LINE_EDGE)) {
+                Branch<?> branch = network.getBranch(edge.getEquipmentId());
+                if (branch.getTerminal1() != null) {
+                    terminal = branch.getTerminal1();
+                } else if (branch.getTerminal2() != null) {
+                    terminal = branch.getTerminal2();
+                }
             }
-            return getBaseVoltageStyle(nominalVoltage);
+        } else if (edge instanceof ThreeWtEdge) {
+            terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
+                    .getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(((ThreeWtEdge) edge).getSide()));
         }
-        return Optional.empty();
+
+        return terminal != null
+                ? getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
+                : Optional.empty();
     }
 
     @Override
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             Branch<?> branch = network.getBranch(edge.getEquipmentId());
-            Terminal terminal = branch.getTerminal(edgeSideToIidmSide(side));
+            Terminal terminal = branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
             double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
             return getBaseVoltageStyle(nominalVoltage);
         }
         return Optional.empty();
-    }
-
-    private Branch.Side edgeSideToIidmSide(BranchEdge.Side side) {
-        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
     }
 }

@@ -43,8 +43,8 @@ public class Graph {
         addNodeEdge(node1, node2, edge);
     }
 
-    public void addEdge(TransformerNode tNode, VoltageLevelNode vlNode, ThreeWtEdge edge) {
-        addNodeEdge(tNode, vlNode, edge);
+    public void addEdge(VoltageLevelNode vlNode, ThreeWtNode tNode, ThreeWtEdge edge) {
+        addNodeEdge(vlNode, tNode, edge);
     }
 
     public void addEdge(VoltageLevelNode vlNode, TextNode textNode, TextEdge edge) {
@@ -70,8 +70,8 @@ public class Graph {
         return nodes.values().stream().filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
     }
 
-    public Stream<TransformerNode> getTransformerNodesStream() {
-        return nodes.values().stream().filter(TransformerNode.class::isInstance).map(TransformerNode.class::cast);
+    public Stream<ThreeWtNode> getThreeWtNodesStream() {
+        return nodes.values().stream().filter(ThreeWtNode.class::isInstance).map(ThreeWtNode.class::cast);
     }
 
     public Stream<TextNode> getTextNodesStream() {
@@ -121,6 +121,16 @@ public class Graph {
                 .map(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct();
+    }
+
+    public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
+        return jgrapht.edgeSet().stream()
+                .filter(ThreeWtEdge.class::isInstance)
+                .map(ThreeWtEdge.class::cast);
+    }
+
+    public List<ThreeWtEdge> getThreeWtEdges() {
+        return getThreeWtEdgesStream().collect(Collectors.toList());
     }
 
     public Optional<Node> getNode(String equipmentId) {

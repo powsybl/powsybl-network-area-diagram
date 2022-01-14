@@ -13,6 +13,7 @@ import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,13 +32,26 @@ public class DefaultLabelProvider implements LabelProvider {
         if (branch == null) {
             throw new PowsyblException("Unknown branch '" + edge.getEquipmentId() + "'");
         }
-        Terminal terminal = branch.getTerminal(getSideFromNadSide(side));
-        return Arrays.asList(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP()),
-                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ()));
+        Terminal terminal = branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
+        return getEdgeInfos(terminal);
     }
 
-    private static Branch.Side getSideFromNadSide(BranchEdge.Side side) {
-        return side == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
+    @Override
+    public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(edge.getEquipmentId());
+        if (transformer == null) {
+            throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
+        }
+        Terminal terminal = transformer.getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
+        return getEdgeInfos(terminal);
+    }
+
+    private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
+        if (terminal == null) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP()),
+                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ()));
     }
 
     @Override

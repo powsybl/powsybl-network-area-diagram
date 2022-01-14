@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public interface LabelProvider {
     List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side);
+
+    List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge);
 
     String getArrowPathDIn();
 

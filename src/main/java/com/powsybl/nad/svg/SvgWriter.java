@@ -52,6 +52,7 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final double CIRCLE_RADIUS = 0.6;
     private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
+    private static final String POINTS_ATTRIBUTE = "points";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -94,7 +95,9 @@ public class SvgWriter {
             addStyle(writer);
             addMetadata(writer);
             drawBranchEdges(graph, writer);
+            drawThreeWtEdges(graph, writer);
             drawVoltageLevelNodes(graph, writer);
+            drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
             writer.writeEndDocument();
@@ -120,6 +123,23 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<ThreeWtEdge> threeWtEdges = graph.getThreeWtEdges();
+        if (threeWtEdges.isEmpty()) {
+            return;
+        }
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
+        for (ThreeWtEdge edge : threeWtEdges) {
+            if (!edge.isVisible()) {
+                continue;
+            }
+            drawThreeWtEdge(graph, writer, edge);
+        }
+        writer.writeEndElement();
+    }
+
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
         if (!edge.isVisible(side) && !(edge.getType().equals(BranchEdge.TWO_WT_EDGE))) {
@@ -133,20 +153,79 @@ public class SvgWriter {
             String lineFormatted = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-            writer.writeAttribute("points", lineFormatted);
-            drawEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+            writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
+            drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
-            drawTransformer(writer, half);
+            draw2WtWinding(writer, half);
         }
         writer.writeEndElement();
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+    private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
+        addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+        insertName(writer, edge::getName);
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        List<Point> points = edge.getPoints();
+        String lineFormatted = points.stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
+        drawEdgeInfo(writer, points, labelProvider.getEdgeInfos(graph, edge));
+        writer.writeEndElement();
+    }
+
+    private void drawThreeWtNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<ThreeWtNode> threeWtNodes = graph.getThreeWtNodesStream().collect(Collectors.toList());
+        if (threeWtNodes.isEmpty()) {
+            return;
+        }
+
+        double dNodeCenter = TRANSFORMER_CIRCLE_RADIUS * 0.6;
+        Point point1 = Point.createPointFromRhoTheta(dNodeCenter, 90);
+        Point point2 = Point.createPointFromRhoTheta(dNodeCenter, 210);
+        Point point3 = Point.createPointFromRhoTheta(dNodeCenter, 330);
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
+        for (ThreeWtNode threeWtNode : threeWtNodes) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(threeWtNode));
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(threeWtNode));
+            Optional<String> backgroundStyle = styleProvider.getThreeWtNodeBackgroundStyle(threeWtNode);
+            if (backgroundStyle.isPresent()) {
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, backgroundStyle.get());
+                draw3WtWinding(point1, null, writer);
+                draw3WtWinding(point2, null, writer);
+                draw3WtWinding(point3, null, writer);
+                writer.writeEndElement();
+            }
+            draw3WtWinding(point1, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.ONE).orElse(null), writer);
+            draw3WtWinding(point2, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.TWO).orElse(null), writer);
+            draw3WtWinding(point3, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.THREE).orElse(null), writer);
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void draw3WtWinding(Point circleCenter, String style, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        if (style != null) {
+            writer.writeAttribute(CLASS_ATTRIBUTE, style);
+        }
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
+    }
+
+    private void drawEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(edge, side)));
-        double angle = getEdgeYAxisAngle(edge, side);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(line)));
+        double angle = getEdgeYAxisAngle(line);
         double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -190,8 +269,7 @@ public class SvgWriter {
         return "rotate(" + getFormattedValue(Math.toDegrees(angleRad)) + ")";
     }
 
-    private Point getArrowCenter(BranchEdge edge, BranchEdge.Side side) {
-        List<Point> line = edge.getLine(side);
+    private Point getArrowCenter(List<Point> line) {
         if (line.size() > 2) {
             return line.get(1).atDistance(svgParameters.getArrowShift(), line.get(2));
         } else {
@@ -199,14 +277,13 @@ public class SvgWriter {
         }
     }
 
-    private double getEdgeYAxisAngle(BranchEdge edge, BranchEdge.Side side) {
-        List<Point> line = edge.getLine(side);
+    private double getEdgeYAxisAngle(List<Point> line) {
         Point point1 = line.get(line.size() - 1);
         Point point0 = line.get(line.size() - 2);
         return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
     }
 
-    private void drawTransformer(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
+    private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         Point point1 = half.get(half.size() - 1); // point in the middle
         Point point2 = half.get(half.size() - 2); // point before
@@ -305,7 +382,7 @@ public class SvgWriter {
         String lineFormatted1 = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
-        writer.writeAttribute("points", lineFormatted1);
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted1);
     }
 
     private void addStylesIfAny(XMLStreamWriter writer, List<String> edgeStyleClasses) throws XMLStreamException {

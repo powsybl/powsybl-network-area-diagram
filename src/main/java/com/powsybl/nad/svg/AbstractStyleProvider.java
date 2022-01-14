@@ -65,12 +65,9 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
-        if (edge instanceof BranchEdge) {
-            return getBaseVoltageStyle((BranchEdge) edge)
-                    .map(Collections::singletonList)
-                    .orElse(Collections.emptyList());
-        }
-        return Collections.emptyList();
+        return getBaseVoltageStyle(edge)
+                .map(Collections::singletonList)
+                .orElse(Collections.emptyList());
     }
 
     @Override
@@ -84,9 +81,14 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         return result;
     }
 
+    @Override
+    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
+        return Optional.empty();
+    }
+
     protected abstract boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side);
 
-    protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge);
+    protected abstract Optional<String> getBaseVoltageStyle(Edge edge);
 
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 

@@ -9,6 +9,7 @@ package com.powsybl.nad;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -113,6 +114,19 @@ class SvgWriterTest extends AbstractTest {
     void testEurope() {
         Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
+    }
+
+    @Test
+    void test3wt() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
+    }
+
+    @Test
+    void testPartial3wt() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL_11", 0);
+        assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
     }
 
 }

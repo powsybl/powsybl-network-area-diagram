@@ -7,7 +7,7 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.nad.model.TransformerNode;
+import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
@@ -139,10 +139,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
-            TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
-            graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), get3wtEquipmentId(twtId, side), twtName));
-            graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), get3wtEquipmentId(twtId, otherSide1), twtName));
-            graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), get3wtEquipmentId(twtId, otherSide2), twtName));
+            ThreeWtNode tn = new ThreeWtNode(idProvider.createId(twt), twtId, twtName);
+            graph.addNode(tn);
+            graph.addEdge(vlNode, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), twtId, twtName, iidmSideToSide(side), vlNode.isVisible()));
+            graph.addEdge(vlOtherNode1, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), twtId, twtName, iidmSideToSide(otherSide1), vlOtherNode1.isVisible()));
+            graph.addEdge(vlOtherNode2, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlOtherNode2.isVisible()));
         }
 
         private ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
@@ -155,16 +156,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        private String get3wtEquipmentId(String twtId, ThreeWindingsTransformer.Side side) {
-            if (side == ThreeWindingsTransformer.Side.ONE) {
-                return twtId + "_leg1";
-            } else if (side == ThreeWindingsTransformer.Side.TWO) {
-                return twtId + "_leg2";
-            } else {
-                return twtId + "_leg3";
-            }
-        }
-
         private VoltageLevelNode getOrCreateVoltageLevelNode(Terminal terminal) {
             VoltageLevel vl = terminal.getVoltageLevel();
             return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createInvisibleVoltageLevelNode(vl));
@@ -174,6 +165,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.getNominalV(), false);
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
+        }
+
+        private ThreeWtEdge.Side iidmSideToSide(ThreeWindingsTransformer.Side side) {
+            switch (Objects.requireNonNull(side)) {
+                case ONE:
+                    return ThreeWtEdge.Side.ONE;
+                case TWO:
+                    return ThreeWtEdge.Side.TWO;
+                case THREE:
+                    return ThreeWtEdge.Side.THREE;
+            }
+            return null;
         }
     }
 }
