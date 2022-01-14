@@ -123,6 +123,16 @@ public class Graph {
                 .distinct();
     }
 
+    public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
+        return jgrapht.edgeSet().stream()
+                .filter(ThreeWtEdge.class::isInstance)
+                .map(ThreeWtEdge.class::cast);
+    }
+
+    public List<ThreeWtEdge> getThreeWtEdges() {
+        return getThreeWtEdgesStream().collect(Collectors.toList());
+    }
+
     public Optional<Node> getNode(String equipmentId) {
         return Optional.ofNullable(nodes.get(equipmentId));
     }
