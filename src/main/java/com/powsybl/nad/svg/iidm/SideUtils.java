@@ -1,6 +1,7 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
@@ -13,7 +14,11 @@ public final class SideUtils {
     }
 
     public static Branch.Side getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {
-        return side == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
+        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
+    }
+
+    public static HvdcLine.Side getIidmHvdcSideFromBranchEdgeSide(BranchEdge.Side side) {
+        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? HvdcLine.Side.ONE : HvdcLine.Side.TWO;
     }
 
     public static ThreeWindingsTransformer.Side getIidmSideFromThreeWtEdgeSide(ThreeWtEdge.Side side) {

@@ -68,8 +68,7 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
 
     @Override
     protected boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side) {
-        Branch<?> b = network.getBranch(edge.getEquipmentId());
-        Terminal terminal = b.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
+        Terminal terminal = getTerminalFromEdge(edge, side);
         return terminal == null || !terminal.isConnected();
     }
 
@@ -77,13 +76,16 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     protected Optional<String> getBaseVoltageStyle(Edge edge) {
         Terminal terminal = null;
         if (edge instanceof BranchEdge) {
-            if (((BranchEdge) edge).getType().equals(BranchEdge.LINE_EDGE)) {
+            BranchEdge branchEdge = (BranchEdge) edge;
+            if (branchEdge.getType().equals(BranchEdge.LINE_EDGE)) {
                 Branch<?> branch = network.getBranch(edge.getEquipmentId());
                 if (branch.getTerminal1() != null) {
                     terminal = branch.getTerminal1();
                 } else if (branch.getTerminal2() != null) {
                     terminal = branch.getTerminal2();
                 }
+            } else if (branchEdge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+                return Optional.of(HVDC_EDGE_CLASS);
             }
         } else if (edge instanceof ThreeWtEdge) {
             terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
@@ -97,12 +99,21 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
 
     @Override
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
-        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
-            Branch<?> branch = network.getBranch(edge.getEquipmentId());
-            Terminal terminal = branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
+        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE) || edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+            Terminal terminal = getTerminalFromEdge(edge, side);
             double nominalVoltage = terminal == null ? 0 : terminal.getVoltageLevel().getNominalV();
             return getBaseVoltageStyle(nominalVoltage);
         }
         return Optional.empty();
+    }
+
+    private Terminal getTerminalFromEdge(BranchEdge edge, BranchEdge.Side side) {
+        if (!edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            return branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
+        } else {
+            HvdcLine line = network.getHvdcLine(edge.getEquipmentId());
+            return line.getConverterStation(SideUtils.getIidmHvdcSideFromBranchEdgeSide(side)).getTerminal();
+        }
     }
 }
