@@ -141,9 +141,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String twtName = twt.getNameOrId();
             TransformerNode tn = new TransformerNode(idProvider.createId(twt), twtId, twtName);
             graph.addNode(tn);
-            graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), get3wtEquipmentId(twtId, side), twtName));
-            graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), get3wtEquipmentId(twtId, otherSide1), twtName));
-            graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), get3wtEquipmentId(twtId, otherSide2), twtName));
+            graph.addEdge(tn, vlNode, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), twtId, twtName, iidmSideToSide(side), vlNode.isVisible()));
+            graph.addEdge(tn, vlOtherNode1, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), twtId, twtName, iidmSideToSide(otherSide1), vlOtherNode1.isVisible()));
+            graph.addEdge(tn, vlOtherNode2, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlOtherNode2.isVisible()));
         }
 
         private ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
@@ -153,16 +153,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return twt.getLeg2();
             } else {
                 return twt.getLeg3();
-            }
-        }
-
-        private String get3wtEquipmentId(String twtId, ThreeWindingsTransformer.Side side) {
-            if (side == ThreeWindingsTransformer.Side.ONE) {
-                return twtId + "_leg1";
-            } else if (side == ThreeWindingsTransformer.Side.TWO) {
-                return twtId + "_leg2";
-            } else {
-                return twtId + "_leg3";
             }
         }
 
@@ -176,5 +166,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
         }
+    }
+
+    private ThreeWtEdge.Side iidmSideToSide(ThreeWindingsTransformer.Side side) {
+        switch (Objects.requireNonNull(side)) {
+            case ONE:
+                return ThreeWtEdge.Side.ONE;
+            case TWO:
+                return ThreeWtEdge.Side.TWO;
+            case THREE:
+                return ThreeWtEdge.Side.THREE;
+        }
+        return null;
     }
 }

@@ -6,12 +6,44 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class ThreeWtEdge extends AbstractEdge {
 
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName) {
+    public enum Side {
+        ONE, TWO, THREE;
+    }
+
+    private Side side;
+
+    private List<Point> points;
+
+    private final boolean visible;
+
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, boolean visible) {
         super(diagramId, equipmentId, transformerName);
+        this.side = side;
+        this.visible = visible;
+    }
+
+    public void setPoints(Point point1, Point point2) {
+        this.points = Arrays.asList(point1, point2);
+    }
+
+    public List<Point> getPoints() {
+        return Collections.unmodifiableList(points);
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public Side getSide() {
+        return side;
     }
 }
