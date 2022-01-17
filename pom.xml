@@ -19,7 +19,7 @@
         <relativePath/>
     </parent>
     <artifactId>powsybl-network-area-diagram</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
 
     <name>Network area diagram</name>
     <description>PowSyBl network area diagram</description>
@@ -50,7 +50,7 @@
         </sonar.exclusions>
 
         <powsybl-core.version>4.6.0</powsybl-core.version>
-        <powsybl-olf.version>0.14.0</powsybl-olf.version>
+        <powsybl-olf.version>0.15.0</powsybl-olf.version>
         <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
