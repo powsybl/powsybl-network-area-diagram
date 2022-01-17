@@ -1,16 +1,24 @@
 package com.powsybl.nad.svg.iidm;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.util.Objects;
 
-public final class SideUtils {
+public final class IidmUtils {
 
-    private SideUtils() {
+    private IidmUtils() {
+    }
+
+    public static Terminal getTerminalFromEdge(Network network, BranchEdge edge, BranchEdge.Side side) {
+        if (!edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            return branch.getTerminal(IidmUtils.getIidmSideFromBranchEdgeSide(side));
+        } else {
+            HvdcLine line = network.getHvdcLine(edge.getEquipmentId());
+            return line.getConverterStation(IidmUtils.getIidmHvdcSideFromBranchEdgeSide(side)).getTerminal();
+        }
     }
 
     public static Branch.Side getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {

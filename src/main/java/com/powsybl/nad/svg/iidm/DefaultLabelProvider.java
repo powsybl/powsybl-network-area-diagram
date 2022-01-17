@@ -28,11 +28,7 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-        Branch<?> branch = network.getBranch(edge.getEquipmentId());
-        if (branch == null) {
-            throw new PowsyblException("Unknown branch '" + edge.getEquipmentId() + "'");
-        }
-        Terminal terminal = branch.getTerminal(SideUtils.getIidmSideFromBranchEdgeSide(side));
+        Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return getEdgeInfos(terminal);
     }
 
@@ -42,7 +38,7 @@ public class DefaultLabelProvider implements LabelProvider {
         if (transformer == null) {
             throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
         }
-        Terminal terminal = transformer.getTerminal(SideUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
+        Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
         return getEdgeInfos(terminal);
     }
 
