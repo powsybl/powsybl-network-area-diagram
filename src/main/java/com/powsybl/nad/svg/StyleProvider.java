@@ -29,6 +29,7 @@ public interface StyleProvider {
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
+    String HVDC_CLASS = CLASSES_PREFIX + "hvdc";
 
     List<String> getCssFilenames();
 

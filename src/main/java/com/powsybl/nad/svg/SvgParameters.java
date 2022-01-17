@@ -22,6 +22,7 @@ public class SvgParameters {
     private int fixedHeight = -1;
     private double arrowShift = 0.3;
     private double arrowLabelShift = 0.12;
+    private double converterStationWidth = 0.6;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -113,4 +114,14 @@ public class SvgParameters {
         this.arrowLabelShift = arrowLabelShift;
         return this;
     }
+
+    public double getConverterStationWidth() {
+        return converterStationWidth;
+    }
+
+    public SvgParameters setConverterStationWidth(double converterStationWidth) {
+        this.converterStationWidth = converterStationWidth;
+        return this;
+    }
+
 }
