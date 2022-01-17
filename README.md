@@ -38,8 +38,8 @@ In order to generate a SVG from a given network, we need to add some Maven depen
 
 ```xml
 <properties>
-    <powsybl.nad.version>0.1.0-SNAPSHOT</powsybl.nad.version>
-    <powsybl.core.version>4.4.0</powsybl.core.version>
+    <powsybl.nad.version>0.2.0</powsybl.nad.version>
+    <powsybl.core.version>4.6.0</powsybl.core.version>
     <slf4j.version>1.7.22</slf4j.version>
 </properties>
 
@@ -81,5 +81,15 @@ We obtain the following SVG:
 
 ![Diagram demo](.github/diagram_example.svg)
 
+If only part of the network is wanted, we can provide a voltage level id and a depth to generate a partial graph of the network,
+for instance the subgraph centered on voltage level `"VL25"` with a depth of `2`:
+
+```java
+new NetworkAreaDiagram(network, "VL25", 2).draw(Path.of("/tmp/partial_diagram.svg"));
+```
+
+This leads to following diagram:
+
+![Diagram partial_demo](.github/partial_diagram_example.svg)
 
 Note that the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
