@@ -146,6 +146,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addEdge(vlOtherNode2, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlOtherNode2.isVisible()));
         }
 
+        @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
             // check if the hvdc line was not already added (at the other side of the line)
             HvdcLine hvdcLine = converterStation.getHvdcLine();
