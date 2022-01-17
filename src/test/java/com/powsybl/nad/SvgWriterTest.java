@@ -9,6 +9,7 @@ package com.powsybl.nad;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
@@ -129,4 +130,9 @@ class SvgWriterTest extends AbstractTest {
         assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
     }
 
+    @Test
+    void testHvdc() {
+        Network network = FourSubstationsNodeBreakerFactory.create();
+        assertEquals(toString("/hvdc.svg"), generateSvgString(network, "/hvdc.svg"));
+    }
 }

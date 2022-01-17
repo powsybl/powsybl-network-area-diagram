@@ -22,6 +22,7 @@ public class BranchEdge extends AbstractEdge {
 
     public static final String TWO_WT_EDGE = "TwoWtEdge";
     public static final String LINE_EDGE = "LineEdge";
+    public static final String HVDC_LINE_EDGE = "HvdcLineEdge";
 
     private List<Point> line1 = Collections.emptyList();
     private List<Point> line2 = Collections.emptyList();

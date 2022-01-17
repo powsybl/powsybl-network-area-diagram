@@ -17,10 +17,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -118,9 +115,33 @@ public class SvgWriter {
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
 
+            if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+                drawConverterStation(writer, edge);
+            }
+
             writer.writeEndElement();
         }
         writer.writeEndElement();
+    }
+
+    private void drawConverterStation(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        List<Point> line1 = edge.getLine(BranchEdge.Side.ONE);
+        List<Point> line2 = edge.getLine(BranchEdge.Side.TWO);
+        List<Point> points = new ArrayList<>(2);
+        double halfWidth = svgParameters.getConverterStationWidth() / 2;
+        if (line1.size() > 2) {
+            points.add(line1.get(2).atDistance(halfWidth, line1.get(1)));
+            points.add(line2.get(2).atDistance(halfWidth, line2.get(1)));
+        } else {
+            points.add(line1.get(1).atDistance(halfWidth, line1.get(0)));
+            points.add(line2.get(1).atDistance(halfWidth, line2.get(0)));
+        }
+        String lineFormatted = points.stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HVDC_CLASS);
     }
 
     private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {

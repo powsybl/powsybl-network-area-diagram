@@ -146,6 +146,31 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addEdge(vlOtherNode2, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlOtherNode2.isVisible()));
         }
 
+        @Override
+        public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
+            // check if the hvdc line was not already added (at the other side of the line)
+            HvdcLine hvdcLine = converterStation.getHvdcLine();
+            if (graph.containsEdge(hvdcLine.getId())) {
+                return;
+            }
+
+            HvdcLine.Side otherSide = (hvdcLine.getConverterStation1().getId().equals(converterStation.getId()))
+                    ? HvdcLine.Side.TWO : HvdcLine.Side.ONE;
+
+            Terminal terminal = converterStation.getTerminal();
+            Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
+            VoltageLevelNode vlNode = graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
+                    .orElseThrow(() -> new PowsyblException("Cannot add hvdc line, its voltage level is unknown"));
+            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(otherSideTerminal);
+
+            BranchEdge edge = new BranchEdge(idProvider.createId(hvdcLine), hvdcLine.getId(), hvdcLine.getNameOrId(), BranchEdge.HVDC_LINE_EDGE);
+            if (otherSide == HvdcLine.Side.TWO) {
+                graph.addEdge(vlNode, vlOtherNode, edge);
+            } else {
+                graph.addEdge(vlOtherNode, vlNode, edge);
+            }
+        }
+
         private ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
             if (side == ThreeWindingsTransformer.Side.ONE) {
                 return twt.getLeg1();
