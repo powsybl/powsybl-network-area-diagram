@@ -23,6 +23,8 @@ public class SvgParameters {
     private double arrowShift = 0.3;
     private double arrowLabelShift = 0.12;
     private double converterStationWidth = 0.6;
+    private double voltageLevelCircleRadius = 0.6;
+    private double transformerCircleRadius = 0.2;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -124,4 +126,21 @@ public class SvgParameters {
         return this;
     }
 
+    public double getVoltageLevelCircleRadius() {
+        return voltageLevelCircleRadius;
+    }
+
+    public SvgParameters setVoltageLevelCircleRadius(double voltageLevelCircleRadius) {
+        this.voltageLevelCircleRadius = voltageLevelCircleRadius;
+        return this;
+    }
+
+    public double getTransformerCircleRadius() {
+        return transformerCircleRadius;
+    }
+
+    public SvgParameters setTransformerCircleRadius(double transformerCircleRadius) {
+        this.transformerCircleRadius = transformerCircleRadius;
+        return this;
+    }
 }
