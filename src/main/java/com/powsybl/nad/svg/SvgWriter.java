@@ -319,8 +319,7 @@ public class SvgWriter {
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
-            drawNodeCircle(writer, vlNode);
-            writeNbBuses(writer, vlNode);
+            drawNode(writer, vlNode);
             writer.writeEndElement();
         }
         writer.writeEndElement();
@@ -359,20 +358,22 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawNodeCircle(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+    private void drawNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
-        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getVoltageLevelCircleRadius()));
-    }
 
-    private void writeNbBuses(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUSES_TEXT_CLASS);
-        writer.writeAttribute(STYLE_ELEMENT_NAME, "text-anchor:middle;dominant-baseline:middle");
-        writer.writeCharacters(String.valueOf(vlNode.getBusNodesCount()));
-        writer.writeEndElement();
+        int nbBuses = vlNode.getBusNodes().size();
+        double outerRadius = svgParameters.getVoltageLevelCircleRadius();
+        double busRadius = outerRadius;
+        for (BusInnerNode busNode : vlNode.getBusNodes()) {
+            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, busNode.getDiagramId());
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
+            insertName(writer, vlNode::getName);
+            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busRadius));
+            busRadius -= outerRadius / nbBuses;
+        }
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {

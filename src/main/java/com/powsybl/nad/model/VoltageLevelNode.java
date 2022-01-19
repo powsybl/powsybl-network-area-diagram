@@ -6,15 +6,15 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
+    private final Map<String, BusInnerNode> busInnerNodes = new LinkedHashMap<>();
     private final boolean visible;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
@@ -27,14 +27,23 @@ public class VoltageLevelNode extends AbstractNode {
     }
 
     public void addBusNode(BusInnerNode busInnerNode) {
-        busInnerNodes.add(busInnerNode);
+        Objects.requireNonNull(busInnerNode);
+        busInnerNodes.put(busInnerNode.getEquipmentId(), busInnerNode);
     }
 
-    public int getBusNodesCount() {
-        return busInnerNodes.size();
+    public Collection<BusInnerNode> getBusNodes() {
+        return Collections.unmodifiableCollection(busInnerNodes.values());
+    }
+
+    public Stream<BusInnerNode> getBusNodeStream() {
+        return busInnerNodes.values().stream();
     }
 
     public boolean isVisible() {
         return visible;
+    }
+
+    public BusInnerNode getBusInnerNode(String id) {
+        return busInnerNodes.get(id);
     }
 }

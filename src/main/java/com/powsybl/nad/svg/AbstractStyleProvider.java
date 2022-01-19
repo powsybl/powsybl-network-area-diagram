@@ -59,6 +59,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
+    public List<String> getNodeStyleClasses(BusInnerNode busNode) {
+        return Collections.emptyList();
+    }
+
+    @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
         return getBaseVoltageStyle(edge)
                 .map(Collections::singletonList)
