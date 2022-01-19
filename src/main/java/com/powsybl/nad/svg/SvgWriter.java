@@ -47,8 +47,6 @@ public class SvgWriter {
     private static final String PATH_D_ATTRIBUTE = "d";
     private static final String X_ATTRIBUTE = "x";
     private static final String Y_ATTRIBUTE = "y";
-    private static final double CIRCLE_RADIUS = 0.6;
-    private static final double TRANSFORMER_CIRCLE_RADIUS = 0.2;
     private static final String POINTS_ATTRIBUTE = "points";
 
     private final SvgParameters svgParameters;
@@ -204,7 +202,7 @@ public class SvgWriter {
             return;
         }
 
-        double dNodeCenter = TRANSFORMER_CIRCLE_RADIUS * 0.6;
+        double dNodeCenter = svgParameters.getTransformerCircleRadius() * 0.6;
         Point point1 = Point.createPointFromRhoTheta(dNodeCenter, 90);
         Point point2 = Point.createPointFromRhoTheta(dNodeCenter, 210);
         Point point3 = Point.createPointFromRhoTheta(dNodeCenter, 330);
@@ -239,7 +237,7 @@ public class SvgWriter {
         }
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
-        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
@@ -294,7 +292,7 @@ public class SvgWriter {
         if (line.size() > 2) {
             return line.get(1).atDistance(svgParameters.getArrowShift(), line.get(2));
         } else {
-            return line.get(0).atDistance(svgParameters.getArrowShift() + CIRCLE_RADIUS, line.get(1));
+            return line.get(0).atDistance(svgParameters.getArrowShift() + svgParameters.getVoltageLevelCircleRadius(), line.get(1));
         }
     }
 
@@ -308,10 +306,11 @@ public class SvgWriter {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         Point point1 = half.get(half.size() - 1); // point in the middle
         Point point2 = half.get(half.size() - 2); // point before
-        Point circleCenter = point1.atDistance(TRANSFORMER_CIRCLE_RADIUS / 2, point2);
+        double radius = svgParameters.getTransformerCircleRadius();
+        Point circleCenter = point1.atDistance(radius / 2, point2);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
-        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(TRANSFORMER_CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
     }
 
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -365,7 +364,7 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
-        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(CIRCLE_RADIUS));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getVoltageLevelCircleRadius()));
     }
 
     private void writeNbBuses(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
@@ -413,7 +412,7 @@ public class SvgWriter {
     }
 
     private void shiftEdgeStart(List<Point> points) {
-        Point point0 = points.get(0).atDistance(CIRCLE_RADIUS, points.get(1));
+        Point point0 = points.get(0).atDistance(svgParameters.getVoltageLevelCircleRadius(), points.get(1));
         points.get(0).setX(point0.getX());
         points.get(0).setY(point0.getY());
     }
