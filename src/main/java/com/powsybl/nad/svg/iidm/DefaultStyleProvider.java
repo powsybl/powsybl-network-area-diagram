@@ -8,10 +8,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.ThreeWtEdge;
-import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 
@@ -37,6 +34,16 @@ public class DefaultStyleProvider extends AbstractStyleProvider {
     @Override
     public List<String> getCssFilenames() {
         return Collections.singletonList("defaultStyle.css");
+    }
+
+    @Override
+    public List<String> getNodeStyleClasses(Node node) {
+        List<String> styles = new ArrayList<>();
+        if (node instanceof VoltageLevelNode) {
+            double nominalV = network.getVoltageLevel(node.getEquipmentId()).getNominalV();
+            getBaseVoltageStyle(nominalV).ifPresent(styles::add);
+        }
+        return styles;
     }
 
     @Override

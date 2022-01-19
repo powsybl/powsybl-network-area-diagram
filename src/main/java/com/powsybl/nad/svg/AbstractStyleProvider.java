@@ -55,12 +55,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getNodeStyleClasses(Node node) {
-        List<String> styles = new ArrayList<>();
-        if (node instanceof VoltageLevelNode) {
-            double nominalV = ((VoltageLevelNode) node).getNominalV();
-            getBaseVoltageStyle(nominalV).ifPresent(styles::add);
-        }
-        return styles;
+        return Collections.emptyList();
     }
 
     @Override
@@ -82,7 +77,17 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
+    public List<String> getEdgeInfoStyles(EdgeInfo info) {
+        return Collections.emptyList();
+    }
+
+    @Override
     public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one) {
         return Optional.empty();
     }
 
