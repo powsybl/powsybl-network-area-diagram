@@ -79,17 +79,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return;
             }
 
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(line.getTerminal(side).getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add line, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(line.getTerminal(otherSide));
-
-            BranchEdge edge = new BranchEdge(idProvider.createId(line), line.getId(), line.getNameOrId(), BranchEdge.LINE_EDGE);
-            if (side == Branch.Side.ONE) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
-            } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
-            }
+            addEdge(line, side, BranchEdge.LINE_EDGE);
         }
 
         @Override
@@ -99,17 +89,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return;
             }
 
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(twt.getTerminal(side).getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add two-windings transformer, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide));
-
-            BranchEdge edge = new BranchEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(), BranchEdge.TWO_WT_EDGE);
-            if (side == Branch.Side.ONE) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
-            } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
-            }
+            addEdge(twt, side, BranchEdge.TWO_WT_EDGE);
         }
 
         @Override
@@ -158,15 +138,27 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             Terminal terminal = converterStation.getTerminal();
             Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add hvdc line, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(otherSideTerminal);
 
-            BranchEdge edge = new BranchEdge(idProvider.createId(hvdcLine), hvdcLine.getId(), hvdcLine.getNameOrId(), BranchEdge.HVDC_LINE_EDGE);
-            if (otherSide == HvdcLine.Side.TWO) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
+            addEdge(terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
+        }
+
+        private void addEdge(Branch<?> branch, Branch.Side side, String edgeType) {
+            Terminal terminalA = branch.getTerminal(side);
+            Terminal terminalB = branch.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE);
+
+            addEdge(terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
+        }
+
+        private void addEdge(Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
+            VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
+                    .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
+            VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
+
+            BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
+            if (!terminalsInReversedOrder) {
+                graph.addEdge(vlNodeA, vlNodeB, edge);
             } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
+                graph.addEdge(vlNodeB, vlNodeA, edge);
             }
         }
 
