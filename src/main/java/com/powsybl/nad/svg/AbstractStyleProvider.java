@@ -75,7 +75,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();
         if (isDisconnectedBranch(edge, side)) {
-            result.add(DISCONNECTED_SIDE_EDGE_CLASS);
+            result.add(DISCONNECTED_CLASS);
         }
         getBaseVoltageStyle(edge, side).ifPresent(result::add);
         return result;
@@ -83,7 +83,15 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getEdgeInfoStyles(EdgeInfo info) {
-        return Collections.emptyList();
+        List<String> styles = new LinkedList<>();
+        if (info.getInfoType().equals(EdgeInfo.ACTIVE_POWER)) {
+            styles.add(CLASSES_PREFIX + "active");
+        } else if (info.getInfoType().equals(EdgeInfo.REACTIVE_POWER)) {
+            styles.add(CLASSES_PREFIX + "reactive");
+        }
+        info.getDirection().ifPresent(direction -> styles.add(
+                CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
+        return styles;
     }
 
     @Override
