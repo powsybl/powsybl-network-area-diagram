@@ -39,6 +39,9 @@ public class Graph {
             if (node instanceof VoltageLevelNode) {
                 ((VoltageLevelNode) node).getBusNodeStream().forEach(busGraph::addVertex);
             }
+            if (node instanceof ThreeWtNode) {
+                busGraph.addVertex(node);
+            }
         } else {
             textNodes.add((TextNode) node);
         }
