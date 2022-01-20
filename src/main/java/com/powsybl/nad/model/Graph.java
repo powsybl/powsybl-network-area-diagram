@@ -71,10 +71,10 @@ public class Graph {
     }
 
     private void addBusesEdge(BusInnerNode node1, Node node2, Edge edge) {
-        Objects.requireNonNull(node1);
-        Objects.requireNonNull(node2);
         Objects.requireNonNull(edge);
-        busGraph.addEdge(node1, node2, edge);
+        if (node1 != null && node2 != null) {
+            busGraph.addEdge(node1, node2, edge);
+        }
     }
 
     public Stream<Node> getNodesStream() {

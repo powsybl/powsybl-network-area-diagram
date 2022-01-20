@@ -163,8 +163,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
             VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
 
-            BusInnerNode busNodeA = vlNodeA.getBusInnerNode(terminalA.getBusView().getBus().getId());
-            BusInnerNode busNodeB = vlNodeB.getBusInnerNode(terminalB.getBusView().getBus().getId());
+            BusInnerNode busNodeA = terminalA.isConnected() ? vlNodeA.getBusInnerNode(terminalA.getBusView().getBus().getId()) : null;
+            BusInnerNode busNodeB = terminalB.isConnected() ? vlNodeB.getBusInnerNode(terminalB.getBusView().getBus().getId()) : null;
 
             BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
             if (!terminalsInReversedOrder) {
