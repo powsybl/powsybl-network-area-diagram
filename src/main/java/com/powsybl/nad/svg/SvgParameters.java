@@ -25,6 +25,7 @@ public class SvgParameters {
     private double converterStationWidth = 0.6;
     private double voltageLevelCircleRadius = 0.6;
     private double transformerCircleRadius = 0.2;
+    private double nodeHollowWidth = 0.1;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -141,6 +142,15 @@ public class SvgParameters {
 
     public SvgParameters setTransformerCircleRadius(double transformerCircleRadius) {
         this.transformerCircleRadius = transformerCircleRadius;
+        return this;
+    }
+
+    public double getNodeHollowWidth() {
+        return nodeHollowWidth;
+    }
+
+    public SvgParameters setNodeHollowWidth(double nodeHollowWidth) {
+        this.nodeHollowWidth = nodeHollowWidth;
         return this;
     }
 }

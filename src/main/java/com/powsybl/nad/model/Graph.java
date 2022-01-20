@@ -105,6 +105,14 @@ public class Graph {
         return Collections.unmodifiableCollection(voltageLevelGraph.edgeSet());
     }
 
+    public Stream<Edge> getEdgeStream(Node node) {
+        return voltageLevelGraph.edgesOf(node).stream();
+    }
+
+    public Collection<Edge> getBusEdges(BusInnerNode busNode) {
+        return busGraph.edgesOf(busNode);
+    }
+
     public List<BranchEdge> getBranchEdges() {
         return voltageLevelGraph.edgeSet().stream()
                 .filter(BranchEdge.class::isInstance)
@@ -218,5 +226,4 @@ public class Graph {
     public boolean containsNode(String equipmentId) {
         return nodes.containsKey(equipmentId);
     }
-
 }

@@ -244,7 +244,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(line)));
-        double angle = getEdgeYAxisAngle(line);
+        double angle = getEdgeEndYAxisAngle(line);
         double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -296,10 +296,16 @@ public class SvgWriter {
         }
     }
 
-    private double getEdgeYAxisAngle(List<Point> line) {
+    private double getEdgeEndYAxisAngle(List<Point> line) {
         Point point1 = line.get(line.size() - 1);
         Point point0 = line.get(line.size() - 2);
         return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
+    }
+
+    private double getEdgeStartAngle(List<Point> line) {
+        Point point1 = line.get(1);
+        Point point0 = line.get(0);
+        return Math.atan2(point1.getY() - point0.getY(), point1.getX() - point0.getX());
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
@@ -319,7 +325,7 @@ public class SvgWriter {
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
-            drawNode(writer, vlNode);
+            drawNode(graph, writer, vlNode);
             writer.writeEndElement();
         }
         writer.writeEndElement();
@@ -358,22 +364,95 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+    private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeAttribute(ID_ATTRIBUTE, vlNode.getDiagramId());
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
         int nbBuses = vlNode.getBusNodes().size();
-        double outerRadius = svgParameters.getVoltageLevelCircleRadius();
-        double busRadius = outerRadius;
+        double nodeOuterRadius = svgParameters.getVoltageLevelCircleRadius();
+        double busOuterRadius = nodeOuterRadius;
+
+        List<Edge> traversingBusEdges = graph.getEdgeStream(vlNode).filter(edge -> !(edge instanceof TextEdge)).collect(Collectors.toList());
+
         for (BusInnerNode busNode : vlNode.getBusNodes()) {
-            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            double busInnerRadius = busOuterRadius - nodeOuterRadius / nbBuses;
+            if (busInnerRadius == 0) {
+                writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+            } else {
+                Collection<Edge> busEdges = graph.getBusEdges(busNode);
+                traversingBusEdges.removeAll(busEdges);
+                writer.writeEmptyElement(PATH_ELEMENT_NAME);
+                writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busOuterRadius, busInnerRadius, traversingBusEdges, graph, vlNode));
+            }
             writer.writeAttribute(ID_ATTRIBUTE, busNode.getDiagramId());
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
-            insertName(writer, vlNode::getName);
-            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busRadius));
-            busRadius -= outerRadius / nbBuses;
+            busOuterRadius = busInnerRadius;
         }
+    }
+
+    private String getFragmentedAnnulusPath(double outerRadius, double innerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode) {
+        if (traversingBusEdges.isEmpty()) {
+            String path = "M" + getCirclePath(outerRadius, 0, Math.PI, true)
+                    + " M" + getCirclePath(outerRadius, Math.PI, 0, true);
+            if (innerRadius > 0) { // going the other way around (counter-clockwise) to subtract the inner circle
+                path += "M" + getCirclePath(innerRadius, 0, Math.PI, false)
+                        + "M" + getCirclePath(innerRadius, Math.PI, 0, false);
+            }
+            return path;
+        }
+
+        List<Double> angles = traversingBusEdges.stream()
+                .map(edge -> getLine(edge, graph, vlNode))
+                .filter(list -> !list.isEmpty())
+                .mapToDouble(this::getEdgeStartAngle)
+                .sorted().boxed().collect(Collectors.toList());
+        if (!angles.isEmpty()) {
+            // adding first angle to close the circle annulus, and adding 360° to keep the list ordered
+            angles.add(angles.get(0) + 2 * Math.PI);
+        }
+
+        double epsilon = Math.toRadians(5);
+        double halfWidth = svgParameters.getNodeHollowWidth() / 2;
+        double deltaAngle0 = halfWidth / outerRadius;
+        double deltaAngle1 = halfWidth / innerRadius;
+
+        StringBuilder path = new StringBuilder();
+        for (int i = 0; i < angles.size() - 1; i++) {
+            double outerArcStart = angles.get(i) + deltaAngle0;
+            double outerArcEnd = angles.get(i + 1) - deltaAngle0;
+            double innerArcStart = angles.get(i + 1) - deltaAngle1;
+            double innerArcEnd = angles.get(i) + deltaAngle1;
+            if (outerArcEnd - outerArcStart > epsilon && innerArcEnd - innerArcStart < -epsilon) {
+                path.append("M").append(getCirclePath(outerRadius, outerArcStart, outerArcEnd, true))
+                        .append(" L").append(getCirclePath(innerRadius, innerArcStart, innerArcEnd, false))
+                        .append(" Z ");
+            }
+        }
+
+        return path.toString();
+    }
+
+    private String getCirclePath(double radius, double angleStart, double angleEnd, boolean clockWise) {
+        double arcAngle = angleEnd - angleStart;
+        double xStart = radius * Math.cos(angleStart);
+        double yStart = radius * Math.sin(angleStart);
+        double xEnd = radius * Math.cos(angleEnd);
+        double yEnd = radius * Math.sin(angleEnd);
+        int largeArc = Math.abs(arcAngle) > Math.PI ? 1 : 0;
+        return String.format(Locale.US, "%.3f,%.3f A%.3f,%.3f %.3f %d %d %.3f,%.3f",
+                xStart, yStart, radius, radius, Math.toDegrees(arcAngle), largeArc, clockWise ? 1 : 0, xEnd, yEnd);
+    }
+
+    private List<Point> getLine(Edge edge, Graph graph, VoltageLevelNode vlNode) {
+        if (edge instanceof ThreeWtEdge) {
+            return ((ThreeWtEdge) edge).getPoints();
+        } else if (edge instanceof BranchEdge) {
+            BranchEdge.Side side = graph.getNode1(edge) == vlNode ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+            return ((BranchEdge) edge).getPoints(side);
+        }
+        return Collections.emptyList();
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {
