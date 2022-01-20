@@ -6,8 +6,9 @@
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
-.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue)}
-.nad-hvdc-edge polyline.nad-hvdc {stroke-width: 0.2}
+.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
+.nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -237,25 +238,20 @@
         </g>
     </g>
     <g class="nad-vl-nodes">
-        <g transform="translate(-5.73,0.61)">
-            <circle id="0" class="nad-vl180to300" title="S1VL1" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-5.73,0.61)" id="0" class="nad-vl180to300" title="S1VL1">
+            <circle r="0.60" id="1"/>
         </g>
-        <g transform="translate(-1.69,0.46)">
-            <circle id="2" class="nad-vl300to500" title="S1VL2" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.69,0.46)" id="2" class="nad-vl300to500" title="S1VL2">
+            <circle r="0.60" id="3"/>
         </g>
-        <g transform="translate(0.73,-2.20)">
-            <circle id="4" class="nad-vl300to500" title="S2VL1" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(0.73,-2.20)" id="4" class="nad-vl300to500" title="S2VL1">
+            <circle r="0.60" id="5"/>
         </g>
-        <g transform="translate(2.50,0.94)">
-            <circle id="6" class="nad-vl300to500" title="S3VL1" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(2.50,0.94)" id="6" class="nad-vl300to500" title="S3VL1">
+            <circle r="0.60" id="7"/>
         </g>
-        <g transform="translate(6.34,2.21)">
-            <circle id="8" class="nad-vl300to500" title="S4VL1" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(6.34,2.21)" id="8" class="nad-vl300to500" title="S4VL1">
+            <circle r="0.60" id="9"/>
         </g>
     </g>
     <g class="nad-text-edges">
