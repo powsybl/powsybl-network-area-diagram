@@ -17,7 +17,11 @@ import java.util.Objects;
 public class BranchEdge extends AbstractEdge {
 
     public enum Side {
-        ONE, TWO
+        ONE, TWO;
+
+        public Side getOpposite() {
+            return this == ONE ? TWO : ONE;
+        }
     }
 
     public static final String TWO_WT_EDGE = "TwoWtEdge";

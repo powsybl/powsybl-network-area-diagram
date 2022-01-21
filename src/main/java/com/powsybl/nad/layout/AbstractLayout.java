@@ -30,12 +30,8 @@ public abstract class AbstractLayout implements Layout {
         Point middle = Point.createMiddlePoint(point1, point2);
         edge.setPoints1(point1, middle);
         edge.setPoints2(point2, middle);
-        if (node1 instanceof VoltageLevelNode && !((VoltageLevelNode) node1).isVisible()) {
-            edge.setVisible(BranchEdge.Side.ONE, false);
-        }
-        if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
-            edge.setVisible(BranchEdge.Side.TWO, false);
-        }
+        setEdgeVisibility(node1, edge, BranchEdge.Side.ONE);
+        setEdgeVisibility(node2, edge, BranchEdge.Side.TWO);
     }
 
     private void multiBranchEdgesLayout(Graph graph, Set<Edge> edges, LayoutParameters layoutParameters) {
@@ -71,17 +67,18 @@ public abstract class AbstractLayout implements Layout {
 
                 Point middle = Point.createMiddlePoint(fork1, fork2);
                 BranchEdge.Side side = graph.getNode1(edge) == node1 ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-                BranchEdge.Side otherSide = side == BranchEdge.Side.ONE ? BranchEdge.Side.TWO : BranchEdge.Side.ONE;
                 branchEdge.setPoints(side, pointA, fork1, middle);
-                branchEdge.setPoints(otherSide, pointB, fork2, middle);
-                if (node1 instanceof VoltageLevelNode && !((VoltageLevelNode) node1).isVisible()) {
-                    branchEdge.setVisible(BranchEdge.Side.ONE, false);
-                }
-                if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
-                    branchEdge.setVisible(BranchEdge.Side.TWO, false);
-                }
+                branchEdge.setPoints(side.getOpposite(), pointB, fork2, middle);
+                setEdgeVisibility(node1, branchEdge, BranchEdge.Side.ONE);
+                setEdgeVisibility(node2, branchEdge, BranchEdge.Side.TWO);
             }
             i++;
+        }
+    }
+
+    private void setEdgeVisibility(Node node, BranchEdge branchEdge, BranchEdge.Side side) {
+        if (node instanceof VoltageLevelNode && !((VoltageLevelNode) node).isVisible()) {
+            branchEdge.setVisible(side, false);
         }
     }
 
