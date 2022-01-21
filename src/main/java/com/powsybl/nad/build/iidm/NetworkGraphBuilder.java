@@ -130,7 +130,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         private void addEdge(Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
             VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
                     .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
-            VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
+            VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(terminalB);
 
             BusInnerNode busNodeA = getBusInnerNode(terminalA, vlNodeA);
             BusInnerNode busNodeB = getBusInnerNode(terminalB, vlNodeB);
@@ -145,7 +145,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private void addThreeWtEdge(ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeWindingsTransformer.Side side) {
             Terminal terminal = twt.getTerminal(side);
-            VoltageLevelNode vlNode = getOrCreateVoltageLevelNode(terminal);
+            VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(terminal);
             ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
                     twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
             graph.addEdge(vlNode, getBusInnerNode(terminal, vlNode), tn, edge);
@@ -172,7 +172,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return connectableBusA != null ? vlNode.getBusInnerNode(connectableBusA.getId()) : null;
         }
 
-        private VoltageLevelNode getOrCreateVoltageLevelNode(Terminal terminal) {
+        private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {
             VoltageLevel vl = terminal.getVoltageLevel();
             return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createInvisibleVoltageLevelNode(vl));
         }
