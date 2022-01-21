@@ -124,8 +124,8 @@ public class SvgWriter {
 
     private void drawConverterStation(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        List<Point> line1 = edge.getLine(BranchEdge.Side.ONE);
-        List<Point> line2 = edge.getLine(BranchEdge.Side.TWO);
+        List<Point> line1 = edge.getPoints(BranchEdge.Side.ONE);
+        List<Point> line2 = edge.getPoints(BranchEdge.Side.TWO);
         List<Point> points = new ArrayList<>(2);
         double halfWidth = svgParameters.getConverterStationWidth() / 2;
         if (line1.size() > 2) {
@@ -167,7 +167,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        List<Point> half = edge.getLine(side);
+        List<Point> half = edge.getPoints(side);
         if (edge.isVisible(side)) {
             String lineFormatted = half.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))

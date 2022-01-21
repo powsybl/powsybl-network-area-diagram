@@ -24,8 +24,8 @@ public class BranchEdge extends AbstractEdge {
     public static final String LINE_EDGE = "LineEdge";
     public static final String HVDC_LINE_EDGE = "HvdcLineEdge";
 
-    private List<Point> line1 = Collections.emptyList();
-    private List<Point> line2 = Collections.emptyList();
+    private List<Point> points1 = Collections.emptyList();
+    private List<Point> points2 = Collections.emptyList();
     private final boolean[] visible = new boolean[] {true, true};
     private final String type;
 
@@ -38,27 +38,36 @@ public class BranchEdge extends AbstractEdge {
         return type;
     }
 
-    public List<Point> getLine(Side side) {
+    public List<Point> getPoints(Side side) {
         Objects.requireNonNull(side);
-        return side == Side.ONE ? getSide1() : getSide2();
+        return side == Side.ONE ? getPoints1() : getPoints2();
     }
 
-    public List<Point> getSide1() {
-        return Collections.unmodifiableList(line1);
+    public List<Point> getPoints1() {
+        return Collections.unmodifiableList(points1);
     }
 
-    public List<Point> getSide2() {
-        return Collections.unmodifiableList(line2);
+    public List<Point> getPoints2() {
+        return Collections.unmodifiableList(points2);
     }
 
-    public void setSide1(Point... points) {
+    public void setPoints(Side side, Point... points) {
+        Objects.requireNonNull(side);
+        if (side == Side.ONE) {
+            setPoints1(points);
+        } else {
+            setPoints2(points);
+        }
+    }
+
+    public void setPoints1(Point... points) {
         Arrays.stream(points).forEach(Objects::requireNonNull);
-        this.line1 = Arrays.asList(points);
+        this.points1 = Arrays.asList(points);
     }
 
-    public void setSide2(Point... points) {
+    public void setPoints2(Point... points) {
         Arrays.stream(points).forEach(Objects::requireNonNull);
-        this.line2 = Arrays.asList(points);
+        this.points2 = Arrays.asList(points);
     }
 
     public boolean isVisible(Side side) {

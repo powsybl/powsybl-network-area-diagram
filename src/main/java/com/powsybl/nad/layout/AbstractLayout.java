@@ -10,7 +10,7 @@ public abstract class AbstractLayout implements Layout {
     protected void edgeLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
-        graph.getNonMultiBranchEdgesStream().forEach(edge -> singleBranchEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
+        graph.getNonMultiBranchEdgesStream().forEach(edge -> singleBranchEdgeLayout(graph, edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> multiBranchEdgesLayout(graph, edges, layoutParameters));
         graph.getThreeWtEdgesStream().forEach(edge -> threeWtEdgeLayout(graph.getNode1(edge), graph.getNode2(edge), edge));
         graph.getTextEdgesMap().forEach((edge, nodes) -> textEdgeLayout(nodes.getFirst(), nodes.getSecond(), edge));
@@ -22,12 +22,14 @@ public abstract class AbstractLayout implements Layout {
         edge.setPoints(point1, point2);
     }
 
-    private void singleBranchEdgeLayout(Node node1, Node node2, BranchEdge edge) {
+    private void singleBranchEdgeLayout(Graph graph, BranchEdge edge) {
+        Node node1 = graph.getNode1(edge);
+        Node node2 = graph.getNode2(edge);
         Point point1 = new Point(node1.getX(), node1.getY());
         Point point2 = new Point(node2.getX(), node2.getY());
         Point middle = Point.createMiddlePoint(point1, point2);
-        edge.setSide1(point1, middle);
-        edge.setSide2(point2, middle);
+        edge.setPoints1(point1, middle);
+        edge.setPoints2(point2, middle);
         if (node1 instanceof VoltageLevelNode && !((VoltageLevelNode) node1).isVisible()) {
             edge.setVisible(BranchEdge.Side.ONE, false);
         }
@@ -59,7 +61,7 @@ public abstract class AbstractLayout implements Layout {
             }
             BranchEdge branchEdge = (BranchEdge) edge;
             if (2 * i + 1 == nbForks) { // in the middle, hence alpha = 0
-                singleBranchEdgeLayout(node1, node2, branchEdge);
+                singleBranchEdgeLayout(graph, branchEdge);
             } else {
                 double alpha = -forkAperture / 2 + i * angleStep;
                 double angleFork1 = angle - alpha;
@@ -68,8 +70,13 @@ public abstract class AbstractLayout implements Layout {
                 Point fork2 = pointB.shift(forkLength * Math.cos(angleFork2), forkLength * Math.sin(angleFork2));
 
                 Point middle = Point.createMiddlePoint(fork1, fork2);
-                branchEdge.setSide1(pointA, fork1, middle);
-                branchEdge.setSide2(pointB, fork2, middle);
+                BranchEdge.Side side = graph.getNode1(edge) == node1 ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+                BranchEdge.Side otherSide = side == BranchEdge.Side.ONE ? BranchEdge.Side.TWO : BranchEdge.Side.ONE;
+                branchEdge.setPoints(side, pointA, fork1, middle);
+                branchEdge.setPoints(otherSide, pointB, fork2, middle);
+                if (node1 instanceof VoltageLevelNode && !((VoltageLevelNode) node1).isVisible()) {
+                    branchEdge.setVisible(BranchEdge.Side.ONE, false);
+                }
                 if (node2 instanceof VoltageLevelNode && !((VoltageLevelNode) node2).isVisible()) {
                     branchEdge.setVisible(BranchEdge.Side.TWO, false);
                 }
