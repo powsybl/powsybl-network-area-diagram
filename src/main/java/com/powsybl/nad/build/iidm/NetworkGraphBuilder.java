@@ -121,9 +121,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
             VoltageLevelNode vlNodeC = getOrCreateVoltageLevelNode(terminalC);
 
-            BusInnerNode busNodeA = vlNodeA.getBusInnerNode(terminalA.getBusView().getBus().getId());
-            BusInnerNode busNodeB = vlNodeB.getBusInnerNode(terminalB.getBusView().getBus().getId());
-            BusInnerNode busNodeC = vlNodeB.getBusInnerNode(terminalB.getBusView().getBus().getId());
+            BusInnerNode busNodeA = vlNodeA.getBusInnerNode(terminalA.getBusView().getConnectableBus().getId());
+            BusInnerNode busNodeB = vlNodeB.getBusInnerNode(terminalB.getBusView().getConnectableBus().getId());
+            BusInnerNode busNodeC = vlNodeB.getBusInnerNode(terminalB.getBusView().getConnectableBus().getId());
 
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
@@ -163,8 +163,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
             VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
 
-            BusInnerNode busNodeA = terminalA.isConnected() ? vlNodeA.getBusInnerNode(terminalA.getBusView().getBus().getId()) : null;
-            BusInnerNode busNodeB = terminalB.isConnected() ? vlNodeB.getBusInnerNode(terminalB.getBusView().getBus().getId()) : null;
+            BusInnerNode busNodeA = vlNodeA.getBusInnerNode(terminalA.getBusView().getConnectableBus().getId());
+            BusInnerNode busNodeB = vlNodeB.getBusInnerNode(terminalB.getBusView().getConnectableBus().getId());
 
             BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
             if (!terminalsInReversedOrder) {
