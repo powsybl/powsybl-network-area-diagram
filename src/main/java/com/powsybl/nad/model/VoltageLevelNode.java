@@ -14,22 +14,16 @@ import java.util.List;
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final double nominalV;
     private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
     private final boolean visible;
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV) {
-        this(diagramId, equipmentId, nameOrId, nominalV, true);
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
+        this(diagramId, equipmentId, nameOrId, true);
     }
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, double nominalV, boolean visible) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean visible) {
         super(diagramId, equipmentId, nameOrId);
-        this.nominalV = nominalV;
         this.visible = visible;
-    }
-
-    public double getNominalV() {
-        return nominalV;
     }
 
     public void addBusNode(BusInnerNode busInnerNode) {
