@@ -413,7 +413,6 @@ public class SvgWriter {
             angles.add(angles.get(0) + 2 * Math.PI);
         }
 
-        double epsilon = Math.toRadians(5);
         double halfWidth = svgParameters.getNodeHollowWidth() / 2;
         double deltaAngle0 = halfWidth / outerRadius;
         double deltaAngle1 = halfWidth / innerRadius;
@@ -424,7 +423,7 @@ public class SvgWriter {
             double outerArcEnd = angles.get(i + 1) - deltaAngle0;
             double innerArcStart = angles.get(i + 1) - deltaAngle1;
             double innerArcEnd = angles.get(i) + deltaAngle1;
-            if (outerArcEnd - outerArcStart > epsilon && innerArcEnd - innerArcStart < -epsilon) {
+            if (outerArcEnd > outerArcStart && innerArcEnd < innerArcStart) {
                 path.append("M").append(getCirclePath(outerRadius, outerArcStart, outerArcEnd, true))
                         .append(" L").append(getCirclePath(innerRadius, innerArcStart, innerArcEnd, false))
                         .append(" Z ");
