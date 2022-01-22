@@ -9,11 +9,11 @@ package com.powsybl.nad.model;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class BusInnerNode extends AbstractNode {
+public class BusNode extends AbstractNode {
 
     private int index;
 
-    public BusInnerNode(String diagramId, String id) {
+    public BusNode(String diagramId, String id) {
         super(diagramId, id, null);
     }
 

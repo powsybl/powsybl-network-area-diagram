@@ -36,7 +36,7 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
-    List<String> getNodeStyleClasses(BusInnerNode busNode);
+    List<String> getNodeStyleClasses(BusNode busNode);
 
     List<String> getEdgeStyleClasses(Edge edge);
 

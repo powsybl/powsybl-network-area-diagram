@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class Graph {
 
     private final Map<String, Node> nodes = new LinkedHashMap<>();
-    private final Map<String, BusInnerNode> busNodes = new LinkedHashMap<>();
+    private final Map<String, BusNode> busNodes = new LinkedHashMap<>();
     private final Map<String, Edge> edges = new LinkedHashMap<>();
     private double minX = 0;
     private double minY = 0;
@@ -51,13 +51,13 @@ public class Graph {
         }
     }
 
-    public void addEdge(VoltageLevelNode node1, BusInnerNode busInnerNode1,
-                        VoltageLevelNode node2, BusInnerNode busInnerNode2, BranchEdge edge) {
+    public void addEdge(VoltageLevelNode node1, BusNode busNode1,
+                        VoltageLevelNode node2, BusNode busNode2, BranchEdge edge) {
         addVoltageLevelsEdge(node1, node2, edge);
-        addBusesEdge(busInnerNode1, busInnerNode2, edge);
+        addBusesEdge(busNode1, busNode2, edge);
     }
 
-    public void addEdge(VoltageLevelNode vlNode, BusInnerNode busNode, ThreeWtNode tNode, ThreeWtEdge edge) {
+    public void addEdge(VoltageLevelNode vlNode, BusNode busNode, ThreeWtNode tNode, ThreeWtEdge edge) {
         addVoltageLevelsEdge(vlNode, tNode, edge);
         addBusesEdge(busNode, tNode, edge);
     }
@@ -77,7 +77,7 @@ public class Graph {
         voltageLevelGraph.addEdge(node1, node2, edge);
     }
 
-    private void addBusesEdge(BusInnerNode node1, Node node2, Edge edge) {
+    private void addBusesEdge(BusNode node1, Node node2, Edge edge) {
         Objects.requireNonNull(edge);
         if (node1 != null && node2 != null) {
             busGraph.addEdge(node1, node2, edge);
@@ -116,7 +116,7 @@ public class Graph {
         return voltageLevelGraph.edgesOf(node).stream();
     }
 
-    public Collection<Edge> getBusEdges(BusInnerNode busNode) {
+    public Collection<Edge> getBusEdges(BusNode busNode) {
         return busGraph.edgesOf(busNode);
     }
 
@@ -174,7 +174,7 @@ public class Graph {
         return getNode(voltageLevelId).filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
     }
 
-    public BusInnerNode getBusInnerNode(String busId) {
+    public BusNode getBusNode(String busId) {
         return busNodes.get(busId);
     }
 

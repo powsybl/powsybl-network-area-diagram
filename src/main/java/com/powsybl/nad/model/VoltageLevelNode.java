@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
+    private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
@@ -26,24 +26,24 @@ public class VoltageLevelNode extends AbstractNode {
         this.visible = visible;
     }
 
-    public void addBusNode(BusInnerNode busInnerNode) {
-        Objects.requireNonNull(busInnerNode);
-        busInnerNodes.add(busInnerNode);
+    public void addBusNode(BusNode busNode) {
+        Objects.requireNonNull(busNode);
+        busNodes.add(busNode);
     }
 
-    public List<BusInnerNode> getBusNodes() {
-        return Collections.unmodifiableList(busInnerNodes);
+    public List<BusNode> getBusNodes() {
+        return Collections.unmodifiableList(busNodes);
     }
 
-    public Stream<BusInnerNode> getBusNodeStream() {
-        return busInnerNodes.stream();
+    public Stream<BusNode> getBusNodeStream() {
+        return busNodes.stream();
     }
 
     public boolean isVisible() {
         return visible;
     }
 
-    public void sortBusInnerNodes(Comparator<? super BusInnerNode> c) {
-        busInnerNodes.sort(c);
+    public void sortBusNodes(Comparator<? super BusNode> c) {
+        busNodes.sort(c);
     }
 }

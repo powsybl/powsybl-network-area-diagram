@@ -448,7 +448,7 @@ public class SvgWriter {
 
         List<Edge> traversingBusEdges = graph.getEdgeStream(vlNode).filter(edge -> !(edge instanceof TextEdge)).collect(Collectors.toList());
 
-        for (BusInnerNode busNode : vlNode.getBusNodes()) {
+        for (BusNode busNode : vlNode.getBusNodes()) {
             double busInnerRadius = busOuterRadius - nodeOuterRadius / nbBuses;
             if (busInnerRadius == 0) {
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);

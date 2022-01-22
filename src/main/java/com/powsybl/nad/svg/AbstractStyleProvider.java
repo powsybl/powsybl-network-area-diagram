@@ -59,7 +59,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusInnerNode busNode) {
+    public List<String> getNodeStyleClasses(BusNode busNode) {
         return Collections.emptyList();
     }
 

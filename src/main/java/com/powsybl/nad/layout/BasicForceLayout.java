@@ -35,13 +35,13 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    protected void busInnerNodesLayout(Graph graph, LayoutParameters layoutParameters) {
-        Comparator<BusInnerNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
+    protected void busNodesLayout(Graph graph, LayoutParameters layoutParameters) {
+        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
         graph.getVoltageLevelNodesStream().forEach(n -> {
-            n.sortBusInnerNodes(c);
-            List<BusInnerNode> sortedNodes = n.getBusNodes();
+            n.sortBusNodes(c);
+            List<BusNode> sortedNodes = n.getBusNodes();
             for (int i = 0; i < sortedNodes.size(); i++) {
-                BusInnerNode busNode = sortedNodes.get(i);
+                BusNode busNode = sortedNodes.get(i);
                 busNode.setIndex(i);
                 busNode.setPosition(n.getX(), n.getY());
             }

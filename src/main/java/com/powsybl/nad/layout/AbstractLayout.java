@@ -12,7 +12,7 @@ public abstract class AbstractLayout implements Layout {
         Objects.requireNonNull(layoutParameters);
 
         nodesLayout(graph, layoutParameters);
-        busInnerNodesLayout(graph, layoutParameters);
+        busNodesLayout(graph, layoutParameters);
         edgesLayout(graph, layoutParameters);
 
         computeSize(graph, layoutParameters);
@@ -20,7 +20,7 @@ public abstract class AbstractLayout implements Layout {
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
 
-    protected abstract void busInnerNodesLayout(Graph graph, LayoutParameters layoutParameters);
+    protected abstract void busNodesLayout(Graph graph, LayoutParameters layoutParameters);
 
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);

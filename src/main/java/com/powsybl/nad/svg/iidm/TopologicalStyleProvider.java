@@ -8,7 +8,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.nad.model.BusInnerNode;
+import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
@@ -41,7 +41,7 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusInnerNode busNode) {
+    public List<String> getNodeStyleClasses(BusNode busNode) {
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
         List<String> styles = new ArrayList<>();
         getNodeTopologicalStyle(b).ifPresent(styles::add);
