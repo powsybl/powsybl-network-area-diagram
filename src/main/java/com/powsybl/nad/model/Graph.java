@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 public class Graph {
 
     private final Map<String, Node> nodes = new LinkedHashMap<>();
+    private final Map<String, BusInnerNode> busNodes = new LinkedHashMap<>();
     private final Map<String, Edge> edges = new LinkedHashMap<>();
     private double minX = 0;
     private double minY = 0;
@@ -37,7 +38,10 @@ public class Graph {
             nodes.put(node.getEquipmentId(), node);
             voltageLevelGraph.addVertex(node);
             if (node instanceof VoltageLevelNode) {
-                ((VoltageLevelNode) node).getBusNodeStream().forEach(busGraph::addVertex);
+                ((VoltageLevelNode) node).getBusNodeStream().forEach(b -> {
+                    busGraph.addVertex(b);
+                    busNodes.put(b.getEquipmentId(), b);
+                });
             }
             if (node instanceof ThreeWtNode) {
                 busGraph.addVertex(node);
@@ -168,6 +172,10 @@ public class Graph {
 
     public Optional<VoltageLevelNode> getVoltageLevelNode(String voltageLevelId) {
         return getNode(voltageLevelId).filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
+    }
+
+    public BusInnerNode getBusInnerNode(String busId) {
+        return busNodes.get(busId);
     }
 
     public org.jgrapht.Graph<Node, Edge> getJgraphtGraph(boolean includeTextNodes) {

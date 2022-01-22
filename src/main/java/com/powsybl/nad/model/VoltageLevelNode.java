@@ -7,7 +7,6 @@
 package com.powsybl.nad.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +14,7 @@ import java.util.stream.Stream;
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final Map<String, BusInnerNode> busInnerNodes = new LinkedHashMap<>();
+    private final List<BusInnerNode> busInnerNodes = new ArrayList<>();
     private final boolean visible;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
@@ -29,28 +28,22 @@ public class VoltageLevelNode extends AbstractNode {
 
     public void addBusNode(BusInnerNode busInnerNode) {
         Objects.requireNonNull(busInnerNode);
-        busInnerNodes.put(busInnerNode.getEquipmentId(), busInnerNode);
+        busInnerNodes.add(busInnerNode);
     }
 
     public Collection<BusInnerNode> getBusNodes() {
-        return Collections.unmodifiableCollection(busInnerNodes.values());
+        return Collections.unmodifiableCollection(busInnerNodes);
     }
 
     public Stream<BusInnerNode> getBusNodeStream() {
-        return busInnerNodes.values().stream();
+        return busInnerNodes.stream();
     }
 
     public boolean isVisible() {
         return visible;
     }
 
-    public BusInnerNode getBusInnerNode(String id) {
-        return busInnerNodes.get(id);
-    }
-
     public void sortBusInnerNodes(Comparator<? super BusInnerNode> c) {
-        List<BusInnerNode> sortedNodes = busInnerNodes.values().stream().sorted(c).collect(Collectors.toList());
-        busInnerNodes.clear();
-        sortedNodes.forEach(node -> busInnerNodes.put(node.getEquipmentId(), node));
+        busInnerNodes.sort(c);
     }
 }

@@ -132,8 +132,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
             VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(terminalB);
 
-            BusInnerNode busNodeA = getBusInnerNode(terminalA, vlNodeA);
-            BusInnerNode busNodeB = getBusInnerNode(terminalB, vlNodeB);
+            BusInnerNode busNodeA = getBusInnerNode(terminalA);
+            BusInnerNode busNodeB = getBusInnerNode(terminalB);
 
             BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
             if (!terminalsInReversedOrder) {
@@ -148,7 +148,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(terminal);
             ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
                     twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
-            graph.addEdge(vlNode, getBusInnerNode(terminal, vlNode), tn, edge);
+            graph.addEdge(vlNode, getBusInnerNode(terminal), tn, edge);
         }
 
         private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
@@ -167,9 +167,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return new ThreeWindingsTransformer.Side[] {sideA, sideB, sideC};
         }
 
-        private BusInnerNode getBusInnerNode(Terminal terminal, VoltageLevelNode vlNode) {
+        private BusInnerNode getBusInnerNode(Terminal terminal) {
             Bus connectableBusA = terminal.getBusView().getConnectableBus();
-            return connectableBusA != null ? vlNode.getBusInnerNode(connectableBusA.getId()) : null;
+            return connectableBusA != null ? graph.getBusInnerNode(connectableBusA.getId()) : null;
         }
 
         private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {
