@@ -10,6 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BusInnerNode;
 import com.powsybl.nad.model.Node;
+import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.*;
 
@@ -77,7 +78,7 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
         bus.visitConnectedEquipments(new DefaultTopologyVisitor() {
             @Override
             public void visitLine(Line line, Branch.Side side) {
-                Terminal t = line.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE);
+                Terminal t = line.getTerminal(IidmUtils.getOpposite(side));
                 Bus otherBus = t.getBusView().getBus();
                 if (otherBus != null && !visitedBus.contains(otherBus)) {
                     findConnectedBuses(otherBus, visitedBus);

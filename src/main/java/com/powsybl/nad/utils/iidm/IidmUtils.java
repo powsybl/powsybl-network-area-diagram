@@ -31,6 +31,10 @@ public final class IidmUtils {
         }
     }
 
+    public static Branch.Side getOpposite(Branch.Side side) {
+        return side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+    }
+
     public static Branch.Side getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {
         return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
     }

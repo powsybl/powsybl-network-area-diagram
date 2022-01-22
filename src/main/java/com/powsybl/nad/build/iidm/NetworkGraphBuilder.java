@@ -122,7 +122,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
 
             Terminal terminalA = branch.getTerminal(side);
-            Terminal terminalB = branch.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE);
+            Terminal terminalB = branch.getTerminal(IidmUtils.getOpposite(side));
 
             addEdge(terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
         }
