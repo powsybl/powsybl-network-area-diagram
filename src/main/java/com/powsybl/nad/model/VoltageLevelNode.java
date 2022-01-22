@@ -7,6 +7,7 @@
 package com.powsybl.nad.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -45,5 +46,11 @@ public class VoltageLevelNode extends AbstractNode {
 
     public BusInnerNode getBusInnerNode(String id) {
         return busInnerNodes.get(id);
+    }
+
+    public void sortBusInnerNodes(Comparator<? super BusInnerNode> c) {
+        List<BusInnerNode> sortedNodes = busInnerNodes.values().stream().sorted(c).collect(Collectors.toList());
+        busInnerNodes.clear();
+        sortedNodes.forEach(node -> busInnerNodes.put(node.getEquipmentId(), node));
     }
 }

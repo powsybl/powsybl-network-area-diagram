@@ -116,11 +116,14 @@ public class Graph {
         return busGraph.edgesOf(busNode);
     }
 
-    public List<BranchEdge> getBranchEdges() {
+    public Stream<BranchEdge> getBranchEdgeStream() {
         return voltageLevelGraph.edgeSet().stream()
                 .filter(BranchEdge.class::isInstance)
-                .map(BranchEdge.class::cast)
-                .collect(Collectors.toList());
+                .map(BranchEdge.class::cast);
+    }
+
+    public List<BranchEdge> getBranchEdges() {
+        return getBranchEdgeStream().collect(Collectors.toList());
     }
 
     public Stream<TextEdge> getTextEdgesStream() {

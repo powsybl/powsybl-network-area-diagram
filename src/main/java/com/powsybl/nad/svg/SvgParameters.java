@@ -26,6 +26,8 @@ public class SvgParameters {
     private double voltageLevelCircleRadius = 0.6;
     private double transformerCircleRadius = 0.2;
     private double nodeHollowWidth = 0.1;
+    private double edgesForkLength = 0.8;
+    private double edgesForkAperture = Math.toRadians(60);
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -151,6 +153,24 @@ public class SvgParameters {
 
     public SvgParameters setNodeHollowWidth(double nodeHollowWidth) {
         this.nodeHollowWidth = nodeHollowWidth;
+        return this;
+    }
+
+    public double getEdgesForkAperture() {
+        return edgesForkAperture;
+    }
+
+    public SvgParameters setEdgesForkAperture(double edgesForkApertureDegrees) {
+        this.edgesForkAperture = Math.toRadians(edgesForkApertureDegrees);
+        return this;
+    }
+
+    public double getEdgesForkLength() {
+        return edgesForkLength;
+    }
+
+    public SvgParameters setEdgesForkLength(double edgesForkLength) {
+        this.edgesForkLength = edgesForkLength;
         return this;
     }
 }

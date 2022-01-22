@@ -11,7 +11,7 @@ import com.powsybl.forcelayout.Vector;
 import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
-import java.util.Objects;
+import java.util.Comparator;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -19,10 +19,7 @@ import java.util.Objects;
 public class BasicForceLayout extends AbstractLayout {
 
     @Override
-    public void run(Graph graph, LayoutParameters layoutParameters) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(layoutParameters);
-
+    protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.execute();
@@ -35,18 +32,11 @@ public class BasicForceLayout extends AbstractLayout {
         if (!layoutParameters.isTextNodesForceLayout()) {
             graph.getTextEdgesMap().forEach(this::fixedTextNodeLayout);
         }
+    }
 
-        edgeLayout(graph, layoutParameters);
-
-        double[] dims = new double[4];
-        jgraphtGraph.vertexSet().forEach(node -> {
-            dims[0] = Math.min(dims[0], node.getX());
-            dims[1] = Math.max(dims[1], node.getX());
-            dims[2] = Math.min(dims[2], node.getY());
-            dims[3] = Math.max(dims[3], node.getY());
-        });
-        graph.setDimensions(dims[0], dims[1], dims[2], dims[3]);
-
+    protected void busInnerNodesLayout(Graph graph, LayoutParameters layoutParameters) {
+        Comparator<BusInnerNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
+        graph.getVoltageLevelNodesStream().forEach(n -> n.sortBusInnerNodes(c));
     }
 
     private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
