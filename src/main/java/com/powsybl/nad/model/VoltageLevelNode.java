@@ -31,8 +31,8 @@ public class VoltageLevelNode extends AbstractNode {
         busInnerNodes.add(busInnerNode);
     }
 
-    public Collection<BusInnerNode> getBusNodes() {
-        return Collections.unmodifiableCollection(busInnerNodes);
+    public List<BusInnerNode> getBusNodes() {
+        return Collections.unmodifiableList(busInnerNodes);
     }
 
     public Stream<BusInnerNode> getBusNodeStream() {

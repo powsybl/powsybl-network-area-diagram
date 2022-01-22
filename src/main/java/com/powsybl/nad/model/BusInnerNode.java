@@ -11,8 +11,17 @@ package com.powsybl.nad.model;
  */
 public class BusInnerNode extends AbstractNode {
 
+    private int index;
+
     public BusInnerNode(String diagramId, String id) {
         super(diagramId, id, null);
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }

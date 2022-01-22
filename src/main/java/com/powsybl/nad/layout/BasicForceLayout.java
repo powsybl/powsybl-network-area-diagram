@@ -12,6 +12,7 @@ import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -36,7 +37,15 @@ public class BasicForceLayout extends AbstractLayout {
 
     protected void busInnerNodesLayout(Graph graph, LayoutParameters layoutParameters) {
         Comparator<BusInnerNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
-        graph.getVoltageLevelNodesStream().forEach(n -> n.sortBusInnerNodes(c));
+        graph.getVoltageLevelNodesStream().forEach(n -> {
+            n.sortBusInnerNodes(c);
+            List<BusInnerNode> sortedNodes = n.getBusNodes();
+            for (int i = 0; i < sortedNodes.size(); i++) {
+                BusInnerNode busNode = sortedNodes.get(i);
+                busNode.setIndex(i);
+                busNode.setPosition(n.getX(), n.getY());
+            }
+        });
     }
 
     private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
