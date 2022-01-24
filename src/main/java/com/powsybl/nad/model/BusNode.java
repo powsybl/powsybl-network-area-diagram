@@ -12,6 +12,7 @@ package com.powsybl.nad.model;
 public class BusNode extends AbstractNode {
 
     private int index;
+    private int nbNeighbouringBusNodes;
 
     public BusNode(String diagramId, String id) {
         super(diagramId, id, null);
@@ -23,5 +24,13 @@ public class BusNode extends AbstractNode {
 
     public int getIndex() {
         return index;
+    }
+
+    public void setNbNeighbouringBusNodes(int nbNeighbouringBusNodes) {
+        this.nbNeighbouringBusNodes = nbNeighbouringBusNodes;
+    }
+
+    public int getNbNeighbouringBusNodes() {
+        return nbNeighbouringBusNodes;
     }
 }

@@ -149,11 +149,13 @@ public class Graph {
                 .filter(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)).size() == 1);
     }
 
-    public Stream<Set<Edge>> getMultiBranchEdgesStream() {
+    public Stream<List<BranchEdge>> getMultiBranchEdgesStream() {
         return voltageLevelGraph.edgeSet().stream()
                 .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
-                .distinct();
+                .distinct()
+                .map(e -> e.stream().filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast).collect(Collectors.toList()))
+                .filter(e -> e.size() > 1);
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
@@ -231,6 +233,14 @@ public class Graph {
 
     public Node getNode2(Edge edge) {
         return voltageLevelGraph.getEdgeTarget(edge);
+    }
+
+    public Node getBusGraphNode1(Edge edge) {
+        return busGraph.getEdgeSource(edge);
+    }
+
+    public Node getBusGraphNode2(Edge edge) {
+        return busGraph.getEdgeTarget(edge);
     }
 
     public boolean containsEdge(String equipmentId) {

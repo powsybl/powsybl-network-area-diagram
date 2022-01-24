@@ -28,6 +28,7 @@ public class SvgParameters {
     private double nodeHollowWidth = 0.1;
     private double edgesForkLength = 0.8;
     private double edgesForkAperture = Math.toRadians(60);
+    private double edgeStartShift = 0.03;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -171,6 +172,15 @@ public class SvgParameters {
 
     public SvgParameters setEdgesForkLength(double edgesForkLength) {
         this.edgesForkLength = edgesForkLength;
+        return this;
+    }
+
+    public double getEdgeStartShift() {
+        return edgeStartShift;
+    }
+
+    public SvgParameters setEdgeStartShift(double edgeStartShift) {
+        this.edgeStartShift = edgeStartShift;
         return this;
     }
 }

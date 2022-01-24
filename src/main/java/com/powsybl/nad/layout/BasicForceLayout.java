@@ -43,6 +43,7 @@ public class BasicForceLayout extends AbstractLayout {
             for (int i = 0; i < sortedNodes.size(); i++) {
                 BusNode busNode = sortedNodes.get(i);
                 busNode.setIndex(i);
+                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
                 busNode.setPosition(n.getX(), n.getY());
             }
         });
