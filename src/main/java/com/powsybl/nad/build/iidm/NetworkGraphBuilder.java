@@ -179,6 +179,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private VoltageLevelNode createInvisibleVoltageLevelNode(VoltageLevel vl) {
             VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), false);
+            vl.getBusView().getBusStream()
+                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
+                    .forEach(invisibleVlNode::addBusNode);
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
         }
