@@ -10,6 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
+import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.AbstractStyleProvider;

@@ -16,6 +16,7 @@ public class VoltageLevelNode extends AbstractNode {
 
     private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
+    private boolean hasUnknownBusNode = false;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
         this(diagramId, equipmentId, nameOrId, true);
@@ -45,5 +46,13 @@ public class VoltageLevelNode extends AbstractNode {
 
     public void sortBusNodes(Comparator<? super BusNode> c) {
         busNodes.sort(c);
+    }
+
+    public void setHasUnknownBusNode(boolean hasUnknownBusNode) {
+        this.hasUnknownBusNode = hasUnknownBusNode;
+    }
+
+    public boolean hasUnknownBusNode() {
+        return hasUnknownBusNode;
     }
 }

@@ -122,14 +122,33 @@ public class SvgWriter {
         Node node1 = graph.getBusGraphNode1(edge);
         Node node2 = graph.getBusGraphNode2(edge);
 
-        Point edgeStart1 = computeEdgeStart(node1, new Point(node2.getX(), node2.getY()));
-        Point edgeStart2 = computeEdgeStart(node2, new Point(node1.getX(), node1.getY()));
+        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
+
+        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
+
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
         edge.setPoints1(edgeStart1, middle);
         edge.setPoints2(edgeStart2, middle);
     }
 
-    private Point computeEdgeStart(Node node, Point direction) {
+    private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
+        if (directionBusGraphNode == BusNode.UNKNOWN) {
+            Node vlNode = vlNodeSupplier.get();
+            return new Point(vlNode.getX(), vlNode.getY());
+        }
+        return new Point(directionBusGraphNode.getX(), directionBusGraphNode.getY());
+    }
+
+    private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier) {
+        // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
+        if (node == BusNode.UNKNOWN) {
+            Node vlNode = vlNodeSupplier.get();
+            double unknownBusRadius = svgParameters.getVoltageLevelCircleRadius() + svgParameters.getUnknownBusNodeExtraRadius();
+            return new Point(vlNode.getX(), vlNode.getY()).atDistance(unknownBusRadius, direction);
+        }
+
         Point edgeStart = new Point(node.getX(), node.getY());
         if (node instanceof BusNode) {
             int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
@@ -142,10 +161,10 @@ public class SvgWriter {
 
     private void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges) {
         Edge firstEdge = edges.iterator().next();
-        Node node1 = graph.getNode1(firstEdge);
-        Node node2 = graph.getNode2(firstEdge);
-        Point pointA = new Point(node1.getX(), node1.getY());
-        Point pointB = new Point(node2.getX(), node2.getY());
+        Node nodeA = graph.getNode1(firstEdge);
+        Node nodeB = graph.getNode2(firstEdge);
+        Point pointA = new Point(nodeA.getX(), nodeA.getY());
+        Point pointB = new Point(nodeB.getX(), nodeB.getY());
 
         double dx = pointB.getX() - pointA.getX();
         double dy = pointB.getY() - pointA.getY();
@@ -168,16 +187,16 @@ public class SvgWriter {
                 Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
                 Point middle = Point.createMiddlePoint(forkA, forkB);
 
-                BranchEdge.Side sideA = graph.getNode1(edge) == node1 ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+                BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
                 BranchEdge.Side sideB = sideA.getOpposite();
 
                 Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
                 Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
 
-                Point edgeStartA = computeEdgeStart(busNodeA, forkA);
+                Point edgeStartA = computeEdgeStart(busNodeA, forkA, () -> nodeA);
                 edge.setPoints(sideA, edgeStartA, forkA, middle);
 
-                Point edgeStartB = computeEdgeStart(busNodeB, forkB);
+                Point edgeStartB = computeEdgeStart(busNodeB, forkB, () -> nodeB);
                 edge.setPoints(sideB, edgeStartB, forkB, middle);
             }
             i++;
@@ -454,9 +473,15 @@ public class SvgWriter {
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
-        int nbBuses = vlNode.getBusNodes().size();
         double nodeOuterRadius = svgParameters.getVoltageLevelCircleRadius();
 
+        if (vlNode.hasUnknownBusNode()) {
+            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
+            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
+        }
+
+        int nbBuses = vlNode.getBusNodes().size();
         double busInnerRadius = 0;
         List<Edge> traversingBusEdges = new ArrayList<>();
 

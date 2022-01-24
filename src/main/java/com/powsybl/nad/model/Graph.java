@@ -78,10 +78,13 @@ public class Graph {
     }
 
     private void addBusesEdge(BusNode node1, Node node2, Edge edge) {
+        Objects.requireNonNull(node1);
+        Objects.requireNonNull(node2);
         Objects.requireNonNull(edge);
-        if (node1 != null && node2 != null) {
-            busGraph.addEdge(node1, node2, edge);
+        if (node1 == BusNode.UNKNOWN || node2 == BusNode.UNKNOWN) {
+            busGraph.addVertex(BusNode.UNKNOWN);
         }
+        busGraph.addEdge(node1, node2, edge);
     }
 
     public Stream<Node> getNodesStream() {

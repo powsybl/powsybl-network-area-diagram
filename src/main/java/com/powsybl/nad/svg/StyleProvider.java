@@ -29,6 +29,7 @@ public interface StyleProvider {
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
     String HVDC_CLASS = CLASSES_PREFIX + "hvdc";
+    String UNKNOWN_BUSNODE_CLASS = CLASSES_PREFIX + "unknown-busnode";
 
     List<String> getCssFilenames();
 

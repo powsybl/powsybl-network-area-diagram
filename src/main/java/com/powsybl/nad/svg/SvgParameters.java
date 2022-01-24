@@ -29,6 +29,7 @@ public class SvgParameters {
     private double edgesForkLength = 0.8;
     private double edgesForkAperture = Math.toRadians(60);
     private double edgeStartShift = 0.03;
+    private double unknownBusNodeExtraRadius = 0.1;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -181,6 +182,15 @@ public class SvgParameters {
 
     public SvgParameters setEdgeStartShift(double edgeStartShift) {
         this.edgeStartShift = edgeStartShift;
+        return this;
+    }
+
+    public double getUnknownBusNodeExtraRadius() {
+        return unknownBusNodeExtraRadius;
+    }
+
+    public SvgParameters setUnknownBusNodeExtraRadius(double unknownBusNodeExtraRadius) {
+        this.unknownBusNodeExtraRadius = unknownBusNodeExtraRadius;
         return this;
     }
 }

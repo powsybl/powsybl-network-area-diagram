@@ -169,7 +169,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private BusNode getBusNode(Terminal terminal) {
             Bus connectableBusA = terminal.getBusView().getConnectableBus();
-            return connectableBusA != null ? graph.getBusNode(connectableBusA.getId()) : null;
+            if (connectableBusA == null) {
+                graph.getVoltageLevelNode(terminal.getVoltageLevel().getId()).ifPresent(vlNode -> vlNode.setHasUnknownBusNode(true));
+                return BusNode.UNKNOWN;
+            }
+            return graph.getBusNode(connectableBusA.getId());
         }
 
         private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {

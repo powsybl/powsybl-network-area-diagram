@@ -60,7 +60,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
-        return Collections.emptyList();
+        return busNode == BusNode.UNKNOWN ? Collections.singletonList(UNKNOWN_BUSNODE_CLASS) : Collections.emptyList();
     }
 
     @Override

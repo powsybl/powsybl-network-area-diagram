@@ -11,6 +11,8 @@ package com.powsybl.nad.model;
  */
 public class BusNode extends AbstractNode {
 
+    public static final BusNode UNKNOWN = new BusNode("", "");
+
     private int index;
     private int nbNeighbouringBusNodes;
 
