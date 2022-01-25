@@ -1,4 +1,4 @@
-package com.powsybl.nad.svg.iidm;
+package com.powsybl.nad.utils.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
@@ -21,6 +21,20 @@ public final class IidmUtils {
         }
     }
 
+    public static ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
+        if (side == ThreeWindingsTransformer.Side.ONE) {
+            return twt.getLeg1();
+        } else if (side == ThreeWindingsTransformer.Side.TWO) {
+            return twt.getLeg2();
+        } else {
+            return twt.getLeg3();
+        }
+    }
+
+    public static Branch.Side getOpposite(Branch.Side side) {
+        return side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+    }
+
     public static Branch.Side getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {
         return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
     }
@@ -40,4 +54,17 @@ public final class IidmUtils {
         }
         return null;
     }
+
+    public static ThreeWtEdge.Side getThreeWtEdgeSideFromIidmSide(ThreeWindingsTransformer.Side side) {
+        switch (Objects.requireNonNull(side)) {
+            case ONE:
+                return ThreeWtEdge.Side.ONE;
+            case TWO:
+                return ThreeWtEdge.Side.TWO;
+            case THREE:
+                return ThreeWtEdge.Side.THREE;
+        }
+        return null;
+    }
+
 }

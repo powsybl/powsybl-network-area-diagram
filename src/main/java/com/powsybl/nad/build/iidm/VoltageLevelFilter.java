@@ -8,6 +8,7 @@ package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
+import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -96,8 +97,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
 
         private void visitBranch(Branch<?> branch, Branch.Side side) {
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-            visitTerminal(branch.getTerminal(otherSide));
+            visitTerminal(branch.getTerminal(IidmUtils.getOpposite(side)));
         }
 
         private void visitTerminal(Terminal terminal) {

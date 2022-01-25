@@ -8,6 +8,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
+import com.powsybl.nad.utils.iidm.IidmUtils;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
