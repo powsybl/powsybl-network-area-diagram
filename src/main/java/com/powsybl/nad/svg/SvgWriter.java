@@ -108,7 +108,7 @@ public class SvgWriter {
     private void computeBranchEdgesCoordinates(Graph graph) {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges));
-        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph.getNode1(edge), graph.getNode2(edge), edge));
+        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
@@ -203,10 +203,17 @@ public class SvgWriter {
         }
     }
 
-    private void computeThreeWtEdgeCoordinates(Node node1, Node node2, ThreeWtEdge edge) {
-        Point point1 = new Point(node1.getX(), node1.getY());
-        Point point2 = new Point(node2.getX(), node2.getY());
-        edge.setPoints(point1, point2);
+    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge) {
+        Node node1 = graph.getBusGraphNode1(edge);
+        Node node2 = graph.getBusGraphNode2(edge);
+
+        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
+
+        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
+
+        edge.setPoints(edgeStart1, edgeStart2);
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
