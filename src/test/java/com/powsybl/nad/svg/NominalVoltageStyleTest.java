@@ -8,7 +8,9 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.import_.Importers;
+import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
@@ -83,6 +85,8 @@ class NominalVoltageStyleTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getLine("L3-4-1").getTerminal1().disconnect();
         network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
+        network.getVoltageLevel("VL14").getConnectableStream().map(connectable -> (Connectable<?>) connectable).forEach(connectable -> connectable.getTerminals().forEach(Terminal::disconnect));
+        LoadFlow.run(network);
         assertEquals(toString("/IEEE_14_bus_disconnection.svg"), generateSvgString(network, "/IEEE_14_bus_disconnection.svg"));
     }
 
