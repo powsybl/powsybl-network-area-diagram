@@ -3,6 +3,7 @@ package com.powsybl.nad.layout;
 import com.powsybl.nad.model.*;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public abstract class AbstractLayout implements Layout {
 
@@ -39,7 +40,7 @@ public abstract class AbstractLayout implements Layout {
 
     private void computeSize(Graph graph, LayoutParameters layoutParameters) {
         double[] dims = new double[4];
-        graph.getNodesStream().forEach(node -> {
+        Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
             dims[1] = Math.max(dims[1], node.getX());
             dims[2] = Math.min(dims[2], node.getY());
