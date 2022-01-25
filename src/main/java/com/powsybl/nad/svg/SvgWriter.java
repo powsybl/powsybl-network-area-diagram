@@ -630,9 +630,7 @@ public class SvgWriter {
     }
 
     private void shiftEdgeStart(List<Point> points) {
-        Point point0 = points.get(0).atDistance(svgParameters.getVoltageLevelCircleRadius(), points.get(1));
-        points.get(0).setX(point0.getX());
-        points.get(0).setY(point0.getY());
+        points.set(0, points.get(0).atDistance(svgParameters.getVoltageLevelCircleRadius(), points.get(1)));
     }
 
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
