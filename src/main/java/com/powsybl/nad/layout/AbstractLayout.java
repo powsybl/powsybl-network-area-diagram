@@ -16,7 +16,7 @@ public abstract class AbstractLayout implements Layout {
         busNodesLayout(graph, layoutParameters);
         edgesLayout(graph, layoutParameters);
 
-        computeSize(graph, layoutParameters);
+        computeSize(graph);
     }
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
@@ -38,7 +38,7 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private void computeSize(Graph graph, LayoutParameters layoutParameters) {
+    private void computeSize(Graph graph) {
         double[] dims = new double[4];
         Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
