@@ -113,9 +113,7 @@ public class SvgWriter {
     }
 
     private void computeTextEdgeLayoutCoordinates(Node node1, Node node2, TextEdge edge) {
-        Point point1 = new Point(node1.getX(), node1.getY());
-        Point point2 = new Point(node2.getX(), node2.getY());
-        edge.setPoints(point1, point2);
+        edge.setPoints(node1.getPosition(), node2.getPosition());
     }
 
     private void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge) {
@@ -135,8 +133,7 @@ public class SvgWriter {
 
     private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
         if (directionBusGraphNode == BusNode.UNKNOWN) {
-            Node vlNode = vlNodeSupplier.get();
-            return new Point(vlNode.getX(), vlNode.getY());
+            return vlNodeSupplier.get().getPosition();
         }
         return new Point(directionBusGraphNode.getX(), directionBusGraphNode.getY());
     }
@@ -144,9 +141,8 @@ public class SvgWriter {
     private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier) {
         // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
         if (node == BusNode.UNKNOWN) {
-            Node vlNode = vlNodeSupplier.get();
             double unknownBusRadius = svgParameters.getVoltageLevelCircleRadius() + svgParameters.getUnknownBusNodeExtraRadius();
-            return new Point(vlNode.getX(), vlNode.getY()).atDistance(unknownBusRadius, direction);
+            return vlNodeSupplier.get().getPosition().atDistance(unknownBusRadius, direction);
         }
 
         Point edgeStart = new Point(node.getX(), node.getY());
@@ -163,8 +159,8 @@ public class SvgWriter {
         Edge firstEdge = edges.iterator().next();
         Node nodeA = graph.getNode1(firstEdge);
         Node nodeB = graph.getNode2(firstEdge);
-        Point pointA = new Point(nodeA.getX(), nodeA.getY());
-        Point pointB = new Point(nodeB.getX(), nodeB.getY());
+        Point pointA = nodeA.getPosition();
+        Point pointB = nodeB.getPosition();
 
         double dx = pointB.getX() - pointA.getX();
         double dy = pointB.getY() - pointA.getY();
@@ -452,7 +448,7 @@ public class SvgWriter {
     }
 
     private String getTranslateString(Node node) {
-        return getTranslateString(node.getX(), node.getY());
+        return getTranslateString(node.getPosition());
     }
 
     private String getTranslateString(Point point) {

@@ -46,8 +46,18 @@ public abstract class AbstractNode implements Node {
     }
 
     @Override
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    @Override
     public void setPosition(double x, double y) {
         position = new Point(x, y);
+    }
+
+    @Override
+    public Point getPosition() {
+        return position;
     }
 
     @Override

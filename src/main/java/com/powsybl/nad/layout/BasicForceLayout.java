@@ -44,15 +44,15 @@ public class BasicForceLayout extends AbstractLayout {
                 BusNode busNode = sortedNodes.get(i);
                 busNode.setIndex(i);
                 busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
-                busNode.setPosition(n.getX(), n.getY());
+                busNode.setPosition(n.getPosition());
             }
         });
     }
 
     private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
-        VoltageLevelNode vlNode = nodes.getFirst();
         Point fixedShift = getTextNodeFixedShift();
-        nodes.getSecond().setPosition(vlNode.getX() + fixedShift.getX(), vlNode.getY() + fixedShift.getY());
+        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
+        nodes.getSecond().setPosition(textPos);
     }
 
     protected Point getTextNodeFixedShift() {
