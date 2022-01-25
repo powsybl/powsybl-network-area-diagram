@@ -6,8 +6,9 @@
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
-.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue)}
-.nad-hvdc-edge polyline.nad-hvdc {stroke-width: 0.2}
+.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
+.nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -53,9 +54,8 @@
         </g>
     </g>
     <g class="nad-vl-nodes">
-        <g transform="translate(-1.99,-2.23)">
-            <circle id="0" class="nad-vl0to30" title="VL_11" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.99,-2.23)" id="0" class="nad-vl0to30" title="VL_11">
+            <circle r="0.60" id="1"/>
         </g>
     </g>
     <g class="nad-3wt-nodes">

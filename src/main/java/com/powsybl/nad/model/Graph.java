@@ -7,6 +7,7 @@
 package com.powsybl.nad.model;
 
 import org.jgrapht.alg.util.Pair;
+import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 
 import java.util.*;
@@ -25,7 +26,8 @@ public class Graph {
     private double maxX = 0;
     private double maxY = 0;
 
-    private final org.jgrapht.Graph<Node, Edge> jgrapht = new WeightedPseudograph<>(Edge.class);
+    private final org.jgrapht.Graph<Node, Edge> voltageLevelGraph = new WeightedPseudograph<>(Edge.class);
+    private final org.jgrapht.Graph<Node, Edge> busGraph = new Pseudograph<>(Edge.class);
     private final List<TextNode> textNodes = new ArrayList<>();
     private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
 
@@ -33,18 +35,27 @@ public class Graph {
         Objects.requireNonNull(node);
         if (!(node instanceof TextNode)) {
             nodes.put(node.getEquipmentId(), node);
-            jgrapht.addVertex(node);
+            voltageLevelGraph.addVertex(node);
+            if (node instanceof VoltageLevelNode) {
+                ((VoltageLevelNode) node).getBusNodeStream().forEach(busGraph::addVertex);
+            }
+            if (node instanceof ThreeWtNode) {
+                busGraph.addVertex(node);
+            }
         } else {
             textNodes.add((TextNode) node);
         }
     }
 
-    public void addEdge(VoltageLevelNode node1, VoltageLevelNode node2, BranchEdge edge) {
-        addNodeEdge(node1, node2, edge);
+    public void addEdge(VoltageLevelNode node1, BusInnerNode busInnerNode1,
+                        VoltageLevelNode node2, BusInnerNode busInnerNode2, BranchEdge edge) {
+        addVoltageLevelsEdge(node1, node2, edge);
+        addBusesEdge(busInnerNode1, busInnerNode2, edge);
     }
 
-    public void addEdge(VoltageLevelNode vlNode, ThreeWtNode tNode, ThreeWtEdge edge) {
-        addNodeEdge(vlNode, tNode, edge);
+    public void addEdge(VoltageLevelNode vlNode, BusInnerNode busNode, ThreeWtNode tNode, ThreeWtEdge edge) {
+        addVoltageLevelsEdge(vlNode, tNode, edge);
+        addBusesEdge(busNode, tNode, edge);
     }
 
     public void addEdge(VoltageLevelNode vlNode, TextNode textNode, TextEdge edge) {
@@ -54,16 +65,23 @@ public class Graph {
         textEdges.put(edge, Pair.of(vlNode, textNode));
     }
 
-    private void addNodeEdge(Node node1, Node node2, Edge edge) {
+    private void addVoltageLevelsEdge(Node node1, Node node2, Edge edge) {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
         Objects.requireNonNull(edge);
         edges.put(edge.getEquipmentId(), edge);
-        jgrapht.addEdge(node1, node2, edge);
+        voltageLevelGraph.addEdge(node1, node2, edge);
+    }
+
+    private void addBusesEdge(BusInnerNode node1, Node node2, Edge edge) {
+        Objects.requireNonNull(edge);
+        if (node1 != null && node2 != null) {
+            busGraph.addEdge(node1, node2, edge);
+        }
     }
 
     public Stream<Node> getNodesStream() {
-        return jgrapht.vertexSet().stream();
+        return voltageLevelGraph.vertexSet().stream();
     }
 
     public Stream<VoltageLevelNode> getVoltageLevelNodesStream() {
@@ -87,11 +105,19 @@ public class Graph {
     }
 
     public Collection<Edge> getEdges() {
-        return Collections.unmodifiableCollection(jgrapht.edgeSet());
+        return Collections.unmodifiableCollection(voltageLevelGraph.edgeSet());
+    }
+
+    public Stream<Edge> getEdgeStream(Node node) {
+        return voltageLevelGraph.edgesOf(node).stream();
+    }
+
+    public Collection<Edge> getBusEdges(BusInnerNode busNode) {
+        return busGraph.edgesOf(busNode);
     }
 
     public List<BranchEdge> getBranchEdges() {
-        return jgrapht.edgeSet().stream()
+        return voltageLevelGraph.edgeSet().stream()
                 .filter(BranchEdge.class::isInstance)
                 .map(BranchEdge.class::cast)
                 .collect(Collectors.toList());
@@ -110,21 +136,21 @@ public class Graph {
     }
 
     public Stream<BranchEdge> getNonMultiBranchEdgesStream() {
-        return jgrapht.edgeSet().stream()
+        return voltageLevelGraph.edgeSet().stream()
                 .filter(BranchEdge.class::isInstance)
                 .map(BranchEdge.class::cast)
-                .filter(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)).size() == 1);
+                .filter(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)).size() == 1);
     }
 
     public Stream<Set<Edge>> getMultiBranchEdgesStream() {
-        return jgrapht.edgeSet().stream()
-                .map(e -> jgrapht.getAllEdges(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e)))
+        return voltageLevelGraph.edgeSet().stream()
+                .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct();
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
-        return jgrapht.edgeSet().stream()
+        return voltageLevelGraph.edgeSet().stream()
                 .filter(ThreeWtEdge.class::isInstance)
                 .map(ThreeWtEdge.class::cast);
     }
@@ -144,8 +170,8 @@ public class Graph {
     public org.jgrapht.Graph<Node, Edge> getJgraphtGraph(boolean includeTextNodes) {
         if (includeTextNodes) {
             org.jgrapht.Graph<Node, Edge> graphWithTextNodes = new WeightedPseudograph<>(Edge.class);
-            jgrapht.vertexSet().forEach(graphWithTextNodes::addVertex);
-            jgrapht.edgeSet().forEach(e -> graphWithTextNodes.addEdge(jgrapht.getEdgeSource(e), jgrapht.getEdgeTarget(e), e));
+            voltageLevelGraph.vertexSet().forEach(graphWithTextNodes::addVertex);
+            voltageLevelGraph.edgeSet().forEach(e -> graphWithTextNodes.addEdge(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e), e));
             textNodes.forEach(graphWithTextNodes::addVertex);
             textEdges.forEach((edge, nodePair) -> {
                 graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
@@ -153,7 +179,7 @@ public class Graph {
             });
             return graphWithTextNodes;
         } else {
-            return jgrapht;
+            return voltageLevelGraph;
         }
     }
 
@@ -189,11 +215,11 @@ public class Graph {
     }
 
     public Node getNode1(Edge edge) {
-        return jgrapht.getEdgeSource(edge);
+        return voltageLevelGraph.getEdgeSource(edge);
     }
 
     public Node getNode2(Edge edge) {
-        return jgrapht.getEdgeTarget(edge);
+        return voltageLevelGraph.getEdgeTarget(edge);
     }
 
     public boolean containsEdge(String equipmentId) {
@@ -203,5 +229,4 @@ public class Graph {
     public boolean containsNode(String equipmentId) {
         return nodes.containsKey(equipmentId);
     }
-
 }

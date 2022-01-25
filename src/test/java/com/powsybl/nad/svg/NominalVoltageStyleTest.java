@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.nad;
+package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.import_.Importers;
@@ -13,11 +13,11 @@ import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
+import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.svg.*;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.DefaultStyleProvider;
+import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class SvgWriterTest extends AbstractTest {
+class NominalVoltageStyleTest extends AbstractTest {
 
     private LayoutParameters layoutParameters;
 
@@ -50,7 +50,7 @@ class SvgWriterTest extends AbstractTest {
 
     @Override
     protected StyleProvider getStyleProvider(Network network) {
-        return new DefaultStyleProvider(network);
+        return new NominalVoltageStyleProvider(network);
     }
 
     @Override
@@ -90,25 +90,6 @@ class SvgWriterTest extends AbstractTest {
     void testIEEE24() {
         Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
-    }
-
-    @Test
-    void testIEEE57() {
-        Network network = IeeeCdfNetworkFactory.create57();
-        assertEquals(toString("/IEEE_57_bus.svg"), generateSvgString(network, "/IEEE_57_bus.svg"));
-    }
-
-    @Test
-    void testIEEE118() {
-        Network network = IeeeCdfNetworkFactory.create118();
-        assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
-    }
-
-    @Test
-    void testIEEE118PartialGraph() {
-        Network network = IeeeCdfNetworkFactory.create118();
-        VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL54", 2);
-        assertEquals(toString("/IEEE_118_bus_partial.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
     }
 
     @Test

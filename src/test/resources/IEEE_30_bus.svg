@@ -6,8 +6,9 @@
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
-.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue)}
-.nad-hvdc-edge polyline.nad-hvdc {stroke-width: 0.2}
+.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
+.nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -1681,125 +1682,95 @@
         </g>
     </g>
     <g class="nad-vl-nodes">
-        <g transform="translate(-10.10,10.07)">
-            <circle id="0" class="nad-vl120to180" title="VL1" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-10.10,10.07)" id="0" class="nad-vl120to180" title="VL1">
+            <circle r="0.60" id="1"/>
         </g>
-        <g transform="translate(-5.57,8.59)">
-            <circle id="2" class="nad-vl120to180" title="VL2" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-5.57,8.59)" id="2" class="nad-vl120to180" title="VL2">
+            <circle r="0.60" id="3"/>
         </g>
-        <g transform="translate(-9.76,6.48)">
-            <circle id="4" class="nad-vl120to180" title="VL3" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-9.76,6.48)" id="4" class="nad-vl120to180" title="VL3">
+            <circle r="0.60" id="5"/>
         </g>
-        <g transform="translate(-4.75,4.32)">
-            <circle id="6" class="nad-vl120to180" title="VL4" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-4.75,4.32)" id="6" class="nad-vl120to180" title="VL4">
+            <circle r="0.60" id="7"/>
         </g>
-        <g transform="translate(-4.47,13.01)">
-            <circle id="8" class="nad-vl120to180" title="VL5" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-4.47,13.01)" id="8" class="nad-vl120to180" title="VL5">
+            <circle r="0.60" id="9"/>
         </g>
-        <g transform="translate(-1.63,4.30)">
-            <circle id="10" class="nad-vl120to180" title="VL6" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.63,4.30)" id="10" class="nad-vl120to180" title="VL6">
+            <circle r="0.60" id="11"/>
         </g>
-        <g transform="translate(-1.53,10.53)">
-            <circle id="12" class="nad-vl120to180" title="VL7" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.53,10.53)" id="12" class="nad-vl120to180" title="VL7">
+            <circle r="0.60" id="13"/>
         </g>
-        <g transform="translate(2.52,7.64)">
-            <circle id="14" class="nad-vl120to180" title="VL8" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(2.52,7.64)" id="14" class="nad-vl120to180" title="VL8">
+            <circle r="0.60" id="15"/>
         </g>
-        <g transform="translate(-6.18,-2.61)">
-            <circle id="16" class="nad-vl0to30" title="VL9" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-6.18,-2.61)" id="16" class="nad-vl0to30" title="VL9">
+            <circle r="0.60" id="17"/>
         </g>
-        <g transform="translate(-4.29,-5.40)">
-            <circle id="18" class="nad-vl30to50" title="VL10" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-4.29,-5.40)" id="18" class="nad-vl30to50" title="VL10">
+            <circle r="0.60" id="19"/>
         </g>
-        <g transform="translate(-10.18,-7.67)">
-            <circle id="20" class="nad-vl0to30" title="VL11" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-10.18,-7.67)" id="20" class="nad-vl0to30" title="VL11">
+            <circle r="0.60" id="21"/>
         </g>
-        <g transform="translate(1.52,-1.76)">
-            <circle id="22" class="nad-vl30to50" title="VL12" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(1.52,-1.76)" id="22" class="nad-vl30to50" title="VL12">
+            <circle r="0.60" id="23"/>
         </g>
-        <g transform="translate(6.45,-0.80)">
-            <circle id="24" class="nad-vl0to30" title="VL13" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(6.45,-0.80)" id="24" class="nad-vl0to30" title="VL13">
+            <circle r="0.60" id="25"/>
         </g>
-        <g transform="translate(1.95,1.31)">
-            <circle id="26" class="nad-vl30to50" title="VL14" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(1.95,1.31)" id="26" class="nad-vl30to50" title="VL14">
+            <circle r="0.60" id="27"/>
         </g>
-        <g transform="translate(-1.43,-1.13)">
-            <circle id="28" class="nad-vl30to50" title="VL15" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.43,-1.13)" id="28" class="nad-vl30to50" title="VL15">
+            <circle r="0.60" id="29"/>
         </g>
-        <g transform="translate(2.55,-9.39)">
-            <circle id="30" class="nad-vl30to50" title="VL16" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(2.55,-9.39)" id="30" class="nad-vl30to50" title="VL16">
+            <circle r="0.60" id="31"/>
         </g>
-        <g transform="translate(-1.19,-11.42)">
-            <circle id="32" class="nad-vl30to50" title="VL17" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-1.19,-11.42)" id="32" class="nad-vl30to50" title="VL17">
+            <circle r="0.60" id="33"/>
         </g>
-        <g transform="translate(-8.46,0.41)">
-            <circle id="34" class="nad-vl30to50" title="VL18" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-8.46,0.41)" id="34" class="nad-vl30to50" title="VL18">
+            <circle r="0.60" id="35"/>
         </g>
-        <g transform="translate(-12.96,-0.70)">
-            <circle id="36" class="nad-vl30to50" title="VL19" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-12.96,-0.70)" id="36" class="nad-vl30to50" title="VL19">
+            <circle r="0.60" id="37"/>
         </g>
-        <g transform="translate(-10.78,-3.97)">
-            <circle id="38" class="nad-vl30to50" title="VL20" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-10.78,-3.97)" id="38" class="nad-vl30to50" title="VL20">
+            <circle r="0.60" id="39"/>
         </g>
-        <g transform="translate(-4.59,-9.41)">
-            <circle id="40" class="nad-vl30to50" title="VL21" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-4.59,-9.41)" id="40" class="nad-vl30to50" title="VL21">
+            <circle r="0.60" id="41"/>
         </g>
-        <g transform="translate(-0.41,-7.56)">
-            <circle id="42" class="nad-vl30to50" title="VL22" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(-0.41,-7.56)" id="42" class="nad-vl30to50" title="VL22">
+            <circle r="0.60" id="43"/>
         </g>
-        <g transform="translate(3.78,-4.82)">
-            <circle id="44" class="nad-vl30to50" title="VL23" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(3.78,-4.82)" id="44" class="nad-vl30to50" title="VL23">
+            <circle r="0.60" id="45"/>
         </g>
-        <g transform="translate(7.01,-6.56)">
-            <circle id="46" class="nad-vl30to50" title="VL24" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(7.01,-6.56)" id="46" class="nad-vl30to50" title="VL24">
+            <circle r="0.60" id="47"/>
         </g>
-        <g transform="translate(12.13,-2.87)">
-            <circle id="48" class="nad-vl30to50" title="VL25" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(12.13,-2.87)" id="48" class="nad-vl30to50" title="VL25">
+            <circle r="0.60" id="49"/>
         </g>
-        <g transform="translate(15.56,-5.57)">
-            <circle id="50" class="nad-vl30to50" title="VL26" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(15.56,-5.57)" id="50" class="nad-vl30to50" title="VL26">
+            <circle r="0.60" id="51"/>
         </g>
-        <g transform="translate(11.87,3.69)">
-            <circle id="52" class="nad-vl30to50" title="VL27" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(11.87,3.69)" id="52" class="nad-vl30to50" title="VL27">
+            <circle r="0.60" id="53"/>
         </g>
-        <g transform="translate(5.71,5.90)">
-            <circle id="54" class="nad-vl120to180" title="VL28" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(5.71,5.90)" id="54" class="nad-vl120to180" title="VL28">
+            <circle r="0.60" id="55"/>
         </g>
-        <g transform="translate(15.98,4.91)">
-            <circle id="56" class="nad-vl30to50" title="VL29" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(15.98,4.91)" id="56" class="nad-vl30to50" title="VL29">
+            <circle r="0.60" id="57"/>
         </g>
-        <g transform="translate(14.01,7.51)">
-            <circle id="58" class="nad-vl30to50" title="VL30" r="0.60"/>
-            <text class="nad-text-buses" style="text-anchor:middle;dominant-baseline:middle">1</text>
+        <g transform="translate(14.01,7.51)" id="58" class="nad-vl30to50" title="VL30">
+            <circle r="0.60" id="59"/>
         </g>
     </g>
     <g class="nad-text-edges">

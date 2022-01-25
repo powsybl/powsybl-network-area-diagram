@@ -20,8 +20,7 @@ public interface StyleProvider {
     String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
     String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
     String THREE_WT_NODES_CLASS = CLASSES_PREFIX + "3wt-nodes";
-    String BUSES_TEXT_CLASS = CLASSES_PREFIX + "text-buses";
-    String DISCONNECTED_SIDE_EDGE_CLASS = CLASSES_PREFIX + "disconnected";
+    String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
@@ -36,6 +35,8 @@ public interface StyleProvider {
     String getStyleDefs();
 
     List<String> getNodeStyleClasses(Node node);
+
+    List<String> getNodeStyleClasses(BusInnerNode busNode);
 
     List<String> getEdgeStyleClasses(Edge edge);
 

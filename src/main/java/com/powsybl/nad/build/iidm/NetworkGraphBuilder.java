@@ -50,12 +50,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> {
             VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId());
             TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
-            graph.addNode(vlNode);
-            graph.addNode(textNode);
-            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
             vl.getBusView().getBusStream()
                     .map(bus -> new BusInnerNode(idProvider.createId(bus), bus.getId()))
                     .forEach(vlNode::addBusNode);
+            graph.addNode(vlNode);
+            graph.addNode(textNode);
+            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
         });
     }
 
@@ -79,17 +79,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return;
             }
 
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(line.getTerminal(side).getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add line, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(line.getTerminal(otherSide));
-
-            BranchEdge edge = new BranchEdge(idProvider.createId(line), line.getId(), line.getNameOrId(), BranchEdge.LINE_EDGE);
-            if (side == Branch.Side.ONE) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
-            } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
-            }
+            addEdge(line, side, BranchEdge.LINE_EDGE);
         }
 
         @Override
@@ -99,17 +89,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return;
             }
 
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(twt.getTerminal(side).getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add two-windings transformer, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide));
-
-            BranchEdge edge = new BranchEdge(idProvider.createId(twt), twt.getId(), twt.getNameOrId(), BranchEdge.TWO_WT_EDGE);
-            if (side == Branch.Side.ONE) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
-            } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
-            }
+            addEdge(twt, side, BranchEdge.TWO_WT_EDGE);
         }
 
         @Override
@@ -119,8 +99,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return;
             }
 
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(twt.getTerminal(side).getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add three-windings transformer, its voltage level is unknown"));
             ThreeWindingsTransformer.Side otherSide1;
             ThreeWindingsTransformer.Side otherSide2;
             if (side == ThreeWindingsTransformer.Side.ONE) {
@@ -133,16 +111,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 otherSide1 = ThreeWindingsTransformer.Side.ONE;
                 otherSide2 = ThreeWindingsTransformer.Side.TWO;
             }
-            VoltageLevelNode vlOtherNode1 = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide1));
-            VoltageLevelNode vlOtherNode2 = getOrCreateVoltageLevelNode(twt.getTerminal(otherSide2));
+
+            Terminal terminalA = twt.getTerminal(side);
+            Terminal terminalB = twt.getTerminal(otherSide1);
+            Terminal terminalC = twt.getTerminal(otherSide2);
+
+            VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
+                    .orElseThrow(() -> new PowsyblException("Cannot add three-windings transformer, its voltage level is unknown"));
+            VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
+            VoltageLevelNode vlNodeC = getOrCreateVoltageLevelNode(terminalC);
 
             String twtId = twt.getId();
             String twtName = twt.getNameOrId();
             ThreeWtNode tn = new ThreeWtNode(idProvider.createId(twt), twtId, twtName);
             graph.addNode(tn);
-            graph.addEdge(vlNode, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), twtId, twtName, iidmSideToSide(side), vlNode.isVisible()));
-            graph.addEdge(vlOtherNode1, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), twtId, twtName, iidmSideToSide(otherSide1), vlOtherNode1.isVisible()));
-            graph.addEdge(vlOtherNode2, tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlOtherNode2.isVisible()));
+            graph.addEdge(vlNodeA, getBusInnerNode(terminalA, vlNodeA), tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, side)), twtId, twtName, iidmSideToSide(side), vlNodeA.isVisible()));
+            graph.addEdge(vlNodeB, getBusInnerNode(terminalB, vlNodeB), tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide1)), twtId, twtName, iidmSideToSide(otherSide1), vlNodeB.isVisible()));
+            graph.addEdge(vlNodeC, getBusInnerNode(terminalC, vlNodeC), tn, new ThreeWtEdge(idProvider.createId(get3wtLeg(twt, otherSide2)), twtId, twtName, iidmSideToSide(otherSide2), vlNodeC.isVisible()));
         }
 
         @Override
@@ -158,16 +143,36 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             Terminal terminal = converterStation.getTerminal();
             Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
-            VoltageLevelNode vlNode = graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add hvdc line, its voltage level is unknown"));
-            VoltageLevelNode vlOtherNode = getOrCreateVoltageLevelNode(otherSideTerminal);
 
-            BranchEdge edge = new BranchEdge(idProvider.createId(hvdcLine), hvdcLine.getId(), hvdcLine.getNameOrId(), BranchEdge.HVDC_LINE_EDGE);
-            if (otherSide == HvdcLine.Side.TWO) {
-                graph.addEdge(vlNode, vlOtherNode, edge);
+            addEdge(terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
+        }
+
+        private void addEdge(Branch<?> branch, Branch.Side side, String edgeType) {
+            Terminal terminalA = branch.getTerminal(side);
+            Terminal terminalB = branch.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE);
+
+            addEdge(terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
+        }
+
+        private void addEdge(Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
+            VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
+                    .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
+            VoltageLevelNode vlNodeB = getOrCreateVoltageLevelNode(terminalB);
+
+            BusInnerNode busNodeA = getBusInnerNode(terminalA, vlNodeA);
+            BusInnerNode busNodeB = getBusInnerNode(terminalB, vlNodeB);
+
+            BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
+            if (!terminalsInReversedOrder) {
+                graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
             } else {
-                graph.addEdge(vlOtherNode, vlNode, edge);
+                graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge);
             }
+        }
+
+        private BusInnerNode getBusInnerNode(Terminal terminal, VoltageLevelNode vlNode) {
+            Bus connectableBusA = terminal.getBusView().getConnectableBus();
+            return connectableBusA != null ? vlNode.getBusInnerNode(connectableBusA.getId()) : null;
         }
 
         private ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
