@@ -26,6 +26,10 @@ public class SvgParameters {
     private double voltageLevelCircleRadius = 0.6;
     private double transformerCircleRadius = 0.2;
     private double nodeHollowWidth = 0.1;
+    private double edgesForkLength = 0.8;
+    private double edgesForkAperture = Math.toRadians(60);
+    private double edgeStartShift = 0.03;
+    private double unknownBusNodeExtraRadius = 0.1;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -151,6 +155,42 @@ public class SvgParameters {
 
     public SvgParameters setNodeHollowWidth(double nodeHollowWidth) {
         this.nodeHollowWidth = nodeHollowWidth;
+        return this;
+    }
+
+    public double getEdgesForkAperture() {
+        return edgesForkAperture;
+    }
+
+    public SvgParameters setEdgesForkAperture(double edgesForkApertureDegrees) {
+        this.edgesForkAperture = Math.toRadians(edgesForkApertureDegrees);
+        return this;
+    }
+
+    public double getEdgesForkLength() {
+        return edgesForkLength;
+    }
+
+    public SvgParameters setEdgesForkLength(double edgesForkLength) {
+        this.edgesForkLength = edgesForkLength;
+        return this;
+    }
+
+    public double getEdgeStartShift() {
+        return edgeStartShift;
+    }
+
+    public SvgParameters setEdgeStartShift(double edgeStartShift) {
+        this.edgeStartShift = edgeStartShift;
+        return this;
+    }
+
+    public double getUnknownBusNodeExtraRadius() {
+        return unknownBusNodeExtraRadius;
+    }
+
+    public SvgParameters setUnknownBusNodeExtraRadius(double unknownBusNodeExtraRadius) {
+        this.unknownBusNodeExtraRadius = unknownBusNodeExtraRadius;
         return this;
     }
 }

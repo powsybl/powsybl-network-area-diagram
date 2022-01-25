@@ -84,14 +84,18 @@ public class SvgWriter {
     private void writeSvg(Graph graph, OutputStream svgOs) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(svgOs);
+
+        // Edge coordinates need to be computed first, based on svg parameters
+        computeBranchEdgesCoordinates(graph);
+
         try {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
             addMetadata(writer);
+            drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
-            drawVoltageLevelNodes(graph, writer);
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
@@ -99,6 +103,117 @@ public class SvgWriter {
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
         }
+    }
+
+    private void computeBranchEdgesCoordinates(Graph graph) {
+        graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge));
+        graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges));
+        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge));
+        graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
+    }
+
+    private void computeTextEdgeLayoutCoordinates(Node node1, Node node2, TextEdge edge) {
+        Point point1 = new Point(node1.getX(), node1.getY());
+        Point point2 = new Point(node2.getX(), node2.getY());
+        edge.setPoints(point1, point2);
+    }
+
+    private void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge) {
+        Node node1 = graph.getBusGraphNode1(edge);
+        Node node2 = graph.getBusGraphNode2(edge);
+
+        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
+
+        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
+
+        Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
+        edge.setPoints1(edgeStart1, middle);
+        edge.setPoints2(edgeStart2, middle);
+    }
+
+    private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
+        if (directionBusGraphNode == BusNode.UNKNOWN) {
+            Node vlNode = vlNodeSupplier.get();
+            return new Point(vlNode.getX(), vlNode.getY());
+        }
+        return new Point(directionBusGraphNode.getX(), directionBusGraphNode.getY());
+    }
+
+    private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier) {
+        // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
+        if (node == BusNode.UNKNOWN) {
+            Node vlNode = vlNodeSupplier.get();
+            double unknownBusRadius = svgParameters.getVoltageLevelCircleRadius() + svgParameters.getUnknownBusNodeExtraRadius();
+            return new Point(vlNode.getX(), vlNode.getY()).atDistance(unknownBusRadius, direction);
+        }
+
+        Point edgeStart = new Point(node.getX(), node.getY());
+        if (node instanceof BusNode) {
+            int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
+            double unitaryRadius = svgParameters.getVoltageLevelCircleRadius() / (nbNeighbours + 1);
+            double busAnnulusOuterRadius = (((BusNode) node).getIndex() + 1) * unitaryRadius - svgParameters.getEdgeStartShift();
+            edgeStart = edgeStart.atDistance(busAnnulusOuterRadius, direction);
+        }
+        return edgeStart;
+    }
+
+    private void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges) {
+        Edge firstEdge = edges.iterator().next();
+        Node nodeA = graph.getNode1(firstEdge);
+        Node nodeB = graph.getNode2(firstEdge);
+        Point pointA = new Point(nodeA.getX(), nodeA.getY());
+        Point pointB = new Point(nodeB.getX(), nodeB.getY());
+
+        double dx = pointB.getX() - pointA.getX();
+        double dy = pointB.getY() - pointA.getY();
+        double angle = Math.atan2(dy, dx);
+
+        int nbForks = edges.size();
+        double forkAperture = svgParameters.getEdgesForkAperture();
+        double forkLength = svgParameters.getEdgesForkLength();
+        double angleStep = forkAperture / (nbForks - 1);
+
+        int i = 0;
+        for (BranchEdge edge : edges) {
+            if (2 * i + 1 == nbForks) { // in the middle, hence alpha = 0
+                computeSingleBranchEdgeCoordinates(graph, edge);
+            } else {
+                double alpha = -forkAperture / 2 + i * angleStep;
+                double angleForkA = angle - alpha;
+                double angleForkB = angle + Math.PI + alpha;
+                Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
+                Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
+                Point middle = Point.createMiddlePoint(forkA, forkB);
+
+                BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+                BranchEdge.Side sideB = sideA.getOpposite();
+
+                Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
+                Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
+
+                Point edgeStartA = computeEdgeStart(busNodeA, forkA, () -> nodeA);
+                edge.setPoints(sideA, edgeStartA, forkA, middle);
+
+                Point edgeStartB = computeEdgeStart(busNodeB, forkB, () -> nodeB);
+                edge.setPoints(sideB, edgeStartB, forkB, middle);
+            }
+            i++;
+        }
+    }
+
+    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge) {
+        Node node1 = graph.getBusGraphNode1(edge);
+        Node node2 = graph.getBusGraphNode2(edge);
+
+        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
+
+        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
+
+        edge.setPoints(edgeStart1, edgeStart2);
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -289,11 +404,7 @@ public class SvgWriter {
     }
 
     private Point getArrowCenter(List<Point> line) {
-        if (line.size() > 2) {
-            return line.get(1).atDistance(svgParameters.getArrowShift(), line.get(2));
-        } else {
-            return line.get(0).atDistance(svgParameters.getArrowShift() + svgParameters.getVoltageLevelCircleRadius(), line.get(1));
-        }
+        return line.get(line.size() - 2).atDistance(svgParameters.getArrowShift(), line.get(line.size() - 1));
     }
 
     private double getEdgeEndYAxisAngle(List<Point> line) {
@@ -369,30 +480,35 @@ public class SvgWriter {
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
-        int nbBuses = vlNode.getBusNodes().size();
         double nodeOuterRadius = svgParameters.getVoltageLevelCircleRadius();
-        double busOuterRadius = nodeOuterRadius;
 
-        List<Edge> traversingBusEdges = graph.getEdgeStream(vlNode).filter(edge -> !(edge instanceof TextEdge)).collect(Collectors.toList());
+        if (vlNode.hasUnknownBusNode()) {
+            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
+            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
+        }
 
-        for (BusInnerNode busNode : vlNode.getBusNodes()) {
-            double busInnerRadius = busOuterRadius - nodeOuterRadius / nbBuses;
+        int nbBuses = vlNode.getBusNodes().size();
+        double busInnerRadius = 0;
+        List<Edge> traversingBusEdges = new ArrayList<>();
+
+        for (BusNode busNode : vlNode.getBusNodes()) {
+            double busOuterRadius = busInnerRadius + nodeOuterRadius / nbBuses;
             if (busInnerRadius == 0) {
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
                 writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
             } else {
-                Collection<Edge> busEdges = graph.getBusEdges(busNode);
-                traversingBusEdges.removeAll(busEdges);
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
-                writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busOuterRadius, busInnerRadius, traversingBusEdges, graph, vlNode));
+                writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writer.writeAttribute(ID_ATTRIBUTE, busNode.getDiagramId());
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
-            busOuterRadius = busInnerRadius;
+            busInnerRadius = busOuterRadius;
+            traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
     }
 
-    private String getFragmentedAnnulusPath(double outerRadius, double innerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode) {
+    private String getFragmentedAnnulusPath(double innerRadius, double outerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode, BusNode busNode) {
         if (traversingBusEdges.isEmpty()) {
             String path = "M" + getCirclePath(outerRadius, 0, Math.PI, true)
                     + " M" + getCirclePath(outerRadius, Math.PI, 0, true);
@@ -403,15 +519,10 @@ public class SvgWriter {
             return path;
         }
 
-        List<Double> angles = traversingBusEdges.stream()
-                .map(edge -> getLine(edge, graph, vlNode))
-                .filter(list -> !list.isEmpty())
-                .mapToDouble(this::getEdgeStartAngle)
-                .sorted().boxed().collect(Collectors.toList());
-        if (!angles.isEmpty()) {
-            // adding first angle to close the circle annulus, and adding 360° to keep the list ordered
-            angles.add(angles.get(0) + 2 * Math.PI);
-        }
+        List<Double> angles = createSortedTraversingAnglesList(traversingBusEdges, graph, vlNode, busNode);
+
+        // adding first angle to close the circle annulus, and adding 360° to keep the list ordered
+        angles.add(angles.get(0) + 2 * Math.PI);
 
         double halfWidth = svgParameters.getNodeHollowWidth() / 2;
         double deltaAngle0 = halfWidth / outerRadius;
@@ -433,6 +544,44 @@ public class SvgWriter {
         return path.toString();
     }
 
+    private List<Double> createSortedTraversingAnglesList(List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode, BusNode busNode) {
+        List<Double> angles = new ArrayList<>(traversingBusEdges.size());
+        for (Edge edge : traversingBusEdges) {
+            Node node1 = graph.getNode1(edge);
+            Node node2 = graph.getNode2(edge);
+            if (node1 == node2) {
+                // For looping edges we need to consider the two angles
+                if (isBusNodeDrawn(graph.getBusGraphNode1(edge), busNode)) {
+                    angles.add(getEdgeStartAngle(edge, BranchEdge.Side.ONE));
+                }
+                if (isBusNodeDrawn(graph.getBusGraphNode2(edge), busNode)) {
+                    angles.add(getEdgeStartAngle(edge, BranchEdge.Side.TWO));
+                }
+            } else {
+                angles.add(getEdgeStartAngle(edge, node1 == vlNode ? BranchEdge.Side.ONE : BranchEdge.Side.TWO));
+            }
+        }
+        Collections.sort(angles);
+
+        return angles;
+    }
+
+    private boolean isBusNodeDrawn(Node busGraphNode, BusNode busNodeCurrentlyDrawn) {
+        if (busGraphNode instanceof BusNode) {
+            return ((BusNode) busGraphNode).getIndex() < busNodeCurrentlyDrawn.getIndex();
+        }
+        return true;
+    }
+
+    private double getEdgeStartAngle(Edge edge, BranchEdge.Side side) {
+        if (edge instanceof ThreeWtEdge) {
+            return getEdgeStartAngle(((ThreeWtEdge) edge).getPoints());
+        } else if (edge instanceof BranchEdge) {
+            return getEdgeStartAngle(((BranchEdge) edge).getPoints(side));
+        }
+        return 0;
+    }
+
     private String getCirclePath(double radius, double angleStart, double angleEnd, boolean clockWise) {
         double arcAngle = angleEnd - angleStart;
         double xStart = radius * Math.cos(angleStart);
@@ -442,16 +591,6 @@ public class SvgWriter {
         int largeArc = Math.abs(arcAngle) > Math.PI ? 1 : 0;
         return String.format(Locale.US, "%.3f,%.3f A%.3f,%.3f %.3f %d %d %.3f,%.3f",
                 xStart, yStart, radius, radius, Math.toDegrees(arcAngle), largeArc, clockWise ? 1 : 0, xEnd, yEnd);
-    }
-
-    private List<Point> getLine(Edge edge, Graph graph, VoltageLevelNode vlNode) {
-        if (edge instanceof ThreeWtEdge) {
-            return ((ThreeWtEdge) edge).getPoints();
-        } else if (edge instanceof BranchEdge) {
-            BranchEdge.Side side = graph.getNode1(edge) == vlNode ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-            return ((BranchEdge) edge).getPoints(side);
-        }
-        return Collections.emptyList();
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {

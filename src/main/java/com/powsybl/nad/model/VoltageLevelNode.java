@@ -14,8 +14,9 @@ import java.util.stream.Stream;
  */
 public class VoltageLevelNode extends AbstractNode {
 
-    private final Map<String, BusInnerNode> busInnerNodes = new LinkedHashMap<>();
+    private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
+    private boolean hasUnknownBusNode = false;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId) {
         this(diagramId, equipmentId, nameOrId, true);
@@ -26,24 +27,32 @@ public class VoltageLevelNode extends AbstractNode {
         this.visible = visible;
     }
 
-    public void addBusNode(BusInnerNode busInnerNode) {
-        Objects.requireNonNull(busInnerNode);
-        busInnerNodes.put(busInnerNode.getEquipmentId(), busInnerNode);
+    public void addBusNode(BusNode busNode) {
+        Objects.requireNonNull(busNode);
+        busNodes.add(busNode);
     }
 
-    public Collection<BusInnerNode> getBusNodes() {
-        return Collections.unmodifiableCollection(busInnerNodes.values());
+    public List<BusNode> getBusNodes() {
+        return Collections.unmodifiableList(busNodes);
     }
 
-    public Stream<BusInnerNode> getBusNodeStream() {
-        return busInnerNodes.values().stream();
+    public Stream<BusNode> getBusNodeStream() {
+        return busNodes.stream();
     }
 
     public boolean isVisible() {
         return visible;
     }
 
-    public BusInnerNode getBusInnerNode(String id) {
-        return busInnerNodes.get(id);
+    public void sortBusNodes(Comparator<? super BusNode> c) {
+        busNodes.sort(c);
+    }
+
+    public void setHasUnknownBusNode(boolean hasUnknownBusNode) {
+        this.hasUnknownBusNode = hasUnknownBusNode;
+    }
+
+    public boolean hasUnknownBusNode() {
+        return hasUnknownBusNode;
     }
 }

@@ -4,9 +4,10 @@
 .nad-branch-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
-.nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
+.nad-text-edges {stroke: grey; stroke-width: 0.02; stroke-dasharray: .1,.1}
 .nad-disconnected {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
+.nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
 .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
@@ -31,11 +32,16 @@
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
 ]]></style>
     <metadata></metadata>
+    <g class="nad-vl-nodes">
+        <g transform="translate(-3.78,1.10)" id="0" class="nad-vl0to30" title="VL_11">
+            <circle r="0.60" id="1"/>
+        </g>
+    </g>
     <g class="nad-branch-edges"></g>
     <g class="nad-3wt-edges">
         <g id="3" class="nad-vl0to30" title="3WT">
-            <polyline points="-3.78,1.10 0.06,0.04"/>
-            <g class="nad-edge-infos" transform="translate(-2.91,0.86)">
+            <polyline points="-3.23,0.95 0.06,0.04"/>
+            <g class="nad-edge-infos" transform="translate(-2.94,0.87)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(74.59)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -51,11 +57,6 @@
                     <text transform="rotate(74.59)" x="0.12" style="dominant-baseline:middle">0</text>
                 </g>
             </g>
-        </g>
-    </g>
-    <g class="nad-vl-nodes">
-        <g transform="translate(-3.78,1.10)" id="0" class="nad-vl0to30" title="VL_11">
-            <circle r="0.60" id="1"/>
         </g>
     </g>
     <g class="nad-3wt-nodes">

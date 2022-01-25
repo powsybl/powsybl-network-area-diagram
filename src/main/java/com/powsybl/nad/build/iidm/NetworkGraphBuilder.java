@@ -52,7 +52,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId());
             TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
             vl.getBusView().getBusStream()
-                    .map(bus -> new BusInnerNode(idProvider.createId(bus), bus.getId()))
+                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
                     .forEach(vlNode::addBusNode);
             graph.addNode(vlNode);
             graph.addNode(textNode);
@@ -132,8 +132,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
             VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(terminalB);
 
-            BusInnerNode busNodeA = getBusInnerNode(terminalA, vlNodeA);
-            BusInnerNode busNodeB = getBusInnerNode(terminalB, vlNodeB);
+            BusNode busNodeA = getBusNode(terminalA);
+            BusNode busNodeB = getBusNode(terminalB);
 
             BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
             if (!terminalsInReversedOrder) {
@@ -148,7 +148,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(terminal);
             ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
                     twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
-            graph.addEdge(vlNode, getBusInnerNode(terminal, vlNode), tn, edge);
+            graph.addEdge(vlNode, getBusNode(terminal), tn, edge);
         }
 
         private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
@@ -167,9 +167,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return new ThreeWindingsTransformer.Side[] {sideA, sideB, sideC};
         }
 
-        private BusInnerNode getBusInnerNode(Terminal terminal, VoltageLevelNode vlNode) {
+        private BusNode getBusNode(Terminal terminal) {
             Bus connectableBusA = terminal.getBusView().getConnectableBus();
-            return connectableBusA != null ? vlNode.getBusInnerNode(connectableBusA.getId()) : null;
+            if (connectableBusA == null) {
+                graph.getVoltageLevelNode(terminal.getVoltageLevel().getId()).ifPresent(vlNode -> vlNode.setHasUnknownBusNode(true));
+                return BusNode.UNKNOWN;
+            }
+            return graph.getBusNode(connectableBusA.getId());
         }
 
         private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {
@@ -179,6 +183,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private VoltageLevelNode createInvisibleVoltageLevelNode(VoltageLevel vl) {
             VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), false);
+            vl.getBusView().getBusStream()
+                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
+                    .forEach(invisibleVlNode::addBusNode);
             graph.addNode(invisibleVlNode);
             return invisibleVlNode;
         }

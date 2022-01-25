@@ -8,7 +8,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.nad.model.BusInnerNode;
+import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
@@ -41,7 +41,10 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusInnerNode busNode) {
+    public List<String> getNodeStyleClasses(BusNode busNode) {
+        if (busNode == BusNode.UNKNOWN) {
+            return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
+        }
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
         List<String> styles = new ArrayList<>();
         getNodeTopologicalStyle(b).ifPresent(styles::add);
@@ -58,8 +61,7 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
 
     private String fillStyleMap(String style, Bus bus) {
         Collection<Bus> connectedBuses = getConnectedBuses(bus);
-        Integer baseVoltageIndex = baseVoltagesCounter.compute(style, (k, v) -> v == null ? 0 : v + 1);
-        String topologicalStyle = style + "-" + baseVoltageIndex;
+        String topologicalStyle = createNewTopologicalStyle(style);
         connectedBuses.forEach(b -> styleMap.put(b.getId(), topologicalStyle));
         return topologicalStyle;
     }
@@ -68,6 +70,11 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
         Set<Bus> visitedBuses = new HashSet<>();
         findConnectedBuses(bus, visitedBuses);
         return visitedBuses;
+    }
+
+    private String createNewTopologicalStyle(String style) {
+        Integer baseVoltageIndex = baseVoltagesCounter.compute(style, (k, v) -> v == null ? 0 : v + 1);
+        return style + "-" + baseVoltageIndex;
     }
 
     private void findConnectedBuses(Bus bus, Set<Bus> visitedBus) {
