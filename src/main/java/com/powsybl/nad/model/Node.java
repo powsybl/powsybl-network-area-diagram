@@ -17,6 +17,10 @@ public interface Node {
 
     String getEquipmentId();
 
+    void setPosition(Point point);
+
+    Point getPosition();
+
     void setPosition(double x, double y);
 
     double getX();
