@@ -109,7 +109,7 @@ public class SvgWriter {
     private void computeBranchEdgesCoordinates(Graph graph) {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges));
-        graph.getLoopBranchEdgesStream().forEach(edges -> loopEdgesLayout(graph, edges));
+        graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges));
         graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
@@ -201,10 +201,7 @@ public class SvgWriter {
         }
     }
 
-    private void loopEdgesLayout(Graph graph, Set<BranchEdge> loopEdges) {
-        BranchEdge firstLoop = loopEdges.iterator().next();
-        Node node = graph.getNode1(firstLoop);
-
+    private void loopEdgesLayout(Graph graph, Node node, Set<BranchEdge> loopEdges) {
         List<Double> angles = computeLoopAngles(graph, loopEdges, node);
 
         int i = 0;
