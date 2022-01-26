@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -108,6 +109,7 @@ public class SvgWriter {
     private void computeBranchEdgesCoordinates(Graph graph) {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges));
+        graph.getLoopBranchEdgesStream().forEach(edges -> loopEdgesLayout(graph, edges));
         graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
@@ -135,7 +137,7 @@ public class SvgWriter {
         if (directionBusGraphNode == BusNode.UNKNOWN) {
             return vlNodeSupplier.get().getPosition();
         }
-        return new Point(directionBusGraphNode.getX(), directionBusGraphNode.getY());
+        return directionBusGraphNode.getPosition();
     }
 
     private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier) {
@@ -145,7 +147,7 @@ public class SvgWriter {
             return vlNodeSupplier.get().getPosition().atDistance(unknownBusRadius, direction);
         }
 
-        Point edgeStart = new Point(node.getX(), node.getY());
+        Point edgeStart = node.getPosition();
         if (node instanceof BusNode) {
             int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
             double unitaryRadius = svgParameters.getVoltageLevelCircleRadius() / (nbNeighbours + 1);
@@ -197,6 +199,100 @@ public class SvgWriter {
             }
             i++;
         }
+    }
+
+    private void loopEdgesLayout(Graph graph, Set<BranchEdge> loopEdges) {
+        BranchEdge firstLoop = loopEdges.iterator().next();
+        Node node = graph.getNode1(firstLoop);
+
+        List<Double> angles = computeLoopAngles(graph, loopEdges, node);
+
+        int i = 0;
+        Point nodePoint = node.getPosition();
+        for (BranchEdge edge : loopEdges) {
+            double angle = angles.get(i++);
+            Point middle = nodePoint.atDistance(svgParameters.getLoopDistance(), angle);
+            Point fork1 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle - svgParameters.getLoopEdgesAperture() / 2);
+            Point fork2 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle + svgParameters.getLoopEdgesAperture() / 2);
+
+            Node busNode1 = graph.getBusGraphNode1(edge);
+            Node busNode2 = graph.getBusGraphNode2(edge);
+
+            Point edgeStart1 = computeEdgeStart(busNode1, fork1, () -> node);
+            edge.setPoints(BranchEdge.Side.ONE, edgeStart1, fork1, middle);
+
+            Point edgeStart2 = computeEdgeStart(busNode2, fork2, () -> node);
+            edge.setPoints(BranchEdge.Side.TWO, edgeStart2, fork2, middle);
+        }
+    }
+
+    private List<Double> computeLoopAngles(Graph graph, Set<BranchEdge> loopEdges, Node node) {
+        int nbLoops = loopEdges.size();
+
+        List<Double> anglesOtherEdges = graph.getBranchEdgeStream(node)
+                .filter(e -> !loopEdges.contains(e))
+                .mapToDouble(e -> getAngle(e, graph, node))
+                .sorted().boxed().collect(Collectors.toList());
+
+        List<Double> loopAngles = new ArrayList<>();
+        if (anglesOtherEdges.size() > 0) {
+            anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
+            double apertureWithMargin = svgParameters.getLoopEdgesAperture() * 1.2;
+
+            double[] deltaAngles = new double[anglesOtherEdges.size() - 1];
+            int nbSeparatedSlots = 0;
+            int nbSharedSlots = 0;
+            for (int i = 0; i < anglesOtherEdges.size() - 1; i++) {
+                deltaAngles[i] = anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i);
+                nbSeparatedSlots += deltaAngles[i] > apertureWithMargin ? 1 : 0;
+                nbSharedSlots += Math.floor(deltaAngles[i] / apertureWithMargin);
+            }
+
+            List<Integer> sortedIndices = IntStream.range(0, deltaAngles.length)
+                    .boxed().sorted(Comparator.comparingDouble(i -> deltaAngles[i]))
+                    .collect(Collectors.toList());
+
+            if (nbLoops <= nbSeparatedSlots) {
+                // Place loops in "slots" separated by non-loop edges
+                for (int i = sortedIndices.size() - nbLoops; i < sortedIndices.size(); i++) {
+                    int iSorted = sortedIndices.get(i);
+                    loopAngles.add((anglesOtherEdges.get(iSorted) + anglesOtherEdges.get(iSorted + 1)) / 2);
+                }
+            } else if (nbLoops <= nbSharedSlots) {
+                // Place the maximum of loops in "slots" separated by non-loop edges, and put the excessive ones in the bigger "slots"
+                int nbExcessiveRemaining = nbLoops - nbSeparatedSlots;
+                for (int i = sortedIndices.size() - 1; i >= 0; i--) {
+                    int iSorted = sortedIndices.get(i);
+                    int nbAvailableSlots = (int) Math.floor(deltaAngles[iSorted] / apertureWithMargin);
+                    if (nbAvailableSlots == 0) {
+                        break;
+                    }
+                    int nbLoopsInDelta = Math.min(nbAvailableSlots, nbExcessiveRemaining + 1);
+                    double extraSpace = deltaAngles[iSorted] - svgParameters.getLoopEdgesAperture() * nbLoopsInDelta; // extra space without margins
+                    double intraSpace = extraSpace / (nbLoopsInDelta + 1); // space between two loops and between non-loop edges and first/last loop
+                    double angleStep = (anglesOtherEdges.get(iSorted + 1) - anglesOtherEdges.get(iSorted) - intraSpace) / nbLoopsInDelta;
+                    double startAngle = anglesOtherEdges.get(iSorted) + intraSpace / 2 + angleStep / 2;
+                    IntStream.range(0, nbLoopsInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(loopAngles::add);
+                    nbExcessiveRemaining -= nbLoopsInDelta - 1;
+                }
+            } else {
+                // Not enough place in the slots: dividing the circle in nbLoops, starting in the middle of the biggest slot
+                int iMaxDelta = sortedIndices.get(sortedIndices.size() - 1);
+                double startAngle = (anglesOtherEdges.get(iMaxDelta) + anglesOtherEdges.get(iMaxDelta + 1)) / 2;
+                IntStream.range(0, nbLoops).mapToDouble(i -> startAngle + i * 2 * Math.PI / nbLoops).forEach(loopAngles::add);
+            }
+
+        } else {
+            // No other edges: dividing the circle in nbLoops
+            IntStream.range(0, nbLoops).mapToDouble(i -> i * 2 * Math.PI / nbLoops).forEach(loopAngles::add);
+        }
+
+        return loopAngles;
+    }
+
+    private double getAngle(BranchEdge edge, Graph graph, Node node) {
+        BranchEdge.Side side = graph.getNode1(edge) == node ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+        return getEdgeStartAngle(edge.getPoints(side));
     }
 
     private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge) {

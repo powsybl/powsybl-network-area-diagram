@@ -30,6 +30,8 @@ public class SvgParameters {
     private double edgesForkAperture = Math.toRadians(60);
     private double edgeStartShift = 0.03;
     private double unknownBusNodeExtraRadius = 0.1;
+    private double loopDistance = 1.2;
+    private double loopEdgesAperture = Math.toRadians(60);
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -167,6 +169,15 @@ public class SvgParameters {
         return this;
     }
 
+    public double getLoopEdgesAperture() {
+        return loopEdgesAperture;
+    }
+
+    public SvgParameters setLoopEdgesAperture(double loopEdgesApertureDegrees) {
+        this.loopEdgesAperture = Math.toRadians(loopEdgesApertureDegrees);
+        return this;
+    }
+
     public double getEdgesForkLength() {
         return edgesForkLength;
     }
@@ -191,6 +202,15 @@ public class SvgParameters {
 
     public SvgParameters setUnknownBusNodeExtraRadius(double unknownBusNodeExtraRadius) {
         this.unknownBusNodeExtraRadius = unknownBusNodeExtraRadius;
+        return this;
+    }
+
+    public double getLoopDistance() {
+        return loopDistance;
+    }
+
+    public SvgParameters setLoopDistance(double loopDistance) {
+        this.loopDistance = loopDistance;
         return this;
     }
 }
