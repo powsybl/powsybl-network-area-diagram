@@ -51,7 +51,7 @@
         </g>
         <g transform="translate(0.36,7.32)" id="11" class="nad-vl300to500" title="FFR1AA1">
             <circle r="0.30" id="12"/>
-            <path d="M-0.392,-0.455 A0.600,0.600 180.084 1 1 0.391,0.455 L0.214,0.211 A0.300,0.300 -170.534 0 0 -0.176,-0.243 Z M0.165,0.577 A0.600,0.600 145.634 0 1 -0.462,-0.383 L-0.246,-0.172 A0.300,0.300 -136.085 0 0 0.058,0.294 Z " id="13"/>
+            <path d="M-0.392,-0.455 A0.600,0.600 100.084 0 1 0.516,-0.306 L0.244,-0.174 A0.300,0.300 -90.534 0 0 -0.176,-0.243 Z M0.560,-0.216 A0.600,0.600 165.634 0 1 -0.489,0.348 L-0.229,0.194 A0.300,0.300 -156.085 0 0 0.288,-0.084 Z M-0.540,0.262 A0.600,0.600 65.634 0 1 -0.462,-0.383 L-0.246,-0.172 A0.300,0.300 -56.085 0 0 -0.280,0.108 Z " id="13"/>
         </g>
         <g transform="translate(-3.72,6.26)" id="14" class="nad-vl300to500" title="FFR3AA1">
             <circle r="0.60" id="15"/>
@@ -511,40 +511,40 @@
         </g>
         <g id="33" class="nad-vl300to500" title="FFR1AA1  FFR2AA1  1">
             <g>
-                <path d="M0.46,7.57 L0.65,8.06 C0.79,8.44 0.34,8.58 -0.03,8.45"/>
-                <g class="nad-edge-infos" transform="translate(0.65,8.06)">
+                <path d="M0.61,7.20 L1.08,6.97 C1.44,6.79 1.63,7.22 1.53,7.61"/>
+                <g class="nad-edge-infos" transform="translate(1.08,6.97)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-20.69)">
+                        <g transform="rotate(-115.87)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-20.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(64.13)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-20.69)">
+                        <g transform="rotate(-115.87)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-20.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(64.13)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
             <g>
-                <path d="M-0.13,7.61 L-0.32,7.72 C-0.67,7.93 -0.41,8.32 -0.03,8.45"/>
-                <g class="nad-edge-infos" transform="translate(-0.32,7.72)">
+                <path d="M0.70,7.78 L0.83,7.96 C1.07,8.29 1.43,8.00 1.53,7.61"/>
+                <g class="nad-edge-infos" transform="translate(0.83,7.96)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(59.31)">
+                        <g transform="rotate(-35.87)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(59.31)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-35.87)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(59.31)">
+                        <g transform="rotate(-35.87)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(59.31)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-35.87)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
             </g>
@@ -591,44 +591,44 @@
         </g>
         <g id="35" title="FFR1AA1  FFR2AA1  2">
             <g class="nad-vl300to500">
-                <path d="M0.88,7.07 L1.08,6.97 C1.44,6.79 1.63,7.22 1.53,7.61"/>
-                <g class="nad-edge-infos" transform="translate(1.08,6.97)">
+                <path d="M0.57,7.85 L0.65,8.06 C0.79,8.44 0.34,8.58 -0.03,8.45"/>
+                <g class="nad-edge-infos" transform="translate(0.65,8.06)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-115.87)">
+                        <g transform="rotate(-20.69)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-20.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-115.87)">
+                        <g transform="rotate(-20.69)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.13)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-20.69)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
-                <circle cx="1.47" cy="7.53" r="0.20"/>
+                <circle cx="0.05" cy="8.40" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <path d="M0.52,7.54 L0.83,7.96 C1.07,8.29 1.43,8.00 1.53,7.61"/>
-                <g class="nad-edge-infos" transform="translate(0.83,7.96)">
+                <path d="M0.13,7.45 L-0.32,7.72 C-0.67,7.93 -0.41,8.32 -0.03,8.45"/>
+                <g class="nad-edge-infos" transform="translate(-0.32,7.72)">
                     <g class="nad-active nad-state-out">
-                        <g transform="rotate(-35.87)">
+                        <g transform="rotate(59.31)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-35.87)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(59.31)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-35.87)">
+                        <g transform="rotate(59.31)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-35.87)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(59.31)" x="0.12" style="dominant-baseline:middle">0</text>
                     </g>
                 </g>
-                <circle cx="1.44" cy="7.65" r="0.20"/>
+                <circle cx="-0.07" cy="8.36" r="0.20"/>
             </g>
         </g>
         <g id="36" class="nad-vl300to500" title="FFR2AA1  FFR3AA1  1">

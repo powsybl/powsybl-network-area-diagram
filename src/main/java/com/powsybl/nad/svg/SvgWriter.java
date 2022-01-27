@@ -201,7 +201,7 @@ public class SvgWriter {
         }
     }
 
-    private void loopEdgesLayout(Graph graph, Node node, Set<BranchEdge> loopEdges) {
+    private void loopEdgesLayout(Graph graph, Node node, List<BranchEdge> loopEdges) {
         List<Double> angles = computeLoopAngles(graph, loopEdges, node);
 
         int i = 0;
@@ -223,7 +223,7 @@ public class SvgWriter {
         }
     }
 
-    private List<Double> computeLoopAngles(Graph graph, Set<BranchEdge> loopEdges, Node node) {
+    private List<Double> computeLoopAngles(Graph graph, List<BranchEdge> loopEdges, Node node) {
         int nbLoops = loopEdges.size();
 
         List<Double> anglesOtherEdges = graph.getBranchEdgeStream(node)

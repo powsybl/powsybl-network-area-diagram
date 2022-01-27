@@ -168,16 +168,13 @@ public class Graph {
                 .filter(e -> e.size() > 1);
     }
 
-    public Map<Node, Set<BranchEdge>> getLoopBranchEdgesMap() {
-        return voltageLevelGraph.edgeSet().stream()
-                .filter(BranchEdge.class::isInstance)
-                .filter(this::isLoop)
-                .map(voltageLevelGraph::getEdgeSource)
-                .collect(Collectors.toMap(
-                    n -> n,
-                    n -> voltageLevelGraph.getAllEdges(n, n).stream().filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast).collect(Collectors.toSet()),
-                    (v1, v2) -> Stream.concat(v1.stream(), v2.stream()).collect(Collectors.toSet())
-                ));
+    public Map<Node, List<BranchEdge>> getLoopBranchEdgesMap() {
+        return voltageLevelGraph.vertexSet().stream()
+                .map(n -> voltageLevelGraph.getAllEdges(n, n).stream()
+                        .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
+                        .collect(Collectors.toList()))
+                .filter(l -> !l.isEmpty())
+                .collect(Collectors.toMap(l -> voltageLevelGraph.getEdgeSource(l.get(0)), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
