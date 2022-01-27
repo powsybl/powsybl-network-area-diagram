@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800.00" height="986.50" viewBox="-15.40 -16.21 29.52 36.40" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
-.nad-branch-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
+.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: grey; stroke-width: 0.02; ; stroke-dasharray: .1,.1}
@@ -1572,7 +1572,6 @@
         </g>
         <g id="91" title="T64-61-1">
             <g class="nad-vl120to180-1">
-                <polyline/>
                 <circle cx="-6.09" cy="-12.14" r="0.20"/>
             </g>
             <g class="nad-vl120to180-0">
@@ -1640,7 +1639,6 @@
         </g>
         <g id="96" title="T65-66-1">
             <g class="nad-vl120to180-1">
-                <polyline/>
                 <circle cx="-9.46" cy="5.16" r="0.20"/>
             </g>
             <g class="nad-vl120to180-0">
@@ -1687,7 +1685,6 @@
         </g>
         <g id="102" title="T68-69-1">
             <g class="nad-vl120to180-1">
-                <polyline/>
                 <circle cx="1.60" cy="14.46" r="0.20"/>
             </g>
             <g class="nad-vl120to180-0">
