@@ -370,19 +370,43 @@ public class SvgWriter {
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
-        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         List<Point> half = edge.getPoints(side);
         if (edge.isVisible(side)) {
-            String lineFormatted = half.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
-                .collect(Collectors.joining(" "));
-            writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
-            drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
+            if (!graph.isLoop(edge)) {
+                writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+                String lineFormatted = half.stream()
+                        .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                        .collect(Collectors.joining(" "));
+                writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
+                drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
+            } else {
+                writer.writeEmptyElement(PATH_ELEMENT_NAME);
+                String loopFormatted = getLoopPathD(half, side);
+                writer.writeAttribute(PATH_D_ATTRIBUTE, loopFormatted);
+                drawLoopEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
+            }
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
             draw2WtWinding(writer, half);
         }
         writer.writeEndElement();
+    }
+
+    private String getLoopPathD(List<Point> points, BranchEdge.Side side) {
+        double edgeStartAngle = getEdgeStartAngle(points);
+        double controlsDist = 2 * (svgParameters.getEdgesForkLength() - svgParameters.getVoltageLevelCircleRadius());
+        Point control1 = points.get(1).atDistance(controlsDist, edgeStartAngle);
+
+        double angleCenterLoop = edgeStartAngle + (side == BranchEdge.Side.ONE ? 1 : -1) * svgParameters.getLoopEdgesAperture() / 2;
+        double control2Angle = angleCenterLoop + (side == BranchEdge.Side.ONE ? -1 : 1) * Math.PI / 2;
+        Point control2 = points.get(2).atDistance(controlsDist, control2Angle);
+
+        return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f",
+                points.get(0).getX(), points.get(0).getY(),
+                points.get(1).getX(), points.get(1).getY(),
+                control1.getX(), control1.getY(),
+                control2.getX(), control2.getY(),
+                points.get(2).getX(), points.get(2).getY());
     }
 
     private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
@@ -444,16 +468,23 @@ public class SvgWriter {
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
     }
 
+    private void drawLoopEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfos, line.get(1), getEdgeStartAngle(line) - Math.PI / 2);
+    }
+
     private void drawEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(line), getEdgeEndYAxisAngle(line));
+    }
+
+    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double infoAngle) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(line)));
-        double angle = getEdgeEndYAxisAngle(line);
-        double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
+        double textAngle = Math.abs(infoAngle) > Math.PI / 2 ? infoAngle - Math.signum(infoAngle) * Math.PI : infoAngle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
-            drawInAndOutArrows(writer, angle);
+            drawInAndOutArrows(writer, infoAngle);
             Optional<String> rightLabel = info.getRightLabel();
             if (rightLabel.isPresent()) {
                 drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle");
