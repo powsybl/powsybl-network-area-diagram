@@ -85,6 +85,12 @@ public class BranchEdge extends AbstractEdge {
     }
 
     public double getEdgeStartAngle(Side side) {
-        return getEdgeStartAngle(getPoints(side));
+        List<Point> points = getPoints(side);
+        return getAngle(points.get(0), points.get(1));
+    }
+
+    public double getEdgeEndAngle(Side side) {
+        List<Point> points = getPoints(side);
+        return getAngle(points.get(points.size() - 2), points.get(points.size() - 1));
     }
 }

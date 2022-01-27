@@ -102,6 +102,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     @Test
     void testEurope() {
         Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        LoadFlow.run(network);
         assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
     }
 

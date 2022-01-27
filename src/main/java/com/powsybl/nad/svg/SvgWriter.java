@@ -277,26 +277,26 @@ public class SvgWriter {
     }
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side) - Math.PI / 2);
+        drawEdgeInfo(writer, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
     }
 
     private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints(side)), getEdgeEndYAxisAngle(edge.getPoints(side)));
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints(side)), edge.getEdgeEndAngle(side));
     }
 
     private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints()), getEdgeEndYAxisAngle(edge.getPoints()));
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints()), edge.getEdgeAngle());
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double infoAngle) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
-        double textAngle = Math.abs(infoAngle) > Math.PI / 2 ? infoAngle - Math.signum(infoAngle) * Math.PI : infoAngle;
+        double textAngle = Math.sin(edgeAngle) > 0 ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
-            drawInAndOutArrows(writer, infoAngle);
+            drawInAndOutArrows(writer, edgeAngle);
             Optional<String> rightLabel = info.getRightLabel();
             if (rightLabel.isPresent()) {
                 drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle");
@@ -310,9 +310,10 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawInAndOutArrows(XMLStreamWriter writer, double angle) throws XMLStreamException {
+    private void drawInAndOutArrows(XMLStreamWriter writer, double edgeAngle) throws XMLStreamException {
+        double rotationAngle = edgeAngle + (edgeAngle > Math.PI / 2 ? -3 * Math.PI / 2 : Math.PI / 2);
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(angle));
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn());
@@ -337,12 +338,6 @@ public class SvgWriter {
 
     private Point getArrowCenter(List<Point> line) {
         return line.get(line.size() - 2).atDistance(svgParameters.getArrowShift(), line.get(line.size() - 1));
-    }
-
-    private double getEdgeEndYAxisAngle(List<Point> line) {
-        Point point1 = line.get(line.size() - 1);
-        Point point0 = line.get(line.size() - 2);
-        return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
@@ -501,7 +496,7 @@ public class SvgWriter {
 
     private double getEdgeStartAngle(Edge edge, BranchEdge.Side side) {
         if (edge instanceof ThreeWtEdge) {
-            return ((ThreeWtEdge) edge).getEdgeStartAngle();
+            return ((ThreeWtEdge) edge).getEdgeAngle();
         } else if (edge instanceof BranchEdge) {
             return ((BranchEdge) edge).getEdgeStartAngle(side);
         }
