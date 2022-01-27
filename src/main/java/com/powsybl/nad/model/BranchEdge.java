@@ -83,4 +83,8 @@ public class BranchEdge extends AbstractEdge {
         Objects.requireNonNull(side);
         this.visible[side.ordinal()] = visible;
     }
+
+    public double getEdgeStartAngle(Side side) {
+        return getEdgeStartAngle(getPoints(side));
+    }
 }

@@ -46,4 +46,8 @@ public class ThreeWtEdge extends AbstractEdge {
     public Side getSide() {
         return side;
     }
+
+    public double getEdgeStartAngle() {
+        return getEdgeStartAngle(points);
+    }
 }

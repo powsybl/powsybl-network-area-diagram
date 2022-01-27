@@ -37,4 +37,10 @@ public abstract class AbstractEdge implements Edge {
     public Optional<String> getName() {
         return Optional.ofNullable(name);
     }
+
+    protected double getEdgeStartAngle(List<Point> line) {
+        Point point1 = line.get(1);
+        Point point0 = line.get(0);
+        return Math.atan2(point1.getY() - point0.getY(), point1.getX() - point0.getX());
+    }
 }
