@@ -52,11 +52,13 @@ public class SvgWriter {
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
+    private final EdgeRendering edgeRendering;
 
     public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
+        this.edgeRendering = new DefaultEdgeRendering();
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
@@ -86,7 +88,7 @@ public class SvgWriter {
         Objects.requireNonNull(svgOs);
 
         // Edge coordinates need to be computed first, based on svg parameters
-        computeBranchEdgesCoordinates(graph);
+        edgeRendering.run(graph, svgParameters);
 
         try {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
@@ -103,113 +105,6 @@ public class SvgWriter {
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
         }
-    }
-
-    private void computeBranchEdgesCoordinates(Graph graph) {
-        graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge));
-        graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges));
-        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge));
-        graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
-    }
-
-    private void computeTextEdgeLayoutCoordinates(Node node1, Node node2, TextEdge edge) {
-        edge.setPoints(node1.getPosition(), node2.getPosition());
-    }
-
-    private void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge) {
-        Node node1 = graph.getBusGraphNode1(edge);
-        Node node2 = graph.getBusGraphNode2(edge);
-
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
-
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
-
-        Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
-        edge.setPoints1(edgeStart1, middle);
-        edge.setPoints2(edgeStart2, middle);
-    }
-
-    private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
-        if (directionBusGraphNode == BusNode.UNKNOWN) {
-            return vlNodeSupplier.get().getPosition();
-        }
-        return new Point(directionBusGraphNode.getX(), directionBusGraphNode.getY());
-    }
-
-    private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier) {
-        // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
-        if (node == BusNode.UNKNOWN) {
-            double unknownBusRadius = svgParameters.getVoltageLevelCircleRadius() + svgParameters.getUnknownBusNodeExtraRadius();
-            return vlNodeSupplier.get().getPosition().atDistance(unknownBusRadius, direction);
-        }
-
-        Point edgeStart = new Point(node.getX(), node.getY());
-        if (node instanceof BusNode) {
-            int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
-            double unitaryRadius = svgParameters.getVoltageLevelCircleRadius() / (nbNeighbours + 1);
-            double busAnnulusOuterRadius = (((BusNode) node).getIndex() + 1) * unitaryRadius - svgParameters.getEdgeStartShift();
-            edgeStart = edgeStart.atDistance(busAnnulusOuterRadius, direction);
-        }
-        return edgeStart;
-    }
-
-    private void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges) {
-        Edge firstEdge = edges.iterator().next();
-        Node nodeA = graph.getNode1(firstEdge);
-        Node nodeB = graph.getNode2(firstEdge);
-        Point pointA = nodeA.getPosition();
-        Point pointB = nodeB.getPosition();
-
-        double dx = pointB.getX() - pointA.getX();
-        double dy = pointB.getY() - pointA.getY();
-        double angle = Math.atan2(dy, dx);
-
-        int nbForks = edges.size();
-        double forkAperture = svgParameters.getEdgesForkAperture();
-        double forkLength = svgParameters.getEdgesForkLength();
-        double angleStep = forkAperture / (nbForks - 1);
-
-        int i = 0;
-        for (BranchEdge edge : edges) {
-            if (2 * i + 1 == nbForks) { // in the middle, hence alpha = 0
-                computeSingleBranchEdgeCoordinates(graph, edge);
-            } else {
-                double alpha = -forkAperture / 2 + i * angleStep;
-                double angleForkA = angle - alpha;
-                double angleForkB = angle + Math.PI + alpha;
-                Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
-                Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
-                Point middle = Point.createMiddlePoint(forkA, forkB);
-
-                BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-                BranchEdge.Side sideB = sideA.getOpposite();
-
-                Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
-                Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
-
-                Point edgeStartA = computeEdgeStart(busNodeA, forkA, () -> nodeA);
-                edge.setPoints(sideA, edgeStartA, forkA, middle);
-
-                Point edgeStartB = computeEdgeStart(busNodeB, forkB, () -> nodeB);
-                edge.setPoints(sideB, edgeStartB, forkB, middle);
-            }
-            i++;
-        }
-    }
-
-    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge) {
-        Node node1 = graph.getBusGraphNode1(edge);
-        Node node2 = graph.getBusGraphNode2(edge);
-
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge));
-
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge));
-
-        edge.setPoints(edgeStart1, edgeStart2);
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -262,9 +157,6 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
         for (ThreeWtEdge edge : threeWtEdges) {
-            if (!edge.isVisible()) {
-                continue;
-            }
             drawThreeWtEdge(graph, writer, edge);
         }
         writer.writeEndElement();
@@ -277,33 +169,66 @@ public class SvgWriter {
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
-        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        List<Point> half = edge.getPoints(side);
         if (edge.isVisible(side)) {
-            String lineFormatted = half.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
-                .collect(Collectors.joining(" "));
-            writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
-            drawEdgeInfo(writer, half, labelProvider.getEdgeInfos(graph, edge, side));
+            if (!graph.isLoop(edge)) {
+                writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+                writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+                drawBranchEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+            } else {
+                writer.writeEmptyElement(PATH_ELEMENT_NAME);
+                writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
+                drawLoopEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+            }
         }
         if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
-            draw2WtWinding(writer, half);
+            draw2WtWinding(writer, edge.getPoints(side));
         }
         writer.writeEndElement();
     }
 
+    private String getPolylinePointsString(BranchEdge edge, BranchEdge.Side side) {
+        return getPolylinePointsString(edge.getPoints(side));
+    }
+
+    private String getPolylinePointsString(ThreeWtEdge edge) {
+        return getPolylinePointsString(edge.getPoints());
+    }
+
+    private String getPolylinePointsString(List<Point> points) {
+        return points.stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+    }
+
+    private String getLoopPathString(BranchEdge edge, BranchEdge.Side side) {
+        List<Point> points = edge.getPoints(side);
+        double edgeStartAngle = edge.getEdgeStartAngle(side);
+        double controlsDist = 2 * (svgParameters.getEdgesForkLength() - svgParameters.getVoltageLevelCircleRadius());
+        Point control1 = points.get(1).atDistance(controlsDist, edgeStartAngle);
+
+        double angleCenterLoop = edgeStartAngle + (side == BranchEdge.Side.ONE ? 1 : -1) * svgParameters.getLoopEdgesAperture() / 2;
+        double control2Angle = angleCenterLoop + (side == BranchEdge.Side.ONE ? -1 : 1) * Math.PI / 2;
+        Point control2 = points.get(2).atDistance(controlsDist, control2Angle);
+
+        return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f",
+                points.get(0).getX(), points.get(0).getY(),
+                points.get(1).getX(), points.get(1).getY(),
+                control1.getX(), control1.getY(),
+                control2.getX(), control2.getY(),
+                points.get(2).getX(), points.get(2).getY());
+    }
+
     private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+        if (!edge.isVisible()) {
+            return;
+        }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        List<Point> points = edge.getPoints();
-        String lineFormatted = points.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
-                .collect(Collectors.joining(" "));
-        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
-        drawEdgeInfo(writer, points, labelProvider.getEdgeInfos(graph, edge));
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
+        drawThreeWtEdgeInfo(writer, edge, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
     }
 
@@ -351,16 +276,27 @@ public class SvgWriter {
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, List<Point> line, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+    private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
+    }
+
+    private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints(side)), edge.getEdgeEndAngle(side));
+    }
+
+    private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints()), edge.getEdgeAngle());
+    }
+
+    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(getArrowCenter(line)));
-        double angle = getEdgeEndYAxisAngle(line);
-        double textAngle = Math.abs(angle) > Math.PI / 2 ? angle - Math.signum(angle) * Math.PI : angle;
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
+        double textAngle = Math.sin(edgeAngle) > 0 ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
-            drawInAndOutArrows(writer, angle);
+            drawInAndOutArrows(writer, edgeAngle);
             Optional<String> rightLabel = info.getRightLabel();
             if (rightLabel.isPresent()) {
                 drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle");
@@ -374,9 +310,10 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawInAndOutArrows(XMLStreamWriter writer, double angle) throws XMLStreamException {
+    private void drawInAndOutArrows(XMLStreamWriter writer, double edgeAngle) throws XMLStreamException {
+        double rotationAngle = edgeAngle + (edgeAngle > Math.PI / 2 ? -3 * Math.PI / 2 : Math.PI / 2);
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(angle));
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn());
@@ -401,18 +338,6 @@ public class SvgWriter {
 
     private Point getArrowCenter(List<Point> line) {
         return line.get(line.size() - 2).atDistance(svgParameters.getArrowShift(), line.get(line.size() - 1));
-    }
-
-    private double getEdgeEndYAxisAngle(List<Point> line) {
-        Point point1 = line.get(line.size() - 1);
-        Point point0 = line.get(line.size() - 2);
-        return Math.atan2(point1.getX() - point0.getX(), -(point1.getY() - point0.getY()));
-    }
-
-    private double getEdgeStartAngle(List<Point> line) {
-        Point point1 = line.get(1);
-        Point point0 = line.get(0);
-        return Math.atan2(point1.getY() - point0.getY(), point1.getX() - point0.getX());
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
@@ -571,9 +496,9 @@ public class SvgWriter {
 
     private double getEdgeStartAngle(Edge edge, BranchEdge.Side side) {
         if (edge instanceof ThreeWtEdge) {
-            return getEdgeStartAngle(((ThreeWtEdge) edge).getPoints());
+            return ((ThreeWtEdge) edge).getEdgeAngle();
         } else if (edge instanceof BranchEdge) {
-            return getEdgeStartAngle(((BranchEdge) edge).getPoints(side));
+            return ((BranchEdge) edge).getEdgeStartAngle(side);
         }
         return 0;
     }

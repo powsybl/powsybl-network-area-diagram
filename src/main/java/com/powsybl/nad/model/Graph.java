@@ -119,6 +119,12 @@ public class Graph {
         return voltageLevelGraph.edgesOf(node).stream();
     }
 
+    public Stream<BranchEdge> getBranchEdgeStream(Node node) {
+        return getEdgeStream(node)
+                .filter(BranchEdge.class::isInstance)
+                .map(BranchEdge.class::cast);
+    }
+
     public Collection<Edge> getBusEdges(BusNode busNode) {
         return busGraph.edgesOf(busNode);
     }
@@ -154,11 +160,21 @@ public class Graph {
 
     public Stream<List<BranchEdge>> getMultiBranchEdgesStream() {
         return voltageLevelGraph.edgeSet().stream()
+                .filter(e -> !isLoop(e))
                 .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct()
                 .map(e -> e.stream().filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast).collect(Collectors.toList()))
                 .filter(e -> e.size() > 1);
+    }
+
+    public Map<Node, List<BranchEdge>> getLoopBranchEdgesMap() {
+        return voltageLevelGraph.vertexSet().stream()
+                .map(n -> voltageLevelGraph.getAllEdges(n, n).stream()
+                        .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
+                        .collect(Collectors.toList()))
+                .filter(l -> !l.isEmpty())
+                .collect(Collectors.toMap(l -> voltageLevelGraph.getEdgeSource(l.get(0)), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
@@ -252,5 +268,9 @@ public class Graph {
 
     public boolean containsNode(String equipmentId) {
         return nodes.containsKey(equipmentId);
+    }
+
+    public boolean isLoop(Edge edge) {
+        return getNode1(edge) == getNode2(edge);
     }
 }

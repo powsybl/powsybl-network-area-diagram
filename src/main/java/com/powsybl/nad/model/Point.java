@@ -65,4 +65,9 @@ public class Point {
         return new Point(x + r * (direction.x - x),
                 y + r * (direction.y - y));
     }
+
+    public Point atDistance(double dist, double angle) {
+        return new Point(x + dist * Math.cos(angle),
+                y + dist * Math.sin(angle));
+    }
 }
