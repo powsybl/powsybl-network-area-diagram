@@ -7,15 +7,18 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.ThreeWtEdge;
-import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.AbstractStyleProvider;
+import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,6 +35,35 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     protected AbstractVoltageStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle) {
         super(baseVoltageStyle);
         this.network = network;
+    }
+
+    @Override
+    public List<String> getNodeStyleClasses(BusNode busNode) {
+        if (busNode == BusNode.UNKNOWN) {
+            return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
+        }
+        List<String> styles = new ArrayList<>();
+        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+        if (b != null) {
+            if (b.getV() > b.getVoltageLevel().getHighVoltageLimit()) {
+                styles.add(StyleProvider.VL_OVERVOLTAGE_CLASS);
+            } else if (b.getV() < b.getVoltageLevel().getLowVoltageLimit()) {
+                styles.add(StyleProvider.VL_UNDERVOLTAGE_CLASS);
+            }
+        }
+        return styles;
+    }
+
+    @Override
+    public List<String> getEdgeStyleClasses(Edge edge) {
+        List<String> styleClasses = new ArrayList<>(super.getEdgeStyleClasses(edge));
+        if (edge instanceof BranchEdge && !((BranchEdge) edge).getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            if (branch.isOverloaded()) {
+                styleClasses.add(StyleProvider.LINE_OVERLOADED_CLASS);
+            }
+        }
+        return styleClasses;
     }
 
     @Override

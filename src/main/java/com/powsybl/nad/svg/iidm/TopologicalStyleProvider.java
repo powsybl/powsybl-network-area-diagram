@@ -42,11 +42,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
-        if (busNode == BusNode.UNKNOWN) {
-            return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
-        }
+        List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
-        List<String> styles = new ArrayList<>();
         getNodeTopologicalStyle(b).ifPresent(styles::add);
         return styles;
     }

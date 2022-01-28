@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
@@ -56,6 +57,12 @@ class NominalVoltageStyleTest extends AbstractTest {
     void testIEEE30() {
         Network network = IeeeCdfNetworkFactory.create30();
         assertEquals(toString("/IEEE_30_bus.svg"), generateSvgString(network, "/IEEE_30_bus.svg"));
+    }
+
+    @Test
+    void testEurostag() {
+        Network network = EurostagTutorialExample1Factory.createWithFixedCurrentLimits();
+        assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/eurostag_limits.svg"));
     }
 
     @Test
