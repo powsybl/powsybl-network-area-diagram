@@ -33,6 +33,7 @@ public class SvgParameters {
     private double unknownBusNodeExtraRadius = 0.1;
     private double loopDistance = 1.2;
     private double loopEdgesAperture = Math.toRadians(60);
+    private double loopControlDistance = 0.4;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -221,6 +222,15 @@ public class SvgParameters {
 
     public SvgParameters setFictitiousVoltageLevelCircleRadius(double fictitiousVoltageLevelCircleRadius) {
         this.fictitiousVoltageLevelCircleRadius = fictitiousVoltageLevelCircleRadius;
+        return this;
+    }
+
+    public double getLoopControlDistance() {
+        return loopControlDistance;
+    }
+
+    public SvgParameters setLoopControlDistance(double loopControlDistance) {
+        this.loopControlDistance = loopControlDistance;
         return this;
     }
 }

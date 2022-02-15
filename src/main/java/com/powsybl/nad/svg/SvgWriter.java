@@ -203,7 +203,7 @@ public class SvgWriter {
     private String getLoopPathString(BranchEdge edge, BranchEdge.Side side) {
         List<Point> points = edge.getPoints(side);
         double edgeStartAngle = edge.getEdgeStartAngle(side);
-        double controlsDist = 2 * (svgParameters.getEdgesForkLength() - svgParameters.getVoltageLevelCircleRadius());
+        double controlsDist = svgParameters.getLoopControlDistance();
         Point control1 = points.get(1).atDistance(controlsDist, edgeStartAngle);
 
         double angleCenterLoop = edgeStartAngle + (side == BranchEdge.Side.ONE ? 1 : -1) * svgParameters.getLoopEdgesAperture() / 2;
