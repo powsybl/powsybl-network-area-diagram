@@ -24,6 +24,7 @@ public class SvgParameters {
     private double arrowLabelShift = 0.12;
     private double converterStationWidth = 0.6;
     private double voltageLevelCircleRadius = 0.6;
+    private double fictitiousVoltageLevelCircleRadius = 0.15;
     private double transformerCircleRadius = 0.2;
     private double nodeHollowWidth = 0.1;
     private double edgesForkLength = 0.8;
@@ -211,6 +212,15 @@ public class SvgParameters {
 
     public SvgParameters setLoopDistance(double loopDistance) {
         this.loopDistance = loopDistance;
+        return this;
+    }
+
+    public double getFictitiousVoltageLevelCircleRadius() {
+        return fictitiousVoltageLevelCircleRadius;
+    }
+
+    public SvgParameters setFictitiousVoltageLevelCircleRadius(double fictitiousVoltageLevelCircleRadius) {
+        this.fictitiousVoltageLevelCircleRadius = fictitiousVoltageLevelCircleRadius;
         return this;
     }
 }

@@ -38,10 +38,10 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Node node2 = graph.getBusGraphNode2(edge);
 
         Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge), svgParameters);
+        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
 
         Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge), svgParameters);
+        Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
         edge.setPoints1(edgeStart1, middle);
@@ -55,17 +55,17 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return directionBusGraphNode.getPosition();
     }
 
-    private Point computeEdgeStart(Node node, Point direction, Supplier<Node> vlNodeSupplier, SvgParameters svgParameters) {
+    private Point computeEdgeStart(Node node, Point direction, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
-        if (node == BusNode.UNKNOWN) {
-            double unknownBusRadius = svgParameters.getVoltageLevelCircleRadius() + svgParameters.getUnknownBusNodeExtraRadius();
-            return vlNodeSupplier.get().getPosition().atDistance(unknownBusRadius, direction);
+        if (node == BusNode.UNKNOWN && vlNode != null) {
+            double unknownBusRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) + svgParameters.getUnknownBusNodeExtraRadius();
+            return vlNode.getPosition().atDistance(unknownBusRadius, direction);
         }
 
         Point edgeStart = node.getPosition();
-        if (node instanceof BusNode) {
+        if (node instanceof BusNode && vlNode != null) {
             int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
-            double unitaryRadius = svgParameters.getVoltageLevelCircleRadius() / (nbNeighbours + 1);
+            double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
             double busAnnulusOuterRadius = (((BusNode) node).getIndex() + 1) * unitaryRadius - svgParameters.getEdgeStartShift();
             edgeStart = edgeStart.atDistance(busAnnulusOuterRadius, direction);
         }
@@ -73,9 +73,9 @@ public class DefaultEdgeRendering implements EdgeRendering {
     }
 
     private void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters) {
-        Edge firstEdge = edges.iterator().next();
-        Node nodeA = graph.getNode1(firstEdge);
-        Node nodeB = graph.getNode2(firstEdge);
+        BranchEdge firstEdge = edges.iterator().next();
+        VoltageLevelNode nodeA = graph.getVoltageLevelNode1(firstEdge);
+        VoltageLevelNode nodeB = graph.getVoltageLevelNode2(firstEdge);
         Point pointA = nodeA.getPosition();
         Point pointB = nodeB.getPosition();
 
@@ -106,17 +106,17 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
                 Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
 
-                Point edgeStartA = computeEdgeStart(busNodeA, forkA, () -> nodeA, svgParameters);
+                Point edgeStartA = computeEdgeStart(busNodeA, forkA, nodeA, svgParameters);
                 edge.setPoints(sideA, edgeStartA, forkA, middle);
 
-                Point edgeStartB = computeEdgeStart(busNodeB, forkB, () -> nodeB, svgParameters);
+                Point edgeStartB = computeEdgeStart(busNodeB, forkB, nodeB, svgParameters);
                 edge.setPoints(sideB, edgeStartB, forkB, middle);
             }
             i++;
         }
     }
 
-    private void loopEdgesLayout(Graph graph, Node node, List<BranchEdge> loopEdges, SvgParameters svgParameters) {
+    private void loopEdgesLayout(Graph graph, VoltageLevelNode node, List<BranchEdge> loopEdges, SvgParameters svgParameters) {
         List<Double> angles = computeLoopAngles(graph, loopEdges, node, svgParameters);
 
         int i = 0;
@@ -130,10 +130,10 @@ public class DefaultEdgeRendering implements EdgeRendering {
             Node busNode1 = graph.getBusGraphNode1(edge);
             Node busNode2 = graph.getBusGraphNode2(edge);
 
-            Point edgeStart1 = computeEdgeStart(busNode1, fork1, () -> node, svgParameters);
+            Point edgeStart1 = computeEdgeStart(busNode1, fork1, node, svgParameters);
             edge.setPoints(BranchEdge.Side.ONE, edgeStart1, fork1, middle);
 
-            Point edgeStart2 = computeEdgeStart(busNode2, fork2, () -> node, svgParameters);
+            Point edgeStart2 = computeEdgeStart(busNode2, fork2, node, svgParameters);
             edge.setPoints(BranchEdge.Side.TWO, edgeStart2, fork2, middle);
         }
     }
@@ -212,10 +212,10 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Node node2 = graph.getBusGraphNode2(edge);
 
         Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, () -> graph.getNode1(edge), svgParameters);
+        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode(edge), svgParameters);
 
         Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, () -> graph.getNode2(edge), svgParameters);
+        Point edgeStart2 = computeEdgeStart(node2, direction2, null, svgParameters);
 
         edge.setPoints(edgeStart1, edgeStart2);
     }

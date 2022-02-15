@@ -168,13 +168,13 @@ public class Graph {
                 .filter(e -> e.size() > 1);
     }
 
-    public Map<Node, List<BranchEdge>> getLoopBranchEdgesMap() {
+    public Map<VoltageLevelNode, List<BranchEdge>> getLoopBranchEdgesMap() {
         return voltageLevelGraph.vertexSet().stream()
                 .map(n -> voltageLevelGraph.getAllEdges(n, n).stream()
                         .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
                         .collect(Collectors.toList()))
                 .filter(l -> !l.isEmpty())
-                .collect(Collectors.toMap(l -> voltageLevelGraph.getEdgeSource(l.get(0)), l -> l));
+                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.get(0)), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
@@ -193,6 +193,10 @@ public class Graph {
 
     public Optional<VoltageLevelNode> getVoltageLevelNode(String voltageLevelId) {
         return getNode(voltageLevelId).filter(VoltageLevelNode.class::isInstance).map(VoltageLevelNode.class::cast);
+    }
+
+    public VoltageLevelNode getVoltageLevelNode(TextEdge textEdge) {
+        return textEdges.get(textEdge).getFirst();
     }
 
     public BusNode getBusNode(String busId) {
@@ -252,6 +256,22 @@ public class Graph {
 
     public Node getNode2(Edge edge) {
         return voltageLevelGraph.getEdgeTarget(edge);
+    }
+
+    public VoltageLevelNode getVoltageLevelNode1(BranchEdge edge) {
+        return (VoltageLevelNode) voltageLevelGraph.getEdgeSource(edge);
+    }
+
+    public VoltageLevelNode getVoltageLevelNode2(BranchEdge edge) {
+        return (VoltageLevelNode) voltageLevelGraph.getEdgeTarget(edge);
+    }
+
+    public VoltageLevelNode getVoltageLevelNode(ThreeWtEdge edge) {
+        return (VoltageLevelNode) voltageLevelGraph.getEdgeSource(edge);
+    }
+
+    public ThreeWtNode getThreeWtNode(ThreeWtEdge edge) {
+        return (ThreeWtNode) voltageLevelGraph.getEdgeTarget(edge);
     }
 
     public Node getBusGraphNode1(Edge edge) {

@@ -401,7 +401,7 @@ public class SvgWriter {
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
-        double nodeOuterRadius = svgParameters.getVoltageLevelCircleRadius();
+        double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
 
         if (vlNode.hasUnknownBusNode()) {
             writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
@@ -527,17 +527,17 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_EDGES_CLASS);
         for (TextEdge edge : graph.getTextEdges()) {
-            drawTextEdge(writer, edge);
+            drawTextEdge(writer, edge, graph.getVoltageLevelNode(edge));
         }
         writer.writeEndElement();
     }
 
-    private void drawTextEdge(XMLStreamWriter writer, TextEdge edge) throws XMLStreamException {
+    private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, edge.getDiagramId());
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         List<Point> points = edge.getPoints();
-        shiftEdgeStart(points);
+        shiftEdgeStart(points, vlNode);
         String lineFormatted1 = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
@@ -550,8 +550,9 @@ public class SvgWriter {
         }
     }
 
-    private void shiftEdgeStart(List<Point> points) {
-        points.set(0, points.get(0).atDistance(svgParameters.getVoltageLevelCircleRadius(), points.get(1)));
+    private void shiftEdgeStart(List<Point> points, VoltageLevelNode vlNode) {
+        double circleRadius = getVoltageLevelCircleRadius(vlNode);
+        points.set(0, points.get(0).atDistance(circleRadius, points.get(1)));
     }
 
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -629,4 +630,11 @@ public class SvgWriter {
         return String.format(Locale.US, "%.2f", value);
     }
 
+    protected double getVoltageLevelCircleRadius(VoltageLevelNode vlNode) {
+        return getVoltageLevelCircleRadius(vlNode, svgParameters);
+    }
+
+    protected static double getVoltageLevelCircleRadius(VoltageLevelNode vlNode, SvgParameters svgParameters) {
+        return vlNode.isFictitious() ? svgParameters.getFictitiousVoltageLevelCircleRadius() : svgParameters.getVoltageLevelCircleRadius();
+    }
 }
