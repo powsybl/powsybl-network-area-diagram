@@ -23,7 +23,7 @@ public class SvgParameters {
     private double arrowShift = 0.3;
     private double arrowLabelShift = 0.12;
     private double converterStationWidth = 0.6;
-    private double voltageLevelCircleRadius = 0.6;
+    private double voltageLevelCircleRadius = 0.3;
     private double fictitiousVoltageLevelCircleRadius = 0.15;
     private double transformerCircleRadius = 0.2;
     private double nodeHollowWidth = 0.1;
