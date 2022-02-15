@@ -49,7 +49,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addGraphNodes(Graph graph) {
         network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> {
-            VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId());
+            VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious());
             TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
             vl.getBusView().getBusStream()
                     .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
@@ -182,7 +182,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private VoltageLevelNode createInvisibleVoltageLevelNode(VoltageLevel vl) {
-            VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), false);
+            VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), false);
             vl.getBusView().getBusStream()
                     .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
                     .forEach(invisibleVlNode::addBusNode);
