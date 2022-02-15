@@ -48,22 +48,27 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addGraphNodes(Graph graph) {
-        network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> {
-            VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious());
-            TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
-            vl.getBusView().getBusStream()
-                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
-                    .forEach(vlNode::addBusNode);
-            graph.addNode(vlNode);
-            graph.addNode(textNode);
-            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
-        });
+        network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> createVoltageLevelNode(vl, graph, true));
     }
 
     private void addGraphEdges(Graph graph) {
         network.getVoltageLevelStream()
                 .filter(voltageLevelFilter)
                 .forEach(vl -> vl.visitEquipments(new VisitorBuilder(graph)));
+    }
+
+    private VoltageLevelNode createVoltageLevelNode(VoltageLevel vl, Graph graph, boolean visible) {
+        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
+        vl.getBusView().getBusStream()
+                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
+                .forEach(vlNode::addBusNode);
+        graph.addNode(vlNode);
+        if (visible) {
+            TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
+            graph.addNode(textNode);
+            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
+        }
+        return vlNode;
     }
 
     private class VisitorBuilder extends DefaultTopologyVisitor {
@@ -178,16 +183,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {
             VoltageLevel vl = terminal.getVoltageLevel();
-            return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createInvisibleVoltageLevelNode(vl));
-        }
-
-        private VoltageLevelNode createInvisibleVoltageLevelNode(VoltageLevel vl) {
-            VoltageLevelNode invisibleVlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), false);
-            vl.getBusView().getBusStream()
-                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
-                    .forEach(invisibleVlNode::addBusNode);
-            graph.addNode(invisibleVlNode);
-            return invisibleVlNode;
+            return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createVoltageLevelNode(vl, graph, false));
         }
     }
 }
