@@ -333,7 +333,7 @@ public class SvgWriter {
     private void drawLabel(XMLStreamWriter writer, String label, double labelShiftY, double angle, boolean textFlipped, String style) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(angle));
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textFlipped ? labelShiftY : -labelShiftY));
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textFlipped ? labelShiftY * 1.15 : -labelShiftY));
         if (style != null) {
             writer.writeAttribute(STYLE_ELEMENT_NAME, style);
         }
