@@ -17,14 +17,14 @@ public class EdgeInfo {
 
     private final String infoType;
     private final Direction arrowDirection;
-    private final String leftLabel;
-    private final String rightLabel;
+    private final String internalLabel;
+    private final String externalLabel;
 
-    public EdgeInfo(String infoType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public EdgeInfo(String infoType, Direction arrowDirection, String internalLabel, String externalLabel) {
         this.infoType = infoType;
         this.arrowDirection = arrowDirection;
-        this.leftLabel = leftLabel;
-        this.rightLabel = rightLabel;
+        this.internalLabel = internalLabel;
+        this.externalLabel = externalLabel;
     }
 
     public EdgeInfo(String infoType, double value) {
@@ -39,12 +39,12 @@ public class EdgeInfo {
         return Optional.ofNullable(arrowDirection);
     }
 
-    public Optional<String> getLeftLabel() {
-        return Optional.ofNullable(leftLabel);
+    public Optional<String> getInternalLabel() {
+        return Optional.ofNullable(internalLabel);
     }
 
-    public Optional<String> getRightLabel() {
-        return Optional.ofNullable(rightLabel);
+    public Optional<String> getExternalLabel() {
+        return Optional.ofNullable(externalLabel);
     }
 
     public enum Direction {

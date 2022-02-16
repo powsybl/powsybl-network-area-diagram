@@ -298,18 +298,19 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
-        double textAngle = Math.sin(edgeAngle) > 0 ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
+        boolean textFlipped = Math.sin(edgeAngle) > 0;
+        double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
             drawInAndOutArrows(writer, edgeAngle);
-            Optional<String> rightLabel = info.getRightLabel();
+            Optional<String> rightLabel = info.getExternalLabel();
             if (rightLabel.isPresent()) {
-                drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle");
+                drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, textFlipped, "text-anchor:middle");
             }
-            Optional<String> leftLabel = info.getLeftLabel();
+            Optional<String> leftLabel = info.getInternalLabel();
             if (leftLabel.isPresent()) {
-                drawLabel(writer, leftLabel.get(), -svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle; text-anchor:end");
+                drawLabel(writer, leftLabel.get(), -svgParameters.getArrowLabelShift(), textAngle, textFlipped, "text-anchor:middle");
             }
             writer.writeEndElement();
         }
@@ -329,11 +330,13 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawLabel(XMLStreamWriter writer, String label, double labelShiftX, double angle, String style) throws XMLStreamException {
+    private void drawLabel(XMLStreamWriter writer, String label, double labelShiftY, double angle, boolean textFlipped, String style) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(angle));
-        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(labelShiftX));
-        writer.writeAttribute(STYLE_ELEMENT_NAME, style);
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textFlipped ? labelShiftY : -labelShiftY));
+        if (style != null) {
+            writer.writeAttribute(STYLE_ELEMENT_NAME, style);
+        }
         writer.writeCharacters(label);
         writer.writeEndElement();
     }

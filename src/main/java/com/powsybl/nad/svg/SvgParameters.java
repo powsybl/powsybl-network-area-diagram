@@ -21,7 +21,7 @@ public class SvgParameters {
     private int fixedWidth = -1;
     private int fixedHeight = -1;
     private double arrowShift = 0.3;
-    private double arrowLabelShift = 0.12;
+    private double arrowLabelShift = 0.23;
     private double converterStationWidth = 0.6;
     private double voltageLevelCircleRadius = 0.3;
     private double fictitiousVoltageLevelCircleRadius = 0.15;
