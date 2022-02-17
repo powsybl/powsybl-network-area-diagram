@@ -25,6 +25,7 @@ import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -42,6 +43,14 @@ public class NetworkAreaDiagram {
 
     public NetworkAreaDiagram(Network network, String voltageLevelId, int depth) {
         this(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+    }
+
+    public NetworkAreaDiagram(Network network, List<String> voltageLevelIds) {
+        this(network, VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+    }
+
+    public NetworkAreaDiagram(Network network, List<String> voltageLevelIds, int depth) {
+        this(network, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
     public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter) {

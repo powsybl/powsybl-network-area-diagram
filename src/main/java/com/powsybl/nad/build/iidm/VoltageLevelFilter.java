@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -47,6 +48,27 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         startingSet.add(vl);
         traverseVoltageLevels(startingSet, depth, voltageLevels);
         return new VoltageLevelFilter(voltageLevels);
+    }
+
+    public static VoltageLevelFilter createVoltageLevelsDepthFilter(Network network, List<String> voltageLevelIds, int depth) {
+        Objects.requireNonNull(network);
+        Objects.requireNonNull(voltageLevelIds);
+        Set<VoltageLevel> startingSet = new HashSet<>();
+        for (String voltageLevelId : voltageLevelIds) {
+            VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
+            if (vl == null) {
+                throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
+            }
+            startingSet.add(vl);
+        }
+
+        Set<VoltageLevel> voltageLevels = new HashSet<>();
+        traverseVoltageLevels(startingSet, depth, voltageLevels);
+        return new VoltageLevelFilter(voltageLevels);
+    }
+
+    public static VoltageLevelFilter createVoltageLevelsFilter(Network network, List<String> voltageLevelIds) {
+        return createVoltageLevelsDepthFilter(network, voltageLevelIds, 0);
     }
 
     private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
