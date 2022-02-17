@@ -5,7 +5,7 @@
 .nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
-.nad-disconnected {stroke-dasharray: .1,.1}
+.nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
 .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
@@ -20,9 +20,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 0.25px "Verdana"; fill: black}
-.nad-edge-infos {font: 0.2px "Verdana"}
-.nad-edge-infos .nad-state-in {fill: #b71c1c}
-.nad-edge-infos .nad-state-out {fill: #2e7d32}
+.nad-edge-infos {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: var(--nad-vl-color, white); stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos .nad-state-in {fill: white}
+.nad-edge-infos .nad-state-out {fill: white}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
 .nad-vl30to50 {--nad-vl-color: #EF9A9A}
 .nad-vl50to70 {--nad-vl-color: #9C27B0}
@@ -86,14 +86,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-18.99)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-288.99)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-18.99)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-18.99)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-288.99)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -105,14 +105,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-18.99)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(71.01)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(161.01)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-18.99)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(71.01)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -126,14 +126,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(68.68)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-21.32)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-111.32)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(68.68)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-21.32)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -145,14 +145,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(68.68)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-21.32)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(68.68)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(68.68)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-21.32)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -166,14 +166,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(26.12)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-63.88)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(26.12)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(26.12)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-63.88)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -185,14 +185,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(26.12)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-63.88)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-153.88)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(26.12)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-63.88)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -206,14 +206,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-85.24)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(4.76)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(94.76)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-85.24)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(4.76)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -225,14 +225,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-85.24)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-355.24)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-85.24)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-85.24)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-355.24)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -246,14 +246,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.18)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-73.82)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-163.82)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.18)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-73.82)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -265,14 +265,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.18)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-73.82)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(16.18)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(16.18)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-73.82)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -286,14 +286,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-41.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(49.00)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(139.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-41.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(49.00)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -305,14 +305,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-41.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-311.00)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-41.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-41.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-311.00)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -326,14 +326,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(58.63)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-31.37)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-121.37)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(58.63)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-31.37)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -345,14 +345,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(58.63)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-31.37)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(58.63)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(58.63)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-31.37)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -366,14 +366,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(83.57)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-6.43)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(83.57)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(83.57)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-6.43)" x="0.19">0</text>
                     </g>
                 </g>
                 <circle cx="3.50" cy="-4.69" r="0.20"/>
@@ -386,14 +386,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(83.57)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-6.43)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-96.43)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(83.57)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-6.43)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
                 <circle cx="3.70" cy="-4.71" r="0.20"/>
@@ -408,14 +408,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-49.22)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(40.78)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(130.78)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-49.22)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(40.78)" x="0.19">0</text>
                     </g>
                 </g>
                 <circle cx="3.17" cy="-1.88" r="0.20"/>
@@ -428,14 +428,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-49.22)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-319.22)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-49.22)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-49.22)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-319.22)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
                 <circle cx="3.32" cy="-1.75" r="0.20"/>
@@ -450,14 +450,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.10)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(75.90)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(165.90)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.10)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(75.90)" x="0.19">0</text>
                     </g>
                 </g>
                 <circle cx="-5.44" cy="3.58" r="0.20"/>
@@ -470,14 +470,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.10)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-284.10)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-14.10)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.10)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-284.10)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
                 <circle cx="-5.39" cy="3.77" r="0.20"/>
@@ -492,14 +492,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(74.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-15.42)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(74.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(74.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-15.42)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -511,14 +511,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(74.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-15.42)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-105.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(74.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-15.42)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -532,14 +532,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(12.30)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-77.70)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-167.70)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(12.30)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-77.70)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -551,14 +551,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(12.30)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-77.70)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(12.30)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(12.30)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-77.70)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -572,14 +572,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-39.16)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(50.84)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(140.84)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-39.16)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(50.84)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -591,14 +591,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-39.16)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-309.16)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-39.16)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-39.16)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-309.16)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -612,14 +612,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(22.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-67.31)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(22.69)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(22.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-67.31)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -631,14 +631,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(22.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-67.31)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-157.31)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(22.69)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-67.31)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -652,14 +652,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(7.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-83.00)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-173.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(7.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-83.00)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -671,14 +671,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(7.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-83.00)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(7.00)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(7.00)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-83.00)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -692,14 +692,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(75.83)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(165.83)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(75.83)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -711,14 +711,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-284.17)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-14.17)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(-14.17)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-284.17)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -732,14 +732,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(11.07)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-78.93)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-168.93)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(11.07)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-78.93)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -751,14 +751,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(11.07)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-78.93)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(11.07)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(11.07)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-78.93)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -772,14 +772,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(80.38)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.62)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-99.62)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(80.38)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.62)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -791,14 +791,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(80.38)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.62)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(80.38)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(80.38)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-9.62)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -812,14 +812,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(81.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-8.42)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(81.58)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(81.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-8.42)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -831,14 +831,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(81.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-8.42)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-98.42)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(81.58)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-8.42)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
@@ -852,14 +852,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.71)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-25.29)" x="0.19">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(64.71)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.71)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-25.29)" x="0.19">0</text>
                     </g>
                 </g>
             </g>
@@ -871,14 +871,14 @@
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.71)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-25.29)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-115.29)">
                             <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                             <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                         </g>
-                        <text transform="rotate(64.71)" x="0.12" style="dominant-baseline:middle">0</text>
+                        <text transform="rotate(-25.29)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
             </g>
