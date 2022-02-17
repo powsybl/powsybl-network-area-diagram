@@ -94,6 +94,14 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
+    void testFictitiousVoltageLevel() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        network.getVoltageLevel("VL12").setFictitious(true);
+        network.getVoltageLevel("VL14").setFictitious(true);
+        assertEquals(toString("/IEEE_14_bus_fictitious.svg"), generateSvgString(network, "/IEEE_14_bus_fictitious.svg"));
+    }
+
+    @Test
     void testIEEE24() {
         Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
