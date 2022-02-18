@@ -48,5 +48,5 @@ public interface StyleProvider {
 
     Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode);
 
-    Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+    List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
 }
