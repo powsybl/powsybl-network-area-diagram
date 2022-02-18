@@ -11,6 +11,7 @@ import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
@@ -135,6 +136,13 @@ class NominalVoltageStyleTest extends AbstractTest {
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
+    }
+
+    @Test
+    void testDisconnected3wt() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+        assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
     }
 
     @Test

@@ -64,6 +64,20 @@ public class NominalVoltageStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
+    protected boolean isDisconnected(Edge edge) {
+        if (edge instanceof ThreeWtEdge) {
+            ThreeWtEdge twtEdge = (ThreeWtEdge) edge;
+            Terminal terminal = network.getThreeWindingsTransformer(twtEdge.getEquipmentId())
+                    .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(twtEdge.getSide()));
+            return terminal == null || !terminal.isConnected();
+        }
+        if (edge instanceof BranchEdge) {
+            return isDisconnected((BranchEdge) edge, BranchEdge.Side.ONE) && isDisconnected((BranchEdge) edge, BranchEdge.Side.TWO);
+        }
+        return false;
+    }
+
+    @Override
     protected boolean isDisconnected(BranchEdge edge, BranchEdge.Side side) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return terminal == null || !terminal.isConnected();
