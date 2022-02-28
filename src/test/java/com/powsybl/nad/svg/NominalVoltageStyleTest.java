@@ -82,6 +82,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     void testIEEE14ForceLayoutWithTextNodes() {
         Network network = IeeeCdfNetworkFactory.create14();
         getLayoutParameters().setTextNodesForceLayout(true);
+        getSvgParameters().setTextNodeBackground(false);
         assertEquals(toString("/IEEE_14_bus_text_nodes.svg"), generateSvgString(network, "/IEEE_14_bus_text_nodes.svg"));
     }
 

@@ -31,6 +31,7 @@ public class SvgWriter {
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
     private static final String METADATA_ELEMENT_NAME = "metadata";
+    private static final String DEFS_ELEMENT_NAME = "defs";
     private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
     private static final String PATH_ELEMENT_NAME = "path";
@@ -48,6 +49,12 @@ public class SvgWriter {
     private static final String X_ATTRIBUTE = "x";
     private static final String Y_ATTRIBUTE = "y";
     private static final String POINTS_ATTRIBUTE = "points";
+    private static final String FILTER_ELEMENT_NAME = "filter";
+    private static final String FE_FLOOD_ELEMENT_NAME = "feFlood";
+    private static final String FE_COMPOSITE_ELEMENT_NAME = "feComposite";
+    private static final String FE_IN_ATTRIBUTE = "in";
+    private static final String FE_OPERATOR_ATTRIBUTE = "operator";
+    public static final String TEXT_BG_FILTER_ID = "textBgFilter";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -95,6 +102,7 @@ public class SvgWriter {
             addSvgRoot(graph, writer);
             addStyle(writer);
             addMetadata(writer);
+            addDefs(writer);
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
@@ -389,6 +397,9 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(TEXT_ELEMENT_NAME);
+        if (svgParameters.isTextNodeBackground()) {
+            writer.writeAttribute(FILTER_ELEMENT_NAME, "url(#" + TEXT_BG_FILTER_ID + ")");
+        }
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         writer.writeAttribute(STYLE_ELEMENT_NAME, "dominant-baseline:middle");
@@ -623,6 +634,25 @@ public class SvgWriter {
     private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         writer.writeEndElement();
+    }
+
+    private void addDefs(XMLStreamWriter writer) throws XMLStreamException {
+        if (svgParameters.isTextNodeBackground()) {
+            writer.writeStartElement(DEFS_ELEMENT_NAME);
+            writer.writeStartElement(FILTER_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, TEXT_BG_FILTER_ID);
+            writer.writeAttribute(X_ATTRIBUTE, String.valueOf(0));
+            writer.writeAttribute(Y_ATTRIBUTE, String.valueOf(0));
+            writer.writeAttribute(WIDTH_ATTRIBUTE, String.valueOf(1));
+            writer.writeAttribute(HEIGHT_ATTRIBUTE, String.valueOf(1));
+            writer.writeEmptyElement(FE_FLOOD_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_BACKGROUND_CLASS);
+            writer.writeEmptyElement(FE_COMPOSITE_ELEMENT_NAME);
+            writer.writeAttribute(FE_IN_ATTRIBUTE, "SourceGraphic");
+            writer.writeAttribute(FE_OPERATOR_ATTRIBUTE, "over");
+            writer.writeEndElement();
+            writer.writeEndElement();
+        }
     }
 
     private static String getFormattedValue(double value) {

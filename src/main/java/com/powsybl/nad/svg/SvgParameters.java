@@ -32,6 +32,7 @@ public class SvgParameters {
     private double unknownBusNodeExtraRadius = 0.1;
     private double loopDistance = 1.2;
     private double loopEdgesAperture = Math.toRadians(60);
+    private boolean textNodeBackground = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -211,6 +212,15 @@ public class SvgParameters {
 
     public SvgParameters setLoopDistance(double loopDistance) {
         this.loopDistance = loopDistance;
+        return this;
+    }
+
+    public boolean isTextNodeBackground() {
+        return textNodeBackground;
+    }
+
+    public SvgParameters setTextNodeBackground(boolean textNodeBackground) {
+        this.textNodeBackground = textNodeBackground;
         return this;
     }
 }
