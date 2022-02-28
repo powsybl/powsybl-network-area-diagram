@@ -18,7 +18,8 @@
 .nad-active {visibility: visible}
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: grey}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
 .nad-edge-infos {font: 0.2px "Verdana"}
 .nad-edge-infos .nad-state-in {fill: #b71c1c}
 .nad-edge-infos .nad-state-out {fill: #2e7d32}
@@ -31,6 +32,12 @@
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
 ]]></style>
     <metadata></metadata>
+    <defs>
+        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
+            <feFlood class="nad-text-background"/>
+            <feComposite in="SourceGraphic" operator="over"/>
+        </filter>
+    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-5.73,0.61)" id="0" class="nad-vl180to300" title="S1VL1">
             <circle r="0.60" id="1"/>
@@ -262,10 +269,10 @@
         <polyline id="8_text_edge" points="6.94,2.21 7.34,2.21"/>
     </g>
     <g class="nad-text-nodes">
-        <text x="-4.73" y="0.61" style="dominant-baseline:middle">S1VL1</text>
-        <text x="-0.69" y="0.46" style="dominant-baseline:middle">S1VL2</text>
-        <text x="1.73" y="-2.20" style="dominant-baseline:middle">S2VL1</text>
-        <text x="3.50" y="0.94" style="dominant-baseline:middle">S3VL1</text>
-        <text x="7.34" y="2.21" style="dominant-baseline:middle">S4VL1</text>
+        <text filter="url(#textBgFilter)" x="-4.73" y="0.61" style="dominant-baseline:middle">S1VL1</text>
+        <text filter="url(#textBgFilter)" x="-0.69" y="0.46" style="dominant-baseline:middle">S1VL2</text>
+        <text filter="url(#textBgFilter)" x="1.73" y="-2.20" style="dominant-baseline:middle">S2VL1</text>
+        <text filter="url(#textBgFilter)" x="3.50" y="0.94" style="dominant-baseline:middle">S3VL1</text>
+        <text filter="url(#textBgFilter)" x="7.34" y="2.21" style="dominant-baseline:middle">S4VL1</text>
     </g>
 </svg>

@@ -18,7 +18,8 @@
 .nad-active {visibility: visible}
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: grey}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
 .nad-edge-infos {font: 0.2px "Verdana"}
 .nad-edge-infos .nad-state-in {fill: #b71c1c}
 .nad-edge-infos .nad-state-out {fill: #2e7d32}
@@ -31,6 +32,12 @@
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
 ]]></style>
     <metadata></metadata>
+    <defs>
+        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
+            <feFlood class="nad-text-background"/>
+            <feComposite in="SourceGraphic" operator="over"/>
+        </filter>
+    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-1.47,1.63)" id="0" class="nad-vl120to180" title="VL1">
             <circle r="0.60" id="1"/>
@@ -1666,29 +1673,29 @@
         <polyline id="46_text_edge" points="5.01,9.80 5.41,9.80"/>
     </g>
     <g class="nad-text-nodes">
-        <text x="-0.47" y="1.63" style="dominant-baseline:middle">VL1</text>
-        <text x="-1.44" y="5.90" style="dominant-baseline:middle">VL2</text>
-        <text x="2.66" y="-1.23" style="dominant-baseline:middle">VL3</text>
-        <text x="1.53" y="-6.64" style="dominant-baseline:middle">VL24</text>
-        <text x="1.41" y="9.61" style="dominant-baseline:middle">VL4</text>
-        <text x="2.99" y="2.84" style="dominant-baseline:middle">VL5</text>
-        <text x="6.72" y="4.17" style="dominant-baseline:middle">VL9</text>
-        <text x="6.08" y="6.46" style="dominant-baseline:middle">VL10</text>
-        <text x="8.57" y="1.12" style="dominant-baseline:middle">VL11</text>
-        <text x="9.11" y="7.22" style="dominant-baseline:middle">VL12</text>
-        <text x="1.81" y="6.60" style="dominant-baseline:middle">VL6</text>
-        <text x="11.48" y="14.67" style="dominant-baseline:middle">VL7</text>
-        <text x="9.57" y="10.45" style="dominant-baseline:middle">VL8</text>
-        <text x="11.11" y="4.96" style="dominant-baseline:middle">VL13</text>
-        <text x="4.90" y="-3.92" style="dominant-baseline:middle">VL14</text>
-        <text x="-2.06" y="-8.50" style="dominant-baseline:middle">VL15</text>
-        <text x="-3.24" y="-4.13" style="dominant-baseline:middle">VL16</text>
-        <text x="-7.54" y="-7.99" style="dominant-baseline:middle">VL17</text>
-        <text x="-10.03" y="-10.30" style="dominant-baseline:middle">VL18</text>
-        <text x="-5.80" y="2.47" style="dominant-baseline:middle">VL19</text>
-        <text x="-3.18" y="8.90" style="dominant-baseline:middle">VL20</text>
-        <text x="-5.32" y="-11.50" style="dominant-baseline:middle">VL21</text>
-        <text x="-7.69" y="-13.46" style="dominant-baseline:middle">VL22</text>
-        <text x="5.41" y="9.80" style="dominant-baseline:middle">VL23</text>
+        <text filter="url(#textBgFilter)" x="-0.47" y="1.63" style="dominant-baseline:middle">VL1</text>
+        <text filter="url(#textBgFilter)" x="-1.44" y="5.90" style="dominant-baseline:middle">VL2</text>
+        <text filter="url(#textBgFilter)" x="2.66" y="-1.23" style="dominant-baseline:middle">VL3</text>
+        <text filter="url(#textBgFilter)" x="1.53" y="-6.64" style="dominant-baseline:middle">VL24</text>
+        <text filter="url(#textBgFilter)" x="1.41" y="9.61" style="dominant-baseline:middle">VL4</text>
+        <text filter="url(#textBgFilter)" x="2.99" y="2.84" style="dominant-baseline:middle">VL5</text>
+        <text filter="url(#textBgFilter)" x="6.72" y="4.17" style="dominant-baseline:middle">VL9</text>
+        <text filter="url(#textBgFilter)" x="6.08" y="6.46" style="dominant-baseline:middle">VL10</text>
+        <text filter="url(#textBgFilter)" x="8.57" y="1.12" style="dominant-baseline:middle">VL11</text>
+        <text filter="url(#textBgFilter)" x="9.11" y="7.22" style="dominant-baseline:middle">VL12</text>
+        <text filter="url(#textBgFilter)" x="1.81" y="6.60" style="dominant-baseline:middle">VL6</text>
+        <text filter="url(#textBgFilter)" x="11.48" y="14.67" style="dominant-baseline:middle">VL7</text>
+        <text filter="url(#textBgFilter)" x="9.57" y="10.45" style="dominant-baseline:middle">VL8</text>
+        <text filter="url(#textBgFilter)" x="11.11" y="4.96" style="dominant-baseline:middle">VL13</text>
+        <text filter="url(#textBgFilter)" x="4.90" y="-3.92" style="dominant-baseline:middle">VL14</text>
+        <text filter="url(#textBgFilter)" x="-2.06" y="-8.50" style="dominant-baseline:middle">VL15</text>
+        <text filter="url(#textBgFilter)" x="-3.24" y="-4.13" style="dominant-baseline:middle">VL16</text>
+        <text filter="url(#textBgFilter)" x="-7.54" y="-7.99" style="dominant-baseline:middle">VL17</text>
+        <text filter="url(#textBgFilter)" x="-10.03" y="-10.30" style="dominant-baseline:middle">VL18</text>
+        <text filter="url(#textBgFilter)" x="-5.80" y="2.47" style="dominant-baseline:middle">VL19</text>
+        <text filter="url(#textBgFilter)" x="-3.18" y="8.90" style="dominant-baseline:middle">VL20</text>
+        <text filter="url(#textBgFilter)" x="-5.32" y="-11.50" style="dominant-baseline:middle">VL21</text>
+        <text filter="url(#textBgFilter)" x="-7.69" y="-13.46" style="dominant-baseline:middle">VL22</text>
+        <text filter="url(#textBgFilter)" x="5.41" y="9.80" style="dominant-baseline:middle">VL23</text>
     </g>
 </svg>
