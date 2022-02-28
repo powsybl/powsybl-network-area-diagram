@@ -4,7 +4,7 @@
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
-.nad-text-edges {stroke: grey; stroke-width: 0.02; stroke-dasharray: .1,.1}
+.nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-disconnected {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
@@ -18,8 +18,8 @@
 .nad-active {visibility: visible}
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
-.nad-vl-nodes .nad-text-buses {font: 0.6px "Verdana"; fill: white}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: grey}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
 .nad-edge-infos {font: 0.2px "Verdana"}
 .nad-edge-infos .nad-state-in {fill: #b71c1c}
 .nad-edge-infos .nad-state-out {fill: #2e7d32}
@@ -32,6 +32,12 @@
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
 ]]></style>
     <metadata></metadata>
+    <defs>
+        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
+            <feFlood class="nad-text-background"/>
+            <feComposite in="SourceGraphic" operator="over"/>
+        </filter>
+    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-3.78,1.10)" id="0" class="nad-vl0to30" title="VL_11">
             <circle r="0.60" id="1"/>
@@ -75,6 +81,6 @@
         <polyline id="0_text_edge" points="-3.18,1.10 -2.78,1.10"/>
     </g>
     <g class="nad-text-nodes">
-        <text x="-2.78" y="1.10" style="dominant-baseline:middle">VL_11</text>
+        <text filter="url(#textBgFilter)" x="-2.78" y="1.10" style="dominant-baseline:middle">VL_11</text>
     </g>
 </svg>

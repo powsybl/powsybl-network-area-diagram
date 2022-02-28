@@ -16,6 +16,8 @@ import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -70,5 +72,12 @@ class TopologicalStyleTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL54", 2);
         assertEquals(toString("/IEEE_118_bus_partial.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
+    }
+
+    @Test
+    void testIEEE118PartialNonConnectedGraph() {
+        Network network = IeeeCdfNetworkFactory.create118();
+        VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Arrays.asList("VL32", "VL38"), 1);
+        assertEquals(toString("/IEEE_118_bus_partial_non_connected.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial_non_connected.svg"));
     }
 }

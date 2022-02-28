@@ -23,6 +23,8 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -80,6 +82,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     void testIEEE14ForceLayoutWithTextNodes() {
         Network network = IeeeCdfNetworkFactory.create14();
         getLayoutParameters().setTextNodesForceLayout(true);
+        getSvgParameters().setTextNodeBackground(false);
         assertEquals(toString("/IEEE_14_bus_text_nodes.svg"), generateSvgString(network, "/IEEE_14_bus_text_nodes.svg"));
     }
 
@@ -137,7 +140,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     @Test
     void testPartial3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL_11", 0);
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
         assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
     }
 

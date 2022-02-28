@@ -34,6 +34,7 @@ public class SvgParameters {
     private double loopDistance = 1.2;
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 0.4;
+    private boolean textNodeBackground = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -231,6 +232,15 @@ public class SvgParameters {
 
     public SvgParameters setLoopControlDistance(double loopControlDistance) {
         this.loopControlDistance = loopControlDistance;
+        return this;
+    }
+
+    public boolean isTextNodeBackground() {
+        return textNodeBackground;
+    }
+
+    public SvgParameters setTextNodeBackground(boolean textNodeBackground) {
+        this.textNodeBackground = textNodeBackground;
         return this;
     }
 }

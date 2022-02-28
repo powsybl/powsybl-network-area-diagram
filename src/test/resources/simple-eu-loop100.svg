@@ -4,7 +4,7 @@
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
 .nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
-.nad-text-edges {stroke: grey; stroke-width: 0.02; stroke-dasharray: .1,.1}
+.nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-disconnected {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
@@ -18,8 +18,8 @@
 .nad-active {visibility: visible}
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
-.nad-vl-nodes .nad-text-buses {font: 0.6px "Verdana"; fill: white}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: grey}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
 .nad-edge-infos {font: 0.2px "Verdana"}
 .nad-edge-infos .nad-state-in {fill: #b71c1c}
 .nad-edge-infos .nad-state-out {fill: #2e7d32}
@@ -32,6 +32,12 @@
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
 ]]></style>
     <metadata></metadata>
+    <defs>
+        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
+            <feFlood class="nad-text-background"/>
+            <feComposite in="SourceGraphic" operator="over"/>
+        </filter>
+    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-4.74,-2.08)" id="0" class="nad-vl300to500" title="BBE1AA1">
             <circle r="0.30" id="1"/>
@@ -805,15 +811,15 @@
         <polyline id="20_text_edge" points="3.12,-4.42 3.52,-4.42"/>
     </g>
     <g class="nad-text-nodes">
-        <text x="-3.74" y="-2.08" style="dominant-baseline:middle">BBE1AA1</text>
-        <text x="-4.54" y="2.31" style="dominant-baseline:middle">BBE2AA1</text>
-        <text x="8.06" y="2.74" style="dominant-baseline:middle">DDE1AA1</text>
-        <text x="5.50" y="0.01" style="dominant-baseline:middle">DDE2AA1</text>
-        <text x="4.75" y="4.37" style="dominant-baseline:middle">DDE3AA1</text>
-        <text x="1.36" y="7.32" style="dominant-baseline:middle">FFR1AA1</text>
-        <text x="-2.72" y="6.26" style="dominant-baseline:middle">FFR3AA1</text>
-        <text x="2.23" y="-8.03" style="dominant-baseline:middle">NNL1AA1</text>
-        <text x="-0.50" y="-5.35" style="dominant-baseline:middle">NNL2AA1</text>
-        <text x="3.52" y="-4.42" style="dominant-baseline:middle">NNL3AA1</text>
+        <text filter="url(#textBgFilter)" x="-3.74" y="-2.08" style="dominant-baseline:middle">BBE1AA1</text>
+        <text filter="url(#textBgFilter)" x="-4.54" y="2.31" style="dominant-baseline:middle">BBE2AA1</text>
+        <text filter="url(#textBgFilter)" x="8.06" y="2.74" style="dominant-baseline:middle">DDE1AA1</text>
+        <text filter="url(#textBgFilter)" x="5.50" y="0.01" style="dominant-baseline:middle">DDE2AA1</text>
+        <text filter="url(#textBgFilter)" x="4.75" y="4.37" style="dominant-baseline:middle">DDE3AA1</text>
+        <text filter="url(#textBgFilter)" x="1.36" y="7.32" style="dominant-baseline:middle">FFR1AA1</text>
+        <text filter="url(#textBgFilter)" x="-2.72" y="6.26" style="dominant-baseline:middle">FFR3AA1</text>
+        <text filter="url(#textBgFilter)" x="2.23" y="-8.03" style="dominant-baseline:middle">NNL1AA1</text>
+        <text filter="url(#textBgFilter)" x="-0.50" y="-5.35" style="dominant-baseline:middle">NNL2AA1</text>
+        <text filter="url(#textBgFilter)" x="3.52" y="-4.42" style="dominant-baseline:middle">NNL3AA1</text>
     </g>
 </svg>
