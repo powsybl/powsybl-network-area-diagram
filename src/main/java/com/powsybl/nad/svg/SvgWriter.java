@@ -665,6 +665,10 @@ public class SvgWriter {
     }
 
     protected static double getVoltageLevelCircleRadius(VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        return vlNode.isFictitious() ? svgParameters.getFictitiousVoltageLevelCircleRadius() : svgParameters.getVoltageLevelCircleRadius();
+        if (vlNode.isFictitious()) {
+            return svgParameters.getFictitiousVoltageLevelCircleRadius();
+        }
+        int nbBuses = vlNode.getBusNodes().size();
+        return Math.min(Math.max(nbBuses, 1), 2) * svgParameters.getVoltageLevelCircleRadius();
     }
 }
