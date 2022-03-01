@@ -29,7 +29,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         this.network = network;
     }
 
-    public AbstractVoltageStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle) {
+    protected AbstractVoltageStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle) {
         super(baseVoltageStyle);
         this.network = network;
     }
