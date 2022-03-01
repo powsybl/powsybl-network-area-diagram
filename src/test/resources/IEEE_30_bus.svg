@@ -20,9 +20,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 0.25px "Verdana"; fill: black}
-.nad-edge-infos {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: var(--nad-vl-color, white); stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
-.nad-edge-infos .nad-state-in {fill: white}
-.nad-edge-infos .nad-state-out {fill: white}
+.nad-edge-infos {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos .nad-state-in {fill: #b71c1c}
+.nad-edge-infos .nad-state-out {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
 .nad-vl30to50 {--nad-vl-color: #EF9A9A}
 .nad-vl50to70 {--nad-vl-color: #9C27B0}
