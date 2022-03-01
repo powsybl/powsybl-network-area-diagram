@@ -27,26 +27,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class EdgeInfoTest extends AbstractTest {
 
-    private SvgParameters svgParameters;
-
-    private LayoutParameters layoutParameters;
-
     @BeforeEach
     public void setup() {
-        this.layoutParameters = new LayoutParameters();
-        this.svgParameters = new SvgParameters()
+        setLayoutParameters(new LayoutParameters());
+        setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800);
-    }
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
-    @Override
-    protected SvgParameters getSvgParameters() {
-        return svgParameters;
+                .setFixedWidth(800));
     }
 
     @Override

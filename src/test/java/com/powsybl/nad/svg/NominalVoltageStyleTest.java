@@ -33,27 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class NominalVoltageStyleTest extends AbstractTest {
 
-    private SvgParameters svgParameters;
-
-    private LayoutParameters layoutParameters;
-
     @BeforeEach
     public void setup() {
-        this.layoutParameters = new LayoutParameters();
-        this.svgParameters = new SvgParameters()
+        setLayoutParameters(new LayoutParameters());
+        setSvgParameters(new SvgParameters()
                 .setInsertName(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800);
-    }
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
-    @Override
-    protected SvgParameters getSvgParameters() {
-        return svgParameters;
+                .setFixedWidth(800));
     }
 
     @Override
@@ -121,14 +107,14 @@ class NominalVoltageStyleTest extends AbstractTest {
     @Test
     void testEuropeLoopAperture80() {
         Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        svgParameters.setLoopEdgesAperture(80);
+        getSvgParameters().setLoopEdgesAperture(80);
         assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
     }
 
     @Test
     void testEuropeLoopAperture100() {
         Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        svgParameters.setLoopEdgesAperture(100);
+        getSvgParameters().setLoopEdgesAperture(100);
         assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
     }
 
