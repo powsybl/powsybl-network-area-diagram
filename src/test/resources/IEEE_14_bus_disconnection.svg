@@ -83,8 +83,8 @@
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="27" class="nad-vl120to180" title="L1-2-1">
-            <g>
+        <g id="27" title="L1-2-1">
+            <g class="nad-vl120to180">
                 <polyline points="1.02,-6.90 -0.10,-6.13"/>
                 <g class="nad-edge-infos" transform="translate(0.77,-6.73)">
                     <g class="nad-active nad-state-out">
@@ -103,7 +103,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="-1.22,-5.36 -0.10,-6.13"/>
                 <g class="nad-edge-infos" transform="translate(-0.98,-5.53)">
                     <g class="nad-active nad-state-in">
@@ -123,8 +123,8 @@
                 </g>
             </g>
         </g>
-        <g id="28" class="nad-vl120to180" title="L1-5-1">
-            <g>
+        <g id="28" title="L1-5-1">
+            <g class="nad-vl120to180">
                 <polyline points="1.12,-6.81 -0.02,-4.46"/>
                 <g class="nad-edge-infos" transform="translate(0.99,-6.54)">
                     <g class="nad-active nad-state-out">
@@ -143,7 +143,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="-1.17,-2.10 -0.02,-4.46"/>
                 <g class="nad-edge-infos" transform="translate(-1.04,-2.37)">
                     <g class="nad-active nad-state-in">
@@ -163,8 +163,8 @@
                 </g>
             </g>
         </g>
-        <g id="29" class="nad-vl120to180" title="L2-3-1">
-            <g>
+        <g id="29" title="L2-3-1">
+            <g class="nad-vl120to180">
                 <polyline points="-1.54,-5.46 -1.98,-6.59"/>
                 <g class="nad-edge-infos" transform="translate(-1.65,-5.74)">
                     <g class="nad-active nad-state-out">
@@ -183,7 +183,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="-2.42,-7.73 -1.98,-6.59"/>
                 <g class="nad-edge-infos" transform="translate(-2.31,-7.45)">
                     <g class="nad-active nad-state-in">
@@ -203,8 +203,8 @@
                 </g>
             </g>
         </g>
-        <g id="30" class="nad-vl120to180" title="L2-4-1">
-            <g>
+        <g id="30" title="L2-4-1">
+            <g class="nad-vl120to180">
                 <polyline points="-1.21,-5.07 0.19,-4.28"/>
                 <g class="nad-edge-infos" transform="translate(-0.95,-4.93)">
                     <g class="nad-active nad-state-out">
@@ -223,7 +223,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="1.60,-3.50 0.19,-4.28"/>
                 <g class="nad-edge-infos" transform="translate(1.34,-3.64)">
                     <g class="nad-active nad-state-in">
@@ -243,8 +243,8 @@
                 </g>
             </g>
         </g>
-        <g id="31" class="nad-vl120to180" title="L2-5-1">
-            <g>
+        <g id="31" title="L2-5-1">
+            <g class="nad-vl120to180">
                 <polyline points="-1.43,-4.93 -1.37,-3.53"/>
                 <g class="nad-edge-infos" transform="translate(-1.42,-4.63)">
                     <g class="nad-active nad-state-out">
@@ -263,7 +263,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="-1.30,-2.12 -1.37,-3.53"/>
                 <g class="nad-edge-infos" transform="translate(-1.31,-2.42)">
                     <g class="nad-active nad-state-in">
@@ -283,8 +283,8 @@
                 </g>
             </g>
         </g>
-        <g id="32" class="nad-vl120to180" title="L3-4-1">
-            <g class="nad-disconnected">
+        <g id="32" title="L3-4-1">
+            <g class="nad-disconnected nad-vl120to180">
                 <polyline points="-2.33,-7.78 -0.34,-5.67"/>
                 <g class="nad-edge-infos" transform="translate(-2.12,-7.57)">
                     <g class="nad-active nad-state-out">
@@ -303,7 +303,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="1.65,-3.56 -0.34,-5.67"/>
                 <g class="nad-edge-infos" transform="translate(1.44,-3.78)">
                     <g class="nad-active nad-state-out">
@@ -323,8 +323,8 @@
                 </g>
             </g>
         </g>
-        <g id="33" class="nad-vl120to180" title="L4-5-1">
-            <g>
+        <g id="33" title="L4-5-1">
+            <g class="nad-vl120to180">
                 <polyline points="1.59,-3.25 0.27,-2.61"/>
                 <g class="nad-edge-infos" transform="translate(1.32,-3.12)">
                     <g class="nad-active nad-state-in">
@@ -343,7 +343,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl120to180">
                 <polyline points="-1.04,-1.97 0.27,-2.61"/>
                 <g class="nad-edge-infos" transform="translate(-0.77,-2.10)">
                     <g class="nad-active nad-state-out">
@@ -489,8 +489,8 @@
                 <circle cx="-2.23" cy="1.78" r="0.20"/>
             </g>
         </g>
-        <g id="37" class="nad-vl0to30" title="L6-11-1">
-            <g>
+        <g id="37" title="L6-11-1">
+            <g class="nad-vl0to30">
                 <polyline points="-3.36,5.11 -4.94,4.36"/>
                 <g class="nad-edge-infos" transform="translate(-3.63,4.98)">
                     <g class="nad-active nad-state-out">
@@ -509,7 +509,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-6.52,3.60 -4.94,4.36"/>
                 <g class="nad-edge-infos" transform="translate(-6.25,3.73)">
                     <g class="nad-active nad-state-in">
@@ -529,8 +529,8 @@
                 </g>
             </g>
         </g>
-        <g id="38" class="nad-vl0to30" title="L6-12-1">
-            <g>
+        <g id="38" title="L6-12-1">
+            <g class="nad-vl0to30">
                 <polyline points="-3.13,5.50 -3.26,7.36"/>
                 <g class="nad-edge-infos" transform="translate(-3.15,5.80)">
                     <g class="nad-active nad-state-out">
@@ -549,7 +549,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-3.38,9.22 -3.26,7.36"/>
                 <g class="nad-edge-infos" transform="translate(-3.36,8.92)">
                     <g class="nad-active nad-state-in">
@@ -569,8 +569,8 @@
                 </g>
             </g>
         </g>
-        <g id="39" class="nad-vl0to30" title="L6-13-1">
-            <g>
+        <g id="39" title="L6-13-1">
+            <g class="nad-vl0to30">
                 <polyline points="-2.92,5.41 -1.54,6.70"/>
                 <g class="nad-edge-infos" transform="translate(-2.70,5.62)">
                     <g class="nad-active nad-state-out">
@@ -589,7 +589,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-0.15,8.00 -1.54,6.70"/>
                 <g class="nad-edge-infos" transform="translate(-0.37,7.79)">
                     <g class="nad-active nad-state-in">
@@ -609,8 +609,8 @@
                 </g>
             </g>
         </g>
-        <g id="40" class="nad-vl0to30" title="L7-8-1">
-            <g>
+        <g id="40" title="L7-8-1">
+            <g class="nad-vl0to30">
                 <polyline points="6.61,-2.11 8.40,-2.82"/>
                 <g class="nad-edge-infos" transform="translate(6.89,-2.22)">
                     <g class="nad-active nad-state-out">
@@ -629,7 +629,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="10.19,-3.52 8.40,-2.82"/>
                 <g class="nad-edge-infos" transform="translate(9.91,-3.41)">
                     <g class="nad-active nad-state-out">
@@ -649,8 +649,8 @@
                 </g>
             </g>
         </g>
-        <g id="41" class="nad-vl0to30" title="L7-9-1">
-            <g>
+        <g id="41" title="L7-9-1">
+            <g class="nad-vl0to30">
                 <polyline points="6.15,-1.83 4.58,-0.45"/>
                 <g class="nad-edge-infos" transform="translate(5.93,-1.63)">
                     <g class="nad-active nad-state-out">
@@ -669,7 +669,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="3.00,0.93 4.58,-0.45"/>
                 <g class="nad-edge-infos" transform="translate(3.22,0.73)">
                     <g class="nad-active nad-state-out">
@@ -689,8 +689,8 @@
                 </g>
             </g>
         </g>
-        <g id="42" class="nad-vl0to30" title="L9-10-1">
-            <g>
+        <g id="42" title="L9-10-1">
+            <g class="nad-vl0to30">
                 <polyline points="2.53,1.13 -0.15,1.36"/>
                 <g class="nad-edge-infos" transform="translate(2.23,1.15)">
                     <g class="nad-active nad-state-in">
@@ -709,7 +709,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-2.83,1.58 -0.15,1.36"/>
                 <g class="nad-edge-infos" transform="translate(-2.53,1.56)">
                     <g class="nad-active nad-state-out">
@@ -730,7 +730,7 @@
             </g>
         </g>
         <g id="43" class="nad-disconnected" title="L9-14-1">
-            <g class="nad-disconnected">
+            <g class="nad-disconnected nad-vl0to30">
                 <polyline points="2.84,1.37 3.19,3.40"/>
                 <g class="nad-edge-infos" transform="translate(2.89,1.67)">
                     <g class="nad-active nad-state-out">
@@ -749,7 +749,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-disconnected">
+            <g class="nad-disconnected nad-vl0to30">
                 <polyline points="3.55,5.42 3.19,3.40"/>
                 <g class="nad-edge-infos" transform="translate(3.50,5.13)">
                     <g class="nad-active nad-state-out">
@@ -769,8 +769,8 @@
                 </g>
             </g>
         </g>
-        <g id="44" class="nad-vl0to30" title="L10-11-1">
-            <g>
+        <g id="44" title="L10-11-1">
+            <g class="nad-vl0to30">
                 <polyline points="-3.34,1.73 -4.93,2.55"/>
                 <g class="nad-edge-infos" transform="translate(-3.61,1.87)">
                     <g class="nad-active nad-state-in">
@@ -789,7 +789,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-6.52,3.36 -4.93,2.55"/>
                 <g class="nad-edge-infos" transform="translate(-6.25,3.23)">
                     <g class="nad-active nad-state-out">
@@ -809,8 +809,8 @@
                 </g>
             </g>
         </g>
-        <g id="45" class="nad-vl0to30" title="L12-13-1">
-            <g>
+        <g id="45" title="L12-13-1">
+            <g class="nad-vl0to30">
                 <polyline points="-3.14,9.39 -1.68,8.84"/>
                 <g class="nad-edge-infos" transform="translate(-2.86,9.29)">
                     <g class="nad-active nad-state-out">
@@ -829,7 +829,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl0to30">
                 <polyline points="-0.21,8.28 -1.68,8.84"/>
                 <g class="nad-edge-infos" transform="translate(-0.49,8.39)">
                     <g class="nad-active nad-state-in">
@@ -850,7 +850,7 @@
             </g>
         </g>
         <g id="46" class="nad-disconnected" title="L13-14-1">
-            <g class="nad-disconnected">
+            <g class="nad-disconnected nad-vl0to30">
                 <polyline points="0.27,8.03 1.78,7.04"/>
                 <g class="nad-edge-infos" transform="translate(0.52,7.87)">
                     <g class="nad-active nad-state-out">
@@ -869,7 +869,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-disconnected">
+            <g class="nad-disconnected nad-vl0to30">
                 <polyline points="3.28,6.04 1.78,7.04"/>
                 <g class="nad-edge-infos" transform="translate(3.03,6.20)">
                     <g class="nad-active nad-state-out">

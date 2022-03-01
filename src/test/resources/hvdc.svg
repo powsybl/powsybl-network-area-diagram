@@ -180,8 +180,8 @@
             </g>
             <polyline points="0.11,0.66 0.71,0.73" class="nad-hvdc"/>
         </g>
-        <g id="13" class="nad-vl300to500" title="LINE_S2S3">
-            <g>
+        <g id="13" title="LINE_S2S3">
+            <g class="nad-vl300to500">
                 <polyline points="0.87,-1.96 1.62,-0.63"/>
                 <g class="nad-edge-infos" transform="translate(1.01,-1.70)">
                     <g class="nad-active nad-state-out">
@@ -200,7 +200,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl300to500">
                 <polyline points="2.37,0.70 1.62,-0.63"/>
                 <g class="nad-edge-infos" transform="translate(2.22,0.44)">
                     <g class="nad-active nad-state-in">
@@ -220,8 +220,8 @@
                 </g>
             </g>
         </g>
-        <g id="14" class="nad-vl300to500" title="LINE_S3S4">
-            <g>
+        <g id="14" title="LINE_S3S4">
+            <g class="nad-vl300to500">
                 <polyline points="2.76,1.02 4.42,1.58"/>
                 <g class="nad-edge-infos" transform="translate(3.05,1.12)">
                     <g class="nad-active nad-state-out">
@@ -240,7 +240,7 @@
                     </g>
                 </g>
             </g>
-            <g>
+            <g class="nad-vl300to500">
                 <polyline points="6.08,2.13 4.42,1.58"/>
                 <g class="nad-edge-infos" transform="translate(5.80,2.03)">
                     <g class="nad-active nad-state-in">
