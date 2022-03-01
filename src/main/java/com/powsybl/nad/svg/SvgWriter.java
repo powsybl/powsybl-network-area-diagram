@@ -298,18 +298,17 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
-        double textAngle = Math.sin(edgeAngle) > 0 ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
             drawInAndOutArrows(writer, edgeAngle);
-            Optional<String> rightLabel = info.getRightLabel();
-            if (rightLabel.isPresent()) {
-                drawLabel(writer, rightLabel.get(), svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle");
+            Optional<String> externalLabel = info.getExternalLabel();
+            if (externalLabel.isPresent()) {
+                drawLabel(writer, externalLabel.get(), edgeAngle, true);
             }
-            Optional<String> leftLabel = info.getLeftLabel();
-            if (leftLabel.isPresent()) {
-                drawLabel(writer, leftLabel.get(), -svgParameters.getArrowLabelShift(), textAngle, "dominant-baseline:middle; text-anchor:end");
+            Optional<String> internalLabel = info.getInternalLabel();
+            if (internalLabel.isPresent()) {
+                drawLabel(writer, internalLabel.get(), edgeAngle, false);
             }
             writer.writeEndElement();
         }
@@ -329,11 +328,37 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawLabel(XMLStreamWriter writer, String label, double labelShiftX, double angle, String style) throws XMLStreamException {
+    private void drawLabel(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+        if (svgParameters.isEdgeInfoAlongEdge()) {
+            drawLabelAlongEdge(writer, label, edgeAngle, externalLabel);
+        } else {
+            drawLabelPerpendicularToEdge(writer, label, edgeAngle, externalLabel);
+        }
+    }
+
+    private void drawLabelAlongEdge(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+        boolean textFlipped = Math.cos(edgeAngle) < 0;
+        String style = externalLabel == textFlipped ? "text-anchor:end" : null;
+        double textAngle = textFlipped ? edgeAngle - Math.PI : edgeAngle;
+        double shift = svgParameters.getArrowLabelShift() * (externalLabel ? 1 : -1);
+        drawLabel(writer, label, textFlipped ? -shift : shift, style, textAngle, X_ATTRIBUTE);
+    }
+
+    private void drawLabelPerpendicularToEdge(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+        boolean textFlipped = Math.sin(edgeAngle) > 0;
+        double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
+        double shift = svgParameters.getArrowLabelShift();
+        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift; // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+        drawLabel(writer, label, shiftAdjusted, "text-anchor:middle", textAngle, Y_ATTRIBUTE);
+    }
+
+    private void drawLabel(XMLStreamWriter writer, String label, double shift, String style, double textAngle, String shiftAxis) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(angle));
-        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(labelShiftX));
-        writer.writeAttribute(STYLE_ELEMENT_NAME, style);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(textAngle));
+        writer.writeAttribute(shiftAxis, getFormattedValue(shift));
+        if (style != null) {
+            writer.writeAttribute(STYLE_ELEMENT_NAME, style);
+        }
         writer.writeCharacters(label);
         writer.writeEndElement();
     }

@@ -32,9 +32,9 @@ public abstract class AbstractTest {
     protected boolean debugSvg = false;
     protected boolean overrideTestReferences = false;
 
-    protected abstract LayoutParameters getLayoutParameters();
+    private SvgParameters svgParameters;
 
-    protected abstract SvgParameters getSvgParameters();
+    private LayoutParameters layoutParameters;
 
     protected abstract StyleProvider getStyleProvider(Network network);
 
@@ -91,5 +91,21 @@ public abstract class AbstractTest {
     private static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
+    }
+
+    protected LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
+
+    protected SvgParameters getSvgParameters() {
+        return svgParameters;
+    }
+
+    protected void setLayoutParameters(LayoutParameters layoutParameters) {
+        this.layoutParameters = layoutParameters;
+    }
+
+    protected void setSvgParameters(SvgParameters svgParameters) {
+        this.svgParameters = svgParameters;
     }
 }

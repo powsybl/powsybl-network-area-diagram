@@ -25,24 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TopologicalStyleTest extends AbstractTest {
 
-    private LayoutParameters layoutParameters;
-
     @BeforeEach
     public void setup() {
-        this.layoutParameters = new LayoutParameters();
-    }
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
-    @Override
-    protected SvgParameters getSvgParameters() {
-        return new SvgParameters()
+        setLayoutParameters(new LayoutParameters());
+        setSvgParameters(new SvgParameters()
                 .setInsertName(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800);
+                .setFixedWidth(800));
     }
 
     @Override

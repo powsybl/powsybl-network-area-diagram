@@ -5,7 +5,7 @@
 .nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
-.nad-disconnected {stroke-dasharray: .1,.1}
+.nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
 .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
@@ -20,9 +20,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 0.25px "Verdana"; fill: black}
-.nad-edge-infos {font: 0.2px "Verdana"}
-.nad-edge-infos .nad-state-in {fill: #b71c1c}
-.nad-edge-infos .nad-state-out {fill: #2e7d32}
+.nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos .nad-state-in text {fill: #b71c1c}
+.nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
 .nad-vl30to50 {--nad-vl-color: #EF9A9A}
 .nad-vl50to70 {--nad-vl-color: #9C27B0}
@@ -59,14 +59,14 @@
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(-44.54)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(45.46)" x="0.19">0</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
                     <g transform="rotate(135.46)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(-44.54)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(45.46)" x="0.19">0</text>
                 </g>
             </g>
         </g>
@@ -78,14 +78,14 @@
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(39.54)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(-50.46)" x="0.19">0</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
                     <g transform="rotate(39.54)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(39.54)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(-50.46)" x="0.19">0</text>
                 </g>
             </g>
         </g>
@@ -97,14 +97,14 @@
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(72.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(-17.23)" x="-0.19" style="text-anchor:end">0</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
                     <g transform="rotate(-107.23)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(72.77)" x="0.12" style="dominant-baseline:middle">0</text>
+                    <text transform="rotate(-17.23)" x="-0.19" style="text-anchor:end">0</text>
                 </g>
             </g>
         </g>

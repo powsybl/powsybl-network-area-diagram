@@ -21,7 +21,7 @@ public class SvgParameters {
     private int fixedWidth = -1;
     private int fixedHeight = -1;
     private double arrowShift = 0.3;
-    private double arrowLabelShift = 0.12;
+    private double arrowLabelShift = 0.19;
     private double converterStationWidth = 0.6;
     private double voltageLevelCircleRadius = 0.3;
     private double fictitiousVoltageLevelCircleRadius = 0.15;
@@ -35,6 +35,7 @@ public class SvgParameters {
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 0.4;
     private boolean textNodeBackground = true;
+    private boolean edgeInfoAlongEdge = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -241,6 +242,15 @@ public class SvgParameters {
 
     public SvgParameters setTextNodeBackground(boolean textNodeBackground) {
         this.textNodeBackground = textNodeBackground;
+        return this;
+    }
+
+    public boolean isEdgeInfoAlongEdge() {
+        return edgeInfoAlongEdge;
+    }
+
+    public SvgParameters setEdgeInfoAlongEdge(boolean edgeInfoAlongEdge) {
+        this.edgeInfoAlongEdge = edgeInfoAlongEdge;
         return this;
     }
 }
