@@ -116,7 +116,7 @@ public class NominalVoltageStyleProvider extends AbstractStyleProvider {
         if (branch.getTerminal2() != null && branch.getTerminal2().isConnected()) {
             return getBaseVoltageStyle(branch.getTerminal2());
         }
-        return Optional.of(DISCONNECTED_CLASS);
+        return Optional.empty();
     }
 
     @Override
