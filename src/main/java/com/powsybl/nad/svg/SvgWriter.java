@@ -347,8 +347,9 @@ public class SvgWriter {
     private void drawLabelPerpendicularToEdge(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
         boolean textFlipped = Math.sin(edgeAngle) > 0;
         double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
-        double shift = svgParameters.getArrowLabelShift() * (externalLabel ? 1 : -1);
-        drawLabel(writer, label, textFlipped ? shift * 1.15 : -shift, "text-anchor:middle", textAngle, Y_ATTRIBUTE);
+        double shift = svgParameters.getArrowLabelShift();
+        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift; // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+        drawLabel(writer, label, shiftAdjusted, "text-anchor:middle", textAngle, Y_ATTRIBUTE);
     }
 
     private void drawLabel(XMLStreamWriter writer, String label, double shift, String style, double textAngle, String shiftAxis) throws XMLStreamException {
