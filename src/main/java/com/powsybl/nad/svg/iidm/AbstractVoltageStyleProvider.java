@@ -7,7 +7,6 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.nad.model.BranchEdge;
@@ -78,9 +77,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     protected Optional<String> getBaseVoltageStyle(Edge edge) {
         if (edge instanceof BranchEdge) {
             String branchType = ((BranchEdge) edge).getType();
-            if (branchType.equals(BranchEdge.LINE_EDGE)) {
-                return getLineEdgeBaseVoltageStyle(edge);
-            } else if (branchType.equals(BranchEdge.HVDC_LINE_EDGE)) {
+            if (branchType.equals(BranchEdge.HVDC_LINE_EDGE)) {
                 return Optional.of(HVDC_EDGE_CLASS);
             }
         } else if (edge instanceof ThreeWtEdge) {
@@ -94,22 +91,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
-        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE) || edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
-            Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
-            return getBaseVoltageStyle(terminal);
-        }
-        return Optional.empty();
-    }
-
-    protected Optional<String> getLineEdgeBaseVoltageStyle(Edge edge) {
-        Branch<?> branch = network.getBranch(edge.getEquipmentId());
-        if (branch.getTerminal1() != null && branch.getTerminal1().isConnected()) {
-            return getBaseVoltageStyle(branch.getTerminal1());
-        }
-        if (branch.getTerminal2() != null && branch.getTerminal2().isConnected()) {
-            return getBaseVoltageStyle(branch.getTerminal2());
-        }
-        return Optional.empty();
+        Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
+        return getBaseVoltageStyle(terminal);
     }
 
     protected abstract Optional<String> getBaseVoltageStyle(Terminal terminal);

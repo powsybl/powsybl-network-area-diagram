@@ -8,9 +8,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
@@ -97,20 +95,6 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
                 }
             }
         });
-    }
-
-    @Override
-    protected Optional<String> getLineEdgeBaseVoltageStyle(Edge edge) {
-        return Optional.empty();
-    }
-
-    @Override
-    protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
-        if (edge.getType().equals(BranchEdge.LINE_EDGE)) {
-            Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
-            return getBaseVoltageStyle(terminal);
-        }
-        return super.getBaseVoltageStyle(edge, side);
     }
 
     @Override

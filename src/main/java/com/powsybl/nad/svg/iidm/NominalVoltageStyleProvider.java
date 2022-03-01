@@ -45,6 +45,7 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
         return styles;
     }
 
+    @Override
     protected Optional<String> getBaseVoltageStyle(Terminal terminal) {
         if (terminal == null) {
             return Optional.empty();
