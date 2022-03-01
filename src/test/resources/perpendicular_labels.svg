@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800.00" height="705.66" viewBox="-2.85 -2.89 7.44 6.57" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[
+.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
+.nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
+.nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
+.nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
+.nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 0.05; stroke-dasharray: .05,.05; fill: none}
+.nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round;}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
+.nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
+.nad-3wt-bg circle {stroke: none; fill: white}
+.nad-state-out .nad-arrow-in {visibility: hidden}
+.nad-state-in .nad-arrow-out {visibility: hidden}
+.nad-active path {stroke: none; fill: #546e7a}
+.nad-active {visibility: visible}
+.nad-reactive {visibility: hidden}
+.nad-reactive path {stroke: none; fill: #0277bd}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-edge-infos {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos .nad-state-in {fill: #b71c1c}
+.nad-edge-infos .nad-state-out {fill: #2e7d32}
+.nad-vl0to30 {--nad-vl-color: #AFB42B}
+.nad-vl30to50 {--nad-vl-color: #EF9A9A}
+.nad-vl50to70 {--nad-vl-color: #9C27B0}
+.nad-vl70to120 {--nad-vl-color: #E65100}
+.nad-vl120to180 {--nad-vl-color: #00ACC1}
+.nad-vl180to300 {--nad-vl-color: #2E7D32}
+.nad-vl300to500 {--nad-vl-color: #D32F2F}
+]]></style>
+    <metadata></metadata>
+    <defs>
+        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
+            <feFlood class="nad-text-background"/>
+            <feComposite in="SourceGraphic" operator="over"/>
+        </filter>
+    </defs>
+    <g class="nad-vl-nodes">
+        <g transform="translate(1.60,-0.89)" id="0" class="nad-vl300to500">
+            <circle r="0.30" id="1"/>
+        </g>
+        <g transform="translate(-0.85,1.68)" id="2" class="nad-vl300to500">
+            <circle r="0.30" id="3"/>
+        </g>
+    </g>
+    <g class="nad-branch-edges">
+        <g id="4">
+            <g class="nad-vl300to500">
+                <polyline points="1.41,-0.69 0.37,0.39"/>
+                <g class="nad-edge-infos" transform="translate(1.06,-0.33)">
+                    <g class="nad-state-out">
+                        <g transform="rotate(-136.40)">
+                            <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(43.60)" y="0.29" style="text-anchor:middle">ext.</text>
+                        <text transform="rotate(43.60)" y="-0.29" style="text-anchor:middle">int.</text>
+                    </g>
+                </g>
+            </g>
+            <g class="nad-vl300to500">
+                <polyline points="-0.66,1.48 0.37,0.39"/>
+                <g class="nad-edge-infos" transform="translate(-0.32,1.12)">
+                    <g class="nad-state-out">
+                        <g transform="rotate(43.60)">
+                            <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(43.60)" y="-0.25" style="text-anchor:middle">ext.</text>
+                        <text transform="rotate(43.60)" y="0.25" style="text-anchor:middle">int.</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g class="nad-text-edges">
+        <polyline id="0_text_edge" points="1.90,-0.89 2.60,-0.89"/>
+        <polyline id="2_text_edge" points="-0.55,1.68 0.15,1.68"/>
+    </g>
+    <g class="nad-text-nodes">
+        <text filter="url(#textBgFilter)" x="2.60" y="-0.89" style="dominant-baseline:middle">vl1</text>
+        <text filter="url(#textBgFilter)" x="0.15" y="1.68" style="dominant-baseline:middle">vl2</text>
+    </g>
+</svg>
