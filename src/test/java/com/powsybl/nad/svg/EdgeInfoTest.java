@@ -27,6 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class EdgeInfoTest extends AbstractTest {
 
+    private String internalLabel;
+    private String externalLabel;
+
     @BeforeEach
     public void setup() {
         setLayoutParameters(new LayoutParameters());
@@ -45,12 +48,12 @@ class EdgeInfoTest extends AbstractTest {
         return new LabelProvider() {
             @Override
             public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, "int.", "ext."));
+                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
             }
 
             @Override
             public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.IN, "int.", "ext."));
+                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
 
             @Override
@@ -66,19 +69,30 @@ class EdgeInfoTest extends AbstractTest {
     }
 
     @Test
-    public void testPerpendicularLabels() {
+    void testMissingLabels() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
-        getSvgParameters().setEdgeInfoAlongEdge(false)
-                .setArrowShift(0.5)
-                .setArrowLabelShift(0.25);
-        assertEquals(toString("/perpendicular_labels.svg"), generateSvgString(network, "/perpendicular_labels.svg"));
+        getSvgParameters().setArrowShift(0.1);
+        assertEquals(toString("/edge_info_missing_label.svg"), generateSvgString(network, "/edge_info_missing_label.svg"));
     }
 
     @Test
-    public void testParallelLabels() {
+    void testPerpendicularLabels() {
+        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        internalLabel = "int";
+        externalLabel = "ext";
+        getSvgParameters().setEdgeInfoAlongEdge(false)
+                .setArrowShift(0.5)
+                .setArrowLabelShift(0.25);
+        assertEquals(toString("/edge_info_perpendicular_label.svg"), generateSvgString(network, "/edge_info_perpendicular_label.svg"));
+    }
+
+    @Test
+    void testParallelLabels() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
+        internalLabel = "243";
+        externalLabel = "145";
         getSvgParameters().setArrowShift(0.6)
                 .setArrowLabelShift(0.2);
-        assertEquals(toString("/double_labels.svg"), generateSvgString(network, "/double_labels.svg"));
+        assertEquals(toString("/edge_info_double_labels.svg"), generateSvgString(network, "/edge_info_double_labels.svg"));
     }
 }
