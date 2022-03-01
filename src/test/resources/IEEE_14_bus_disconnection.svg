@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800.00" height="773.52" viewBox="-8.76 -9.98 22.20 21.47" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
-.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: white}
-.nad-3wt-edges polyline {stroke: var(--nad-vl-color, black); stroke-width: 0.05; fill: none}
+.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-disconnected {stroke-dasharray: .1,.1}
 .nad-vl-nodes circle {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white}
@@ -364,7 +364,7 @@
             </g>
         </g>
         <g id="34" title="T4-7-1">
-            <g class="nad-disconnected nad-disconnected">
+            <g class="nad-disconnected nad-vl120to180">
                 <polyline points="2.09,-3.29 4.10,-2.69"/>
                 <g class="nad-edge-infos" transform="translate(2.38,-3.20)">
                     <g class="nad-active nad-state-out">
@@ -729,7 +729,7 @@
                 </g>
             </g>
         </g>
-        <g id="43" title="L9-14-1">
+        <g id="43" class="nad-disconnected" title="L9-14-1">
             <g class="nad-disconnected">
                 <polyline points="2.84,1.37 3.19,3.40"/>
                 <g class="nad-edge-infos" transform="translate(2.89,1.67)">
@@ -849,7 +849,7 @@
                 </g>
             </g>
         </g>
-        <g id="46" title="L13-14-1">
+        <g id="46" class="nad-disconnected" title="L13-14-1">
             <g class="nad-disconnected">
                 <polyline points="0.27,8.03 1.78,7.04"/>
                 <g class="nad-edge-infos" transform="translate(0.52,7.87)">
