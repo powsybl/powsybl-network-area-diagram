@@ -14,7 +14,10 @@ import com.powsybl.iidm.network.VoltageLevel;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class NetworkTestFactory {
+public final class NetworkTestFactory {
+
+    private NetworkTestFactory() {
+    }
 
     /**
      *  g1     dl1

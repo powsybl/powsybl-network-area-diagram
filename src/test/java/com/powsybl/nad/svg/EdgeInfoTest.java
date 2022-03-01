@@ -68,17 +68,16 @@ class EdgeInfoTest extends AbstractTest {
             }
 
             @Override
-            public String getArrowPathDIn() {
+            public String getArrowPathDIn() { // larger arrow
                 return "M-0.2 -0.1 H0.2 L0 0.1z";
             }
 
             @Override
-            public String getArrowPathDOut() {
+            public String getArrowPathDOut() { // thinner arrow
                 return "M-0.05 0.1 H0.05 L0 -0.1z";
             }
         };
     }
-
 
     @Test
     public void testPerpendicularLabels() {
