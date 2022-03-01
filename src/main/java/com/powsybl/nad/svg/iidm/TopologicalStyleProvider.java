@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
+public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     private final Map<String, String> styleMap = new HashMap<>();
     private final Map<String, Integer> baseVoltagesCounter = new HashMap<>();
@@ -52,6 +52,9 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
     }
 
     private Optional<String> getNodeTopologicalStyle(Bus b) {
+        if (b == null) {
+            return Optional.empty();
+        }
         if (styleMap.containsKey(b.getId())) {
             return Optional.ofNullable(styleMap.get(b.getId()));
         }
@@ -101,6 +104,6 @@ public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
         }
         return terminal.isConnected()
                 ? getNodeTopologicalStyle(terminal.getBusView().getBus())
-                : Optional.of(DISCONNECTED_CLASS);
+                : getNodeTopologicalStyle(terminal.getBusView().getConnectableBus());
     }
 }

@@ -65,16 +65,19 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
-        return getBaseVoltageStyle(edge)
-                .map(Collections::singletonList)
-                .orElse(Collections.emptyList());
+        List<String> result = new ArrayList<>();
+        if (isDisconnected(edge)) {
+            result.add(DISCONNECTED_CLASS);
+        }
+        getBaseVoltageStyle(edge).ifPresent(result::add);
+        return result;
     }
 
     @Override
     public List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();
-        if (isDisconnectedBranch(edge, side)) {
+        if (isDisconnected(edge, side)) {
             result.add(DISCONNECTED_CLASS);
         }
         getBaseVoltageStyle(edge, side).ifPresent(result::add);
@@ -100,15 +103,27 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public Optional<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one) {
-        return Optional.empty();
+    public List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
+        Objects.requireNonNull(side);
+        List<String> result = new ArrayList<>();
+        if (isDisconnected(threeWtNode, side)) {
+            result.add(DISCONNECTED_CLASS);
+        }
+        getBaseVoltageStyle(threeWtNode, side).ifPresent(result::add);
+        return result;
     }
 
-    protected abstract boolean isDisconnectedBranch(BranchEdge edge, BranchEdge.Side side);
+    protected abstract boolean isDisconnected(Edge edge);
+
+    protected abstract boolean isDisconnected(BranchEdge edge, BranchEdge.Side side);
+
+    protected abstract boolean isDisconnected(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(Edge edge);
 
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
+
+    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

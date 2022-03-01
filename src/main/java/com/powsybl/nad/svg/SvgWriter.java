@@ -261,24 +261,22 @@ public class SvgWriter {
             if (backgroundStyle.isPresent()) {
                 writer.writeStartElement(GROUP_ELEMENT_NAME);
                 writer.writeAttribute(CLASS_ATTRIBUTE, backgroundStyle.get());
-                draw3WtWinding(point1, null, writer);
-                draw3WtWinding(point2, null, writer);
-                draw3WtWinding(point3, null, writer);
+                draw3WtWinding(point1, Collections.emptyList(), writer);
+                draw3WtWinding(point2, Collections.emptyList(), writer);
+                draw3WtWinding(point3, Collections.emptyList(), writer);
                 writer.writeEndElement();
             }
-            draw3WtWinding(point1, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.ONE).orElse(null), writer);
-            draw3WtWinding(point2, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.TWO).orElse(null), writer);
-            draw3WtWinding(point3, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.THREE).orElse(null), writer);
+            draw3WtWinding(point1, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.ONE), writer);
+            draw3WtWinding(point2, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.TWO), writer);
+            draw3WtWinding(point3, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.THREE), writer);
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void draw3WtWinding(Point circleCenter, String style, XMLStreamWriter writer) throws XMLStreamException {
+    private void draw3WtWinding(Point circleCenter, List<String> styles, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-        if (style != null) {
-            writer.writeAttribute(CLASS_ATTRIBUTE, style);
-        }
+        addStylesIfAny(writer, styles);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
