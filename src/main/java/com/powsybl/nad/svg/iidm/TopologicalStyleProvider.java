@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TopologicalStyleProvider extends NominalVoltageStyleProvider {
+public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     private final Map<String, String> styleMap = new HashMap<>();
     private final Map<String, Integer> baseVoltagesCounter = new HashMap<>();
