@@ -20,10 +20,11 @@ public final class NetworkTestFactory {
     }
 
     /**
+     * <pre>
      *  g1     dl1
      *  |       |
      *  b1 ---- b2
-     *      l1
+     *      l1 </pre>
      */
     public static Network createTwoVoltageLevels() {
         Network network = Network.create("dl", "test");
@@ -77,6 +78,27 @@ public final class NetworkTestFactory {
                 .setBus1("b1")
                 .setVoltageLevel2("vl2")
                 .setBus2("b2")
+                .setR(1)
+                .setX(3)
+                .setG1(0)
+                .setG2(0)
+                .setB1(0)
+                .setB2(0)
+                .add();
+        return network;
+    }
+
+    public static Network createTwoVoltageLevelsThreeBuses() {
+        Network network = createTwoVoltageLevels();
+        network.getVoltageLevel("vl1").getBusBreakerView().newBus()
+                .setId("b0")
+                .add();
+        network.newLine()
+                .setId("l2")
+                .setVoltageLevel1("vl1")
+                .setBus1("b0")
+                .setVoltageLevel2("vl2")
+                .setConnectableBus2("b2")
                 .setR(1)
                 .setX(3)
                 .setG1(0)
