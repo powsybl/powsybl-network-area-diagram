@@ -28,7 +28,7 @@ public final class NetworkTestFactory {
      */
     public static Network createTwoVoltageLevels() {
         Network network = Network.create("dl", "test");
-        Substation s = network.newSubstation().setId("S1").add();
+        Substation s = network.newSubstation().setId("s1").add();
         VoltageLevel vl1 = s.newVoltageLevel()
                 .setId("vl1")
                 .setNominalV(400)
@@ -106,6 +106,59 @@ public final class NetworkTestFactory {
                 .setB1(0)
                 .setB2(0)
                 .add();
+        return network;
+    }
+
+    public static Network createThreeVoltageLevelsFiveBuses() {
+
+        Network network = createTwoVoltageLevelsThreeBuses();
+
+        Substation s = network.getSubstation("s1");
+        VoltageLevel vl3 = s.newVoltageLevel()
+                .setId("vl3")
+                .setNominalV(200)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        vl3.getBusBreakerView().newBus()
+                .setId("b3")
+                .add();
+        vl3.getBusBreakerView().newBus()
+                .setId("b4")
+                .add();
+        vl3.newLoad()
+                .setId("load3")
+                .setBus("b3")
+                .setP0(10.0)
+                .setQ0(5.0)
+                .add();
+
+        s.newTwoWindingsTransformer()
+                .setId("tr1")
+                .setVoltageLevel1("vl1")
+                .setBus1("b0")
+                .setVoltageLevel2("vl3")
+                .setBus2("b3")
+                .setRatedU1(380)
+                .setRatedU2(190)
+                .setR(1)
+                .setX(30)
+                .setG(0)
+                .setB(0)
+                .add();
+        s.newTwoWindingsTransformer()
+                .setId("tr2")
+                .setVoltageLevel1("vl2")
+                .setBus1("b2")
+                .setVoltageLevel2("vl3")
+                .setBus2("b4")
+                .setRatedU1(380)
+                .setRatedU2(190)
+                .setR(1)
+                .setX(30)
+                .setG(0)
+                .setB(0)
+                .add();
+
         return network;
     }
 }

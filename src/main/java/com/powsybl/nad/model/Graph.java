@@ -258,6 +258,10 @@ public class Graph {
         return voltageLevelGraph.getEdgeTarget(edge);
     }
 
+    public VoltageLevelNode getVoltageLevelNode(BranchEdge edge, BranchEdge.Side side) {
+        return side == BranchEdge.Side.ONE ? getVoltageLevelNode1(edge) : getVoltageLevelNode2(edge);
+    }
+
     public VoltageLevelNode getVoltageLevelNode1(BranchEdge edge) {
         return (VoltageLevelNode) voltageLevelGraph.getEdgeSource(edge);
     }
@@ -272,6 +276,14 @@ public class Graph {
 
     public ThreeWtNode getThreeWtNode(ThreeWtEdge edge) {
         return (ThreeWtNode) voltageLevelGraph.getEdgeTarget(edge);
+    }
+
+    public BusNode getBusGraphNode(BranchEdge edge, BranchEdge.Side side) {
+        return (BusNode) (side == BranchEdge.Side.ONE ? getBusGraphNode1(edge) : getBusGraphNode2(edge));
+    }
+
+    public BusNode getBusGraphNode(ThreeWtEdge edge) {
+        return (BusNode) getBusGraphNode1(edge);
     }
 
     public Node getBusGraphNode1(Edge edge) {
