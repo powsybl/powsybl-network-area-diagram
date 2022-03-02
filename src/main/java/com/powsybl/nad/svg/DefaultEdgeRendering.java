@@ -64,10 +64,8 @@ public class DefaultEdgeRendering implements EdgeRendering {
 
         Point edgeStart = node.getPosition();
         if (node instanceof BusNode && vlNode != null) {
-            int nbNeighbours = ((BusNode) node).getNbNeighbouringBusNodes();
-            double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-            double busAnnulusOuterRadius = (((BusNode) node).getIndex() + 1) * unitaryRadius - svgParameters.getEdgeStartShift();
-            edgeStart = edgeStart.atDistance(busAnnulusOuterRadius, direction);
+            double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius((BusNode) node, vlNode, svgParameters);
+            edgeStart = edgeStart.atDistance(busAnnulusOuterRadius - svgParameters.getEdgeStartShift(), direction);
         }
         return edgeStart;
     }

@@ -181,7 +181,7 @@ public class SvgWriter {
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-                drawBranchEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+                drawBranchEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
@@ -236,7 +236,7 @@ public class SvgWriter {
         insertName(writer, edge::getName);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
-        drawThreeWtEdgeInfo(writer, edge, labelProvider.getEdgeInfos(graph, edge));
+        drawThreeWtEdgeInfo(graph, writer, edge, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
     }
 
@@ -286,12 +286,16 @@ public class SvgWriter {
         drawEdgeInfo(writer, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
     }
 
-    private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints(side)), edge.getEdgeEndAngle(side));
+    private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
+        BusNode busNode = graph.getBusGraphNode(edge, side);
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
     }
 
-    private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(edge.getPoints()), edge.getEdgeAngle());
+    private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
+        BusNode busNode = graph.getBusGraphNode(edge);
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
@@ -367,8 +371,14 @@ public class SvgWriter {
         return "rotate(" + getFormattedValue(Math.toDegrees(angleRad)) + ")";
     }
 
-    private Point getArrowCenter(List<Point> line) {
-        return line.get(line.size() - 2).atDistance(svgParameters.getArrowShift(), line.get(line.size() - 1));
+    private Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line) {
+        double shift = svgParameters.getArrowShift();
+        if (line.size() == 2) { // straight line; in case of a forking line it is the middle point which is the starting point
+            double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
+            double busAnnulusOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
+            shift += nodeOuterRadius - busAnnulusOuterRadius;
+        }
+        return line.get(line.size() - 2).atDistance(shift, line.get(line.size() - 1));
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
@@ -693,5 +703,11 @@ public class SvgWriter {
         }
         int nbBuses = vlNode.getBusNodes().size();
         return Math.min(Math.max(nbBuses, 1), 2) * svgParameters.getVoltageLevelCircleRadius();
+    }
+
+    public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
+        int nbNeighbours = node.getNbNeighbouringBusNodes();
+        double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
+        return (node.getIndex() + 1) * unitaryRadius;
     }
 }
