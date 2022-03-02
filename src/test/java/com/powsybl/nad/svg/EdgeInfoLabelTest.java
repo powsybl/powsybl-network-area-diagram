@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class EdgeInfoTest extends AbstractTest {
+class EdgeInfoLabelTest extends AbstractTest {
 
     private String internalLabel;
     private String externalLabel;
