@@ -17,17 +17,20 @@ within the energy and electricity sectors.
 <img src="https://raw.githubusercontent.com/powsybl/powsybl-gse/main/gse-spi/src/main/resources/images/logo_lfe_powsybl.svg?sanitize=true" alt="PowSyBl Logo" width="50%"/>
 </p>
 
-Read more at https://www.powsybl.org !
+Read more at https://www.powsybl.org!
 
 This project and everyone participating in it is governed by the [PowSyBl Code of Conduct](https://github.com/powsybl/.github/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to [powsybl-tsc@lists.lfenergy.org](mailto:powsybl-tsc@lists.lfenergy.org).
 
 ## PowSyBl vs PowSyBl Network Area Diagram
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/66690739/158350044-36293484-0b0b-4cca-91fa-e8037d4b76bb.png?sanitize=true" alt="Diagram example" width="50%"/>
+</p>
+
 PowSyBl Network Area Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible for generating a concise diagram of the whole network or of a part of the network, showing in particular the interconnections between the different voltage levels.
 A network area diagram emphasizes the electrical structure of the network, and may differ substantially from the network physical geography.
 It displays the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels.
-Additional information
 
 ## Getting started
 In order to generate a SVG from a given network, we need to add some Maven dependencies:
@@ -79,7 +82,9 @@ new NetworkAreaDiagram(network).draw(Path.of("/tmp/diagram.svg"));
 ```
 We obtain the following SVG:
 
-![Diagram demo](.github/diagram_example.svg)
+<p align="center">
+<img src=".github/diagram_example.svg?sanitize=true" alt="Diagram IEEE30 network" width="65%"/>
+</p>
 
 If only part of the network is wanted, we can generate a partial graph of the network, by providing
 - either a voltage level id and a depth,
@@ -93,7 +98,9 @@ new NetworkAreaDiagram(network, "VL25", 2).draw(Path.of("/tmp/partial_diagram_25
 
 This leads to following diagram:
 
-![Diagram partial_demo](.github/partial_diagram_example_25.svg)
+<p align="center">
+<img src=".github/partial_diagram_example_25.svg?sanitize=true" alt="Diagram IEEE30 partial network VL25" width="80%"/>
+</p>
 
 Now let's generate the subgraph with voltage levels at a maximum distance of 2 from `"VL1"` and `"VL25"`:
 
@@ -104,8 +111,8 @@ new NetworkAreaDiagram(network, Arrays.asList("VL1", "VL25"), 2).draw(Path.of("/
 This gives us the diagram below. Note that nothing ensures that the parts displayed in resulting diagram are connected.
 That is, the voltage levels between two voltage levels which are connected in the full graph are not necessarily drawn.
 
-![Diagram partial_demo](.github/partial_diagram_example_1_25.svg)
-
-
+<p align="center">
+<img src=".github/partial_diagram_example_1_25.svg?sanitize=true" alt="Diagram IEEE30 partial network VL1-VL25" width="65%"/>
+</p>
 
 For information, the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
