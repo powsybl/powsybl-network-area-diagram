@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.VoltageLevelNode;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface LabelProvider {
     String getArrowPathDIn();
 
     String getArrowPathDOut();
+
+    List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode);
 }

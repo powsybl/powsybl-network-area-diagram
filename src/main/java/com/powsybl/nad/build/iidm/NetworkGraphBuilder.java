@@ -64,9 +64,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .forEach(vlNode::addBusNode);
         graph.addNode(vlNode);
         if (visible) {
-            TextNode textNode = new TextNode(vlNode.getDiagramId() + "_text", vl.getNameOrId());
-            graph.addNode(textNode);
-            graph.addEdge(vlNode, textNode, new TextEdge(textNode.getDiagramId() + "_edge"));
+            graph.addTextNode(vlNode);
         }
         return vlNode;
     }
