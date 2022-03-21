@@ -43,7 +43,7 @@ public class SvgWriter {
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
     private static final String VIEW_BOX_ATTRIBUTE = "viewBox";
-    private static final String TITLE_ATTRIBUTE = "title";
+    private static final String DESCRIPTION_ATTRIBUTE = "desc";
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
     private static final String CIRCLE_RADIUS_ATTRIBUTE = "r";
@@ -575,10 +575,12 @@ public class SvgWriter {
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {
-        if (svgParameters.isInsertName()) {
+        if (svgParameters.isInsertNameDesc()) {
             Optional<String> nodeName = getName.get();
             if (nodeName.isPresent()) {
-                writer.writeAttribute(TITLE_ATTRIBUTE, nodeName.get());
+                writer.writeStartElement(DESCRIPTION_ATTRIBUTE);
+                writer.writeCharacters(nodeName.get());
+                writer.writeEndElement();
             }
         }
     }

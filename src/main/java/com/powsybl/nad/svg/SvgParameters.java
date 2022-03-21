@@ -14,7 +14,7 @@ import java.util.Objects;
 public class SvgParameters {
 
     private Padding diagramPadding = new Padding(2);
-    private boolean insertName = false;
+    private boolean insertNameDesc = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
     private SizeConstraint sizeConstraint = SizeConstraint.NONE;
@@ -54,12 +54,12 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isInsertName() {
-        return insertName;
+    public boolean isInsertNameDesc() {
+        return insertNameDesc;
     }
 
-    public SvgParameters setInsertName(boolean insertName) {
-        this.insertName = insertName;
+    public SvgParameters setInsertNameDesc(boolean insertNameDesc) {
+        this.insertNameDesc = insertNameDesc;
         return this;
     }
 
