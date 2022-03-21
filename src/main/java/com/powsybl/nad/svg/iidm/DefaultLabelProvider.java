@@ -54,9 +54,8 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelNode.getEquipmentId());
-        return Arrays.asList(
-                vl.getSubstation().map(Identifiable::getNameOrId).orElse("none"),
-                vl.getNameOrId());
+        String descr = vl.getSubstation().map(Identifiable::getNameOrId).orElse(vl.getNameOrId());
+        return Collections.singletonList(descr);
     }
 
     @Override
