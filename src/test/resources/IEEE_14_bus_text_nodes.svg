@@ -48,51 +48,66 @@
 ]]></style>
     <metadata></metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-3.85,-1.22)" id="0" class="nad-vl120to180" title="VL1">
+        <g transform="translate(-3.85,-1.22)" id="0" class="nad-vl120to180">
+            <desc>VL1</desc>
             <circle r="0.30" id="1"/>
         </g>
-        <g transform="translate(-5.07,-4.78)" id="2" class="nad-vl120to180" title="VL2">
+        <g transform="translate(-5.07,-4.78)" id="2" class="nad-vl120to180">
+            <desc>VL2</desc>
             <circle r="0.30" id="3"/>
         </g>
-        <g transform="translate(-3.27,-8.47)" id="4" class="nad-vl120to180" title="VL3">
+        <g transform="translate(-3.27,-8.47)" id="4" class="nad-vl120to180">
+            <desc>VL3</desc>
             <circle r="0.30" id="5"/>
         </g>
-        <g transform="translate(0.33,-4.33)" id="6" class="nad-vl120to180" title="VL4">
+        <g transform="translate(0.33,-4.33)" id="6" class="nad-vl120to180">
+            <desc>VL4</desc>
             <circle r="0.30" id="7"/>
         </g>
-        <g transform="translate(-6.40,-0.23)" id="8" class="nad-vl120to180" title="VL5">
+        <g transform="translate(-6.40,-0.23)" id="8" class="nad-vl120to180">
+            <desc>VL5</desc>
             <circle r="0.30" id="9"/>
         </g>
-        <g transform="translate(-4.43,7.58)" id="10" class="nad-vl0to30" title="VL6">
+        <g transform="translate(-4.43,7.58)" id="10" class="nad-vl0to30">
+            <desc>VL6</desc>
             <circle r="0.30" id="11"/>
         </g>
-        <g transform="translate(6.87,-5.07)" id="12" class="nad-vl0to30" title="VL7">
+        <g transform="translate(6.87,-5.07)" id="12" class="nad-vl0to30">
+            <desc>VL7</desc>
             <circle r="0.30" id="13"/>
         </g>
-        <g transform="translate(8.99,-10.14)" id="14" class="nad-vl0to30" title="VL8">
+        <g transform="translate(8.99,-10.14)" id="14" class="nad-vl0to30">
+            <desc>VL8</desc>
             <circle r="0.30" id="15"/>
         </g>
-        <g transform="translate(6.16,0.70)" id="16" class="nad-vl0to30" title="VL9">
+        <g transform="translate(6.16,0.70)" id="16" class="nad-vl0to30">
+            <desc>VL9</desc>
             <circle r="0.30" id="17"/>
         </g>
-        <g transform="translate(7.24,4.99)" id="18" class="nad-vl0to30" title="VL10">
+        <g transform="translate(7.24,4.99)" id="18" class="nad-vl0to30">
+            <desc>VL10</desc>
             <circle r="0.30" id="19"/>
         </g>
-        <g transform="translate(1.33,5.99)" id="20" class="nad-vl0to30" title="VL11">
+        <g transform="translate(1.33,5.99)" id="20" class="nad-vl0to30">
+            <desc>VL11</desc>
             <circle r="0.30" id="21"/>
         </g>
-        <g transform="translate(-5.48,12.37)" id="22" class="nad-vl0to30" title="VL12">
+        <g transform="translate(-5.48,12.37)" id="22" class="nad-vl0to30">
+            <desc>VL12</desc>
             <circle r="0.30" id="23"/>
         </g>
-        <g transform="translate(-1.07,11.72)" id="24" class="nad-vl0to30" title="VL13">
+        <g transform="translate(-1.07,11.72)" id="24" class="nad-vl0to30">
+            <desc>VL13</desc>
             <circle r="0.30" id="25"/>
         </g>
-        <g transform="translate(4.52,9.07)" id="26" class="nad-vl0to30" title="VL14">
+        <g transform="translate(4.52,9.07)" id="26" class="nad-vl0to30">
+            <desc>VL14</desc>
             <circle r="0.30" id="27"/>
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="28" title="L1-2-1">
+        <g id="28">
+            <desc>L1-2-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-3.94,-1.48 -4.46,-3.00"/>
                 <g class="nad-edge-infos" transform="translate(-4.04,-1.76)">
@@ -132,7 +147,8 @@
                 </g>
             </g>
         </g>
-        <g id="29" title="L1-5-1">
+        <g id="29">
+            <desc>L1-5-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-4.10,-1.12 -5.12,-0.73"/>
                 <g class="nad-edge-infos" transform="translate(-4.38,-1.02)">
@@ -172,7 +188,8 @@
                 </g>
             </g>
         </g>
-        <g id="30" title="L2-3-1">
+        <g id="30">
+            <desc>L2-3-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-4.96,-5.02 -4.17,-6.62"/>
                 <g class="nad-edge-infos" transform="translate(-4.82,-5.29)">
@@ -212,7 +229,8 @@
                 </g>
             </g>
         </g>
-        <g id="31" title="L2-4-1">
+        <g id="31">
+            <desc>L2-4-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-4.81,-4.76 -2.37,-4.55"/>
                 <g class="nad-edge-infos" transform="translate(-4.51,-4.73)">
@@ -252,7 +270,8 @@
                 </g>
             </g>
         </g>
-        <g id="32" title="L2-5-1">
+        <g id="32">
+            <desc>L2-5-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-5.15,-4.52 -5.74,-2.50"/>
                 <g class="nad-edge-infos" transform="translate(-5.23,-4.23)">
@@ -292,7 +311,8 @@
                 </g>
             </g>
         </g>
-        <g id="33" title="L3-4-1">
+        <g id="33">
+            <desc>L3-4-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-3.09,-8.26 -1.47,-6.40"/>
                 <g class="nad-edge-infos" transform="translate(-2.89,-8.04)">
@@ -332,7 +352,8 @@
                 </g>
             </g>
         </g>
-        <g id="34" title="L4-5-1">
+        <g id="34">
+            <desc>L4-5-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="0.10,-4.19 -3.03,-2.28"/>
                 <g class="nad-edge-infos" transform="translate(-0.16,-4.03)">
@@ -372,7 +393,8 @@
                 </g>
             </g>
         </g>
-        <g id="35" title="T4-7-1">
+        <g id="35">
+            <desc>T4-7-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="0.60,-4.36 3.60,-4.70"/>
                 <g class="nad-edge-infos" transform="translate(0.90,-4.39)">
@@ -414,7 +436,8 @@
                 <circle cx="3.70" cy="-4.71" r="0.20"/>
             </g>
         </g>
-        <g id="36" title="T4-9-1">
+        <g id="36">
+            <desc>T4-9-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="0.53,-4.15 3.25,-1.81"/>
                 <g class="nad-edge-infos" transform="translate(0.76,-3.96)">
@@ -456,7 +479,8 @@
                 <circle cx="3.32" cy="-1.75" r="0.20"/>
             </g>
         </g>
-        <g id="37" title="T5-6-1">
+        <g id="37">
+            <desc>T5-6-1</desc>
             <g class="nad-vl120to180">
                 <polyline points="-6.33,0.03 -5.41,3.68"/>
                 <g class="nad-edge-infos" transform="translate(-6.26,0.32)">
@@ -498,7 +522,8 @@
                 <circle cx="-5.39" cy="3.77" r="0.20"/>
             </g>
         </g>
-        <g id="38" title="L6-11-1">
+        <g id="38">
+            <desc>L6-11-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="-4.17,7.51 -1.55,6.79"/>
                 <g class="nad-edge-infos" transform="translate(-3.88,7.43)">
@@ -538,7 +563,8 @@
                 </g>
             </g>
         </g>
-        <g id="39" title="L6-12-1">
+        <g id="39">
+            <desc>L6-12-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="-4.49,7.85 -4.96,9.98"/>
                 <g class="nad-edge-infos" transform="translate(-4.56,8.14)">
@@ -578,7 +604,8 @@
                 </g>
             </g>
         </g>
-        <g id="40" title="L6-13-1">
+        <g id="40">
+            <desc>L6-13-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="-4.26,7.79 -2.75,9.65"/>
                 <g class="nad-edge-infos" transform="translate(-4.07,8.03)">
@@ -618,7 +645,8 @@
                 </g>
             </g>
         </g>
-        <g id="41" title="L7-8-1">
+        <g id="41">
+            <desc>L7-8-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="6.97,-5.32 7.93,-7.60"/>
                 <g class="nad-edge-infos" transform="translate(7.09,-5.59)">
@@ -658,7 +686,8 @@
                 </g>
             </g>
         </g>
-        <g id="42" title="L7-9-1">
+        <g id="42">
+            <desc>L7-9-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="6.83,-4.80 6.51,-2.18"/>
                 <g class="nad-edge-infos" transform="translate(6.80,-4.50)">
@@ -698,7 +727,8 @@
                 </g>
             </g>
         </g>
-        <g id="43" title="L9-10-1">
+        <g id="43">
+            <desc>L9-10-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="6.23,0.96 6.70,2.85"/>
                 <g class="nad-edge-infos" transform="translate(6.30,1.25)">
@@ -738,7 +768,8 @@
                 </g>
             </g>
         </g>
-        <g id="44" title="L9-14-1">
+        <g id="44">
+            <desc>L9-14-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="6.11,0.96 5.34,4.89"/>
                 <g class="nad-edge-infos" transform="translate(6.05,1.26)">
@@ -778,7 +809,8 @@
                 </g>
             </g>
         </g>
-        <g id="45" title="L10-11-1">
+        <g id="45">
+            <desc>L10-11-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="6.98,5.04 4.29,5.49"/>
                 <g class="nad-edge-infos" transform="translate(6.68,5.09)">
@@ -818,7 +850,8 @@
                 </g>
             </g>
         </g>
-        <g id="46" title="L12-13-1">
+        <g id="46">
+            <desc>L12-13-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="-5.21,12.33 -3.27,12.04"/>
                 <g class="nad-edge-infos" transform="translate(-4.91,12.28)">
@@ -858,7 +891,8 @@
                 </g>
             </g>
         </g>
-        <g id="47" title="L13-14-1">
+        <g id="47">
+            <desc>L13-14-1</desc>
             <g class="nad-vl0to30">
                 <polyline points="-0.82,11.60 1.73,10.39"/>
                 <g class="nad-edge-infos" transform="translate(-0.55,11.47)">
@@ -900,35 +934,35 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_text_edge" points="-3.89,-0.93 -4.41,2.71"/>
-        <polyline id="2_text_edge" points="-5.35,-4.90 -9.54,-6.82"/>
-        <polyline id="4_text_edge" points="-3.37,-8.75 -4.88,-12.66"/>
-        <polyline id="6_text_edge" points="0.44,-4.61 1.93,-8.52"/>
-        <polyline id="8_text_edge" points="-6.69,-0.21 -11.41,0.16"/>
-        <polyline id="10_text_edge" points="-4.73,7.61 -9.30,8.09"/>
-        <polyline id="12_text_edge" points="7.17,-5.10 11.55,-5.63"/>
-        <polyline id="14_text_edge" points="9.10,-10.42 10.55,-13.92"/>
-        <polyline id="16_text_edge" points="6.46,0.69 11.00,0.48"/>
-        <polyline id="18_text_edge" points="7.52,5.11 11.67,6.88"/>
-        <polyline id="20_text_edge" points="1.37,5.70 1.75,2.62"/>
-        <polyline id="22_text_edge" points="-5.70,12.57 -8.81,15.34"/>
-        <polyline id="24_text_edge" points="-1.02,12.01 -0.28,16.21"/>
-        <polyline id="26_text_edge" points="4.69,9.32 7.15,12.83"/>
+        <polyline id="0_edge" points="-3.89,-0.93 -4.41,2.71"/>
+        <polyline id="2_edge" points="-5.35,-4.90 -9.54,-6.82"/>
+        <polyline id="4_edge" points="-3.37,-8.75 -4.88,-12.66"/>
+        <polyline id="6_edge" points="0.44,-4.61 1.93,-8.52"/>
+        <polyline id="8_edge" points="-6.69,-0.21 -11.41,0.16"/>
+        <polyline id="10_edge" points="-4.73,7.61 -9.30,8.09"/>
+        <polyline id="12_edge" points="7.17,-5.10 11.55,-5.63"/>
+        <polyline id="14_edge" points="9.10,-10.42 10.55,-13.92"/>
+        <polyline id="16_edge" points="6.46,0.69 11.00,0.48"/>
+        <polyline id="18_edge" points="7.52,5.11 11.67,6.88"/>
+        <polyline id="20_edge" points="1.37,5.70 1.75,2.62"/>
+        <polyline id="22_edge" points="-5.70,12.57 -8.81,15.34"/>
+        <polyline id="24_edge" points="-1.02,12.01 -0.28,16.21"/>
+        <polyline id="26_edge" points="4.69,9.32 7.15,12.83"/>
     </g>
     <g class="nad-text-nodes">
-        <text x="-4.41" y="2.71" style="dominant-baseline:middle">VL1</text>
-        <text x="-9.54" y="-6.82" style="dominant-baseline:middle">VL2</text>
-        <text x="-4.88" y="-12.66" style="dominant-baseline:middle">VL3</text>
-        <text x="1.93" y="-8.52" style="dominant-baseline:middle">VL4</text>
-        <text x="-11.41" y="0.16" style="dominant-baseline:middle">VL5</text>
-        <text x="-9.30" y="8.09" style="dominant-baseline:middle">VL6</text>
-        <text x="11.55" y="-5.63" style="dominant-baseline:middle">VL7</text>
-        <text x="10.55" y="-13.92" style="dominant-baseline:middle">VL8</text>
-        <text x="11.00" y="0.48" style="dominant-baseline:middle">VL9</text>
-        <text x="11.67" y="6.88" style="dominant-baseline:middle">VL10</text>
-        <text x="1.75" y="2.62" style="dominant-baseline:middle">VL11</text>
-        <text x="-8.81" y="15.34" style="dominant-baseline:middle">VL12</text>
-        <text x="-0.28" y="16.21" style="dominant-baseline:middle">VL13</text>
-        <text x="7.15" y="12.83" style="dominant-baseline:middle">VL14</text>
+        <text y="2.71" style="dominant-baseline:middle" x="-4.41">S6</text>
+        <text y="-6.82" style="dominant-baseline:middle" x="-9.54">S8</text>
+        <text y="-12.66" style="dominant-baseline:middle" x="-4.88">S7</text>
+        <text y="-8.52" style="dominant-baseline:middle" x="1.93">S1</text>
+        <text y="0.16" style="dominant-baseline:middle" x="-11.41">S2</text>
+        <text y="8.09" style="dominant-baseline:middle" x="-9.30">S2</text>
+        <text y="-5.63" style="dominant-baseline:middle" x="11.55">S1</text>
+        <text y="-13.92" style="dominant-baseline:middle" x="10.55">S3</text>
+        <text y="0.48" style="dominant-baseline:middle" x="11.00">S1</text>
+        <text y="6.88" style="dominant-baseline:middle" x="11.67">S9</text>
+        <text y="2.62" style="dominant-baseline:middle" x="1.75">S10</text>
+        <text y="15.34" style="dominant-baseline:middle" x="-8.81">S11</text>
+        <text y="16.21" style="dominant-baseline:middle" x="-0.28">S4</text>
+        <text y="12.83" style="dominant-baseline:middle" x="7.15">S5</text>
     </g>
 </svg>

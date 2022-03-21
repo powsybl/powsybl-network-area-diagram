@@ -54,41 +54,52 @@
         </filter>
     </defs>
     <g class="nad-vl-nodes">
-        <g transform="translate(-4.74,-2.08)" id="0" class="nad-vl300to500" title="BBE1AA1">
+        <g transform="translate(-4.74,-2.08)" id="0" class="nad-vl300to500">
+            <desc>BBE1AA1</desc>
             <circle r="0.30" id="1"/>
             <path d="M-0.028,-0.599 A0.600,0.600 60.451 0 1 0.508,-0.320 L0.240,-0.181 A0.300,0.300 -50.901 0 0 0.011,-0.300 Z M0.554,-0.231 A0.600,0.600 148.195 0 1 -0.349,0.488 L-0.153,0.258 A0.300,0.300 -138.646 0 0 0.285,-0.092 Z M-0.425,0.424 A0.600,0.600 122.706 0 1 -0.127,-0.586 L-0.088,-0.287 A0.300,0.300 -113.157 0 0 -0.229,0.193 Z " id="2"/>
         </g>
-        <g transform="translate(-5.54,2.31)" id="3" class="nad-vl300to500" title="BBE2AA1">
+        <g transform="translate(-5.54,2.31)" id="3" class="nad-vl300to500">
+            <desc>BBE2AA1</desc>
             <circle r="0.30" id="4"/>
         </g>
-        <g transform="translate(7.06,2.74)" id="5" class="nad-vl300to500" title="DDE1AA1">
+        <g transform="translate(7.06,2.74)" id="5" class="nad-vl300to500">
+            <desc>DDE1AA1</desc>
             <circle r="0.30" id="6"/>
         </g>
-        <g transform="translate(4.50,0.01)" id="7" class="nad-vl300to500" title="DDE2AA1">
+        <g transform="translate(4.50,0.01)" id="7" class="nad-vl300to500">
+            <desc>DDE2AA1</desc>
             <circle r="0.30" id="8"/>
         </g>
-        <g transform="translate(3.75,4.37)" id="9" class="nad-vl300to500" title="DDE3AA1">
+        <g transform="translate(3.75,4.37)" id="9" class="nad-vl300to500">
+            <desc>DDE3AA1</desc>
             <circle r="0.30" id="10"/>
         </g>
-        <g transform="translate(0.36,7.32)" id="11" class="nad-vl300to500" title="FFR1AA1">
+        <g transform="translate(0.36,7.32)" id="11" class="nad-vl300to500">
+            <desc>FFR1AA1</desc>
             <circle r="0.30" id="12"/>
             <path d="M-0.392,-0.455 A0.600,0.600 100.084 0 1 0.516,-0.306 L0.244,-0.174 A0.300,0.300 -90.534 0 0 -0.176,-0.243 Z M0.560,-0.216 A0.600,0.600 165.634 0 1 -0.489,0.348 L-0.229,0.194 A0.300,0.300 -156.085 0 0 0.288,-0.084 Z M-0.540,0.262 A0.600,0.600 65.634 0 1 -0.462,-0.383 L-0.246,-0.172 A0.300,0.300 -56.085 0 0 -0.280,0.108 Z " id="13"/>
         </g>
-        <g transform="translate(-3.72,6.26)" id="14" class="nad-vl300to500" title="FFR3AA1">
+        <g transform="translate(-3.72,6.26)" id="14" class="nad-vl300to500">
+            <desc>FFR3AA1</desc>
             <circle r="0.30" id="15"/>
         </g>
-        <g transform="translate(1.23,-8.03)" id="16" class="nad-vl300to500" title="NNL1AA1">
+        <g transform="translate(1.23,-8.03)" id="16" class="nad-vl300to500">
+            <desc>NNL1AA1</desc>
             <circle r="0.30" id="17"/>
         </g>
-        <g transform="translate(-1.50,-5.35)" id="18" class="nad-vl300to500" title="NNL2AA1">
+        <g transform="translate(-1.50,-5.35)" id="18" class="nad-vl300to500">
+            <desc>NNL2AA1</desc>
             <circle r="0.30" id="19"/>
         </g>
-        <g transform="translate(2.52,-4.42)" id="20" class="nad-vl300to500" title="NNL3AA1">
+        <g transform="translate(2.52,-4.42)" id="20" class="nad-vl300to500">
+            <desc>NNL3AA1</desc>
             <circle r="0.30" id="21"/>
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="22" title="BBE1AA1  BBE2AA1  1">
+        <g id="22">
+            <desc>BBE1AA1  BBE2AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-4.92,-1.87 -5.26,-1.47 -5.53,0.04"/>
                 <g class="nad-edge-infos" transform="translate(-5.31,-1.17)">
@@ -128,7 +139,8 @@
                 </g>
             </g>
         </g>
-        <g id="23" title="BBE1AA1  BBE3AA1  1">
+        <g id="23">
+            <desc>BBE1AA1  BBE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <path d="M-4.50,-2.20 L-4.03,-2.45 C-3.68,-2.63 -3.48,-2.21 -3.57,-1.82"/>
                 <g class="nad-edge-infos" transform="translate(-4.03,-2.45)">
@@ -168,7 +180,8 @@
                 </g>
             </g>
         </g>
-        <g id="24" title="BBE1AA1  BBE3AA1  2">
+        <g id="24">
+            <desc>BBE1AA1  BBE3AA1  2</desc>
             <g class="nad-vl300to500">
                 <path d="M-5.31,-2.10 L-5.54,-2.12 C-5.94,-2.13 -5.90,-2.60 -5.63,-2.89"/>
                 <g class="nad-edge-infos" transform="translate(-5.54,-2.12)">
@@ -210,7 +223,8 @@
                 <circle cx="-5.53" cy="-2.89" r="0.20"/>
             </g>
         </g>
-        <g id="25" title="BBE2AA1  BBE3AA1  1">
+        <g id="25">
+            <desc>BBE2AA1  BBE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-5.37,2.11 -5.02,1.70 -4.75,0.19"/>
                 <g class="nad-edge-infos" transform="translate(-4.97,1.41)">
@@ -250,7 +264,8 @@
                 </g>
             </g>
         </g>
-        <g id="26" title="NNL2AA1  BBE3AA1  1">
+        <g id="26">
+            <desc>NNL2AA1  BBE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-1.69,-5.16 -3.01,-3.82"/>
                 <g class="nad-edge-infos" transform="translate(-1.90,-4.94)">
@@ -290,7 +305,8 @@
                 </g>
             </g>
         </g>
-        <g id="27" title="BBE2AA1  FFR3AA1  1">
+        <g id="27">
+            <desc>BBE2AA1  FFR3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-5.43,2.56 -4.63,4.29"/>
                 <g class="nad-edge-infos" transform="translate(-5.30,2.83)">
@@ -330,7 +346,8 @@
                 </g>
             </g>
         </g>
-        <g id="28" title="DDE1AA1  DDE2AA1  1">
+        <g id="28">
+            <desc>DDE1AA1  DDE2AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="6.87,2.54 5.78,1.37"/>
                 <g class="nad-edge-infos" transform="translate(6.67,2.33)">
@@ -370,7 +387,8 @@
                 </g>
             </g>
         </g>
-        <g id="29" title="DDE1AA1  DDE3AA1  1">
+        <g id="29">
+            <desc>DDE1AA1  DDE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="6.81,2.86 5.40,3.55"/>
                 <g class="nad-edge-infos" transform="translate(6.54,2.99)">
@@ -410,7 +428,8 @@
                 </g>
             </g>
         </g>
-        <g id="30" title="DDE2AA1  DDE3AA1  1">
+        <g id="30">
+            <desc>DDE2AA1  DDE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="4.46,0.27 4.13,2.19"/>
                 <g class="nad-edge-infos" transform="translate(4.40,0.57)">
@@ -450,7 +469,8 @@
                 </g>
             </g>
         </g>
-        <g id="31" title="DDE2AA1  NNL3AA1  1">
+        <g id="31">
+            <desc>DDE2AA1  NNL3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="4.39,-0.24 3.51,-2.21"/>
                 <g class="nad-edge-infos" transform="translate(4.27,-0.51)">
@@ -490,7 +510,8 @@
                 </g>
             </g>
         </g>
-        <g id="32" title="FFR2AA1  DDE3AA1  1">
+        <g id="32">
+            <desc>FFR2AA1  DDE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="0.79,6.94 2.17,5.74"/>
                 <g class="nad-edge-infos" transform="translate(1.02,6.75)">
@@ -530,7 +551,8 @@
                 </g>
             </g>
         </g>
-        <g id="33" title="FFR1AA1  FFR2AA1  1">
+        <g id="33">
+            <desc>FFR1AA1  FFR2AA1  1</desc>
             <g class="nad-vl300to500">
                 <path d="M0.61,7.20 L1.08,6.97 C1.44,6.79 1.63,7.22 1.53,7.61"/>
                 <g class="nad-edge-infos" transform="translate(1.08,6.97)">
@@ -570,7 +592,8 @@
                 </g>
             </g>
         </g>
-        <g id="34" title="FFR1AA1  FFR3AA1  1">
+        <g id="34">
+            <desc>FFR1AA1  FFR3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="0.17,7.13 -0.21,6.76 -1.58,6.40"/>
                 <g class="nad-edge-infos" transform="translate(-0.50,6.68)">
@@ -610,7 +633,8 @@
                 </g>
             </g>
         </g>
-        <g id="35" title="FFR1AA1  FFR2AA1  2">
+        <g id="35">
+            <desc>FFR1AA1  FFR2AA1  2</desc>
             <g class="nad-vl300to500">
                 <path d="M0.57,7.85 L0.65,8.06 C0.79,8.44 0.34,8.58 -0.03,8.45"/>
                 <g class="nad-edge-infos" transform="translate(0.65,8.06)">
@@ -652,7 +676,8 @@
                 <circle cx="-0.07" cy="8.36" r="0.20"/>
             </g>
         </g>
-        <g id="36" title="FFR2AA1  FFR3AA1  1">
+        <g id="36">
+            <desc>FFR2AA1  FFR3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-0.19,7.47 -0.41,7.53 -1.78,7.18"/>
                 <g class="nad-edge-infos" transform="translate(-0.70,7.46)">
@@ -692,7 +717,8 @@
                 </g>
             </g>
         </g>
-        <g id="37" title="NNL1AA1  NNL2AA1  1">
+        <g id="37">
+            <desc>NNL1AA1  NNL2AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="1.04,-7.85 -0.13,-6.69"/>
                 <g class="nad-edge-infos" transform="translate(0.82,-7.63)">
@@ -732,7 +758,8 @@
                 </g>
             </g>
         </g>
-        <g id="38" title="NNL1AA1  NNL3AA1  1">
+        <g id="38">
+            <desc>NNL1AA1  NNL3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="1.32,-7.78 1.88,-6.23"/>
                 <g class="nad-edge-infos" transform="translate(1.42,-7.50)">
@@ -772,7 +799,8 @@
                 </g>
             </g>
         </g>
-        <g id="39" title="NNL2AA1  NNL3AA1  1">
+        <g id="39">
+            <desc>NNL2AA1  NNL3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-1.23,-5.29 0.51,-4.88"/>
                 <g class="nad-edge-infos" transform="translate(-0.94,-5.22)">
@@ -814,27 +842,27 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_text_edge" points="-4.14,-2.08 -3.74,-2.08"/>
-        <polyline id="3_text_edge" points="-5.24,2.31 -4.54,2.31"/>
-        <polyline id="5_text_edge" points="7.36,2.74 8.06,2.74"/>
-        <polyline id="7_text_edge" points="4.80,0.01 5.50,0.01"/>
-        <polyline id="9_text_edge" points="4.05,4.37 4.75,4.37"/>
-        <polyline id="11_text_edge" points="0.96,7.32 1.36,7.32"/>
-        <polyline id="14_text_edge" points="-3.42,6.26 -2.72,6.26"/>
-        <polyline id="16_text_edge" points="1.53,-8.03 2.23,-8.03"/>
-        <polyline id="18_text_edge" points="-1.20,-5.35 -0.50,-5.35"/>
-        <polyline id="20_text_edge" points="2.82,-4.42 3.52,-4.42"/>
+        <polyline id="0_edge" points="-4.14,-2.08 -3.74,-2.08"/>
+        <polyline id="3_edge" points="-5.24,2.31 -4.54,2.31"/>
+        <polyline id="5_edge" points="7.36,2.74 8.06,2.74"/>
+        <polyline id="7_edge" points="4.80,0.01 5.50,0.01"/>
+        <polyline id="9_edge" points="4.05,4.37 4.75,4.37"/>
+        <polyline id="11_edge" points="0.96,7.32 1.36,7.32"/>
+        <polyline id="14_edge" points="-3.42,6.26 -2.72,6.26"/>
+        <polyline id="16_edge" points="1.53,-8.03 2.23,-8.03"/>
+        <polyline id="18_edge" points="-1.20,-5.35 -0.50,-5.35"/>
+        <polyline id="20_edge" points="2.82,-4.42 3.52,-4.42"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" x="-3.74" y="-2.08" style="dominant-baseline:middle">BBE1AA1</text>
-        <text filter="url(#textBgFilter)" x="-4.54" y="2.31" style="dominant-baseline:middle">BBE2AA1</text>
-        <text filter="url(#textBgFilter)" x="8.06" y="2.74" style="dominant-baseline:middle">DDE1AA1</text>
-        <text filter="url(#textBgFilter)" x="5.50" y="0.01" style="dominant-baseline:middle">DDE2AA1</text>
-        <text filter="url(#textBgFilter)" x="4.75" y="4.37" style="dominant-baseline:middle">DDE3AA1</text>
-        <text filter="url(#textBgFilter)" x="1.36" y="7.32" style="dominant-baseline:middle">FFR1AA1</text>
-        <text filter="url(#textBgFilter)" x="-2.72" y="6.26" style="dominant-baseline:middle">FFR3AA1</text>
-        <text filter="url(#textBgFilter)" x="2.23" y="-8.03" style="dominant-baseline:middle">NNL1AA1</text>
-        <text filter="url(#textBgFilter)" x="-0.50" y="-5.35" style="dominant-baseline:middle">NNL2AA1</text>
-        <text filter="url(#textBgFilter)" x="3.52" y="-4.42" style="dominant-baseline:middle">NNL3AA1</text>
+        <text filter="url(#textBgFilter)" y="-2.08" style="dominant-baseline:middle" x="-3.74">BBE1AA</text>
+        <text filter="url(#textBgFilter)" y="2.31" style="dominant-baseline:middle" x="-4.54">BBE2AA</text>
+        <text filter="url(#textBgFilter)" y="2.74" style="dominant-baseline:middle" x="8.06">DDE1AA</text>
+        <text filter="url(#textBgFilter)" y="0.01" style="dominant-baseline:middle" x="5.50">DDE2AA</text>
+        <text filter="url(#textBgFilter)" y="4.37" style="dominant-baseline:middle" x="4.75">DDE3AA</text>
+        <text filter="url(#textBgFilter)" y="7.32" style="dominant-baseline:middle" x="1.36">FFR1AA</text>
+        <text filter="url(#textBgFilter)" y="6.26" style="dominant-baseline:middle" x="-2.72">FFR3AA</text>
+        <text filter="url(#textBgFilter)" y="-8.03" style="dominant-baseline:middle" x="2.23">NNL1AA</text>
+        <text filter="url(#textBgFilter)" y="-5.35" style="dominant-baseline:middle" x="-0.50">NNL2AA</text>
+        <text filter="url(#textBgFilter)" y="-4.42" style="dominant-baseline:middle" x="3.52">NNL3AA</text>
     </g>
 </svg>

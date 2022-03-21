@@ -54,19 +54,23 @@
         </filter>
     </defs>
     <g class="nad-vl-nodes">
-        <g transform="translate(-1.99,-2.23)" id="0" class="nad-vl120to180" title="VL_132">
+        <g transform="translate(-1.99,-2.23)" id="0" class="nad-vl120to180">
+            <desc>VL_132</desc>
             <circle r="0.30" id="1"/>
         </g>
-        <g transform="translate(-1.80,3.59)" id="2" class="nad-vl30to50" title="VL_33">
+        <g transform="translate(-1.80,3.59)" id="2" class="nad-vl30to50">
+            <desc>VL_33</desc>
             <circle class="nad-unknown-busnode" r="0.40"/>
         </g>
-        <g transform="translate(4.55,-0.65)" id="3" class="nad-vl0to30" title="VL_11">
+        <g transform="translate(4.55,-0.65)" id="3" class="nad-vl0to30">
+            <desc>VL_11</desc>
             <circle r="0.30" id="4"/>
         </g>
     </g>
     <g class="nad-branch-edges"></g>
     <g class="nad-3wt-edges">
-        <g id="6" class="nad-vl120to180" title="3WT">
+        <g id="6" class="nad-vl120to180">
+            <desc>3WT</desc>
             <polyline points="-1.80,-2.03 0.73,0.53"/>
             <g class="nad-edge-infos" transform="translate(-1.59,-1.82)">
                 <g class="nad-active nad-state-out">
@@ -85,7 +89,8 @@
                 </g>
             </g>
         </g>
-        <g id="7" class="nad-disconnected nad-vl30to50" title="3WT">
+        <g id="7" class="nad-disconnected nad-vl30to50">
+            <desc>3WT</desc>
             <polyline points="-1.54,3.28 0.73,0.53"/>
             <g class="nad-edge-infos" transform="translate(-1.35,3.05)">
                 <g class="nad-active nad-state-out">
@@ -104,7 +109,8 @@
                 </g>
             </g>
         </g>
-        <g id="8" class="nad-vl0to30" title="3WT">
+        <g id="8" class="nad-vl0to30">
+            <desc>3WT</desc>
             <polyline points="4.29,-0.57 0.73,0.53"/>
             <g class="nad-edge-infos" transform="translate(4.00,-0.49)">
                 <g class="nad-active nad-state-out">
@@ -137,13 +143,13 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_text_edge" points="-1.69,-2.23 -0.99,-2.23"/>
-        <polyline id="2_text_edge" points="-1.50,3.59 -0.80,3.59"/>
-        <polyline id="3_text_edge" points="4.85,-0.65 5.55,-0.65"/>
+        <polyline id="0_edge" points="-1.69,-2.23 -0.99,-2.23"/>
+        <polyline id="2_edge" points="-1.50,3.59 -0.80,3.59"/>
+        <polyline id="3_edge" points="4.85,-0.65 5.55,-0.65"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" x="-0.99" y="-2.23" style="dominant-baseline:middle">VL_132</text>
-        <text filter="url(#textBgFilter)" x="-0.80" y="3.59" style="dominant-baseline:middle">VL_33</text>
-        <text filter="url(#textBgFilter)" x="5.55" y="-0.65" style="dominant-baseline:middle">VL_11</text>
+        <text filter="url(#textBgFilter)" y="-2.23" style="dominant-baseline:middle" x="-0.99">SUBSTATION</text>
+        <text filter="url(#textBgFilter)" y="3.59" style="dominant-baseline:middle" x="-0.80">SUBSTATION</text>
+        <text filter="url(#textBgFilter)" y="-0.65" style="dominant-baseline:middle" x="5.55">SUBSTATION</text>
     </g>
 </svg>
