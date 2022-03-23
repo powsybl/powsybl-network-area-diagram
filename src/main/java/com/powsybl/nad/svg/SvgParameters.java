@@ -45,6 +45,14 @@ public class SvgParameters {
         NONE, FIXED_WIDTH, FIXED_HEIGHT
     }
 
+    public SvgParameters() {
+    }
+
+    public SvgParameters(SvgParameters other) {
+        diagramPadding = other.diagramPadding;
+        svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
+    }
+
     public Padding getDiagramPadding() {
         return diagramPadding;
     }
