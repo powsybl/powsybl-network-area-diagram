@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class SvgParametersTest {
+class SvgParametersTest {
 
     @Test
-    public void test() {
+    void test() {
         SvgParameters svgParameters0 = new SvgParameters()
                 .setDiagramPadding(new Padding(5))
                 .setInsertName(false)
