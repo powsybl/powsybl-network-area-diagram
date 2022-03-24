@@ -45,6 +45,35 @@ public class SvgParameters {
         NONE, FIXED_WIDTH, FIXED_HEIGHT
     }
 
+    public SvgParameters() {
+    }
+
+    public SvgParameters(SvgParameters other) {
+        this.diagramPadding = other.diagramPadding;
+        this.insertName = other.insertName;
+        this.svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
+        this.cssLocation = other.cssLocation;
+        this.sizeConstraint = other.sizeConstraint;
+        this.fixedWidth = other.fixedWidth;
+        this.fixedHeight = other.fixedHeight;
+        this.arrowShift = other.arrowShift;
+        this.arrowLabelShift = other.arrowLabelShift;
+        this.converterStationWidth = other.converterStationWidth;
+        this.voltageLevelCircleRadius = other.voltageLevelCircleRadius;
+        this.fictitiousVoltageLevelCircleRadius = other.fictitiousVoltageLevelCircleRadius;
+        this.transformerCircleRadius = other.transformerCircleRadius;
+        this.nodeHollowWidth = other.nodeHollowWidth;
+        this.edgesForkLength = other.edgesForkLength;
+        this.edgesForkAperture = other.edgesForkAperture;
+        this.edgeStartShift = other.edgeStartShift;
+        this.unknownBusNodeExtraRadius = other.unknownBusNodeExtraRadius;
+        this.loopDistance = other.loopDistance;
+        this.loopEdgesAperture = other.loopEdgesAperture;
+        this.loopControlDistance = other.loopControlDistance;
+        this.textNodeBackground = other.textNodeBackground;
+        this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
+    }
+
     public Padding getDiagramPadding() {
         return diagramPadding;
     }
