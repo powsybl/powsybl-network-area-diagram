@@ -12,6 +12,13 @@ package com.powsybl.nad.layout;
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
 
+    public LayoutParameters() {
+    }
+
+    public LayoutParameters(LayoutParameters other) {
+        this.textNodesForceLayout = other.textNodesForceLayout;
+    }
+
     public boolean isTextNodesForceLayout() {
         return textNodesForceLayout;
     }
