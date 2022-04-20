@@ -19,7 +19,7 @@ class SvgParametersTest {
     void test() {
         SvgParameters svgParameters0 = new SvgParameters()
                 .setDiagramPadding(new Padding(5))
-                .setInsertName(false)
+                .setInsertNameDesc(false)
                 .setSvgWidthAndHeightAdded(true)
                 .setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT)
                 .setFixedWidth(300)
@@ -48,7 +48,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getDiagramPadding().getTop(), svgParameters1.getDiagramPadding().getTop());
         assertEquals(svgParameters0.getDiagramPadding().getRight(), svgParameters1.getDiagramPadding().getRight());
         assertEquals(svgParameters0.getDiagramPadding().getBottom(), svgParameters1.getDiagramPadding().getBottom());
-        assertEquals(svgParameters0.isInsertName(), svgParameters1.isInsertName());
+        assertEquals(svgParameters0.isInsertNameDesc(), svgParameters1.isInsertNameDesc());
         assertEquals(svgParameters0.isSvgWidthAndHeightAdded(), svgParameters1.isSvgWidthAndHeightAdded());
         assertEquals(svgParameters0.getCssLocation(), svgParameters1.getCssLocation());
         assertEquals(svgParameters0.getFixedWidth(), svgParameters1.getFixedWidth());
