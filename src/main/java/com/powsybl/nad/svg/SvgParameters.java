@@ -50,7 +50,7 @@ public class SvgParameters {
 
     public SvgParameters(SvgParameters other) {
         this.diagramPadding = other.diagramPadding;
-        this.insertName = other.insertName;
+        this.insertNameDesc = other.insertNameDesc;
         this.svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
         this.cssLocation = other.cssLocation;
         this.sizeConstraint = other.sizeConstraint;
