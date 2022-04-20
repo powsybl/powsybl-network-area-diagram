@@ -10,6 +10,7 @@ import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
+import org.jgrapht.alg.util.Pair;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -37,17 +38,19 @@ public class SvgWriter {
     private static final String PATH_ELEMENT_NAME = "path";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
     private static final String TEXT_ELEMENT_NAME = "text";
+    private static final String TSPAN_ELEMENT_NAME = "tspan";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
     private static final String VIEW_BOX_ATTRIBUTE = "viewBox";
-    private static final String TITLE_ATTRIBUTE = "title";
+    private static final String DESCRIPTION_ATTRIBUTE = "desc";
     private static final String CLASS_ATTRIBUTE = "class";
     private static final String TRANSFORM_ATTRIBUTE = "transform";
     private static final String CIRCLE_RADIUS_ATTRIBUTE = "r";
     private static final String PATH_D_ATTRIBUTE = "d";
     private static final String X_ATTRIBUTE = "x";
     private static final String Y_ATTRIBUTE = "y";
+    private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
     private static final String FILTER_ELEMENT_NAME = "filter";
     private static final String FE_FLOOD_ELEMENT_NAME = "feFlood";
@@ -407,8 +410,8 @@ public class SvgWriter {
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
-        for (TextNode tn : graph.getTextNodes()) {
-            writeTextNode(writer, tn);
+        for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
+            writeTextNode(writer, nodePair.getSecond(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
         }
         writer.writeEndElement();
     }
@@ -425,7 +428,7 @@ public class SvgWriter {
         return "translate(" + getFormattedValue(x) + "," + getFormattedValue(y) + ")";
     }
 
-    private void writeTextNode(XMLStreamWriter writer, TextNode textNode) throws XMLStreamException {
+    private void writeTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         if (textNode == null) {
             return;
         }
@@ -433,10 +436,23 @@ public class SvgWriter {
         if (svgParameters.isTextNodeBackground()) {
             writer.writeAttribute(FILTER_ELEMENT_NAME, "url(#" + TEXT_BG_FILTER_ID + ")");
         }
-        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         writer.writeAttribute(STYLE_ELEMENT_NAME, "dominant-baseline:middle");
-        writer.writeCharacters(textNode.getText());
+        if (content.size() == 1) {
+            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+            writer.writeCharacters(content.get(0));
+        } else {
+            for (int i = 0; i < content.size(); i++) {
+                String line = content.get(i);
+                writer.writeStartElement(TSPAN_ELEMENT_NAME);
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+                if (i > 0) {
+                    writer.writeAttribute(DY_ATTRIBUTE, "1.1em");
+                }
+                writer.writeCharacters(line);
+                writer.writeEndElement();
+            }
+        }
         writer.writeEndElement();
     }
 
@@ -559,10 +575,12 @@ public class SvgWriter {
     }
 
     private void insertName(XMLStreamWriter writer, Supplier<Optional<String>> getName) throws XMLStreamException {
-        if (svgParameters.isInsertName()) {
+        if (svgParameters.isInsertNameDesc()) {
             Optional<String> nodeName = getName.get();
             if (nodeName.isPresent()) {
-                writer.writeAttribute(TITLE_ATTRIBUTE, nodeName.get());
+                writer.writeStartElement(DESCRIPTION_ATTRIBUTE);
+                writer.writeCharacters(nodeName.get());
+                writer.writeEndElement();
             }
         }
     }

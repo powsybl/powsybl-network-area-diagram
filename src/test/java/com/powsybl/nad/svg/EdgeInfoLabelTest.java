@@ -13,6 +13,7 @@ import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class EdgeInfoLabelTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new LabelProvider() {
+        return new DefaultLabelProvider(network) {
             @Override
             public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
                 return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));

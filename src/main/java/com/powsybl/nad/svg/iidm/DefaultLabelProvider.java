@@ -52,6 +52,13 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
+    public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
+        VoltageLevel vl = network.getVoltageLevel(voltageLevelNode.getEquipmentId());
+        String descr = vl.getSubstation().map(Identifiable::getNameOrId).orElse(vl.getNameOrId());
+        return Collections.singletonList(descr);
+    }
+
+    @Override
     public String getArrowPathDIn() {
         return "M-0.1 -0.1 H0.1 L0 0.1z";
     }

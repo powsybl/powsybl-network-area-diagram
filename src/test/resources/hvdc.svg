@@ -54,24 +54,30 @@
         </filter>
     </defs>
     <g class="nad-vl-nodes">
-        <g transform="translate(-5.73,0.61)" id="0" class="nad-vl180to300" title="S1VL1">
+        <g transform="translate(-5.73,0.61)" id="0" class="nad-vl180to300">
+            <desc>S1VL1</desc>
             <circle r="0.30" id="1"/>
         </g>
-        <g transform="translate(-1.69,0.46)" id="2" class="nad-vl300to500" title="S1VL2">
+        <g transform="translate(-1.69,0.46)" id="2" class="nad-vl300to500">
+            <desc>S1VL2</desc>
             <circle r="0.30" id="3"/>
         </g>
-        <g transform="translate(0.73,-2.20)" id="4" class="nad-vl300to500" title="S2VL1">
+        <g transform="translate(0.73,-2.20)" id="4" class="nad-vl300to500">
+            <desc>S2VL1</desc>
             <circle r="0.30" id="5"/>
         </g>
-        <g transform="translate(2.50,0.94)" id="6" class="nad-vl300to500" title="S3VL1">
+        <g transform="translate(2.50,0.94)" id="6" class="nad-vl300to500">
+            <desc>S3VL1</desc>
             <circle r="0.30" id="7"/>
         </g>
-        <g transform="translate(6.34,2.21)" id="8" class="nad-vl300to500" title="S4VL1">
+        <g transform="translate(6.34,2.21)" id="8" class="nad-vl300to500">
+            <desc>S4VL1</desc>
             <circle r="0.30" id="9"/>
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="10" title="TWT">
+        <g id="10">
+            <desc>TWT</desc>
             <g class="nad-vl180to300">
                 <polyline points="-5.46,0.60 -3.71,0.53"/>
                 <g class="nad-edge-infos" transform="translate(-5.16,0.59)">
@@ -113,7 +119,8 @@
                 <circle cx="-3.61" cy="0.53" r="0.20"/>
             </g>
         </g>
-        <g id="11" class="nad-hvdc-edge" title="HVDC1">
+        <g id="11" class="nad-hvdc-edge">
+            <desc>HVDC1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-1.51,0.26 -0.48,-0.87"/>
                 <g class="nad-edge-infos" transform="translate(-1.30,0.04)">
@@ -154,7 +161,8 @@
             </g>
             <polyline points="-0.68,-0.65 -0.28,-1.09" class="nad-hvdc"/>
         </g>
-        <g id="12" class="nad-hvdc-edge" title="HVDC2">
+        <g id="12" class="nad-hvdc-edge">
+            <desc>HVDC2</desc>
             <g class="nad-vl300to500">
                 <polyline points="-1.42,0.49 0.41,0.70"/>
                 <g class="nad-edge-infos" transform="translate(-1.12,0.52)">
@@ -195,7 +203,8 @@
             </g>
             <polyline points="0.11,0.66 0.71,0.73" class="nad-hvdc"/>
         </g>
-        <g id="13" title="LINE_S2S3">
+        <g id="13">
+            <desc>LINE_S2S3</desc>
             <g class="nad-vl300to500">
                 <polyline points="0.87,-1.96 1.62,-0.63"/>
                 <g class="nad-edge-infos" transform="translate(1.01,-1.70)">
@@ -235,7 +244,8 @@
                 </g>
             </g>
         </g>
-        <g id="14" title="LINE_S3S4">
+        <g id="14">
+            <desc>LINE_S3S4</desc>
             <g class="nad-vl300to500">
                 <polyline points="2.76,1.02 4.42,1.58"/>
                 <g class="nad-edge-infos" transform="translate(3.05,1.12)">
@@ -277,17 +287,17 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_text_edge" points="-5.43,0.61 -4.73,0.61"/>
-        <polyline id="2_text_edge" points="-1.39,0.46 -0.69,0.46"/>
-        <polyline id="4_text_edge" points="1.03,-2.20 1.73,-2.20"/>
-        <polyline id="6_text_edge" points="2.80,0.94 3.50,0.94"/>
-        <polyline id="8_text_edge" points="6.64,2.21 7.34,2.21"/>
+        <polyline id="0_edge" points="-5.43,0.61 -4.73,0.61"/>
+        <polyline id="2_edge" points="-1.39,0.46 -0.69,0.46"/>
+        <polyline id="4_edge" points="1.03,-2.20 1.73,-2.20"/>
+        <polyline id="6_edge" points="2.80,0.94 3.50,0.94"/>
+        <polyline id="8_edge" points="6.64,2.21 7.34,2.21"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" x="-4.73" y="0.61" style="dominant-baseline:middle">S1VL1</text>
-        <text filter="url(#textBgFilter)" x="-0.69" y="0.46" style="dominant-baseline:middle">S1VL2</text>
-        <text filter="url(#textBgFilter)" x="1.73" y="-2.20" style="dominant-baseline:middle">S2VL1</text>
-        <text filter="url(#textBgFilter)" x="3.50" y="0.94" style="dominant-baseline:middle">S3VL1</text>
-        <text filter="url(#textBgFilter)" x="7.34" y="2.21" style="dominant-baseline:middle">S4VL1</text>
+        <text filter="url(#textBgFilter)" y="0.61" style="dominant-baseline:middle" x="-4.73">S1</text>
+        <text filter="url(#textBgFilter)" y="0.46" style="dominant-baseline:middle" x="-0.69">S1</text>
+        <text filter="url(#textBgFilter)" y="-2.20" style="dominant-baseline:middle" x="1.73">S2</text>
+        <text filter="url(#textBgFilter)" y="0.94" style="dominant-baseline:middle" x="3.50">S3</text>
+        <text filter="url(#textBgFilter)" y="2.21" style="dominant-baseline:middle" x="7.34">S4</text>
     </g>
 </svg>
