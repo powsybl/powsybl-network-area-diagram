@@ -32,6 +32,9 @@ public class SvgWriter {
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
     private static final String METADATA_ELEMENT_NAME = "metadata";
+    private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
+    private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
+    private static final String METADATA_ID_ELEMENT_NAME = "id";
     private static final String DEFS_ELEMENT_NAME = "defs";
     private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
@@ -39,6 +42,8 @@ public class SvgWriter {
     private static final String CIRCLE_ELEMENT_NAME = "circle";
     private static final String TEXT_ELEMENT_NAME = "text";
     private static final String TSPAN_ELEMENT_NAME = "tspan";
+    private static final String DIAGRAM_ID_ATTRIBUTE = "diagram";
+    private static final String EQUIPMENT_ID_ATTRIBUTE = "equipment";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
@@ -104,7 +109,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            addMetadata(writer);
+            addMetadata(graph, writer);
             addDefs(writer);
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
@@ -683,8 +688,23 @@ public class SvgWriter {
         }
     }
 
-    private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
+    private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(METADATA_ELEMENT_NAME);
+        // Nodes
+        writeIdMapping(METADATA_NODES_ELEMENT_NAME, graph.getNodesStream().collect(Collectors.toUnmodifiableList()), writer);
+        // Edges
+        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, graph.getEdgesStream().collect(Collectors.toUnmodifiableList()), writer);
+
+        writer.writeEndElement();
+    }
+
+    private void writeIdMapping(String rootElementName, List<Identifiable> identifiables, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(rootElementName);
+        for (Identifiable identifiable : identifiables) {
+            writer.writeEmptyElement(METADATA_ID_ELEMENT_NAME);
+            writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, identifiable.getDiagramId());
+            writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, identifiable.getEquipmentId());
+        }
         writer.writeEndElement();
     }
 
