@@ -11,11 +11,7 @@ import java.util.Optional;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public interface Node {
-
-    String getDiagramId();
-
-    String getEquipmentId();
+public interface Node extends Identifiable {
 
     void setPosition(Point point);
 
@@ -26,6 +22,4 @@ public interface Node {
     double getX();
 
     double getY();
-
-    Optional<String> getName();
 }

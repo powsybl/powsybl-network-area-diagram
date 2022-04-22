@@ -6,9 +6,16 @@
  */
 package com.powsybl.nad.model;
 
-/**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
- */
-public interface Edge extends Identifiable {
+import java.util.Optional;
 
+/**
+ * @author Thomas Adam <tadam at silicom.fr>
+ */
+public interface Identifiable {
+
+    String getDiagramId();
+
+    String getEquipmentId();
+
+    Optional<String> getName();
 }
