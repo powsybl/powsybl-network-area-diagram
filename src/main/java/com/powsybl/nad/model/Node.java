@@ -6,8 +6,6 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Optional;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
