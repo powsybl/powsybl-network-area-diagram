@@ -60,10 +60,14 @@ public abstract class AbstractTest {
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {
-        try (OutputStream fos = new FileOutputStream(new File(System.getProperty("user.home"), refFilename))) {
-            fos.write(svgString.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        File debugFolder = new File(System.getProperty("user.home"), ".powsybl");
+        if (debugFolder.exists() || debugFolder.mkdir()) {
+            File file = new File(debugFolder, refFilename);
+            try (OutputStream fos = new FileOutputStream(file)) {
+                fos.write(svgString.getBytes(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
         }
     }
 
