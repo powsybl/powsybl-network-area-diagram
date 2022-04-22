@@ -46,7 +46,40 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata>
+        <nodes>
+            <id diagram="0" equipment="BBE1AA1"/>
+            <id diagram="3" equipment="BBE2AA1"/>
+            <id diagram="5" equipment="DDE1AA1"/>
+            <id diagram="7" equipment="DDE2AA1"/>
+            <id diagram="9" equipment="DDE3AA1"/>
+            <id diagram="11" equipment="FFR1AA1"/>
+            <id diagram="14" equipment="FFR3AA1"/>
+            <id diagram="16" equipment="NNL1AA1"/>
+            <id diagram="18" equipment="NNL2AA1"/>
+            <id diagram="20" equipment="NNL3AA1"/>
+        </nodes>
+        <edges>
+            <id diagram="22" equipment="BBE1AA1  BBE2AA1  1"/>
+            <id diagram="23" equipment="BBE1AA1  BBE3AA1  1"/>
+            <id diagram="24" equipment="BBE1AA1  BBE3AA1  2"/>
+            <id diagram="25" equipment="BBE2AA1  BBE3AA1  1"/>
+            <id diagram="26" equipment="NNL2AA1  BBE3AA1  1"/>
+            <id diagram="27" equipment="BBE2AA1  FFR3AA1  1"/>
+            <id diagram="28" equipment="DDE1AA1  DDE2AA1  1"/>
+            <id diagram="29" equipment="DDE1AA1  DDE3AA1  1"/>
+            <id diagram="30" equipment="DDE2AA1  DDE3AA1  1"/>
+            <id diagram="31" equipment="DDE2AA1  NNL3AA1  1"/>
+            <id diagram="32" equipment="FFR2AA1  DDE3AA1  1"/>
+            <id diagram="33" equipment="FFR1AA1  FFR2AA1  1"/>
+            <id diagram="34" equipment="FFR1AA1  FFR3AA1  1"/>
+            <id diagram="35" equipment="FFR1AA1  FFR2AA1  2"/>
+            <id diagram="36" equipment="FFR2AA1  FFR3AA1  1"/>
+            <id diagram="37" equipment="NNL1AA1  NNL2AA1  1"/>
+            <id diagram="38" equipment="NNL1AA1  NNL3AA1  1"/>
+            <id diagram="39" equipment="NNL2AA1  NNL3AA1  1"/>
+        </edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

@@ -46,7 +46,22 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata>
+        <nodes>
+            <id diagram="0" equipment="S1VL1"/>
+            <id diagram="2" equipment="S1VL2"/>
+            <id diagram="4" equipment="S2VL1"/>
+            <id diagram="6" equipment="S3VL1"/>
+            <id diagram="8" equipment="S4VL1"/>
+        </nodes>
+        <edges>
+            <id diagram="10" equipment="TWT"/>
+            <id diagram="11" equipment="HVDC1"/>
+            <id diagram="12" equipment="HVDC2"/>
+            <id diagram="13" equipment="LINE_S2S3"/>
+            <id diagram="14" equipment="LINE_S3S4"/>
+        </edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

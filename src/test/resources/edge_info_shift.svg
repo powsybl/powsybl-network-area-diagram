@@ -46,7 +46,19 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata>
+        <nodes>
+            <id diagram="0" equipment="vl1"/>
+            <id diagram="3" equipment="vl2"/>
+            <id diagram="5" equipment="vl3"/>
+        </nodes>
+        <edges>
+            <id diagram="8" equipment="l1"/>
+            <id diagram="9" equipment="l2"/>
+            <id diagram="10" equipment="tr1"/>
+            <id diagram="11" equipment="tr2"/>
+        </edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

@@ -46,7 +46,46 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata>
+        <nodes>
+            <id diagram="0" equipment="VL1"/>
+            <id diagram="2" equipment="VL2"/>
+            <id diagram="4" equipment="VL3"/>
+            <id diagram="6" equipment="VL4"/>
+            <id diagram="8" equipment="VL5"/>
+            <id diagram="10" equipment="VL6"/>
+            <id diagram="12" equipment="VL7"/>
+            <id diagram="14" equipment="VL8"/>
+            <id diagram="16" equipment="VL9"/>
+            <id diagram="18" equipment="VL10"/>
+            <id diagram="20" equipment="VL11"/>
+            <id diagram="22" equipment="VL12"/>
+            <id diagram="24" equipment="VL13"/>
+            <id diagram="26" equipment="VL14"/>
+        </nodes>
+        <edges>
+            <id diagram="28" equipment="L1-2-1"/>
+            <id diagram="29" equipment="L1-5-1"/>
+            <id diagram="30" equipment="L2-3-1"/>
+            <id diagram="31" equipment="L2-4-1"/>
+            <id diagram="32" equipment="L2-5-1"/>
+            <id diagram="33" equipment="L3-4-1"/>
+            <id diagram="34" equipment="L4-5-1"/>
+            <id diagram="35" equipment="T4-7-1"/>
+            <id diagram="36" equipment="T4-9-1"/>
+            <id diagram="37" equipment="T5-6-1"/>
+            <id diagram="38" equipment="L6-11-1"/>
+            <id diagram="39" equipment="L6-12-1"/>
+            <id diagram="40" equipment="L6-13-1"/>
+            <id diagram="41" equipment="L7-8-1"/>
+            <id diagram="42" equipment="L7-9-1"/>
+            <id diagram="43" equipment="L9-10-1"/>
+            <id diagram="44" equipment="L9-14-1"/>
+            <id diagram="45" equipment="L10-11-1"/>
+            <id diagram="46" equipment="L12-13-1"/>
+            <id diagram="47" equipment="L13-14-1"/>
+        </edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

@@ -110,7 +110,68 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata>
+        <nodes>
+            <id diagram="0" equipment="VL23"/>
+            <id diagram="2" equipment="VL27"/>
+            <id diagram="4" equipment="VL30"/>
+            <id diagram="6" equipment="VL31"/>
+            <id diagram="8" equipment="VL32"/>
+            <id diagram="10" equipment="VL37"/>
+            <id diagram="12" equipment="VL38"/>
+            <id diagram="14" equipment="VL65"/>
+            <id diagram="16" equipment="VL113"/>
+            <id diagram="18" equipment="VL114"/>
+            <id diagram="20" equipment="VL22"/>
+            <id diagram="23" equipment="VL24"/>
+            <id diagram="26" equipment="VL25"/>
+            <id diagram="31" equipment="VL28"/>
+            <id diagram="35" equipment="VL115"/>
+            <id diagram="38" equipment="VL17"/>
+            <id diagram="41" equipment="VL8"/>
+            <id diagram="44" equipment="VL26"/>
+            <id diagram="49" equipment="VL29"/>
+            <id diagram="55" equipment="VL35"/>
+            <id diagram="58" equipment="VL33"/>
+            <id diagram="61" equipment="VL34"/>
+            <id diagram="65" equipment="VL39"/>
+            <id diagram="68" equipment="VL40"/>
+            <id diagram="72" equipment="VL64"/>
+            <id diagram="75" equipment="VL66"/>
+            <id diagram="78" equipment="VL68"/>
+        </nodes>
+        <edges>
+            <id diagram="22" equipment="L22-23-1"/>
+            <id diagram="25" equipment="L23-24-1"/>
+            <id diagram="28" equipment="L23-25-1"/>
+            <id diagram="29" equipment="L23-32-1"/>
+            <id diagram="30" equipment="L25-27-1"/>
+            <id diagram="33" equipment="L27-28-1"/>
+            <id diagram="34" equipment="L27-32-1"/>
+            <id diagram="37" equipment="L27-115-1"/>
+            <id diagram="40" equipment="T30-17-1"/>
+            <id diagram="43" equipment="L8-30-1"/>
+            <id diagram="46" equipment="L26-30-1"/>
+            <id diagram="47" equipment="L30-38-1"/>
+            <id diagram="48" equipment="L17-31-1"/>
+            <id diagram="51" equipment="L29-31-1"/>
+            <id diagram="52" equipment="L31-32-1"/>
+            <id diagram="53" equipment="L32-113-1"/>
+            <id diagram="54" equipment="L32-114-1"/>
+            <id diagram="57" equipment="L35-37-1"/>
+            <id diagram="60" equipment="L33-37-1"/>
+            <id diagram="63" equipment="L34-37-1"/>
+            <id diagram="64" equipment="T38-37-1"/>
+            <id diagram="67" equipment="L37-39-1"/>
+            <id diagram="70" equipment="L37-40-1"/>
+            <id diagram="71" equipment="L38-65-1"/>
+            <id diagram="74" equipment="L64-65-1"/>
+            <id diagram="77" equipment="T65-66-1"/>
+            <id diagram="80" equipment="L65-68-1"/>
+            <id diagram="81" equipment="L17-113-1"/>
+            <id diagram="82" equipment="L114-115-1"/>
+        </edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>
