@@ -48,70 +48,70 @@
 ]]></style>
     <metadata>
         <nodes>
-            <id diagram="0" equipment="VL1"/>
-            <id diagram="2" equipment="VL2"/>
-            <id diagram="4" equipment="VL3"/>
-            <id diagram="6" equipment="VL24"/>
-            <id diagram="8" equipment="VL4"/>
-            <id diagram="10" equipment="VL5"/>
-            <id diagram="12" equipment="VL9"/>
-            <id diagram="14" equipment="VL10"/>
-            <id diagram="16" equipment="VL11"/>
-            <id diagram="18" equipment="VL12"/>
-            <id diagram="20" equipment="VL6"/>
-            <id diagram="22" equipment="VL7"/>
-            <id diagram="24" equipment="VL8"/>
-            <id diagram="26" equipment="VL13"/>
-            <id diagram="28" equipment="VL14"/>
-            <id diagram="30" equipment="VL15"/>
-            <id diagram="32" equipment="VL16"/>
-            <id diagram="34" equipment="VL17"/>
-            <id diagram="36" equipment="VL18"/>
-            <id diagram="38" equipment="VL19"/>
-            <id diagram="40" equipment="VL20"/>
-            <id diagram="42" equipment="VL21"/>
-            <id diagram="44" equipment="VL22"/>
-            <id diagram="46" equipment="VL23"/>
+            <node diagramId="0" equipmentId="VL1"/>
+            <node diagramId="2" equipmentId="VL2"/>
+            <node diagramId="4" equipmentId="VL3"/>
+            <node diagramId="6" equipmentId="VL24"/>
+            <node diagramId="8" equipmentId="VL4"/>
+            <node diagramId="10" equipmentId="VL5"/>
+            <node diagramId="12" equipmentId="VL9"/>
+            <node diagramId="14" equipmentId="VL10"/>
+            <node diagramId="16" equipmentId="VL11"/>
+            <node diagramId="18" equipmentId="VL12"/>
+            <node diagramId="20" equipmentId="VL6"/>
+            <node diagramId="22" equipmentId="VL7"/>
+            <node diagramId="24" equipmentId="VL8"/>
+            <node diagramId="26" equipmentId="VL13"/>
+            <node diagramId="28" equipmentId="VL14"/>
+            <node diagramId="30" equipmentId="VL15"/>
+            <node diagramId="32" equipmentId="VL16"/>
+            <node diagramId="34" equipmentId="VL17"/>
+            <node diagramId="36" equipmentId="VL18"/>
+            <node diagramId="38" equipmentId="VL19"/>
+            <node diagramId="40" equipmentId="VL20"/>
+            <node diagramId="42" equipmentId="VL21"/>
+            <node diagramId="44" equipmentId="VL22"/>
+            <node diagramId="46" equipmentId="VL23"/>
         </nodes>
         <edges>
-            <id diagram="48" equipment="L-1-2-1 "/>
-            <id diagram="49" equipment="L-3-1-1 "/>
-            <id diagram="50" equipment="L-1-5-1 "/>
-            <id diagram="51" equipment="L-2-4-1 "/>
-            <id diagram="52" equipment="L-2-6-1 "/>
-            <id diagram="53" equipment="T-24-3-1 "/>
-            <id diagram="54" equipment="L-3-9-1 "/>
-            <id diagram="55" equipment="L-15-24-1 "/>
-            <id diagram="56" equipment="L-4-9-1 "/>
-            <id diagram="57" equipment="T-5-10-1 "/>
-            <id diagram="58" equipment="T-11-9-1 "/>
-            <id diagram="59" equipment="T-9-12-1 "/>
-            <id diagram="60" equipment="L-8-9-1 "/>
-            <id diagram="61" equipment="T-11-10-1 "/>
-            <id diagram="62" equipment="T-12-10-1 "/>
-            <id diagram="63" equipment="L-10-6-1 "/>
-            <id diagram="64" equipment="L-8-10-1 "/>
-            <id diagram="65" equipment="L-11-13-1 "/>
-            <id diagram="66" equipment="L-11-14-1 "/>
-            <id diagram="67" equipment="L-12-13-1 "/>
-            <id diagram="68" equipment="L-12-23-1 "/>
-            <id diagram="69" equipment="L-7-8-1 "/>
-            <id diagram="70" equipment="L-23-13-1 "/>
-            <id diagram="71" equipment="L-14-16-1 "/>
-            <id diagram="72" equipment="L-16-15-1 "/>
-            <id diagram="73" equipment="L-15-21-1 "/>
-            <id diagram="74" equipment="L-21-15-2 "/>
-            <id diagram="75" equipment="L-16-17-1 "/>
-            <id diagram="76" equipment="L-16-19-1 "/>
-            <id diagram="77" equipment="L-17-18-1 "/>
-            <id diagram="78" equipment="L-17-22-1 "/>
-            <id diagram="79" equipment="L-18-21-1 "/>
-            <id diagram="80" equipment="L-18-21-2 "/>
-            <id diagram="81" equipment="L-19-20-1 "/>
-            <id diagram="82" equipment="L-19-20-2 "/>
-            <id diagram="83" equipment="L-20-23-1 "/>
-            <id diagram="84" equipment="L-20-23-2 "/>
-            <id diagram="85" equipment="L-21-22-1 "/>
+            <edge diagramId="48" equipmentId="L-1-2-1 "/>
+            <edge diagramId="49" equipmentId="L-3-1-1 "/>
+            <edge diagramId="50" equipmentId="L-1-5-1 "/>
+            <edge diagramId="51" equipmentId="L-2-4-1 "/>
+            <edge diagramId="52" equipmentId="L-2-6-1 "/>
+            <edge diagramId="53" equipmentId="T-24-3-1 "/>
+            <edge diagramId="54" equipmentId="L-3-9-1 "/>
+            <edge diagramId="55" equipmentId="L-15-24-1 "/>
+            <edge diagramId="56" equipmentId="L-4-9-1 "/>
+            <edge diagramId="57" equipmentId="T-5-10-1 "/>
+            <edge diagramId="58" equipmentId="T-11-9-1 "/>
+            <edge diagramId="59" equipmentId="T-9-12-1 "/>
+            <edge diagramId="60" equipmentId="L-8-9-1 "/>
+            <edge diagramId="61" equipmentId="T-11-10-1 "/>
+            <edge diagramId="62" equipmentId="T-12-10-1 "/>
+            <edge diagramId="63" equipmentId="L-10-6-1 "/>
+            <edge diagramId="64" equipmentId="L-8-10-1 "/>
+            <edge diagramId="65" equipmentId="L-11-13-1 "/>
+            <edge diagramId="66" equipmentId="L-11-14-1 "/>
+            <edge diagramId="67" equipmentId="L-12-13-1 "/>
+            <edge diagramId="68" equipmentId="L-12-23-1 "/>
+            <edge diagramId="69" equipmentId="L-7-8-1 "/>
+            <edge diagramId="70" equipmentId="L-23-13-1 "/>
+            <edge diagramId="71" equipmentId="L-14-16-1 "/>
+            <edge diagramId="72" equipmentId="L-16-15-1 "/>
+            <edge diagramId="73" equipmentId="L-15-21-1 "/>
+            <edge diagramId="74" equipmentId="L-21-15-2 "/>
+            <edge diagramId="75" equipmentId="L-16-17-1 "/>
+            <edge diagramId="76" equipmentId="L-16-19-1 "/>
+            <edge diagramId="77" equipmentId="L-17-18-1 "/>
+            <edge diagramId="78" equipmentId="L-17-22-1 "/>
+            <edge diagramId="79" equipmentId="L-18-21-1 "/>
+            <edge diagramId="80" equipmentId="L-18-21-2 "/>
+            <edge diagramId="81" equipmentId="L-19-20-1 "/>
+            <edge diagramId="82" equipmentId="L-19-20-2 "/>
+            <edge diagramId="83" equipmentId="L-20-23-1 "/>
+            <edge diagramId="84" equipmentId="L-20-23-2 "/>
+            <edge diagramId="85" equipmentId="L-21-22-1 "/>
         </edges>
     </metadata>
     <defs>

@@ -48,12 +48,12 @@
 ]]></style>
     <metadata>
         <nodes>
-            <id diagram="0" equipment="vl1"/>
-            <id diagram="3" equipment="vl2"/>
+            <node diagramId="0" equipmentId="vl1"/>
+            <node diagramId="3" equipmentId="vl2"/>
         </nodes>
         <edges>
-            <id diagram="5" equipment="l1"/>
-            <id diagram="6" equipment="l2"/>
+            <edge diagramId="5" equipmentId="l1"/>
+            <edge diagramId="6" equipmentId="l2"/>
         </edges>
     </metadata>
     <defs>
