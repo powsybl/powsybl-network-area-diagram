@@ -35,8 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class GraphMetadataTest extends AbstractTest {
 
-    private static String METADATA_START_TOKEN = "<metadata>";
-    private static String METADATA_END_TOKEN = "</metadata>";
+    private static final String INDENT = "    ";
+    private static final String METADATA_START_TOKEN = "<nad:metadata";
+    private static final String METADATA_END_TOKEN = "</nad:metadata>";
 
     protected static FileSystem fileSystem;
     protected static Path tmpDir;
@@ -94,7 +95,7 @@ class GraphMetadataTest extends AbstractTest {
 
     private void writeMetadata(GraphMetadata metadata, Path outPath) throws XMLStreamException {
         try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(outPath))) {
-            XMLStreamWriter writer = XmlUtil.initializeWriter(true, "    ", os);
+            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, os);
             metadata.writeXml(writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);

@@ -46,22 +46,22 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata>
-        <nodes>
-            <node diagramId="0" equipmentId="S1VL1"/>
-            <node diagramId="2" equipmentId="S1VL2"/>
-            <node diagramId="4" equipmentId="S2VL1"/>
-            <node diagramId="6" equipmentId="S3VL1"/>
-            <node diagramId="8" equipmentId="S4VL1"/>
-        </nodes>
-        <edges>
-            <edge diagramId="10" equipmentId="TWT"/>
-            <edge diagramId="11" equipmentId="HVDC1"/>
-            <edge diagramId="12" equipmentId="HVDC2"/>
-            <edge diagramId="13" equipmentId="LINE_S2S3"/>
-            <edge diagramId="14" equipmentId="LINE_S3S4"/>
-        </edges>
-    </metadata>
+    <nad:metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:nodes>
+            <nad:node diagramId="0" equipmentId="S1VL1"/>
+            <nad:node diagramId="2" equipmentId="S1VL2"/>
+            <nad:node diagramId="4" equipmentId="S2VL1"/>
+            <nad:node diagramId="6" equipmentId="S3VL1"/>
+            <nad:node diagramId="8" equipmentId="S4VL1"/>
+        </nad:nodes>
+        <nad:edges>
+            <nad:edge diagramId="10" equipmentId="TWT"/>
+            <nad:edge diagramId="11" equipmentId="HVDC1"/>
+            <nad:edge diagramId="12" equipmentId="HVDC2"/>
+            <nad:edge diagramId="13" equipmentId="LINE_S2S3"/>
+            <nad:edge diagramId="14" equipmentId="LINE_S3S4"/>
+        </nad:edges>
+    </nad:metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

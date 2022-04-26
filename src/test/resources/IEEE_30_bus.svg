@@ -46,83 +46,83 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata>
-        <nodes>
-            <node diagramId="0" equipmentId="VL1"/>
-            <node diagramId="2" equipmentId="VL2"/>
-            <node diagramId="4" equipmentId="VL3"/>
-            <node diagramId="6" equipmentId="VL4"/>
-            <node diagramId="8" equipmentId="VL5"/>
-            <node diagramId="10" equipmentId="VL6"/>
-            <node diagramId="12" equipmentId="VL7"/>
-            <node diagramId="14" equipmentId="VL8"/>
-            <node diagramId="16" equipmentId="VL9"/>
-            <node diagramId="18" equipmentId="VL10"/>
-            <node diagramId="20" equipmentId="VL11"/>
-            <node diagramId="22" equipmentId="VL12"/>
-            <node diagramId="24" equipmentId="VL13"/>
-            <node diagramId="26" equipmentId="VL14"/>
-            <node diagramId="28" equipmentId="VL15"/>
-            <node diagramId="30" equipmentId="VL16"/>
-            <node diagramId="32" equipmentId="VL17"/>
-            <node diagramId="34" equipmentId="VL18"/>
-            <node diagramId="36" equipmentId="VL19"/>
-            <node diagramId="38" equipmentId="VL20"/>
-            <node diagramId="40" equipmentId="VL21"/>
-            <node diagramId="42" equipmentId="VL22"/>
-            <node diagramId="44" equipmentId="VL23"/>
-            <node diagramId="46" equipmentId="VL24"/>
-            <node diagramId="48" equipmentId="VL25"/>
-            <node diagramId="50" equipmentId="VL26"/>
-            <node diagramId="52" equipmentId="VL27"/>
-            <node diagramId="54" equipmentId="VL28"/>
-            <node diagramId="56" equipmentId="VL29"/>
-            <node diagramId="58" equipmentId="VL30"/>
-        </nodes>
-        <edges>
-            <edge diagramId="60" equipmentId="L1-2-1"/>
-            <edge diagramId="61" equipmentId="L1-3-1"/>
-            <edge diagramId="62" equipmentId="L2-4-1"/>
-            <edge diagramId="63" equipmentId="L2-5-1"/>
-            <edge diagramId="64" equipmentId="L2-6-1"/>
-            <edge diagramId="65" equipmentId="L3-4-1"/>
-            <edge diagramId="66" equipmentId="L4-6-1"/>
-            <edge diagramId="67" equipmentId="T4-12-1"/>
-            <edge diagramId="68" equipmentId="L5-7-1"/>
-            <edge diagramId="69" equipmentId="L6-7-1"/>
-            <edge diagramId="70" equipmentId="L6-8-1"/>
-            <edge diagramId="71" equipmentId="T6-9-1"/>
-            <edge diagramId="72" equipmentId="T6-10-1"/>
-            <edge diagramId="73" equipmentId="L6-28-1"/>
-            <edge diagramId="74" equipmentId="L8-28-1"/>
-            <edge diagramId="75" equipmentId="L9-11-1"/>
-            <edge diagramId="76" equipmentId="L9-10-1"/>
-            <edge diagramId="77" equipmentId="L10-20-1"/>
-            <edge diagramId="78" equipmentId="L10-17-1"/>
-            <edge diagramId="79" equipmentId="L10-21-1"/>
-            <edge diagramId="80" equipmentId="L10-22-1"/>
-            <edge diagramId="81" equipmentId="L12-13-1"/>
-            <edge diagramId="82" equipmentId="L12-14-1"/>
-            <edge diagramId="83" equipmentId="L12-15-1"/>
-            <edge diagramId="84" equipmentId="L12-16-1"/>
-            <edge diagramId="85" equipmentId="L14-15-1"/>
-            <edge diagramId="86" equipmentId="L15-18-1"/>
-            <edge diagramId="87" equipmentId="L15-23-1"/>
-            <edge diagramId="88" equipmentId="L16-17-1"/>
-            <edge diagramId="89" equipmentId="L18-19-1"/>
-            <edge diagramId="90" equipmentId="L19-20-1"/>
-            <edge diagramId="91" equipmentId="L21-22-1"/>
-            <edge diagramId="92" equipmentId="L22-24-1"/>
-            <edge diagramId="93" equipmentId="L23-24-1"/>
-            <edge diagramId="94" equipmentId="L24-25-1"/>
-            <edge diagramId="95" equipmentId="L25-26-1"/>
-            <edge diagramId="96" equipmentId="L25-27-1"/>
-            <edge diagramId="97" equipmentId="T28-27-1"/>
-            <edge diagramId="98" equipmentId="L27-29-1"/>
-            <edge diagramId="99" equipmentId="L27-30-1"/>
-            <edge diagramId="100" equipmentId="L29-30-1"/>
-        </edges>
-    </metadata>
+    <nad:metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:nodes>
+            <nad:node diagramId="0" equipmentId="VL1"/>
+            <nad:node diagramId="2" equipmentId="VL2"/>
+            <nad:node diagramId="4" equipmentId="VL3"/>
+            <nad:node diagramId="6" equipmentId="VL4"/>
+            <nad:node diagramId="8" equipmentId="VL5"/>
+            <nad:node diagramId="10" equipmentId="VL6"/>
+            <nad:node diagramId="12" equipmentId="VL7"/>
+            <nad:node diagramId="14" equipmentId="VL8"/>
+            <nad:node diagramId="16" equipmentId="VL9"/>
+            <nad:node diagramId="18" equipmentId="VL10"/>
+            <nad:node diagramId="20" equipmentId="VL11"/>
+            <nad:node diagramId="22" equipmentId="VL12"/>
+            <nad:node diagramId="24" equipmentId="VL13"/>
+            <nad:node diagramId="26" equipmentId="VL14"/>
+            <nad:node diagramId="28" equipmentId="VL15"/>
+            <nad:node diagramId="30" equipmentId="VL16"/>
+            <nad:node diagramId="32" equipmentId="VL17"/>
+            <nad:node diagramId="34" equipmentId="VL18"/>
+            <nad:node diagramId="36" equipmentId="VL19"/>
+            <nad:node diagramId="38" equipmentId="VL20"/>
+            <nad:node diagramId="40" equipmentId="VL21"/>
+            <nad:node diagramId="42" equipmentId="VL22"/>
+            <nad:node diagramId="44" equipmentId="VL23"/>
+            <nad:node diagramId="46" equipmentId="VL24"/>
+            <nad:node diagramId="48" equipmentId="VL25"/>
+            <nad:node diagramId="50" equipmentId="VL26"/>
+            <nad:node diagramId="52" equipmentId="VL27"/>
+            <nad:node diagramId="54" equipmentId="VL28"/>
+            <nad:node diagramId="56" equipmentId="VL29"/>
+            <nad:node diagramId="58" equipmentId="VL30"/>
+        </nad:nodes>
+        <nad:edges>
+            <nad:edge diagramId="60" equipmentId="L1-2-1"/>
+            <nad:edge diagramId="61" equipmentId="L1-3-1"/>
+            <nad:edge diagramId="62" equipmentId="L2-4-1"/>
+            <nad:edge diagramId="63" equipmentId="L2-5-1"/>
+            <nad:edge diagramId="64" equipmentId="L2-6-1"/>
+            <nad:edge diagramId="65" equipmentId="L3-4-1"/>
+            <nad:edge diagramId="66" equipmentId="L4-6-1"/>
+            <nad:edge diagramId="67" equipmentId="T4-12-1"/>
+            <nad:edge diagramId="68" equipmentId="L5-7-1"/>
+            <nad:edge diagramId="69" equipmentId="L6-7-1"/>
+            <nad:edge diagramId="70" equipmentId="L6-8-1"/>
+            <nad:edge diagramId="71" equipmentId="T6-9-1"/>
+            <nad:edge diagramId="72" equipmentId="T6-10-1"/>
+            <nad:edge diagramId="73" equipmentId="L6-28-1"/>
+            <nad:edge diagramId="74" equipmentId="L8-28-1"/>
+            <nad:edge diagramId="75" equipmentId="L9-11-1"/>
+            <nad:edge diagramId="76" equipmentId="L9-10-1"/>
+            <nad:edge diagramId="77" equipmentId="L10-20-1"/>
+            <nad:edge diagramId="78" equipmentId="L10-17-1"/>
+            <nad:edge diagramId="79" equipmentId="L10-21-1"/>
+            <nad:edge diagramId="80" equipmentId="L10-22-1"/>
+            <nad:edge diagramId="81" equipmentId="L12-13-1"/>
+            <nad:edge diagramId="82" equipmentId="L12-14-1"/>
+            <nad:edge diagramId="83" equipmentId="L12-15-1"/>
+            <nad:edge diagramId="84" equipmentId="L12-16-1"/>
+            <nad:edge diagramId="85" equipmentId="L14-15-1"/>
+            <nad:edge diagramId="86" equipmentId="L15-18-1"/>
+            <nad:edge diagramId="87" equipmentId="L15-23-1"/>
+            <nad:edge diagramId="88" equipmentId="L16-17-1"/>
+            <nad:edge diagramId="89" equipmentId="L18-19-1"/>
+            <nad:edge diagramId="90" equipmentId="L19-20-1"/>
+            <nad:edge diagramId="91" equipmentId="L21-22-1"/>
+            <nad:edge diagramId="92" equipmentId="L22-24-1"/>
+            <nad:edge diagramId="93" equipmentId="L23-24-1"/>
+            <nad:edge diagramId="94" equipmentId="L24-25-1"/>
+            <nad:edge diagramId="95" equipmentId="L25-26-1"/>
+            <nad:edge diagramId="96" equipmentId="L25-27-1"/>
+            <nad:edge diagramId="97" equipmentId="T28-27-1"/>
+            <nad:edge diagramId="98" equipmentId="L27-29-1"/>
+            <nad:edge diagramId="99" equipmentId="L27-30-1"/>
+            <nad:edge diagramId="100" equipmentId="L29-30-1"/>
+        </nad:edges>
+    </nad:metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

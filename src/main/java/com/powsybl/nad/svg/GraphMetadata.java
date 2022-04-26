@@ -25,6 +25,8 @@ import java.util.stream.Stream;
  */
 public class GraphMetadata {
 
+    private static final String METADATA_NAMESPACE_URI = "http://www.powsybl.org/schema/nad-metadata/1_0";
+    private static final String METADATA_PREFIX = "nad";
     private static final String METADATA_ELEMENT_NAME = "metadata";
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
@@ -92,7 +94,8 @@ public class GraphMetadata {
 
     public void writeXml(XMLStreamWriter writer) throws XMLStreamException {
         // Root element
-        writer.writeStartElement(METADATA_ELEMENT_NAME);
+        writer.writeStartElement(METADATA_PREFIX, METADATA_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+        writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
         // Nodes
         writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByEquipmentId, writer);
         // Edges
@@ -102,9 +105,9 @@ public class GraphMetadata {
     }
 
     private void writeIdMapping(String rootElementName, String tagElementName, Map<String, String> ids, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(rootElementName);
+        writer.writeStartElement(METADATA_PREFIX, rootElementName, METADATA_NAMESPACE_URI);
         for (Map.Entry<String, String> entry : ids.entrySet()) {
-            writer.writeEmptyElement(tagElementName);
+            writer.writeEmptyElement(METADATA_PREFIX, tagElementName, METADATA_NAMESPACE_URI);
             writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
             writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, entry.getValue());
         }
