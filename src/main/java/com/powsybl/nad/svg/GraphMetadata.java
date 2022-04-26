@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -33,9 +33,9 @@ public class GraphMetadata {
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Map<String, String> nodeIdByEquimentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> nodeIdByEquipmentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
-    private final Map<String, String> edgeIdByEquimentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> edgeIdByEquipmentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
     public GraphMetadata() {
         this(Collections.emptyList(), Collections.emptyList());
@@ -66,14 +66,14 @@ public class GraphMetadata {
                 case METADATA_NODES_ELEMENT_NAME:
                     XmlUtil.readUntilEndElement(token, reader, () -> {
                         if (reader.getLocalName().equals(METADATA_NODE_ELEMENT_NAME)) {
-                            parseId(metadata.nodeIdByEquimentId, reader);
+                            parseId(metadata.nodeIdByEquipmentId, reader);
                         }
                     });
                     break;
                 case METADATA_EDGES_ELEMENT_NAME:
                     XmlUtil.readUntilEndElement(token, reader, () -> {
                         if (reader.getLocalName().equals(METADATA_EDGE_ELEMENT_NAME)) {
-                            parseId(metadata.edgeIdByEquimentId, reader);
+                            parseId(metadata.edgeIdByEquipmentId, reader);
                         }
                     });
                     break;
@@ -94,9 +94,9 @@ public class GraphMetadata {
         // Root element
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         // Nodes
-        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByEquimentId, writer);
+        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByEquipmentId, writer);
         // Edges
-        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByEquimentId, writer);
+        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByEquipmentId, writer);
         // End root element
         writer.writeEndElement();
     }
@@ -113,11 +113,11 @@ public class GraphMetadata {
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
-        nodeIdByEquimentId.put(node.getDiagramId(), node.getEquipmentId());
+        nodeIdByEquipmentId.put(node.getDiagramId(), node.getEquipmentId());
     }
 
     public void addEdge(Edge edge) {
         Objects.requireNonNull(edge);
-        edgeIdByEquimentId.put(edge.getDiagramId(), edge.getEquipmentId());
+        edgeIdByEquipmentId.put(edge.getDiagramId(), edge.getEquipmentId());
     }
 }
