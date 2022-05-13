@@ -60,7 +60,7 @@ public abstract class AbstractTest {
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {
-        File debugFolder = new File(System.getProperty("user.home"), ".powsybl");
+        File debugFolder = new File(System.getProperty("user.home"), ".powsybl/debug-nad");
         if (debugFolder.exists() || debugFolder.mkdir()) {
             File file = new File(debugFolder, refFilename);
             try (OutputStream fos = new FileOutputStream(file)) {
