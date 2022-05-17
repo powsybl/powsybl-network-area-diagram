@@ -94,7 +94,7 @@ public class GraphMetadata {
 
     public void writeXml(XMLStreamWriter writer) throws XMLStreamException {
         // Root element
-        writer.writeStartElement(METADATA_PREFIX, METADATA_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+        writer.writeStartElement(METADATA_ELEMENT_NAME);
         writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
         // Nodes
         writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByDiagramId, writer);

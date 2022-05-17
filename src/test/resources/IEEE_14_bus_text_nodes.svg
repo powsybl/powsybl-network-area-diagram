@@ -46,7 +46,7 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <nad:metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
         <nad:nodes>
             <nad:node diagramId="0" equipmentId="VL1"/>
             <nad:node diagramId="2" equipmentId="VL2"/>
@@ -85,7 +85,7 @@
             <nad:edge diagramId="46" equipmentId="L12-13-1"/>
             <nad:edge diagramId="47" equipmentId="L13-14-1"/>
         </nad:edges>
-    </nad:metadata>
+    </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-3.85,-1.22)" id="0" class="nad-vl120to180">
             <desc>VL1</desc>

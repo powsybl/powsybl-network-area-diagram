@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GraphMetadataTest extends AbstractTest {
 
     private static final String INDENT = "    ";
-    private static final String METADATA_START_TOKEN = "<nad:metadata";
-    private static final String METADATA_END_TOKEN = "</nad:metadata>";
+    private static final String METADATA_START_TOKEN = "<metadata";
+    private static final String METADATA_END_TOKEN = "</metadata>";
 
     protected static FileSystem fileSystem;
     protected static Path tmpDir;
@@ -96,14 +96,14 @@ class GraphMetadataTest extends AbstractTest {
     @Test
     void testInvalid() throws XMLStreamException {
         // Referenced svg file
-        String reference = "<nad:metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+        String reference = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
                 "        <nad:nodes>\n" +
                 "            <nad:edge diagramId=\"10\" equipmentId=\"TWT\"/>\n" +
                 "        </nad:nodes>\n" +
                 "        <nad:edges>\n" +
                 "            <nad:node diagramId=\"0\" equipmentId=\"S1VL1\"/>\n" +
                 "        </nad:edges>\n" +
-                "    </nad:metadata>";
+                "    </metadata>";
         InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
         // Create Metadata from svg file
         GraphMetadata metadata = GraphMetadata.parseXml(in);
@@ -115,10 +115,10 @@ class GraphMetadataTest extends AbstractTest {
         // remove xml header (first line)
         actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
         // Keep only metadata from svg file
-        String expected = "<nad:metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+        String expected = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
                 "        <nad:nodes/>\n" +
                 "        <nad:edges/>\n" +
-                "    </nad:metadata>";
+                "    </metadata>";
         // Checking
         assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
     }
