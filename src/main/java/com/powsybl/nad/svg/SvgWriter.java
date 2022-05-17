@@ -31,7 +31,6 @@ public class SvgWriter {
     public static final String NAMESPACE_URI = "http://www.w3.org/2000/svg";
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
-    private static final String METADATA_ELEMENT_NAME = "metadata";
     private static final String DEFS_ELEMENT_NAME = "defs";
     private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
@@ -104,7 +103,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            addMetadata(writer);
+            addMetadata(graph, writer);
             addDefs(writer);
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
@@ -683,9 +682,9 @@ public class SvgWriter {
         }
     }
 
-    private void addMetadata(XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(METADATA_ELEMENT_NAME);
-        writer.writeEndElement();
+    private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        GraphMetadata metadata = new GraphMetadata(graph.getNodesStream(), graph.getEdgesStream());
+        metadata.writeXml(writer);
     }
 
     private void addDefs(XMLStreamWriter writer) throws XMLStreamException {

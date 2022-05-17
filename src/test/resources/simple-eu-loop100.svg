@@ -46,7 +46,40 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:nodes>
+            <nad:node diagramId="0" equipmentId="BBE1AA1"/>
+            <nad:node diagramId="3" equipmentId="BBE2AA1"/>
+            <nad:node diagramId="5" equipmentId="DDE1AA1"/>
+            <nad:node diagramId="7" equipmentId="DDE2AA1"/>
+            <nad:node diagramId="9" equipmentId="DDE3AA1"/>
+            <nad:node diagramId="11" equipmentId="FFR1AA1"/>
+            <nad:node diagramId="14" equipmentId="FFR3AA1"/>
+            <nad:node diagramId="16" equipmentId="NNL1AA1"/>
+            <nad:node diagramId="18" equipmentId="NNL2AA1"/>
+            <nad:node diagramId="20" equipmentId="NNL3AA1"/>
+        </nad:nodes>
+        <nad:edges>
+            <nad:edge diagramId="22" equipmentId="BBE1AA1  BBE2AA1  1"/>
+            <nad:edge diagramId="23" equipmentId="BBE1AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="24" equipmentId="BBE1AA1  BBE3AA1  2"/>
+            <nad:edge diagramId="25" equipmentId="BBE2AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="26" equipmentId="NNL2AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="27" equipmentId="BBE2AA1  FFR3AA1  1"/>
+            <nad:edge diagramId="28" equipmentId="DDE1AA1  DDE2AA1  1"/>
+            <nad:edge diagramId="29" equipmentId="DDE1AA1  DDE3AA1  1"/>
+            <nad:edge diagramId="30" equipmentId="DDE2AA1  DDE3AA1  1"/>
+            <nad:edge diagramId="31" equipmentId="DDE2AA1  NNL3AA1  1"/>
+            <nad:edge diagramId="32" equipmentId="FFR2AA1  DDE3AA1  1"/>
+            <nad:edge diagramId="33" equipmentId="FFR1AA1  FFR2AA1  1"/>
+            <nad:edge diagramId="34" equipmentId="FFR1AA1  FFR3AA1  1"/>
+            <nad:edge diagramId="35" equipmentId="FFR1AA1  FFR2AA1  2"/>
+            <nad:edge diagramId="36" equipmentId="FFR2AA1  FFR3AA1  1"/>
+            <nad:edge diagramId="37" equipmentId="NNL1AA1  NNL2AA1  1"/>
+            <nad:edge diagramId="38" equipmentId="NNL1AA1  NNL3AA1  1"/>
+            <nad:edge diagramId="39" equipmentId="NNL2AA1  NNL3AA1  1"/>
+        </nad:edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>

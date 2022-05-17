@@ -6,43 +6,20 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Objects;
-import java.util.Optional;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractNode implements Node {
+public abstract class AbstractNode extends AbstractIdentifiable implements Node {
 
-    private final String diagramId;
-    private final String equipmentId;
-    private final String name;
     private int width;
     private int height;
     private Point position;
 
     protected AbstractNode(String diagramId, String equipmentId, String name) {
-        this.diagramId = Objects.requireNonNull(diagramId);
-        this.equipmentId = equipmentId;
-        this.name = name;
+        super(diagramId, equipmentId, name);
         position = new Point();
         width = 0;
         height = 0;
-    }
-
-    @Override
-    public String getDiagramId() {
-        return diagramId;
-    }
-
-    @Override
-    public String getEquipmentId() {
-        return equipmentId;
-    }
-
-    @Override
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
     }
 
     @Override

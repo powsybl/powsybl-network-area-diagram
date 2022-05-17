@@ -6,36 +6,13 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.*;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractEdge implements Edge {
-
-    private final String diagramId;
-    private final String equipmentId;
-    private final String name;
+public abstract class AbstractEdge extends AbstractIdentifiable implements Edge {
 
     protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
-        this.diagramId = Objects.requireNonNull(diagramId);
-        this.equipmentId = equipmentId;
-        this.name = nameOrId;
-    }
-
-    @Override
-    public String getDiagramId() {
-        return diagramId;
-    }
-
-    @Override
-    public String getEquipmentId() {
-        return equipmentId;
-    }
-
-    @Override
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
+        super(diagramId, equipmentId, nameOrId);
     }
 
     protected double getAngle(Point point0, Point point1) {

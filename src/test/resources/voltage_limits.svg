@@ -46,7 +46,16 @@
   40% {stroke: #00BCD4; stroke-width: 0.15}
 }
 ]]></style>
-    <metadata></metadata>
+    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:nodes>
+            <nad:node diagramId="0" equipmentId="vl1"/>
+            <nad:node diagramId="3" equipmentId="vl2"/>
+        </nad:nodes>
+        <nad:edges>
+            <nad:edge diagramId="5" equipmentId="l1"/>
+            <nad:edge diagramId="6" equipmentId="l2"/>
+        </nad:edges>
+    </metadata>
     <defs>
         <filter id="textBgFilter" x="0" y="0" width="1" height="1">
             <feFlood class="nad-text-background"/>
