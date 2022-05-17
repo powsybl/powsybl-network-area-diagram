@@ -35,9 +35,9 @@ public class GraphMetadata {
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Map<String, String> nodeIdByEquipmentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> nodeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
-    private final Map<String, String> edgeIdByEquipmentId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
     public GraphMetadata() {
         this(Collections.emptyList(), Collections.emptyList());
@@ -68,14 +68,14 @@ public class GraphMetadata {
                 case METADATA_NODES_ELEMENT_NAME:
                     XmlUtil.readUntilEndElement(token, reader, () -> {
                         if (reader.getLocalName().equals(METADATA_NODE_ELEMENT_NAME)) {
-                            parseId(metadata.nodeIdByEquipmentId, reader);
+                            parseId(metadata.nodeIdByDiagramId, reader);
                         }
                     });
                     break;
                 case METADATA_EDGES_ELEMENT_NAME:
                     XmlUtil.readUntilEndElement(token, reader, () -> {
                         if (reader.getLocalName().equals(METADATA_EDGE_ELEMENT_NAME)) {
-                            parseId(metadata.edgeIdByEquipmentId, reader);
+                            parseId(metadata.edgeIdByDiagramId, reader);
                         }
                     });
                     break;
@@ -97,9 +97,9 @@ public class GraphMetadata {
         writer.writeStartElement(METADATA_PREFIX, METADATA_ELEMENT_NAME, METADATA_NAMESPACE_URI);
         writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
         // Nodes
-        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByEquipmentId, writer);
+        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByDiagramId, writer);
         // Edges
-        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByEquipmentId, writer);
+        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByDiagramId, writer);
         // End root element
         writer.writeEndElement();
     }
@@ -116,11 +116,11 @@ public class GraphMetadata {
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
-        nodeIdByEquipmentId.put(node.getDiagramId(), node.getEquipmentId());
+        nodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());
     }
 
     public void addEdge(Edge edge) {
         Objects.requireNonNull(edge);
-        edgeIdByEquipmentId.put(edge.getDiagramId(), edge.getEquipmentId());
+        edgeIdByDiagramId.put(edge.getDiagramId(), edge.getEquipmentId());
     }
 }
