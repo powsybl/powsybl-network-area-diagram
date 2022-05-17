@@ -93,6 +93,36 @@ class GraphMetadataTest extends AbstractTest {
         assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
     }
 
+    @Test
+    void testInvalid() throws XMLStreamException {
+        // Referenced svg file
+        String reference = "<nad:metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+                "        <nad:nodes>\n" +
+                "            <nad:edge diagramId=\"10\" equipmentId=\"TWT\"/>\n" +
+                "        </nad:nodes>\n" +
+                "        <nad:edges>\n" +
+                "            <nad:node diagramId=\"0\" equipmentId=\"S1VL1\"/>\n" +
+                "        </nad:edges>\n" +
+                "    </nad:metadata>";
+        InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
+        // Create Metadata from svg file
+        GraphMetadata metadata = GraphMetadata.parseXml(in);
+        // Write Metadata as temporary xml file
+        Path outPath = tmpDir.resolve("metadataInvalid.xml");
+        writeMetadata(metadata, outPath);
+        // Read xml file
+        String actual = toString(outPath);
+        // remove xml header (first line)
+        actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
+        // Keep only metadata from svg file
+        String expected = "<nad:metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+                "        <nad:nodes/>\n" +
+                "        <nad:edges/>\n" +
+                "    </nad:metadata>";
+        // Checking
+        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
+    }
+
     private void writeMetadata(GraphMetadata metadata, Path outPath) throws XMLStreamException {
         try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(outPath))) {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, os);

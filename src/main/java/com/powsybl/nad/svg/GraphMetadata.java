@@ -105,13 +105,17 @@ public class GraphMetadata {
     }
 
     private void writeIdMapping(String rootElementName, String tagElementName, Map<String, String> ids, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(METADATA_PREFIX, rootElementName, METADATA_NAMESPACE_URI);
-        for (Map.Entry<String, String> entry : ids.entrySet()) {
-            writer.writeEmptyElement(METADATA_PREFIX, tagElementName, METADATA_NAMESPACE_URI);
-            writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
-            writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, entry.getValue());
+        if (ids.entrySet().isEmpty()) {
+            writer.writeEmptyElement(METADATA_PREFIX, rootElementName, METADATA_NAMESPACE_URI);
+        } else {
+            writer.writeStartElement(METADATA_PREFIX, rootElementName, METADATA_NAMESPACE_URI);
+            for (Map.Entry<String, String> entry : ids.entrySet()) {
+                writer.writeEmptyElement(METADATA_PREFIX, tagElementName, METADATA_NAMESPACE_URI);
+                writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
+                writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, entry.getValue());
+            }
+            writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     public void addNode(Node node) {
