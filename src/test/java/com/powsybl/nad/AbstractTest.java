@@ -21,6 +21,8 @@ import com.powsybl.nad.svg.SvgWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -60,24 +62,25 @@ public abstract class AbstractTest {
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {
-        File debugFolder = new File(System.getProperty("user.home"), ".powsybl");
-        if (debugFolder.exists() || debugFolder.mkdir()) {
-            File file = new File(debugFolder, refFilename);
-            try (OutputStream fos = new FileOutputStream(file)) {
-                fos.write(svgString.getBytes(StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
+        Path debugFolder = Path.of(System.getProperty("user.home"), ".powsybl", "debug-nad");
+        try {
+            Files.createDirectories(debugFolder);
+            Path debugFile = debugFolder.resolve(refFilename.startsWith("/") ? refFilename.substring(1) : refFilename);
+            try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
+                bw.write(normalizeLineSeparator(svgString));
             }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
     private void overrideTestReference(String filename, String svgString) {
-        File testReference = new File("src/test/resources", filename);
-        if (!testReference.exists()) {
+        Path testReference = Path.of("src", "test", "resources", filename);
+        if (!Files.exists(testReference)) {
             return;
         }
-        try (OutputStream os = new FileOutputStream(testReference)) {
-            os.write(svgString.getBytes(StandardCharsets.UTF_8));
+        try (BufferedWriter bw = Files.newBufferedWriter(testReference, StandardCharsets.UTF_8)) {
+            bw.write(normalizeLineSeparator(svgString));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
