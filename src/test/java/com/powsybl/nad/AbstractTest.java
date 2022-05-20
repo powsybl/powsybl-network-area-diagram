@@ -63,16 +63,12 @@ public abstract class AbstractTest {
 
     private void writeToHomeDir(String refFilename, String svgString) {
         Path debugFolder = Path.of(System.getProperty("user.home"), ".powsybl", "debug-nad");
-        if (!Files.exists(debugFolder)) {
-            try {
-                Files.createDirectories(debugFolder);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
+        try {
+            Files.createDirectories(debugFolder);
+            Path debugFile = debugFolder.resolve(refFilename.startsWith("/") ? refFilename.substring(1) : refFilename);
+            try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
+                bw.write(normalizeLineSeparator(svgString));
             }
-        }
-        Path debugFile = Path.of(debugFolder.toString(), refFilename);
-        try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
-            bw.write(normalizeLineSeparator(svgString));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
