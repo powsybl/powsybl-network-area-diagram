@@ -17,6 +17,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,22 +36,27 @@ public class GraphMetadata {
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Map<String, String> nodeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> nodeIdByDiagramId = new LinkedHashMap<>();
 
-    private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
+
+    private final Optional<UnaryOperator<String>> diagramIdFunction;
 
     public GraphMetadata() {
-        this(Collections.emptyList(), Collections.emptyList());
+        this(Collections.emptyList(), Collections.emptyList(), null);
     }
 
     public GraphMetadata(Stream<Node> nodes,
-                         Stream<Edge> edges) {
-        this(nodes.collect(Collectors.toUnmodifiableList()), edges.collect(Collectors.toUnmodifiableList()));
+                         Stream<Edge> edges,
+                         UnaryOperator<String> diagramIdFunction) {
+        this(nodes.collect(Collectors.toUnmodifiableList()), edges.collect(Collectors.toUnmodifiableList()), diagramIdFunction);
     }
 
     public GraphMetadata(List<Node> nodes,
-                         List<Edge> edges) {
+                         List<Edge> edges,
+                         UnaryOperator<String> diagramIdFunction) {
 
+        this.diagramIdFunction = Optional.ofNullable(diagramIdFunction);
         nodes.forEach(this::addNode);
         edges.forEach(this::addEdge);
     }
@@ -120,11 +126,19 @@ public class GraphMetadata {
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
-        nodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());
+        String svgId = node.getDiagramId();
+        if (diagramIdFunction.isPresent()) {
+            svgId = diagramIdFunction.get().apply(svgId);
+        }
+        nodeIdByDiagramId.put(svgId, node.getEquipmentId());
     }
 
     public void addEdge(Edge edge) {
         Objects.requireNonNull(edge);
-        edgeIdByDiagramId.put(edge.getDiagramId(), edge.getEquipmentId());
+        String svgId = edge.getDiagramId();
+        if (diagramIdFunction.isPresent()) {
+            svgId = diagramIdFunction.get().apply(svgId);
+        }
+        edgeIdByDiagramId.put(svgId, edge.getEquipmentId());
     }
 }
