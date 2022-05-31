@@ -660,7 +660,7 @@ public class SvgWriter {
     }
 
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        GraphMetadata metadata = new GraphMetadata(graph.getNodesStream(), graph.getEdgesStream());
+        GraphMetadata metadata = new GraphMetadata(graph.getBusNodesStream(), graph.getNodesStream(), graph.getEdgesStream());
         metadata.writeXml(writer);
     }
 
