@@ -125,10 +125,4 @@ class NominalVoltageStyleTest extends AbstractTest {
         Network network = FourSubstationsNodeBreakerFactory.create();
         assertEquals(toString("/hvdc.svg"), generateSvgString(network, "/hvdc.svg"));
     }
-
-    @Test
-    void testSvgPrefix() {
-        Network network = IeeeCdfNetworkFactory.create14();
-        getSvgParameters().setSvgPrefix("IEEE_14_");
-    }
 }
