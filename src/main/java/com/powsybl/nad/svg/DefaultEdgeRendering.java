@@ -44,8 +44,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
-        edge.setPoints1(edgeStart1, middle);
-        edge.setPoints2(edgeStart2, middle);
+        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
+            double radius = svgParameters.getTransformerCircleRadius();
+            edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
+            edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
+        } else {
+            edge.setPoints1(edgeStart1, middle);
+            edge.setPoints2(edgeStart2, middle);
+        }
     }
 
     private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {

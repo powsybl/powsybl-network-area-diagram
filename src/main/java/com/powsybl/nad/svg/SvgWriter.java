@@ -385,10 +385,10 @@ public class SvgWriter {
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-        Point point1 = half.get(half.size() - 1); // point in the middle
-        Point point2 = half.get(half.size() - 2); // point before
+        Point point1 = half.get(half.size() - 1); // point near 2wt
+        Point point2 = half.get(half.size() - 2); // point near voltage level
         double radius = svgParameters.getTransformerCircleRadius();
-        Point circleCenter = point1.atDistance(radius / 2, point2);
+        Point circleCenter = point1.atDistance(-1 * radius, point2);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
