@@ -18,8 +18,6 @@ import javax.xml.stream.XMLStreamWriter;
 
 import java.io.InputStream;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -45,21 +43,6 @@ public class GraphMetadata {
     private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
     public GraphMetadata() {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
-    }
-
-    public GraphMetadata(Stream<BusNode> busNodes,
-                         Stream<Node> nodes,
-                         Stream<Edge> edges) {
-        this(busNodes.collect(Collectors.toUnmodifiableList()), nodes.collect(Collectors.toUnmodifiableList()), edges.collect(Collectors.toUnmodifiableList()));
-    }
-
-    public GraphMetadata(List<BusNode> busNodes,
-                         List<Node> nodes,
-                         List<Edge> edges) {
-        busNodes.forEach(this::addBusNode);
-        nodes.forEach(this::addNode);
-        edges.forEach(this::addEdge);
     }
 
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
@@ -132,6 +115,18 @@ public class GraphMetadata {
             }
             writer.writeEndElement();
         }
+    }
+
+    public void addBusNodes(List<BusNode> busNodes) {
+        busNodes.forEach(this::addBusNode);
+    }
+
+    public void addNodes(List<Node> nodes) {
+        nodes.forEach(this::addNode);
+    }
+
+    public void addEdges(List<Edge> edges) {
+        edges.forEach(this::addEdge);
     }
 
     public void addBusNode(BusNode node) {
