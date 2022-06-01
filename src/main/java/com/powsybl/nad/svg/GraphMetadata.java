@@ -42,9 +42,6 @@ public class GraphMetadata {
 
     private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
 
-    public GraphMetadata() {
-    }
-
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
         return parseXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
     }
