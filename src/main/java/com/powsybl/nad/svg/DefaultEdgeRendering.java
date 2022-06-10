@@ -100,24 +100,26 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 double alpha = -forkAperture / 2 + i * angleStep;
                 double angleForkA = angle - alpha;
                 double angleForkB = angle + Math.PI + alpha;
+
                 Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
                 Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
                 Point middle = Point.createMiddlePoint(forkA, forkB);
-
                 BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-                BranchEdge.Side sideB = sideA.getOpposite();
 
-                Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
-                Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
-
-                Point edgeStartA = computeEdgeStart(busNodeA, forkA, nodeA, svgParameters);
-                edge.setPoints(sideA, edgeStartA, forkA, middle);
-
-                Point edgeStartB = computeEdgeStart(busNodeB, forkB, nodeB, svgParameters);
-                edge.setPoints(sideB, edgeStartB, forkB, middle);
+                computeHalfForkCoordinates(graph, svgParameters, nodeA, edge, forkA, middle, sideA);
+                computeHalfForkCoordinates(graph, svgParameters, nodeB, edge, forkB, middle, sideA.getOpposite());
             }
             i++;
         }
+    }
+
+    private void computeHalfForkCoordinates(Graph graph, SvgParameters svgParameters, VoltageLevelNode node, BranchEdge edge, Point fork, Point middle, BranchEdge.Side side) {
+        Node busNodeA = side == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
+        Point edgeStart = computeEdgeStart(busNodeA, fork, node, svgParameters);
+        Point endFork = edge.getType().equals(BranchEdge.TWO_WT_EDGE)
+                ? middle.atDistance(1.5 * svgParameters.getTransformerCircleRadius(), fork)
+                : middle;
+        edge.setPoints(side, edgeStart, fork, endFork);
     }
 
     private void loopEdgesLayout(Graph graph, VoltageLevelNode node, List<BranchEdge> loopEdges, SvgParameters svgParameters) {
