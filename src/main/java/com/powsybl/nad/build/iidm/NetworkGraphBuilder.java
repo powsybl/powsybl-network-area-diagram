@@ -14,58 +14,66 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class NetworkGraphBuilder implements GraphBuilder {
 
-    private final Network network;
+    private final Graph graph;
     private final IdProvider idProvider;
-    private final Predicate<VoltageLevel> voltageLevelFilter;
+    private final Iterable<VoltageLevel> voltageLevels;
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, IdProvider idProvider) {
-        this.network = Objects.requireNonNull(network);
-        this.voltageLevelFilter = voltageLevelFilter;
+    public NetworkGraphBuilder(Iterable<VoltageLevel> voltageLevels) {
+        this(voltageLevels, new IntIdProvider());
+    }
+
+    public NetworkGraphBuilder(Iterable<VoltageLevel> voltageLevels, IdProvider idProvider) {
+        this(voltageLevels, idProvider, new Graph());
+    }
+
+    public NetworkGraphBuilder(Iterable<VoltageLevel> voltageLevels, IdProvider idProvider, Graph existingGraph) {
+        this.graph = Objects.requireNonNull(existingGraph);
+        this.voltageLevels = Objects.requireNonNull(voltageLevels);
         this.idProvider = Objects.requireNonNull(idProvider);
-    }
-
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        this(network, voltageLevelFilter, new IntIdProvider());
-    }
-
-    public NetworkGraphBuilder(Network network) {
-        this(network, VoltageLevelFilter.NO_FILTER, new IntIdProvider());
     }
 
     @Override
     public Graph buildGraph() {
-        Graph graph = new Graph();
         addGraphNodes(graph);
         addGraphEdges(graph);
         return graph;
     }
 
     private void addGraphNodes(Graph graph) {
-        network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> createVoltageLevelNode(vl, graph, true));
+        voltageLevels.forEach(vl -> createVoltageLevelNode(vl, graph, true));
     }
 
     private void addGraphEdges(Graph graph) {
-        network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .forEach(vl -> vl.visitEquipments(new VisitorBuilder(graph)));
+        voltageLevels.forEach(vl -> vl.visitEquipments(new VisitorBuilder(graph)));
     }
 
     private VoltageLevelNode createVoltageLevelNode(VoltageLevel vl, Graph graph, boolean visible) {
-        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
-        vl.getBusView().getBusStream()
-                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
-                .forEach(vlNode::addBusNode);
-        graph.addNode(vlNode);
-        if (visible) {
-            graph.addTextNode(vlNode);
+        VoltageLevelNode vlNode;
+        Optional<VoltageLevelNode> oVl = graph.getVoltageLevelNode(vl.getId());
+        if (oVl.isPresent()) {
+            vlNode = oVl.get();
+            if (!vlNode.isVisible() && visible) {
+                vlNode.setVisible(true);
+                graph.addTextNode(vlNode);
+            }
+        } else {
+            vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
+            vl.getBusView().getBusStream()
+                    .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
+                    .forEach(vlNode::addBusNode);
+            graph.addNode(vlNode);
+            if (visible) {
+                graph.addTextNode(vlNode);
+            }
         }
         return vlNode;
     }

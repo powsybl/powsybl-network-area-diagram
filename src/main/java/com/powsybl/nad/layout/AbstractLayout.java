@@ -33,8 +33,8 @@ public abstract class AbstractLayout implements Layout {
     }
 
     private void setEdgeVisibility(Node node, BranchEdge branchEdge, BranchEdge.Side side) {
-        if (node instanceof VoltageLevelNode && !((VoltageLevelNode) node).isVisible()) {
-            branchEdge.setVisible(side, false);
+        if (node instanceof VoltageLevelNode) {
+            branchEdge.setVisible(side, ((VoltageLevelNode) node).isVisible());
         }
     }
 

@@ -9,6 +9,7 @@ package com.powsybl.nad;
 import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
@@ -23,8 +24,10 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -47,7 +50,8 @@ public abstract class AbstractTest {
     }
 
     protected String generateSvgString(Network network, Predicate<VoltageLevel> voltageLevelFilter, String refFilename) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
+        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream().filter(voltageLevelFilter).collect(Collectors.toList());
+        Graph graph = new NetworkGraphBuilder(voltageLevels).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);

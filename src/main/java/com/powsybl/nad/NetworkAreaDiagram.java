@@ -28,6 +28,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -35,7 +36,20 @@ import java.util.function.Predicate;
 public class NetworkAreaDiagram {
 
     private final Network network;
-    private final Predicate<VoltageLevel> voltageLevelFilter;
+    private Predicate<VoltageLevel> voltageLevelFilter;
+
+    private Graph graph = new Graph();
+
+    private final SvgParameters svgParameters;
+
+    private final LayoutParameters layoutParameters;
+
+    private final StyleProvider styleProvider;
+
+    private final LabelProvider labelProvider;
+
+    private final LayoutFactory layoutFactory;
+    private final IdProvider idProvider;
 
     public NetworkAreaDiagram(Network network) {
         this(network, VoltageLevelFilter.NO_FILTER);
@@ -54,90 +68,87 @@ public class NetworkAreaDiagram {
     }
 
     public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
+        this(network, voltageLevelFilter, new SvgParameters());
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters) {
+        this(network, voltageLevelFilter, svgParameters, new LayoutParameters());
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters, LayoutParameters layoutParameters) {
+        this(network, voltageLevelFilter, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters, LayoutParameters layoutParameters,
+                              StyleProvider styleProvider) {
+        this(network, voltageLevelFilter, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters, LayoutParameters layoutParameters,
+                              StyleProvider styleProvider, LabelProvider labelProvider) {
+        this(network, voltageLevelFilter, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters, LayoutParameters layoutParameters,
+                              StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
+        this(network, voltageLevelFilter, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
+    }
+
+    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter,
+                              SvgParameters svgParameters, LayoutParameters layoutParameters,
+                              StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
+                              IdProvider idProvider) {
         this.network = Objects.requireNonNull(network);
         this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
+        this.layoutParameters = Objects.requireNonNull(layoutParameters);
+        this.svgParameters = Objects.requireNonNull(svgParameters);
+        this.styleProvider = Objects.requireNonNull(styleProvider);
+        this.labelProvider = Objects.requireNonNull(labelProvider);
+        this.layoutFactory = Objects.requireNonNull(layoutFactory);
+        this.idProvider = Objects.requireNonNull(idProvider);
+    }
+
+    public NetworkAreaDiagram addVoltageLevels(String voltageLevelId, int depth) {
+        return addVoltageLevels(VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+    }
+
+    public NetworkAreaDiagram addVoltageLevels(List<String> voltageLevelIds, int depth) {
+        return addVoltageLevels(VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+    }
+
+    public NetworkAreaDiagram addVoltageLevels(Predicate<VoltageLevel> voltageLevelFilter) {
+        this.voltageLevelFilter = this.voltageLevelFilter.or(Objects.requireNonNull(voltageLevelFilter));
+        return this;
+    }
+
+    public void draw(String svgFile) {
+        draw(Path.of(svgFile));
     }
 
     public void draw(Path svgFile) {
-        draw(svgFile, new SvgParameters());
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters) {
-        draw(svgFile, svgParameters, new LayoutParameters());
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(svgFile, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
-    }
-
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
-                                   IdProvider idProvider) {
         Objects.requireNonNull(svgFile);
-        Objects.requireNonNull(layoutParameters);
-        Objects.requireNonNull(svgParameters);
-        Objects.requireNonNull(styleProvider);
-        Objects.requireNonNull(layoutFactory);
-        Objects.requireNonNull(idProvider);
 
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream().filter(voltageLevelFilter).collect(Collectors.toList());
+        graph = new NetworkGraphBuilder(voltageLevels, idProvider, graph).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
     }
 
     public void draw(Writer writer) {
-        draw(writer, new SvgParameters());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters) {
-        draw(writer, svgParameters, new LayoutParameters());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(writer, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
-                     IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream().filter(voltageLevelFilter).collect(Collectors.toList());
+        graph = new NetworkGraphBuilder(voltageLevels, idProvider, graph).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, writer);
     }
 
-    public String drawToString(SvgParameters svgParameters) {
+    public String drawToString() {
         try (StringWriter writer = new StringWriter()) {
-            draw(writer, svgParameters);
+            draw(writer);
             return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);

@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Optional;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -17,7 +19,6 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     protected AbstractNode(String diagramId, String equipmentId, String name) {
         super(diagramId, equipmentId, name);
-        position = new Point();
         width = 0;
         height = 0;
     }
@@ -34,7 +35,12 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     @Override
     public Point getPosition() {
-        return position;
+        return position == null ? Point.ORIGIN : position;
+    }
+
+    @Override
+    public Optional<Point> getOptionalPosition() {
+        return Optional.ofNullable(position);
     }
 
     @Override

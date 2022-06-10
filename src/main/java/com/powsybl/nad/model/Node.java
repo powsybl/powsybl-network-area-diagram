@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Optional;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -14,6 +16,8 @@ public interface Node extends Identifiable {
     void setPosition(Point point);
 
     Point getPosition();
+
+    Optional<Point> getOptionalPosition();
 
     void setPosition(double x, double y);
 
