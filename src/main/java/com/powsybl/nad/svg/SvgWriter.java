@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -211,21 +212,8 @@ public class SvgWriter {
     }
 
     private String getLoopPathString(BranchEdge edge, BranchEdge.Side side) {
-        List<Point> points = edge.getPoints(side);
-        double edgeStartAngle = edge.getEdgeStartAngle(side);
-        double controlsDist = svgParameters.getLoopControlDistance();
-        Point control1 = points.get(1).atDistance(controlsDist, edgeStartAngle);
-
-        double angleCenterLoop = edgeStartAngle + (side == BranchEdge.Side.ONE ? 1 : -1) * svgParameters.getLoopEdgesAperture() / 2;
-        double control2Angle = angleCenterLoop + (side == BranchEdge.Side.ONE ? -1 : 1) * Math.PI / 2;
-        Point control2 = points.get(2).atDistance(controlsDist, control2Angle);
-
-        return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f",
-                points.get(0).getX(), points.get(0).getY(),
-                points.get(1).getX(), points.get(1).getY(),
-                control1.getX(), control1.getY(),
-                control2.getX(), control2.getY(),
-                points.get(2).getX(), points.get(2).getY());
+        Object[] points = edge.getPoints(side).stream().flatMap(p -> Stream.of(p.getX(), p.getY())).toArray();
+        return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f", points);
     }
 
     private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
@@ -386,9 +374,9 @@ public class SvgWriter {
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         Point point1 = half.get(half.size() - 1); // point near 2wt
-        Point point2 = half.get(half.size() - 2); // point near voltage level
+        Point point2 = half.get(half.size() - 2); // point near voltage level, or control point for loops
         double radius = svgParameters.getTransformerCircleRadius();
-        Point circleCenter = point1.atDistance(-1 * radius, point2);
+        Point circleCenter = point1.atDistance(-radius, point2);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));

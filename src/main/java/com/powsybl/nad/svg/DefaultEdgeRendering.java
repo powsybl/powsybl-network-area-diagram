@@ -122,24 +122,32 @@ public class DefaultEdgeRendering implements EdgeRendering {
 
     private void loopEdgesLayout(Graph graph, VoltageLevelNode node, List<BranchEdge> loopEdges, SvgParameters svgParameters) {
         List<Double> angles = computeLoopAngles(graph, loopEdges, node, svgParameters);
-
         int i = 0;
-        Point nodePoint = node.getPosition();
         for (BranchEdge edge : loopEdges) {
             double angle = angles.get(i++);
-            Point middle = nodePoint.atDistance(svgParameters.getLoopDistance(), angle);
-            Point fork1 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle - svgParameters.getLoopEdgesAperture() / 2);
-            Point fork2 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle + svgParameters.getLoopEdgesAperture() / 2);
-
-            Node busNode1 = graph.getBusGraphNode1(edge);
-            Node busNode2 = graph.getBusGraphNode2(edge);
-
-            Point edgeStart1 = computeEdgeStart(busNode1, fork1, node, svgParameters);
-            edge.setPoints(BranchEdge.Side.ONE, edgeStart1, fork1, middle);
-
-            Point edgeStart2 = computeEdgeStart(busNode2, fork2, node, svgParameters);
-            edge.setPoints(BranchEdge.Side.TWO, edgeStart2, fork2, middle);
+            Point middle = node.getPosition().atDistance(svgParameters.getLoopDistance(), angle);
+            loopEdgesHalfLayout(graph, node, svgParameters, edge, BranchEdge.Side.ONE, angle, middle);
+            loopEdgesHalfLayout(graph, node, svgParameters, edge, BranchEdge.Side.TWO, angle, middle);
         }
+    }
+
+    private void loopEdgesHalfLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters,
+                                     BranchEdge edge, BranchEdge.Side side, double angle, Point middle) {
+
+        int sideSign = side == BranchEdge.Side.ONE ? -1 : 1;
+        double startAngle = angle + sideSign * svgParameters.getLoopEdgesAperture() / 2;
+        double radius = svgParameters.getTransformerCircleRadius();
+        double controlsDist = svgParameters.getLoopControlDistance();
+        boolean isTwoWt = edge.getType().equals(BranchEdge.TWO_WT_EDGE);
+        double endAngle = angle + sideSign * Math.PI / 2;
+
+        Point fork = node.getPosition().atDistance(svgParameters.getEdgesForkLength(), startAngle);
+        Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge, side), fork, node, svgParameters);
+        Point control1a = fork.atDistance(controlsDist, startAngle);
+        Point middle1 = isTwoWt ? middle.atDistance(1.5 * radius, endAngle) : middle;
+        Point control1b = middle1.atDistance(isTwoWt ? Math.max(0, controlsDist - 1.5 * radius) : controlsDist, endAngle);
+
+        edge.setPoints(side, edgeStart, fork, control1a, control1b, middle1);
     }
 
     private List<Double> computeLoopAngles(Graph graph, List<BranchEdge> loopEdges, Node node, SvgParameters svgParameters) {
