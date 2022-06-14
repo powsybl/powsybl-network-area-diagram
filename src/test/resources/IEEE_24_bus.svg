@@ -2,7 +2,7 @@
 <svg width="800.00" height="969.43" viewBox="-13.03 -15.46 26.51 32.13" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
@@ -10,7 +10,6 @@
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-dasharray: .05,.05; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -427,7 +426,7 @@
         <g id="53">
             <desc>T-24-3-1 </desc>
             <g class="nad-vl180to300">
-                <polyline points="0.59,-6.38 1.09,-3.94"/>
+                <polyline points="0.59,-6.38 1.03,-4.23"/>
                 <g class="nad-edge-infos" transform="translate(0.65,-6.09)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(168.29)">
@@ -447,7 +446,7 @@
                 <circle cx="1.07" cy="-4.04" r="0.20"/>
             </g>
             <g class="nad-vl120to180">
-                <polyline points="1.60,-1.50 1.09,-3.94"/>
+                <polyline points="1.60,-1.50 1.16,-3.65"/>
                 <g class="nad-edge-infos" transform="translate(1.54,-1.79)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-11.71)">
@@ -593,7 +592,7 @@
         <g id="57">
             <desc>T-5-10-1 </desc>
             <g class="nad-vl120to180">
-                <polyline points="2.17,3.05 3.54,4.65"/>
+                <polyline points="2.17,3.05 3.34,4.42"/>
                 <g class="nad-edge-infos" transform="translate(2.36,3.28)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(139.54)">
@@ -613,7 +612,7 @@
                 <circle cx="3.47" cy="4.58" r="0.20"/>
             </g>
             <g class="nad-vl120to180">
-                <polyline points="4.90,6.26 3.54,4.65"/>
+                <polyline points="4.90,6.26 3.73,4.88"/>
                 <g class="nad-edge-infos" transform="translate(4.71,6.03)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-40.46)">
@@ -636,7 +635,7 @@
         <g id="58">
             <desc>T-11-9-1 </desc>
             <g class="nad-vl180to300">
-                <polyline points="7.43,1.35 6.64,2.64"/>
+                <polyline points="7.43,1.35 6.80,2.39"/>
                 <g class="nad-edge-infos" transform="translate(7.27,1.61)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-148.81)">
@@ -656,7 +655,7 @@
                 <circle cx="6.70" cy="2.56" r="0.20"/>
             </g>
             <g class="nad-vl120to180">
-                <polyline points="5.86,3.94 6.64,2.64"/>
+                <polyline points="5.86,3.94 6.49,2.90"/>
                 <g class="nad-edge-infos" transform="translate(6.02,3.68)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(31.19)">
@@ -679,7 +678,7 @@
         <g id="59">
             <desc>T-9-12-1 </desc>
             <g class="nad-vl120to180">
-                <polyline points="5.89,4.38 6.92,5.70"/>
+                <polyline points="5.89,4.38 6.73,5.46"/>
                 <g class="nad-edge-infos" transform="translate(6.07,4.62)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(141.96)">
@@ -699,7 +698,7 @@
                 <circle cx="6.86" cy="5.62" r="0.20"/>
             </g>
             <g class="nad-vl180to300">
-                <polyline points="7.95,7.01 6.92,5.70"/>
+                <polyline points="7.95,7.01 7.10,5.93"/>
                 <g class="nad-edge-infos" transform="translate(7.76,6.78)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-38.04)">
@@ -763,7 +762,7 @@
         <g id="61">
             <desc>T-11-10-1 </desc>
             <g class="nad-vl180to300">
-                <polyline points="7.45,1.37 6.32,3.79"/>
+                <polyline points="7.45,1.37 6.45,3.52"/>
                 <g class="nad-edge-infos" transform="translate(7.33,1.64)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-155.03)">
@@ -783,7 +782,7 @@
                 <circle cx="6.37" cy="3.70" r="0.20"/>
             </g>
             <g class="nad-vl120to180">
-                <polyline points="5.19,6.22 6.32,3.79"/>
+                <polyline points="5.19,6.22 6.20,4.06"/>
                 <g class="nad-edge-infos" transform="translate(5.32,5.95)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(24.97)">
@@ -806,7 +805,7 @@
         <g id="62">
             <desc>T-12-10-1 </desc>
             <g class="nad-vl180to300">
-                <polyline points="7.85,7.16 6.60,6.84"/>
+                <polyline points="7.85,7.16 6.89,6.92"/>
                 <g class="nad-edge-infos" transform="translate(7.56,7.09)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-75.92)">
@@ -826,7 +825,7 @@
                 <circle cx="6.69" cy="6.87" r="0.20"/>
             </g>
             <g class="nad-vl120to180">
-                <polyline points="5.34,6.53 6.60,6.84"/>
+                <polyline points="5.34,6.53 6.31,6.77"/>
                 <g class="nad-edge-infos" transform="translate(5.63,6.60)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(104.08)">

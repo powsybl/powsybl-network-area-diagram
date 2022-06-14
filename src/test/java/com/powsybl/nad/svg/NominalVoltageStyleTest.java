@@ -11,20 +11,15 @@ import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
-import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
-import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -116,26 +111,6 @@ class NominalVoltageStyleTest extends AbstractTest {
         Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(100);
         assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
-    }
-
-    @Test
-    void test3wt() {
-        Network network = ThreeWindingsTransformerNetworkFactory.create();
-        assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
-    }
-
-    @Test
-    void testDisconnected3wt() {
-        Network network = ThreeWindingsTransformerNetworkFactory.create();
-        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
-        assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
-    }
-
-    @Test
-    void testPartial3wt() {
-        Network network = ThreeWindingsTransformerNetworkFactory.create();
-        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
-        assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
     }
 
     @Test
