@@ -14,8 +14,4 @@ public abstract class AbstractEdge extends AbstractIdentifiable implements Edge 
     protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
         super(diagramId, equipmentId, nameOrId);
     }
-
-    protected double getAngle(Point point0, Point point1) {
-        return Math.atan2(point1.getY() - point0.getY(), point1.getX() - point0.getX());
-    }
 }

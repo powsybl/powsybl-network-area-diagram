@@ -98,11 +98,6 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
-        return Optional.empty();
-    }
-
-    @Override
     public List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();

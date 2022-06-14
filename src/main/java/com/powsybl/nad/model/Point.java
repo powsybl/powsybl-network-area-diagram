@@ -31,11 +31,6 @@ public class Point {
         return new Point(0.5 * (point1.x + point2.x), 0.5 * (point1.y + point2.y));
     }
 
-    public static Point createPointFromRhoTheta(double rho, double thetaDeg) {
-        return new Point(rho * Math.cos(Math.toRadians(thetaDeg)),
-                rho * Math.sin(Math.toRadians(thetaDeg)));
-    }
-
     public double distanceSquare(Point other) {
         Objects.requireNonNull(other);
         double dx = other.x - x;
@@ -46,6 +41,10 @@ public class Point {
     public double distance(Point other) {
         Objects.requireNonNull(other);
         return Math.sqrt(distanceSquare(other));
+    }
+
+    public Point shiftRhoTheta(double rho, double theta) {
+        return shift(rho * Math.cos(theta), rho * Math.sin(theta));
     }
 
     public Point shift(double shiftX, double shiftY) {
@@ -69,5 +68,9 @@ public class Point {
     public Point atDistance(double dist, double angle) {
         return new Point(x + dist * Math.cos(angle),
                 y + dist * Math.sin(angle));
+    }
+
+    public double getAngle(Point other) {
+        return Math.atan2(other.y - y, other.x - x);
     }
 }

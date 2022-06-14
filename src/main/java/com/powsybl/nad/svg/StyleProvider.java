@@ -9,7 +9,6 @@ package com.powsybl.nad.svg;
 import com.powsybl.nad.model.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -48,8 +47,6 @@ public interface StyleProvider {
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
     List<String> getEdgeInfoStyles(EdgeInfo info);
-
-    Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode);
 
     List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
 }

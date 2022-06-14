@@ -8,9 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,7 +23,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge, svgParameters));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges, svgParameters));
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
-        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge, svgParameters));
+        graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
@@ -221,16 +219,51 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return edge.getEdgeStartAngle(side);
     }
 
-    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge, SvgParameters svgParameters) {
-        Node node1 = graph.getBusGraphNode1(edge);
-        Node node2 = graph.getBusGraphNode2(edge);
+    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtNode threeWtNode, SvgParameters svgParameters) {
+        // The 3wt edges are computed by finding the "leading" edge and then placing the other edges at 120°
+        // The leading edge is chosen to be the opposite edge of the smallest aperture.
+        List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
+        List<Double> angles = edges.stream()
+                .map(edge -> computeEdgeStart(graph.getBusGraphNode(edge), threeWtNode.getPosition(), graph.getVoltageLevelNode(edge), svgParameters))
+                .map(edgeStart -> threeWtNode.getPosition().getAngle(edgeStart))
+                .collect(Collectors.toList());
+        List<Integer> sortedIndices = IntStream.range(0, 3)
+                .boxed().sorted(Comparator.comparingDouble(angles::get))
+                .collect(Collectors.toList());
 
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode(edge), svgParameters);
+        int leadingSortedIndex = getSortedIndexMaximumAperture(angles);
+        double leadingAngle = angles.get(sortedIndices.get(leadingSortedIndex));
 
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, null, svgParameters);
+        List<ThreeWtEdge> edgesSorted = IntStream.range(0, 3)
+                .map(i -> (leadingSortedIndex + i) % 3)
+                .map(sortedIndices::get)
+                .mapToObj(edges::get)
+                .collect(Collectors.toList());
+        double dNodeToAnchor = svgParameters.getTransformerCircleRadius() * 1.6;
+        for (int i = 0; i < edgesSorted.size(); i++) {
+            ThreeWtEdge edge = edgesSorted.get(i);
+            Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge), threeWtNode.getPosition(), graph.getVoltageLevelNode(edge), svgParameters);
+            double anchorAngle = leadingAngle + i * 2 * Math.PI / 3;
+            Point threeWtAnchor = threeWtNode.getPosition().shiftRhoTheta(dNodeToAnchor, anchorAngle);
+            edge.setPoints(edgeStart, threeWtAnchor);
+        }
+    }
 
-        edge.setPoints(edgeStart1, edgeStart2);
+    private int getSortedIndexMaximumAperture(List<Double> angles) {
+        // Sorting the given angles
+        List<Double> sortedAngles = angles.stream().sorted().collect(Collectors.toList());
+
+        // Then calculating the apertures
+        sortedAngles.add(sortedAngles.get(0) + 2 * Math.PI);
+        double[] deltaAngles = new double[3];
+        for (int i = 0; i < 3; i++) {
+            deltaAngles[i] = sortedAngles.get(i + 1) - sortedAngles.get(i);
+        }
+
+        // Returning the (sorted) index of the angle facing the minimal aperture
+        int minDeltaIndex = IntStream.range(0, 3)
+                .boxed().min(Comparator.comparingDouble(i -> deltaAngles[i]))
+                .orElse(0);
+        return ((minDeltaIndex - 1) + 3) % 3;
     }
 }

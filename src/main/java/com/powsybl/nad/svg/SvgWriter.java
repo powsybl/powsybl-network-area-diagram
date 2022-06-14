@@ -236,35 +236,24 @@ public class SvgWriter {
             return;
         }
 
-        double dNodeCenter = svgParameters.getTransformerCircleRadius() * 0.6;
-        Point point1 = Point.createPointFromRhoTheta(dNodeCenter, 90);
-        Point point2 = Point.createPointFromRhoTheta(dNodeCenter, 210);
-        Point point3 = Point.createPointFromRhoTheta(dNodeCenter, 330);
-
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
         for (ThreeWtNode threeWtNode : threeWtNodes) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(threeWtNode));
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(threeWtNode));
-            Optional<String> backgroundStyle = styleProvider.getThreeWtNodeBackgroundStyle(threeWtNode);
-            if (backgroundStyle.isPresent()) {
-                writer.writeStartElement(GROUP_ELEMENT_NAME);
-                writer.writeAttribute(CLASS_ATTRIBUTE, backgroundStyle.get());
-                draw3WtWinding(point1, Collections.emptyList(), writer);
-                draw3WtWinding(point2, Collections.emptyList(), writer);
-                draw3WtWinding(point3, Collections.emptyList(), writer);
-                writer.writeEndElement();
+            List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
+            for (ThreeWtEdge edge : edges) {
+                draw3WtWinding(edge, threeWtNode, writer);
             }
-            draw3WtWinding(point1, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.ONE), writer);
-            draw3WtWinding(point2, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.TWO), writer);
-            draw3WtWinding(point3, styleProvider.getThreeWtNodeStyle(threeWtNode, ThreeWtEdge.Side.THREE), writer);
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void draw3WtWinding(Point circleCenter, List<String> styles, XMLStreamWriter writer) throws XMLStreamException {
+    private void draw3WtWinding(ThreeWtEdge edge, ThreeWtNode threeWtNode, XMLStreamWriter writer) throws XMLStreamException {
+        List<String> styles = styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide());
+        double radius = svgParameters.getTransformerCircleRadius();
+        Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         addStylesIfAny(writer, styles);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
