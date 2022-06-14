@@ -22,7 +22,8 @@ public class BasicForceLayout extends AbstractLayout {
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
+                .setPointsInitializer(v -> v.getOptionalPosition().map(p -> new com.powsybl.forcelayout.Point(p.getX(), p.getY())));
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {

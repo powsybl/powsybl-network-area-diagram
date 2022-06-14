@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public class Point {
 
+    public static final Point ORIGIN = new Point();
+
     private final double x;
     private final double y;
 
@@ -21,7 +23,7 @@ public class Point {
         this.y = y;
     }
 
-    public Point() {
+    private Point() {
         this(0, 0);
     }
 

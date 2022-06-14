@@ -61,13 +61,13 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-
     private int maxSteps;
     private double minEnergyThreshold;
     private double deltaTime;
     private double repulsion;
     private double friction;
     private double maxSpeed;
+    private Function<V, Optional<Point>> pointsInitializer;
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -82,6 +82,7 @@ public class ForceLayout<V, E> {
         this.repulsion = DEFAULT_REPULSION;
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
+        this.pointsInitializer = v -> Optional.empty();
 
         this.graph = Objects.requireNonNull(graph);
     }
@@ -116,9 +117,14 @@ public class ForceLayout<V, E> {
         return this;
     }
 
+    public ForceLayout<V, E>  setPointsInitializer(Function<V, Optional<Point>> pointsInitializer) {
+        this.pointsInitializer = pointsInitializer;
+        return this;
+    }
+
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
-            points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
+            points.put(vertex, pointsInitializer.apply(vertex).orElse(new Point(random.nextDouble(), random.nextDouble())));
         }
     }
 
