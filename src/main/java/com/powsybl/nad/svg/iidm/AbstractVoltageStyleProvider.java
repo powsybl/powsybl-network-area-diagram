@@ -67,11 +67,6 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public Optional<String> getThreeWtNodeBackgroundStyle(ThreeWtNode threeWtNode) {
-        return Optional.of(CLASSES_PREFIX + "3wt-bg");
-    }
-
-    @Override
     protected Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
         Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
                 .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));

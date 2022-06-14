@@ -48,6 +48,6 @@ public class ThreeWtEdge extends AbstractEdge {
     }
 
     public double getEdgeAngle() {
-        return getAngle(points.get(0), points.get(1));
+        return points.get(0).getAngle(points.get(1));
     }
 }

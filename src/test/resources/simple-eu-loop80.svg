@@ -2,7 +2,7 @@
 <svg width="800.00" height="879.76" viewBox="-7.54 -10.03 17.60 19.35" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
@@ -10,7 +10,6 @@
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-dasharray: .05,.05; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -216,7 +215,7 @@
         <g id="24">
             <desc>BBE1AA1  BBE3AA1  2</desc>
             <g class="nad-vl300to500">
-                <path d="M-5.31,-2.10 L-5.54,-2.12 C-5.94,-2.13 -5.90,-2.60 -5.63,-2.89"/>
+                <path d="M-5.31,-2.10 L-5.54,-2.12 C-5.94,-2.13 -5.90,-2.60 -5.83,-2.67"/>
                 <g class="nad-edge-infos" transform="translate(-5.54,-2.12)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-87.44)">
@@ -233,10 +232,10 @@
                         <text transform="rotate(-357.44)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="-5.62" cy="-2.79" r="0.20"/>
+                <circle cx="-5.69" cy="-2.82" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <path d="M-4.78,-2.35 L-4.85,-2.87 C-4.90,-3.27 -5.36,-3.19 -5.63,-2.89"/>
+                <path d="M-4.78,-2.35 L-4.85,-2.87 C-4.90,-3.27 -5.36,-3.19 -5.42,-3.11"/>
                 <g class="nad-edge-infos" transform="translate(-4.85,-2.87)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-7.44)">
@@ -253,7 +252,7 @@
                         <text transform="rotate(-277.44)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="-5.53" cy="-2.89" r="0.20"/>
+                <circle cx="-5.56" cy="-2.96" r="0.20"/>
             </g>
         </g>
         <g id="25">
@@ -669,7 +668,7 @@
         <g id="35">
             <desc>FFR1AA1  FFR2AA1  2</desc>
             <g class="nad-vl300to500">
-                <path d="M0.57,7.85 L0.65,8.06 C0.79,8.44 0.34,8.58 -0.03,8.45"/>
+                <path d="M0.57,7.85 L0.65,8.06 C0.79,8.44 0.34,8.58 0.25,8.55"/>
                 <g class="nad-edge-infos" transform="translate(0.65,8.06)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(159.31)">
@@ -686,10 +685,10 @@
                         <text transform="rotate(69.31)" x="0.19">0</text>
                     </g>
                 </g>
-                <circle cx="0.05" cy="8.40" r="0.20"/>
+                <circle cx="0.06" cy="8.48" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <path d="M0.13,7.45 L-0.32,7.72 C-0.67,7.93 -0.41,8.32 -0.03,8.45"/>
+                <path d="M0.13,7.45 L-0.32,7.72 C-0.67,7.93 -0.41,8.32 -0.32,8.35"/>
                 <g class="nad-edge-infos" transform="translate(-0.32,7.72)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-120.69)">
@@ -706,7 +705,7 @@
                         <text transform="rotate(-30.69)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="-0.07" cy="8.36" r="0.20"/>
+                <circle cx="-0.13" cy="8.42" r="0.20"/>
             </g>
         </g>
         <g id="36">

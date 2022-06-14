@@ -2,7 +2,7 @@
 <svg width="800.00" height="394.38" viewBox="-7.73 -4.20 17.06 8.41" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
@@ -10,7 +10,6 @@
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-dasharray: .05,.05; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -94,7 +93,7 @@
         <g id="10">
             <desc>TWT</desc>
             <g class="nad-vl180to300">
-                <polyline points="-5.46,0.60 -3.71,0.53"/>
+                <polyline points="-5.46,0.60 -4.01,0.55"/>
                 <g class="nad-edge-infos" transform="translate(-5.16,0.59)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(87.83)">
@@ -114,7 +113,7 @@
                 <circle cx="-3.81" cy="0.54" r="0.20"/>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="-1.96,0.47 -3.71,0.53"/>
+                <polyline points="-1.96,0.47 -3.41,0.52"/>
                 <g class="nad-edge-infos" transform="translate(-2.26,0.48)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-92.17)">

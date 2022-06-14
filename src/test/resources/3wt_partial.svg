@@ -2,7 +2,7 @@
 <svg width="800.00" height="770.68" viewBox="-5.78 -4.98 10.39 10.01" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: white}
+.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
@@ -10,7 +10,6 @@
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-dasharray: .05,.05; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
-.nad-3wt-bg circle {stroke: none; fill: white}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -73,7 +72,7 @@
     <g class="nad-3wt-edges">
         <g id="3" class="nad-vl0to30">
             <desc>3WT</desc>
-            <polyline points="-3.52,1.03 0.06,0.04"/>
+            <polyline points="-3.52,1.03 -0.25,0.13"/>
             <g class="nad-edge-infos" transform="translate(-3.23,0.95)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(74.59)">
@@ -93,15 +92,10 @@
         </g>
     </g>
     <g class="nad-3wt-nodes">
-        <g transform="translate(0.06,0.04)">
-            <g class="nad-3wt-bg">
-                <circle cx="0.00" cy="0.12" r="0.20"/>
-                <circle cx="-0.10" cy="-0.06" r="0.20"/>
-                <circle cx="0.10" cy="-0.06" r="0.20"/>
-            </g>
-            <circle class="nad-vl120to180" cx="0.00" cy="0.12" r="0.20"/>
-            <circle class="nad-vl30to50" cx="-0.10" cy="-0.06" r="0.20"/>
-            <circle class="nad-vl0to30" cx="0.10" cy="-0.06" r="0.20"/>
+        <g>
+            <circle class="nad-vl0to30" cx="-0.06" cy="0.07" r="0.20"/>
+            <circle class="nad-vl120to180" cx="0.14" cy="0.13" r="0.20"/>
+            <circle class="nad-vl30to50" cx="0.09" cy="-0.07" r="0.20"/>
         </g>
     </g>
     <g class="nad-text-edges">

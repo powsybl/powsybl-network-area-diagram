@@ -8,9 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,7 +23,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge, svgParameters));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges, svgParameters));
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
-        graph.getThreeWtEdgesStream().forEach(edge -> computeThreeWtEdgeCoordinates(graph, edge, svgParameters));
+        graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
@@ -44,8 +42,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
-        edge.setPoints1(edgeStart1, middle);
-        edge.setPoints2(edgeStart2, middle);
+        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
+            double radius = svgParameters.getTransformerCircleRadius();
+            edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
+            edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
+        } else {
+            edge.setPoints1(edgeStart1, middle);
+            edge.setPoints2(edgeStart2, middle);
+        }
     }
 
     private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
@@ -94,46 +98,56 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 double alpha = -forkAperture / 2 + i * angleStep;
                 double angleForkA = angle - alpha;
                 double angleForkB = angle + Math.PI + alpha;
+
                 Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
                 Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
                 Point middle = Point.createMiddlePoint(forkA, forkB);
-
                 BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-                BranchEdge.Side sideB = sideA.getOpposite();
 
-                Node busNodeA = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
-                Node busNodeB = sideA == BranchEdge.Side.ONE ? graph.getBusGraphNode2(edge) : graph.getBusGraphNode1(edge);
-
-                Point edgeStartA = computeEdgeStart(busNodeA, forkA, nodeA, svgParameters);
-                edge.setPoints(sideA, edgeStartA, forkA, middle);
-
-                Point edgeStartB = computeEdgeStart(busNodeB, forkB, nodeB, svgParameters);
-                edge.setPoints(sideB, edgeStartB, forkB, middle);
+                computeHalfForkCoordinates(graph, svgParameters, nodeA, edge, forkA, middle, sideA);
+                computeHalfForkCoordinates(graph, svgParameters, nodeB, edge, forkB, middle, sideA.getOpposite());
             }
             i++;
         }
     }
 
+    private void computeHalfForkCoordinates(Graph graph, SvgParameters svgParameters, VoltageLevelNode node, BranchEdge edge, Point fork, Point middle, BranchEdge.Side side) {
+        Node busNodeA = side == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
+        Point edgeStart = computeEdgeStart(busNodeA, fork, node, svgParameters);
+        Point endFork = edge.getType().equals(BranchEdge.TWO_WT_EDGE)
+                ? middle.atDistance(1.5 * svgParameters.getTransformerCircleRadius(), fork)
+                : middle;
+        edge.setPoints(side, edgeStart, fork, endFork);
+    }
+
     private void loopEdgesLayout(Graph graph, VoltageLevelNode node, List<BranchEdge> loopEdges, SvgParameters svgParameters) {
         List<Double> angles = computeLoopAngles(graph, loopEdges, node, svgParameters);
-
         int i = 0;
-        Point nodePoint = node.getPosition();
         for (BranchEdge edge : loopEdges) {
             double angle = angles.get(i++);
-            Point middle = nodePoint.atDistance(svgParameters.getLoopDistance(), angle);
-            Point fork1 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle - svgParameters.getLoopEdgesAperture() / 2);
-            Point fork2 = nodePoint.atDistance(svgParameters.getEdgesForkLength(), angle + svgParameters.getLoopEdgesAperture() / 2);
-
-            Node busNode1 = graph.getBusGraphNode1(edge);
-            Node busNode2 = graph.getBusGraphNode2(edge);
-
-            Point edgeStart1 = computeEdgeStart(busNode1, fork1, node, svgParameters);
-            edge.setPoints(BranchEdge.Side.ONE, edgeStart1, fork1, middle);
-
-            Point edgeStart2 = computeEdgeStart(busNode2, fork2, node, svgParameters);
-            edge.setPoints(BranchEdge.Side.TWO, edgeStart2, fork2, middle);
+            Point middle = node.getPosition().atDistance(svgParameters.getLoopDistance(), angle);
+            loopEdgesHalfLayout(graph, node, svgParameters, edge, BranchEdge.Side.ONE, angle, middle);
+            loopEdgesHalfLayout(graph, node, svgParameters, edge, BranchEdge.Side.TWO, angle, middle);
         }
+    }
+
+    private void loopEdgesHalfLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters,
+                                     BranchEdge edge, BranchEdge.Side side, double angle, Point middle) {
+
+        int sideSign = side == BranchEdge.Side.ONE ? -1 : 1;
+        double startAngle = angle + sideSign * svgParameters.getLoopEdgesAperture() / 2;
+        double radius = svgParameters.getTransformerCircleRadius();
+        double controlsDist = svgParameters.getLoopControlDistance();
+        boolean isTwoWt = edge.getType().equals(BranchEdge.TWO_WT_EDGE);
+        double endAngle = angle + sideSign * Math.PI / 2;
+
+        Point fork = node.getPosition().atDistance(svgParameters.getEdgesForkLength(), startAngle);
+        Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge, side), fork, node, svgParameters);
+        Point control1a = fork.atDistance(controlsDist, startAngle);
+        Point middle1 = isTwoWt ? middle.atDistance(1.5 * radius, endAngle) : middle;
+        Point control1b = middle1.atDistance(isTwoWt ? Math.max(0, controlsDist - 1.5 * radius) : controlsDist, endAngle);
+
+        edge.setPoints(side, edgeStart, fork, control1a, control1b, middle1);
     }
 
     private List<Double> computeLoopAngles(Graph graph, List<BranchEdge> loopEdges, Node node, SvgParameters svgParameters) {
@@ -205,16 +219,51 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return edge.getEdgeStartAngle(side);
     }
 
-    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtEdge edge, SvgParameters svgParameters) {
-        Node node1 = graph.getBusGraphNode1(edge);
-        Node node2 = graph.getBusGraphNode2(edge);
+    private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtNode threeWtNode, SvgParameters svgParameters) {
+        // The 3wt edges are computed by finding the "leading" edge and then placing the other edges at 120°
+        // The leading edge is chosen to be the opposite edge of the smallest aperture.
+        List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
+        List<Double> angles = edges.stream()
+                .map(edge -> computeEdgeStart(graph.getBusGraphNode(edge), threeWtNode.getPosition(), graph.getVoltageLevelNode(edge), svgParameters))
+                .map(edgeStart -> threeWtNode.getPosition().getAngle(edgeStart))
+                .collect(Collectors.toList());
+        List<Integer> sortedIndices = IntStream.range(0, 3)
+                .boxed().sorted(Comparator.comparingDouble(angles::get))
+                .collect(Collectors.toList());
 
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode(edge), svgParameters);
+        int leadingSortedIndex = getSortedIndexMaximumAperture(angles);
+        double leadingAngle = angles.get(sortedIndices.get(leadingSortedIndex));
 
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, null, svgParameters);
+        List<ThreeWtEdge> edgesSorted = IntStream.range(0, 3)
+                .map(i -> (leadingSortedIndex + i) % 3)
+                .map(sortedIndices::get)
+                .mapToObj(edges::get)
+                .collect(Collectors.toList());
+        double dNodeToAnchor = svgParameters.getTransformerCircleRadius() * 1.6;
+        for (int i = 0; i < edgesSorted.size(); i++) {
+            ThreeWtEdge edge = edgesSorted.get(i);
+            Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge), threeWtNode.getPosition(), graph.getVoltageLevelNode(edge), svgParameters);
+            double anchorAngle = leadingAngle + i * 2 * Math.PI / 3;
+            Point threeWtAnchor = threeWtNode.getPosition().shiftRhoTheta(dNodeToAnchor, anchorAngle);
+            edge.setPoints(edgeStart, threeWtAnchor);
+        }
+    }
 
-        edge.setPoints(edgeStart1, edgeStart2);
+    private int getSortedIndexMaximumAperture(List<Double> angles) {
+        // Sorting the given angles
+        List<Double> sortedAngles = angles.stream().sorted().collect(Collectors.toList());
+
+        // Then calculating the apertures
+        sortedAngles.add(sortedAngles.get(0) + 2 * Math.PI);
+        double[] deltaAngles = new double[3];
+        for (int i = 0; i < 3; i++) {
+            deltaAngles[i] = sortedAngles.get(i + 1) - sortedAngles.get(i);
+        }
+
+        // Returning the (sorted) index of the angle facing the minimal aperture
+        int minDeltaIndex = IntStream.range(0, 3)
+                .boxed().min(Comparator.comparingDouble(i -> deltaAngles[i]))
+                .orElse(0);
+        return ((minDeltaIndex - 1) + 3) % 3;
     }
 }

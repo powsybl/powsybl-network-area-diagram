@@ -119,6 +119,10 @@ public class Graph {
         return voltageLevelGraph.edgesOf(node).stream();
     }
 
+    public Stream<ThreeWtEdge> getThreeWtEdgeStream(ThreeWtNode node) {
+        return voltageLevelGraph.edgesOf(node).stream().filter(ThreeWtEdge.class::isInstance).map(ThreeWtEdge.class::cast);
+    }
+
     public Stream<BranchEdge> getBranchEdgeStream(Node node) {
         return getEdgeStream(node)
                 .filter(BranchEdge.class::isInstance)
