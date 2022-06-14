@@ -40,7 +40,7 @@ public class GraphMetadata {
 
     private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
 
-    private final Optional<UnaryOperator<String>> diagramIdFunction;
+    private final UnaryOperator<String> diagramIdFunction;
 
     public GraphMetadata() {
         this(Collections.emptyList(), Collections.emptyList(), null);
@@ -56,7 +56,7 @@ public class GraphMetadata {
                          List<Edge> edges,
                          UnaryOperator<String> diagramIdFunction) {
 
-        this.diagramIdFunction = Optional.ofNullable(diagramIdFunction);
+        this.diagramIdFunction = diagramIdFunction;
         nodes.forEach(this::addNode);
         edges.forEach(this::addEdge);
     }
@@ -127,8 +127,8 @@ public class GraphMetadata {
     public void addNode(Node node) {
         Objects.requireNonNull(node);
         String svgId = node.getDiagramId();
-        if (diagramIdFunction.isPresent()) {
-            svgId = diagramIdFunction.get().apply(svgId);
+        if (diagramIdFunction != null) {
+            svgId = diagramIdFunction.apply(svgId);
         }
         nodeIdByDiagramId.put(svgId, node.getEquipmentId());
     }
@@ -136,8 +136,8 @@ public class GraphMetadata {
     public void addEdge(Edge edge) {
         Objects.requireNonNull(edge);
         String svgId = edge.getDiagramId();
-        if (diagramIdFunction.isPresent()) {
-            svgId = diagramIdFunction.get().apply(svgId);
+        if (diagramIdFunction != null) {
+            svgId = diagramIdFunction.apply(svgId);
         }
         edgeIdByDiagramId.put(svgId, edge.getEquipmentId());
     }

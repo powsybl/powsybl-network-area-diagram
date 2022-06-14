@@ -123,7 +123,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, getIdAttribute(edge.getDiagramId()));
+            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
             addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
 
@@ -221,7 +221,7 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getIdAttribute(edge.getDiagramId()));
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
@@ -433,7 +433,7 @@ public class SvgWriter {
     }
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeAttribute(ID_ATTRIBUTE, getIdAttribute(vlNode.getDiagramId()));
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(vlNode.getDiagramId()));
         addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
@@ -458,7 +458,7 @@ public class SvgWriter {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
-            writer.writeAttribute(ID_ATTRIBUTE, getIdAttribute(busNode.getDiagramId()));
+            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
             busInnerRadius = busOuterRadius;
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
@@ -572,7 +572,7 @@ public class SvgWriter {
 
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getIdAttribute(edge.getDiagramId()));
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         List<Point> points = edge.getPoints();
         shiftEdgeStart(points, vlNode);
@@ -660,7 +660,7 @@ public class SvgWriter {
     }
 
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        GraphMetadata metadata = new GraphMetadata(graph.getNodesStream(), graph.getEdgesStream(), this::getIdAttribute);
+        GraphMetadata metadata = new GraphMetadata(graph.getNodesStream(), graph.getEdgesStream(), this::getPrefixedId);
         metadata.writeXml(writer);
     }
 
@@ -705,7 +705,7 @@ public class SvgWriter {
         return (node.getIndex() + 1) * unitaryRadius;
     }
 
-    public String getIdAttribute(String id) {
+    public String getPrefixedId(String id) {
         return svgParameters.getSvgPrefix() + id;
     }
 }
