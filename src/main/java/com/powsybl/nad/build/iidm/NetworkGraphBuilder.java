@@ -8,15 +8,13 @@ package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
