@@ -444,23 +444,26 @@ public class SvgWriter {
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
             writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
         }
-
+        nodeOuterRadius -= 0.05;
         int nbBuses = vlNode.getBusNodes().size();
         double busInnerRadius = 0;
         List<Edge> traversingBusEdges = new ArrayList<>();
 
         for (BusNode busNode : vlNode.getBusNodes()) {
-            double busOuterRadius = busInnerRadius + nodeOuterRadius / nbBuses;
+            double busOuterRadius;
             if (busInnerRadius == 0) {
+                busOuterRadius = nodeOuterRadius / nbBuses;
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
                 writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
             } else {
+                busOuterRadius = (busInnerRadius) + nodeOuterRadius / nbBuses;
+                //busOuterRadius -= 0.05 / 2.0;
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writer.writeAttribute(ID_ATTRIBUTE, busNode.getDiagramId());
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
-            busInnerRadius = busOuterRadius;
+            busInnerRadius = busOuterRadius + 0.05 / 2.0;
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
     }
@@ -482,8 +485,8 @@ public class SvgWriter {
         angles.add(angles.get(0) + 2 * Math.PI);
 
         double halfWidth = svgParameters.getNodeHollowWidth() / 2;
-        double deltaAngle0 = halfWidth / outerRadius;
-        double deltaAngle1 = halfWidth / innerRadius;
+        double deltaAngle0 = halfWidth / (outerRadius - 0.05 * 4);
+        double deltaAngle1 = halfWidth / (innerRadius - 0.05 * 2);
 
         StringBuilder path = new StringBuilder();
         for (int i = 0; i < angles.size() - 1; i++) {
