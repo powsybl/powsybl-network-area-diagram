@@ -114,18 +114,6 @@ public class GraphMetadata {
         }
     }
 
-    public void addBusNodes(List<BusNode> busNodes) {
-        busNodes.forEach(this::addBusNode);
-    }
-
-    public void addNodes(List<Node> nodes) {
-        nodes.forEach(this::addNode);
-    }
-
-    public void addEdges(List<Edge> edges) {
-        edges.forEach(this::addEdge);
-    }
-
     public void addBusNode(BusNode node) {
         Objects.requireNonNull(node);
         busNodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());

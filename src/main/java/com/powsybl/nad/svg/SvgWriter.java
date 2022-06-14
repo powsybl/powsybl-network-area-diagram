@@ -661,9 +661,11 @@ public class SvgWriter {
 
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         GraphMetadata metadata = new GraphMetadata();
-        metadata.addBusNodes(graph.getBusNodesStream().collect(Collectors.toList()));
-        metadata.addNodes(graph.getNodesStream().collect(Collectors.toList()));
-        metadata.addEdges(graph.getEdgesStream().collect(Collectors.toList()));
+
+        graph.getBusNodesStream().forEach(metadata::addBusNode);
+        graph.getNodesStream().forEach(metadata::addNode);
+        graph.getEdgesStream().forEach(metadata::addEdge);
+
         metadata.writeXml(writer);
     }
 
