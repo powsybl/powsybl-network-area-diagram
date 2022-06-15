@@ -41,8 +41,8 @@ In order to generate a SVG from a given network, we need to add some Maven depen
 
 ```xml
 <properties>
-    <powsybl.nad.version>0.4.0</powsybl.nad.version>
-    <powsybl.core.version>4.8.0</powsybl.core.version>
+    <powsybl.nad.version>0.5.0</powsybl.nad.version>
+    <powsybl.core.version>4.9.0</powsybl.core.version>
     <slf4j.version>1.7.22</slf4j.version>
 </properties>
 
