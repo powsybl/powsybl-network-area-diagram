@@ -13,15 +13,9 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class IntIdProvider implements IdProvider {
-    private final String prefix;
     private int count;
 
     public IntIdProvider() {
-        this("");
-    }
-
-    public IntIdProvider(String prefix) {
-        this.prefix = prefix;
         count = 0;
     }
 
@@ -36,6 +30,6 @@ public class IntIdProvider implements IdProvider {
     }
 
     private String nextId() {
-        return prefix + (count++);
+        return String.valueOf(count++);
     }
 }

@@ -40,7 +40,8 @@ class SvgParametersTest {
                 .setLoopEdgesAperture(10.)
                 .setLoopControlDistance(1.)
                 .setTextNodeBackground(false)
-                .setEdgeInfoAlongEdge(false);
+                .setEdgeInfoAlongEdge(false)
+                .setSvgPrefix("TestPrefix");
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -70,5 +71,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getLoopControlDistance(), svgParameters1.getLoopControlDistance());
         assertEquals(svgParameters0.isTextNodeBackground(), svgParameters1.isTextNodeBackground());
         assertEquals(svgParameters0.isEdgeInfoAlongEdge(), svgParameters1.isEdgeInfoAlongEdge());
+        assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
     }
 }

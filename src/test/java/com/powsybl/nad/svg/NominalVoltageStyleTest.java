@@ -69,6 +69,13 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
+    void testIEEE14FWithSvgPrefix() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        getSvgParameters().setSvgPrefix("test_");
+        assertEquals(toString("/IEEE_14_id_prefixed.svg"), generateSvgString(network, "/IEEE_14_id_prefixed.svg"));
+    }
+
+    @Test
     void testDisconnection() {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getLine("L3-4-1").getTerminal1().disconnect();

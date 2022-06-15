@@ -7,7 +7,9 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Identifiable;
 import com.powsybl.nad.model.Node;
 
 import javax.xml.stream.XMLInputFactory;
@@ -17,8 +19,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import java.io.InputStream;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.function.UnaryOperator;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -28,32 +29,20 @@ public class GraphMetadata {
     private static final String METADATA_NAMESPACE_URI = "http://www.powsybl.org/schema/nad-metadata/1_0";
     private static final String METADATA_PREFIX = "nad";
     private static final String METADATA_ELEMENT_NAME = "metadata";
+    private static final String METADATA_BUS_NODES_ELEMENT_NAME = "busNodes";
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
+    private static final String METADATA_BUS_NODE_ELEMENT_NAME = "busNode";
     private static final String METADATA_NODE_ELEMENT_NAME = "node";
     private static final String METADATA_EDGE_ELEMENT_NAME = "edge";
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Map<String, String> nodeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> busNodeIdByDiagramId = new LinkedHashMap<>();
 
-    private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> nodeIdByDiagramId = new LinkedHashMap<>();
 
-    public GraphMetadata() {
-        this(Collections.emptyList(), Collections.emptyList());
-    }
-
-    public GraphMetadata(Stream<Node> nodes,
-                         Stream<Edge> edges) {
-        this(nodes.collect(Collectors.toUnmodifiableList()), edges.collect(Collectors.toUnmodifiableList()));
-    }
-
-    public GraphMetadata(List<Node> nodes,
-                         List<Edge> edges) {
-
-        nodes.forEach(this::addNode);
-        edges.forEach(this::addEdge);
-    }
+    private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
 
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
         return parseXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -65,6 +54,13 @@ public class GraphMetadata {
         XmlUtil.readUntilEndElement(METADATA_ELEMENT_NAME, reader, () -> {
             String token = reader.getLocalName();
             switch (token) {
+                case METADATA_BUS_NODES_ELEMENT_NAME:
+                    XmlUtil.readUntilEndElement(token, reader, () -> {
+                        if (reader.getLocalName().equals(METADATA_BUS_NODE_ELEMENT_NAME)) {
+                            parseId(metadata.busNodeIdByDiagramId, reader);
+                        }
+                    });
+                    break;
                 case METADATA_NODES_ELEMENT_NAME:
                     XmlUtil.readUntilEndElement(token, reader, () -> {
                         if (reader.getLocalName().equals(METADATA_NODE_ELEMENT_NAME)) {
@@ -96,6 +92,8 @@ public class GraphMetadata {
         // Root element
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
+        // BusNodes
+        writeIdMapping(METADATA_BUS_NODES_ELEMENT_NAME, METADATA_BUS_NODE_ELEMENT_NAME, busNodeIdByDiagramId, writer);
         // Nodes
         writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByDiagramId, writer);
         // Edges
@@ -118,13 +116,21 @@ public class GraphMetadata {
         }
     }
 
-    public void addNode(Node node) {
-        Objects.requireNonNull(node);
-        nodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());
+    public void addBusNode(BusNode node, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(busNodeIdByDiagramId, node, diagramIdToSvgId);
     }
 
-    public void addEdge(Edge edge) {
-        Objects.requireNonNull(edge);
-        edgeIdByDiagramId.put(edge.getDiagramId(), edge.getEquipmentId());
+    public void addNode(Node node, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(nodeIdByDiagramId, node, diagramIdToSvgId);
+    }
+
+    public void addEdge(Edge edge, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(edgeIdByDiagramId, edge, diagramIdToSvgId);
+    }
+
+    private void addIdentifiable(Map<String, String> map, Identifiable identifiable, UnaryOperator<String> diagramIdToSvgId) {
+        Objects.requireNonNull(identifiable);
+        Objects.requireNonNull(diagramIdToSvgId);
+        map.put(diagramIdToSvgId.apply(identifiable.getDiagramId()), identifiable.getEquipmentId());
     }
 }
