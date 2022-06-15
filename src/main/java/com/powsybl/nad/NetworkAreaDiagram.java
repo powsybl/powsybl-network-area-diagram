@@ -16,9 +16,12 @@ import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.svg.*;
+import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.svg.StyleProvider;
+import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.SvgWriter;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
+import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -67,7 +70,7 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(svgFile, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
+        draw(svgFile, svgParameters, layoutParameters, new NominalVoltageStyleProvider(network));
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
@@ -109,7 +112,7 @@ public class NetworkAreaDiagram {
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(writer, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
+        draw(writer, svgParameters, layoutParameters, new NominalVoltageStyleProvider(network));
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
