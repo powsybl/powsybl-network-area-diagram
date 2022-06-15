@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Identifiable;
 import com.powsybl.nad.model.Node;
 
 import javax.xml.stream.XMLInputFactory;
@@ -18,6 +19,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -36,11 +38,11 @@ public class GraphMetadata {
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Map<String, String> busNodeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> busNodeIdByDiagramId = new LinkedHashMap<>();
 
-    private final Map<String, String> nodeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> nodeIdByDiagramId = new LinkedHashMap<>();
 
-    private final Map<String, String> edgeIdByDiagramId = new TreeMap<>(Comparator.comparingInt(Integer::valueOf));
+    private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
 
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
         return parseXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -114,18 +116,21 @@ public class GraphMetadata {
         }
     }
 
-    public void addBusNode(BusNode node) {
-        Objects.requireNonNull(node);
-        busNodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());
+    public void addBusNode(BusNode node, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(busNodeIdByDiagramId, node, diagramIdToSvgId);
     }
 
-    public void addNode(Node node) {
-        Objects.requireNonNull(node);
-        nodeIdByDiagramId.put(node.getDiagramId(), node.getEquipmentId());
+    public void addNode(Node node, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(nodeIdByDiagramId, node, diagramIdToSvgId);
     }
 
-    public void addEdge(Edge edge) {
-        Objects.requireNonNull(edge);
-        edgeIdByDiagramId.put(edge.getDiagramId(), edge.getEquipmentId());
+    public void addEdge(Edge edge, UnaryOperator<String> diagramIdToSvgId) {
+        addIdentifiable(edgeIdByDiagramId, edge, diagramIdToSvgId);
+    }
+
+    private void addIdentifiable(Map<String, String> map, Identifiable identifiable, UnaryOperator<String> diagramIdToSvgId) {
+        Objects.requireNonNull(identifiable);
+        Objects.requireNonNull(diagramIdToSvgId);
+        map.put(diagramIdToSvgId.apply(identifiable.getDiagramId()), identifiable.getEquipmentId());
     }
 }

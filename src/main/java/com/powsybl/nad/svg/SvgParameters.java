@@ -36,6 +36,7 @@ public class SvgParameters {
     private double loopControlDistance = 0.4;
     private boolean textNodeBackground = true;
     private boolean edgeInfoAlongEdge = true;
+    private String svgPrefix = "";
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -72,6 +73,7 @@ public class SvgParameters {
         this.loopControlDistance = other.loopControlDistance;
         this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
+        this.svgPrefix = other.svgPrefix;
     }
 
     public Padding getDiagramPadding() {
@@ -280,6 +282,15 @@ public class SvgParameters {
 
     public SvgParameters setEdgeInfoAlongEdge(boolean edgeInfoAlongEdge) {
         this.edgeInfoAlongEdge = edgeInfoAlongEdge;
+        return this;
+    }
+
+    public String getSvgPrefix() {
+        return svgPrefix;
+    }
+
+    public SvgParameters setSvgPrefix(String svgPrefix) {
+        this.svgPrefix = svgPrefix;
         return this;
     }
 }
