@@ -26,16 +26,17 @@ public class SvgParameters {
     private double voltageLevelCircleRadius = 0.3;
     private double fictitiousVoltageLevelCircleRadius = 0.15;
     private double transformerCircleRadius = 0.2;
-    private double nodeHollowWidth = 0.1;
+    private double nodeHollowWidth = 0.15;
     private double edgesForkLength = 0.8;
     private double edgesForkAperture = Math.toRadians(60);
-    private double edgeStartShift = 0.03;
+    private double edgeStartShift = 0.02;
     private double unknownBusNodeExtraRadius = 0.1;
     private double loopDistance = 1.2;
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 0.4;
     private boolean textNodeBackground = true;
     private boolean edgeInfoAlongEdge = true;
+    private double interAnnulusSpace = 0.05;
     private String svgPrefix = "";
 
     public enum CssLocation {
@@ -74,6 +75,7 @@ public class SvgParameters {
         this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.svgPrefix = other.svgPrefix;
+        this.interAnnulusSpace = other.interAnnulusSpace;
     }
 
     public Padding getDiagramPadding() {
@@ -282,6 +284,15 @@ public class SvgParameters {
 
     public SvgParameters setEdgeInfoAlongEdge(boolean edgeInfoAlongEdge) {
         this.edgeInfoAlongEdge = edgeInfoAlongEdge;
+        return this;
+    }
+
+    public double getInterAnnulusSpace() {
+        return interAnnulusSpace;
+    }
+
+    public SvgParameters setInterAnnulusSpace(double interAnnulusSpace) {
+        this.interAnnulusSpace = interAnnulusSpace;
         return this;
     }
 

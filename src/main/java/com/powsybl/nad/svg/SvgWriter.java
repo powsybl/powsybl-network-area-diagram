@@ -445,12 +445,11 @@ public class SvgWriter {
             writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
         }
 
-        int nbBuses = vlNode.getBusNodes().size();
-        double busInnerRadius = 0;
         List<Edge> traversingBusEdges = new ArrayList<>();
 
         for (BusNode busNode : vlNode.getBusNodes()) {
-            double busOuterRadius = busInnerRadius + nodeOuterRadius / nbBuses;
+            double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
+            double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
                 writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
@@ -460,7 +459,6 @@ public class SvgWriter {
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
-            busInnerRadius = busOuterRadius;
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
     }
@@ -704,10 +702,19 @@ public class SvgWriter {
         return Math.min(Math.max(nbBuses, 1), 2) * svgParameters.getVoltageLevelCircleRadius();
     }
 
+    public static double getBusAnnulusInnerRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
+        if (node.getIndex() == 0) {
+            return 0;
+        }
+        int nbNeighbours = node.getNbNeighbouringBusNodes();
+        double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
+        return node.getIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
+    }
+
     public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return (node.getIndex() + 1) * unitaryRadius;
+        return (node.getIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public String getPrefixedId(String id) {
