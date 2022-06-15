@@ -17,6 +17,13 @@
             <xs:minLength value='1'/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:element name="busNodes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="busNode" type="nad:busNode" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="nodes">
         <xs:complexType>
             <xs:sequence>
@@ -31,7 +38,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="Node">
+    <xs:complexType name="busNode">
+        <xs:attribute name="diagramId" use="required" type="nad:nonEmptyString"/>
+        <xs:attribute name="equipmentId" use="required" type="nad:nonEmptyString"/>
+    </xs:complexType>
+   <xs:complexType name="Node">
         <xs:attribute name="diagramId" use="required" type="nad:nonEmptyString"/>
         <xs:attribute name="equipmentId" use="required" type="nad:nonEmptyString"/>
     </xs:complexType>

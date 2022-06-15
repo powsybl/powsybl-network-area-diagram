@@ -46,6 +46,21 @@
 }
 ]]></style>
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:busNodes>
+            <nad:busNode diagramId="1" equipmentId="VL1_0"/>
+            <nad:busNode diagramId="3" equipmentId="VL2_0"/>
+            <nad:busNode diagramId="5" equipmentId="VL3_0"/>
+            <nad:busNode diagramId="7" equipmentId="VL4_0"/>
+            <nad:busNode diagramId="9" equipmentId="VL5_0"/>
+            <nad:busNode diagramId="11" equipmentId="VL6_0"/>
+            <nad:busNode diagramId="13" equipmentId="VL7_0"/>
+            <nad:busNode diagramId="15" equipmentId="VL8_0"/>
+            <nad:busNode diagramId="17" equipmentId="VL9_0"/>
+            <nad:busNode diagramId="19" equipmentId="VL10_0"/>
+            <nad:busNode diagramId="21" equipmentId="VL11_0"/>
+            <nad:busNode diagramId="23" equipmentId="VL12_0"/>
+            <nad:busNode diagramId="25" equipmentId="VL13_0"/>
+        </nad:busNodes>
         <nad:nodes>
             <nad:node diagramId="0" equipmentId="VL1"/>
             <nad:node diagramId="2" equipmentId="VL2"/>
