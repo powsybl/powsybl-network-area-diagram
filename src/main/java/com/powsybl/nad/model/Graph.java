@@ -87,6 +87,10 @@ public class Graph {
         busGraph.addEdge(node1, node2, edge);
     }
 
+    public Stream<BusNode> getBusNodesStream() {
+        return busNodes.values().stream();
+    }
+
     public Stream<Node> getNodesStream() {
         return voltageLevelGraph.vertexSet().stream();
     }
