@@ -6,7 +6,7 @@
 .nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 0.02; stroke-dasharray: .03,.05}
 .nad-branch-edges .nad-disconnected polyline {stroke-dasharray: .1,.1}
-.nad-vl-nodes circle, .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue); stroke-width: 0.05; stroke: white; stroke-linejoin:round}
+.nad-vl-nodes circle, .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-dasharray: .05,.05; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 0.2}
 .nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 0.05; fill: none}
@@ -63,11 +63,11 @@
     </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(1.60,-0.89)" id="0" class="nad-vl300to500">
-            <circle r="0.30" id="1" class="nad-overvoltage"/>
-            <path d="M-0.588,0.121 A0.600,0.600 350.451 1 1 -0.559,0.217 L-0.270,0.131 A0.300,0.300 -340.901 1 0 -0.298,0.036 Z " id="2"/>
+            <circle r="0.27" id="1" class="nad-overvoltage"/>
+            <path d="M-0.568,0.089 A0.575,0.575 345.053 1 1 -0.526,0.233 L-0.283,0.161 A0.325,0.325 -333.556 1 0 -0.325,0.018 Z " id="2"/>
         </g>
         <g transform="translate(-0.85,1.68)" id="3" class="nad-vl300to500">
-            <circle r="0.30" id="4" class="nad-undervoltage"/>
+            <circle r="0.27" id="4" class="nad-undervoltage"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -92,7 +92,7 @@
                 </g>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="-0.78,1.41 -0.66,0.90 0.08,0.12"/>
+                <polyline points="-0.79,1.42 -0.66,0.90 0.08,0.12"/>
                 <g class="nad-edge-infos" transform="translate(-0.45,0.68)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">
