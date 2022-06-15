@@ -29,7 +29,7 @@ public class SvgParameters {
     private double nodeHollowWidth = 0.15;
     private double edgesForkLength = 0.8;
     private double edgesForkAperture = Math.toRadians(60);
-    private double edgeStartShift = 0.01;
+    private double edgeStartShift = 0.02;
     private double unknownBusNodeExtraRadius = 0.1;
     private double loopDistance = 1.2;
     private double loopEdgesAperture = Math.toRadians(60);
