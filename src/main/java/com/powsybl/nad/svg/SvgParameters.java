@@ -75,6 +75,7 @@ public class SvgParameters {
         this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.svgPrefix = other.svgPrefix;
+        this.interAnnulusSpace = other.interAnnulusSpace;
     }
 
     public Padding getDiagramPadding() {
