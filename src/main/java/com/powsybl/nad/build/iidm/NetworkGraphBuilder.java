@@ -14,7 +14,6 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -74,36 +73,43 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitEquipments(VoltageLevel vl, Graph graph) {
-        vl.getLineStream().forEach(l -> visitLine(l, graph));
-        vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(twt, graph));
-        vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(thwt, graph));
+        vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
+        vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
+        vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
         vl.getConnectableStream().filter(HvdcConverterStation.class::isInstance).forEach(hvdc -> visitHvdcConverterStation((HvdcConverterStation<?>) hvdc, graph));
     }
 
-    private void visitLine(Line line, Graph graph) {
-        addEdge(graph, line, Branch.Side.ONE, BranchEdge.LINE_EDGE);
-        addEdge(graph, line, Branch.Side.TWO, BranchEdge.LINE_EDGE);
+    private void visitLine(VoltageLevel vl, Line line, Graph graph) {
+        Branch.Side side = line.getTerminal(Branch.Side.ONE).getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
+        addEdge(graph, line, side, BranchEdge.LINE_EDGE);
     }
 
-    private void visitTwoWindingsTransformer(TwoWindingsTransformer twt, Graph graph) {
-        addEdge(graph, twt, Branch.Side.ONE, BranchEdge.TWO_WT_EDGE);
-        addEdge(graph, twt, Branch.Side.TWO, BranchEdge.TWO_WT_EDGE);
+    private void visitTwoWindingsTransformer(VoltageLevel vl, TwoWindingsTransformer twt, Graph graph) {
+        Branch.Side side = twt.getTerminal1().getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
+        addEdge(graph, twt, side, BranchEdge.TWO_WT_EDGE);
     }
 
-    public void visitThreeWindingsTransformer(ThreeWindingsTransformer thwt, Graph graph) {
-        Arrays.asList(ThreeWindingsTransformer.Side.values()).forEach(side -> {
-            // check if the transformer was not already added (at the other sides of the transformer)
-            if (graph.containsNode(thwt.getId())) {
-                return;
-            }
+    private void visitThreeWindingsTransformer(VoltageLevel vl, ThreeWindingsTransformer thwt, Graph graph) {
+        // check if the transformer was not already added (at the other sides of the transformer)
+        if (graph.containsNode(thwt.getId())) {
+            return;
+        }
 
-            ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
-            graph.addNode(tn);
+        ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
+        graph.addNode(tn);
 
-            for (ThreeWindingsTransformer.Side s : getSidesArray(side)) {
-                addThreeWtEdge(graph, thwt, tn, s);
-            }
-        });
+        ThreeWindingsTransformer.Side side;
+        if (thwt.getLeg1().getTerminal().getVoltageLevel() == vl) {
+            side = ThreeWindingsTransformer.Side.ONE;
+        } else if (thwt.getLeg2().getTerminal().getVoltageLevel() == vl) {
+            side = ThreeWindingsTransformer.Side.TWO;
+        } else {
+            side = ThreeWindingsTransformer.Side.THREE;
+        }
+
+        for (ThreeWindingsTransformer.Side s : getSidesArray(side)) {
+            addThreeWtEdge(graph, thwt, tn, s);
+        }
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
