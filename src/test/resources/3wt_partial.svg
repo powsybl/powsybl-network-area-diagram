@@ -48,14 +48,14 @@
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
         <nad:busNodes>
             <nad:busNode diagramId="1" equipmentId="VL_11_0"/>
-            <nad:busNode diagramId="4" equipmentId="VL_132_0"/>
-            <nad:busNode diagramId="7" equipmentId="VL_33_0"/>
+            <nad:busNode diagramId="5" equipmentId="VL_132_0"/>
+            <nad:busNode diagramId="8" equipmentId="VL_33_0"/>
         </nad:busNodes>
         <nad:nodes>
             <nad:node diagramId="0" equipmentId="VL_11"/>
             <nad:node diagramId="2" equipmentId="3WT"/>
-            <nad:node diagramId="3" equipmentId="VL_132"/>
-            <nad:node diagramId="6" equipmentId="VL_33"/>
+            <nad:node diagramId="4" equipmentId="VL_132"/>
+            <nad:node diagramId="7" equipmentId="VL_33"/>
         </nad:nodes>
         <nad:edges>
             <nad:edge diagramId="9" equipmentId="3WT"/>
@@ -75,7 +75,7 @@
     </g>
     <g class="nad-branch-edges"></g>
     <g class="nad-3wt-edges">
-        <g id="9" class="nad-vl0to30">
+        <g id="3" class="nad-vl0to30">
             <desc>3WT</desc>
             <polyline points="-3.53,1.03 -0.25,0.13"/>
             <g class="nad-edge-infos" transform="translate(-3.22,0.94)">
@@ -98,9 +98,9 @@
     </g>
     <g class="nad-3wt-nodes">
         <g>
+            <circle class="nad-vl0to30" cx="-0.06" cy="0.07" r="0.20"/>
             <circle class="nad-vl120to180" cx="0.14" cy="0.13" r="0.20"/>
             <circle class="nad-vl30to50" cx="0.09" cy="-0.07" r="0.20"/>
-            <circle class="nad-vl0to30" cx="-0.06" cy="0.07" r="0.20"/>
         </g>
     </g>
     <g class="nad-text-edges">
