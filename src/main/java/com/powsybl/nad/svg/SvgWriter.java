@@ -660,9 +660,10 @@ public class SvgWriter {
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         GraphMetadata metadata = new GraphMetadata();
 
+        graph.getBranchEdgeStream().forEach(be -> metadata.addVoltageLevelNode(graph.getVoltageLevelNode1(be), be, this::getPrefixedId));
         graph.getBusNodesStream().forEach(bn -> metadata.addBusNode(bn, this::getPrefixedId));
-        graph.getNodesStream().forEach(bn -> metadata.addNode(bn, this::getPrefixedId));
-        graph.getEdgesStream().forEach(bn -> metadata.addEdge(bn, this::getPrefixedId));
+        graph.getNodesStream().forEach(n -> metadata.addNode(n, this::getPrefixedId));
+        graph.getEdgesStream().forEach(e -> metadata.addEdge(e, this::getPrefixedId));
 
         metadata.writeXml(writer);
     }
