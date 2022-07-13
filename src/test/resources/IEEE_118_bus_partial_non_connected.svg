@@ -110,6 +110,75 @@
 }
 ]]></style>
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:voltageLevelNodes>
+            <nad:voltageLevelNode diagramId="20">
+                <nad:edge diagramId="22"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="0">
+                <nad:edge diagramId="25"/>
+                <nad:edge diagramId="28"/>
+                <nad:edge diagramId="29"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="26">
+                <nad:edge diagramId="30"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="2">
+                <nad:edge diagramId="33"/>
+                <nad:edge diagramId="34"/>
+                <nad:edge diagramId="37"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="4">
+                <nad:edge diagramId="40"/>
+                <nad:edge diagramId="47"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="41">
+                <nad:edge diagramId="43"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="44">
+                <nad:edge diagramId="46"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="38">
+                <nad:edge diagramId="48"/>
+                <nad:edge diagramId="81"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="49">
+                <nad:edge diagramId="51"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="6">
+                <nad:edge diagramId="52"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="8">
+                <nad:edge diagramId="53"/>
+                <nad:edge diagramId="54"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="55">
+                <nad:edge diagramId="57"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="58">
+                <nad:edge diagramId="60"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="61">
+                <nad:edge diagramId="63"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="12">
+                <nad:edge diagramId="64"/>
+                <nad:edge diagramId="71"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="10">
+                <nad:edge diagramId="67"/>
+                <nad:edge diagramId="70"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="72">
+                <nad:edge diagramId="74"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="14">
+                <nad:edge diagramId="77"/>
+                <nad:edge diagramId="80"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="18">
+                <nad:edge diagramId="82"/>
+            </nad:voltageLevelNode>
+        </nad:voltageLevelNodes>
         <nad:busNodes>
             <nad:busNode diagramId="1" equipmentId="VL23_0"/>
             <nad:busNode diagramId="3" equipmentId="VL27_0"/>
