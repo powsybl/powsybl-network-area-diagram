@@ -76,7 +76,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
         vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
         vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
-        vl.getConnectableStream().filter(HvdcConverterStation.class::isInstance).forEach(hvdc -> visitHvdcConverterStation((HvdcConverterStation<?>) hvdc, graph));
+        vl.getConnectableStream(HvdcConverterStation.class).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
     }
 
     private void visitLine(VoltageLevel vl, Line line, Graph graph) {
