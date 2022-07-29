@@ -80,13 +80,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitLine(VoltageLevel vl, Line line, Graph graph) {
-        Branch.Side side = line.getTerminal(Branch.Side.ONE).getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
-        addEdge(graph, line, side, BranchEdge.LINE_EDGE);
+        addEdge(graph, line, vl, BranchEdge.LINE_EDGE);
     }
 
     private void visitTwoWindingsTransformer(VoltageLevel vl, TwoWindingsTransformer twt, Graph graph) {
-        Branch.Side side = twt.getTerminal1().getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
-        addEdge(graph, twt, side, BranchEdge.TWO_WT_EDGE);
+        addEdge(graph, twt, vl, BranchEdge.TWO_WT_EDGE);
     }
 
     private void visitThreeWindingsTransformer(VoltageLevel vl, ThreeWindingsTransformer thwt, Graph graph) {
@@ -128,7 +126,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
     }
 
-    private void addEdge(Graph graph, Branch<?> branch, Branch.Side side, String edgeType) {
+    private void addEdge(Graph graph, Branch<?> branch, VoltageLevel vl, String edgeType) {
+        Branch.Side side = branch.getTerminal(Branch.Side.ONE).getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
         // check if the edge was not already added (at the other side of the transformer)
         if (graph.containsEdge(branch.getId())) {
             return;
