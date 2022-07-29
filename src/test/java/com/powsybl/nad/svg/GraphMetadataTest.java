@@ -116,6 +116,7 @@ class GraphMetadataTest extends AbstractTest {
         actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
         // Keep only metadata from svg file
         String expected = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+                "        <nad:voltageLevelNodes/>\n" +
                 "        <nad:busNodes/>\n" +
                 "        <nad:nodes/>\n" +
                 "        <nad:edges/>\n" +

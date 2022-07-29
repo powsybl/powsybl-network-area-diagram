@@ -46,6 +46,50 @@
 }
 ]]></style>
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:voltageLevelNodes>
+            <nad:voltageLevelNode diagramId="0">
+                <nad:edge diagramId="28"/>
+                <nad:edge diagramId="29"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="2">
+                <nad:edge diagramId="30"/>
+                <nad:edge diagramId="31"/>
+                <nad:edge diagramId="32"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="4">
+                <nad:edge diagramId="33"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="6">
+                <nad:edge diagramId="34"/>
+                <nad:edge diagramId="35"/>
+                <nad:edge diagramId="36"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="8">
+                <nad:edge diagramId="37"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="10">
+                <nad:edge diagramId="38"/>
+                <nad:edge diagramId="39"/>
+                <nad:edge diagramId="40"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="12">
+                <nad:edge diagramId="41"/>
+                <nad:edge diagramId="42"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="16">
+                <nad:edge diagramId="43"/>
+                <nad:edge diagramId="44"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="18">
+                <nad:edge diagramId="45"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="22">
+                <nad:edge diagramId="46"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="24">
+                <nad:edge diagramId="47"/>
+            </nad:voltageLevelNode>
+        </nad:voltageLevelNodes>
         <nad:busNodes>
             <nad:busNode diagramId="1" equipmentId="VL1_0"/>
             <nad:busNode diagramId="3" equipmentId="VL2_0"/>

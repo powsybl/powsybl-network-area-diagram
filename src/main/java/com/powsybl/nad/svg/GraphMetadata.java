@@ -7,10 +7,7 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Identifiable;
-import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.*;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -32,17 +29,21 @@ public class GraphMetadata {
     private static final String METADATA_BUS_NODES_ELEMENT_NAME = "busNodes";
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
+    private static final String METADATA_VOLTAGE_NODES_ELEMENT_NAME = "voltageLevelNodes";
     private static final String METADATA_BUS_NODE_ELEMENT_NAME = "busNode";
     private static final String METADATA_NODE_ELEMENT_NAME = "node";
     private static final String METADATA_EDGE_ELEMENT_NAME = "edge";
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
+    private static final String METADATA_VOLTAGE_NODE_ELEMENT_NAME = "voltageLevelNode";
 
     private final Map<String, String> busNodeIdByDiagramId = new LinkedHashMap<>();
 
     private final Map<String, String> nodeIdByDiagramId = new LinkedHashMap<>();
 
     private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
+
+    private final Map<String, List<String>> edgeDiagramIdsByVoltageLevelNodeDiagramId = new LinkedHashMap<>();
 
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
         return parseXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -55,25 +56,16 @@ public class GraphMetadata {
             String token = reader.getLocalName();
             switch (token) {
                 case METADATA_BUS_NODES_ELEMENT_NAME:
-                    XmlUtil.readUntilEndElement(token, reader, () -> {
-                        if (reader.getLocalName().equals(METADATA_BUS_NODE_ELEMENT_NAME)) {
-                            parseId(metadata.busNodeIdByDiagramId, reader);
-                        }
-                    });
+                    parseMappingId(metadata.busNodeIdByDiagramId, token, METADATA_BUS_NODE_ELEMENT_NAME, reader);
                     break;
                 case METADATA_NODES_ELEMENT_NAME:
-                    XmlUtil.readUntilEndElement(token, reader, () -> {
-                        if (reader.getLocalName().equals(METADATA_NODE_ELEMENT_NAME)) {
-                            parseId(metadata.nodeIdByDiagramId, reader);
-                        }
-                    });
+                    parseMappingId(metadata.nodeIdByDiagramId, token, METADATA_NODE_ELEMENT_NAME, reader);
                     break;
                 case METADATA_EDGES_ELEMENT_NAME:
-                    XmlUtil.readUntilEndElement(token, reader, () -> {
-                        if (reader.getLocalName().equals(METADATA_EDGE_ELEMENT_NAME)) {
-                            parseId(metadata.edgeIdByDiagramId, reader);
-                        }
-                    });
+                    parseMappingId(metadata.edgeIdByDiagramId, token, METADATA_EDGE_ELEMENT_NAME, reader);
+                    break;
+                case METADATA_VOLTAGE_NODES_ELEMENT_NAME:
+                    parseVoltageLevelNodes(metadata.edgeDiagramIdsByVoltageLevelNodeDiagramId, token, reader);
                     break;
                 default:
                     // Not managed
@@ -82,16 +74,37 @@ public class GraphMetadata {
         return metadata;
     }
 
-    private static void parseId(Map<String, String> ids, XMLStreamReader reader) {
-        String diagramId = reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
-        String equipmentId = reader.getAttributeValue(null, EQUIPMENT_ID_ATTRIBUTE);
-        ids.put(diagramId, equipmentId);
+    private static void parseMappingId(Map<String, String> ids, String parentToken, String token, XMLStreamReader reader) throws XMLStreamException {
+        XmlUtil.readUntilEndElement(parentToken, reader, () -> {
+            if (reader.getLocalName().equals(token)) {
+                String diagramId = reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
+                String equipmentId = reader.getAttributeValue(null, EQUIPMENT_ID_ATTRIBUTE);
+                ids.put(diagramId, equipmentId);
+            }
+        });
+    }
+
+    private static void parseVoltageLevelNodes(Map<String, List<String>> ids, String parentToken, XMLStreamReader reader) throws XMLStreamException {
+        XmlUtil.readUntilEndElement(parentToken, reader, () -> {
+            if (reader.getLocalName().equals(METADATA_VOLTAGE_NODE_ELEMENT_NAME)) {
+                String diagramId = reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
+
+                XmlUtil.readUntilEndElement(reader.getLocalName(), reader, () -> {
+                    if (reader.getLocalName().equals(METADATA_EDGE_ELEMENT_NAME)) {
+                        String edgeDiagramId = reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
+                        ids.computeIfAbsent(diagramId, v -> new ArrayList<>()).add(edgeDiagramId);
+                    }
+                });
+            }
+        });
     }
 
     public void writeXml(XMLStreamWriter writer) throws XMLStreamException {
         // Root element
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
+        // VoltageLevelNodes
+        writeVoltageLevelNodes(writer);
         // BusNodes
         writeIdMapping(METADATA_BUS_NODES_ELEMENT_NAME, METADATA_BUS_NODE_ELEMENT_NAME, busNodeIdByDiagramId, writer);
         // Nodes
@@ -100,6 +113,30 @@ public class GraphMetadata {
         writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByDiagramId, writer);
         // End root element
         writer.writeEndElement();
+    }
+
+    private void writeVoltageLevelNodes(XMLStreamWriter writer) throws XMLStreamException {
+        if (edgeDiagramIdsByVoltageLevelNodeDiagramId.entrySet().isEmpty()) {
+            writer.writeEmptyElement(METADATA_PREFIX, METADATA_VOLTAGE_NODES_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+        } else {
+            writer.writeStartElement(METADATA_PREFIX, METADATA_VOLTAGE_NODES_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+            for (Map.Entry<String, List<String>> entry : edgeDiagramIdsByVoltageLevelNodeDiagramId.entrySet()) {
+                List<String> edgeDiagramIds = entry.getValue();
+                if (Objects.isNull(edgeDiagramIds)) {
+                    writer.writeEmptyElement(METADATA_PREFIX, METADATA_VOLTAGE_NODE_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+                    writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
+                } else {
+                    writer.writeStartElement(METADATA_PREFIX, METADATA_VOLTAGE_NODE_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+                    writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
+                    for (String edgeDiagramId : edgeDiagramIds) {
+                        writer.writeEmptyElement(METADATA_PREFIX, METADATA_EDGE_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+                        writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, edgeDiagramId);
+                    }
+                    writer.writeEndElement();
+                }
+            }
+            writer.writeEndElement();
+        }
     }
 
     private void writeIdMapping(String rootElementName, String tagElementName, Map<String, String> ids, XMLStreamWriter writer) throws XMLStreamException {
@@ -114,6 +151,10 @@ public class GraphMetadata {
             }
             writer.writeEndElement();
         }
+    }
+
+    public void addVoltageLevelNode(VoltageLevelNode node, Edge edge, UnaryOperator<String> diagramIdToSvgId) {
+        edgeDiagramIdsByVoltageLevelNodeDiagramId.computeIfAbsent(diagramIdToSvgId.apply(node.getDiagramId()), v -> new ArrayList<>()).add(diagramIdToSvgId.apply(edge.getDiagramId()));
     }
 
     public void addBusNode(BusNode node, UnaryOperator<String> diagramIdToSvgId) {

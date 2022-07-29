@@ -46,6 +46,7 @@
 }
 ]]></style>
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:voltageLevelNodes/>
         <nad:busNodes>
             <nad:busNode diagramId="1" equipmentId="VL_132_0"/>
             <nad:busNode diagramId="3" equipmentId="VL_33_0"/>

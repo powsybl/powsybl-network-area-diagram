@@ -46,6 +46,40 @@
 }
 ]]></style>
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+        <nad:voltageLevelNodes>
+            <nad:voltageLevelNode diagramId="0">
+                <nad:edge diagramId="22"/>
+                <nad:edge diagramId="23"/>
+                <nad:edge diagramId="24"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="3">
+                <nad:edge diagramId="25"/>
+                <nad:edge diagramId="27"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="18">
+                <nad:edge diagramId="26"/>
+                <nad:edge diagramId="39"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="5">
+                <nad:edge diagramId="28"/>
+                <nad:edge diagramId="29"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="7">
+                <nad:edge diagramId="30"/>
+                <nad:edge diagramId="31"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="11">
+                <nad:edge diagramId="32"/>
+                <nad:edge diagramId="33"/>
+                <nad:edge diagramId="34"/>
+                <nad:edge diagramId="35"/>
+                <nad:edge diagramId="36"/>
+            </nad:voltageLevelNode>
+            <nad:voltageLevelNode diagramId="16">
+                <nad:edge diagramId="37"/>
+                <nad:edge diagramId="38"/>
+            </nad:voltageLevelNode>
+        </nad:voltageLevelNodes>
         <nad:busNodes>
             <nad:busNode diagramId="1" equipmentId="BBE1AA1_0"/>
             <nad:busNode diagramId="2" equipmentId="BBE1AA1_1"/>
