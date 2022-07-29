@@ -137,12 +137,12 @@
             <nad:busNode diagramId="52" equipmentId="VL46_0"/>
             <nad:busNode diagramId="86" equipmentId="VL62_0"/>
             <nad:busNode diagramId="90" equipmentId="VL64_0"/>
-            <nad:busNode diagramId="95" equipmentId="VL65_0"/>
-            <nad:busNode diagramId="98" equipmentId="VL67_0"/>
-            <nad:busNode diagramId="101" equipmentId="VL68_0"/>
-            <nad:busNode diagramId="104" equipmentId="VL70_0"/>
-            <nad:busNode diagramId="107" equipmentId="VL75_0"/>
-            <nad:busNode diagramId="110" equipmentId="VL77_0"/>
+            <nad:busNode diagramId="95" equipmentId="VL67_0"/>
+            <nad:busNode diagramId="98" equipmentId="VL65_0"/>
+            <nad:busNode diagramId="101" equipmentId="VL70_0"/>
+            <nad:busNode diagramId="104" equipmentId="VL75_0"/>
+            <nad:busNode diagramId="107" equipmentId="VL77_0"/>
+            <nad:busNode diagramId="110" equipmentId="VL68_0"/>
         </nad:busNodes>
         <nad:nodes>
             <nad:node diagramId="0" equipmentId="VL42"/>
@@ -171,12 +171,12 @@
             <nad:node diagramId="51" equipmentId="VL46"/>
             <nad:node diagramId="85" equipmentId="VL62"/>
             <nad:node diagramId="89" equipmentId="VL64"/>
-            <nad:node diagramId="94" equipmentId="VL65"/>
-            <nad:node diagramId="97" equipmentId="VL67"/>
-            <nad:node diagramId="100" equipmentId="VL68"/>
-            <nad:node diagramId="103" equipmentId="VL70"/>
-            <nad:node diagramId="106" equipmentId="VL75"/>
-            <nad:node diagramId="109" equipmentId="VL77"/>
+            <nad:node diagramId="94" equipmentId="VL67"/>
+            <nad:node diagramId="97" equipmentId="VL65"/>
+            <nad:node diagramId="100" equipmentId="VL70"/>
+            <nad:node diagramId="103" equipmentId="VL75"/>
+            <nad:node diagramId="106" equipmentId="VL77"/>
+            <nad:node diagramId="109" equipmentId="VL68"/>
         </nad:nodes>
         <nad:edges>
             <nad:edge diagramId="42" equipmentId="L40-42-1"/>
@@ -221,12 +221,12 @@
             <nad:edge diagramId="91" equipmentId="T64-61-1"/>
             <nad:edge diagramId="92" equipmentId="L63-64-1"/>
             <nad:edge diagramId="93" equipmentId="L62-66-1"/>
-            <nad:edge diagramId="96" equipmentId="T65-66-1"/>
-            <nad:edge diagramId="99" equipmentId="L66-67-1"/>
-            <nad:edge diagramId="102" equipmentId="T68-69-1"/>
-            <nad:edge diagramId="105" equipmentId="L69-70-1"/>
-            <nad:edge diagramId="108" equipmentId="L69-75-1"/>
-            <nad:edge diagramId="111" equipmentId="L69-77-1"/>
+            <nad:edge diagramId="96" equipmentId="L66-67-1"/>
+            <nad:edge diagramId="99" equipmentId="T65-66-1"/>
+            <nad:edge diagramId="102" equipmentId="L69-70-1"/>
+            <nad:edge diagramId="105" equipmentId="L69-75-1"/>
+            <nad:edge diagramId="108" equipmentId="L69-77-1"/>
+            <nad:edge diagramId="111" equipmentId="T68-69-1"/>
         </nad:edges>
     </metadata>
     <defs>
@@ -1838,12 +1838,9 @@
             </g>
         </g>
         <g id="96">
-            <desc>T65-66-1</desc>
-            <g class="nad-vl120to180-1">
-                <circle cx="-9.46" cy="5.16" r="0.20"/>
-            </g>
+            <desc>L66-67-1</desc>
             <g class="nad-vl120to180-0">
-                <polyline points="-8.15,3.31 -9.23,4.83"/>
+                <polyline points="-8.15,3.31 -9.40,5.08"/>
                 <g class="nad-edge-infos" transform="translate(-8.34,3.57)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-144.68)">
@@ -1860,13 +1857,15 @@
                         <text transform="rotate(-54.68)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="-9.34" cy="4.99" r="0.20"/>
             </g>
         </g>
         <g id="99">
-            <desc>L66-67-1</desc>
+            <desc>T65-66-1</desc>
+            <g class="nad-vl120to180-1">
+                <circle cx="-10.80" cy="3.14" r="0.20"/>
+            </g>
             <g class="nad-vl120to180-0">
-                <polyline points="-8.26,3.10 -10.70,3.14"/>
+                <polyline points="-8.26,3.10 -10.40,3.13"/>
                 <g class="nad-edge-infos" transform="translate(-8.58,3.11)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-90.76)">
@@ -1883,15 +1882,13 @@
                         <text transform="rotate(-0.76)" x="-0.19" style="text-anchor:end">0</text>
                     </g>
                 </g>
+                <circle cx="-10.60" cy="3.13" r="0.20"/>
             </g>
         </g>
         <g id="102">
-            <desc>T68-69-1</desc>
-            <g class="nad-vl120to180-1">
-                <circle cx="1.60" cy="14.46" r="0.20"/>
-            </g>
+            <desc>L69-70-1</desc>
             <g class="nad-vl120to180-0">
-                <polyline points="-0.49,13.27 1.25,14.26"/>
+                <polyline points="-0.49,13.27 1.51,14.41"/>
                 <g class="nad-edge-infos" transform="translate(-0.21,13.43)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(119.78)">
@@ -1908,11 +1905,10 @@
                         <text transform="rotate(29.78)" x="0.19">0</text>
                     </g>
                 </g>
-                <circle cx="1.43" cy="14.36" r="0.20"/>
             </g>
         </g>
         <g id="105">
-            <desc>L69-70-1</desc>
+            <desc>L69-75-1</desc>
             <g class="nad-vl120to180-0">
                 <polyline points="-0.86,13.35 -2.25,15.26"/>
                 <g class="nad-edge-infos" transform="translate(-1.05,13.61)">
@@ -1934,7 +1930,7 @@
             </g>
         </g>
         <g id="108">
-            <desc>L69-75-1</desc>
+            <desc>L69-77-1</desc>
             <g class="nad-vl120to180-0">
                 <polyline points="-0.97,13.16 -3.05,13.29"/>
                 <g class="nad-edge-infos" transform="translate(-1.29,13.18)">
@@ -1956,9 +1952,12 @@
             </g>
         </g>
         <g id="111">
-            <desc>L69-77-1</desc>
+            <desc>T68-69-1</desc>
+            <g class="nad-vl120to180-1">
+                <circle cx="-0.14" cy="15.76" r="0.20"/>
+            </g>
             <g class="nad-vl120to180-0">
-                <polyline points="-0.66,13.39 -0.16,15.66"/>
+                <polyline points="-0.66,13.39 -0.22,15.37"/>
                 <g class="nad-edge-infos" transform="translate(-0.59,13.71)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(167.62)">
@@ -1975,6 +1974,7 @@
                         <text transform="rotate(77.62)" x="0.19">0</text>
                     </g>
                 </g>
+                <circle cx="-0.18" cy="15.56" r="0.20"/>
             </g>
         </g>
     </g>
