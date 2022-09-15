@@ -8,14 +8,16 @@ package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -43,24 +45,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        addGraphNodes(graph);
-        addGraphEdges(graph);
+        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream()
+                .filter(voltageLevelFilter)
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .collect(Collectors.toList());
+        voltageLevels.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
+        voltageLevels.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
     }
 
-    private void addGraphNodes(Graph graph) {
-        network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .forEach(vl -> createVoltageLevelNode(vl, graph, true));
-    }
-
-    private void addGraphEdges(Graph graph) {
-        network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .forEach(vl -> visitEquipments(vl, graph));
-    }
-
-    private VoltageLevelNode createVoltageLevelNode(VoltageLevel vl, Graph graph, boolean visible) {
+    private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         vl.getBusView().getBusStream()
                 .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
@@ -72,7 +66,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return vlNode;
     }
 
-    private void visitEquipments(VoltageLevel vl, Graph graph) {
+    private void addGraphEdges(VoltageLevel vl, Graph graph) {
         vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
         vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
         vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
@@ -174,7 +168,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Graph graph, Terminal terminal) {
         VoltageLevel vl = terminal.getVoltageLevel();
-        return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createVoltageLevelNode(vl, graph, false));
+        return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> addVoltageLevelGraphNode(vl, graph, false));
     }
 
     private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
