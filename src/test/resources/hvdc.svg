@@ -315,10 +315,10 @@
         <polyline id="8_edge" points="6.64,2.21 7.34,2.21"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="0.61" style="dominant-baseline:middle" x="-4.73">S1</text>
-        <text filter="url(#textBgFilter)" y="0.46" style="dominant-baseline:middle" x="-0.69">S1</text>
-        <text filter="url(#textBgFilter)" y="-2.20" style="dominant-baseline:middle" x="1.73">S2</text>
-        <text filter="url(#textBgFilter)" y="0.94" style="dominant-baseline:middle" x="3.50">S3</text>
-        <text filter="url(#textBgFilter)" y="2.21" style="dominant-baseline:middle" x="7.34">S4</text>
+        <text filter="url(#textBgFilter)" y="0.61" style="dominant-baseline:middle" x="-4.73">S1VL1</text>
+        <text filter="url(#textBgFilter)" y="0.46" style="dominant-baseline:middle" x="-0.69">S1VL2</text>
+        <text filter="url(#textBgFilter)" y="-2.20" style="dominant-baseline:middle" x="1.73">S2VL1</text>
+        <text filter="url(#textBgFilter)" y="0.94" style="dominant-baseline:middle" x="3.50">S3VL1</text>
+        <text filter="url(#textBgFilter)" y="2.21" style="dominant-baseline:middle" x="7.34">S4VL1</text>
     </g>
 </svg>

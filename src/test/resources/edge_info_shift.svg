@@ -256,8 +256,8 @@
         <polyline id="5_edge" points="2.93,0.77 3.33,0.77"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-1.40" style="dominant-baseline:middle" x="0.65">s1</text>
-        <text filter="url(#textBgFilter)" y="1.97" style="dominant-baseline:middle" x="-0.06">s1</text>
-        <text filter="url(#textBgFilter)" y="0.77" style="dominant-baseline:middle" x="3.33">s1</text>
+        <text filter="url(#textBgFilter)" y="-1.40" style="dominant-baseline:middle" x="0.65">Voltage level 1</text>
+        <text filter="url(#textBgFilter)" y="1.97" style="dominant-baseline:middle" x="-0.06">Voltage level 2</text>
+        <text filter="url(#textBgFilter)" y="0.77" style="dominant-baseline:middle" x="3.33">vl3</text>
     </g>
 </svg>
