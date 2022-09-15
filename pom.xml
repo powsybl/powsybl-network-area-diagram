@@ -50,7 +50,7 @@
         </sonar.exclusions>
 
         <powsybl-core.version>4.10.0</powsybl-core.version>
-        <powsybl-olf.version>0.21.0</powsybl-olf.version>
+        <powsybl-olf.version>0.23.0</powsybl-olf.version>
         <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
