@@ -28,9 +28,10 @@ public final class NetworkTestFactory {
      */
     public static Network createTwoVoltageLevels() {
         Network network = Network.create("dl", "test");
-        Substation s = network.newSubstation().setId("s1").add();
+        Substation s = network.newSubstation().setId("s1").setName("Substation 1").add();
         VoltageLevel vl1 = s.newVoltageLevel()
                 .setId("vl1")
+                .setName("Voltage level 1")
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -49,6 +50,7 @@ public final class NetworkTestFactory {
                 .add();
         VoltageLevel vl2 = s.newVoltageLevel()
                 .setId("vl2")
+                .setName("Voltage level 2")
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();

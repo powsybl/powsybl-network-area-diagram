@@ -46,7 +46,7 @@ class EdgeInfoLabelTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network) {
+        return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
             public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
                 return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
