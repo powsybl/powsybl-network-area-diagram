@@ -17,7 +17,7 @@
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black; dominant-baseline: central}
 .nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -103,7 +103,7 @@
         <polyline id="2_edge" points="-0.55,1.68 0.15,1.68"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-0.89" style="dominant-baseline:middle" x="2.60">Voltage level 1</text>
-        <text filter="url(#textBgFilter)" y="1.68" style="dominant-baseline:middle" x="0.15">Voltage level 2</text>
+        <text filter="url(#textBgFilter)" y="-0.89" x="2.60">Voltage level 1</text>
+        <text filter="url(#textBgFilter)" y="1.68" x="0.15">Voltage level 2</text>
     </g>
 </svg>

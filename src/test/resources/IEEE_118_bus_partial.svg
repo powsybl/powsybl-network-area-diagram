@@ -17,7 +17,7 @@
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black; dominant-baseline: central}
 .nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -2001,25 +2001,25 @@
         <polyline id="38_edge" points="-0.41,13.14 0.29,13.14"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="2.05" style="dominant-baseline:middle" x="-2.85">VL42</text>
-        <text filter="url(#textBgFilter)" y="5.70" style="dominant-baseline:middle" x="5.13">VL45</text>
-        <text filter="url(#textBgFilter)" y="8.91" style="dominant-baseline:middle" x="0.77">VL47</text>
-        <text filter="url(#textBgFilter)" y="8.65" style="dominant-baseline:middle" x="7.39">VL48</text>
-        <text filter="url(#textBgFilter)" y="4.01" style="dominant-baseline:middle" x="2.41">VL49</text>
-        <text filter="url(#textBgFilter)" y="3.93" style="dominant-baseline:middle" x="9.91">VL50</text>
-        <text filter="url(#textBgFilter)" y="-1.98" style="dominant-baseline:middle" x="8.78">VL51</text>
-        <text filter="url(#textBgFilter)" y="-7.69" style="dominant-baseline:middle" x="12.12">VL52</text>
-        <text filter="url(#textBgFilter)" y="-9.57" style="dominant-baseline:middle" x="8.78">VL53</text>
-        <text filter="url(#textBgFilter)" y="-4.95" style="dominant-baseline:middle" x="3.89">VL54</text>
-        <text filter="url(#textBgFilter)" y="-8.53" style="dominant-baseline:middle" x="4.28">VL55</text>
-        <text filter="url(#textBgFilter)" y="-5.44" style="dominant-baseline:middle" x="7.12">VL56</text>
-        <text filter="url(#textBgFilter)" y="0.20" style="dominant-baseline:middle" x="11.99">VL57</text>
-        <text filter="url(#textBgFilter)" y="-4.08" style="dominant-baseline:middle" x="11.79">VL58</text>
-        <text filter="url(#textBgFilter)" y="-8.71" style="dominant-baseline:middle" x="0.64">VL59</text>
-        <text filter="url(#textBgFilter)" y="-7.20" style="dominant-baseline:middle" x="-3.78">VL60</text>
-        <text filter="url(#textBgFilter)" y="-9.86" style="dominant-baseline:middle" x="-5.10">VL61</text>
-        <text filter="url(#textBgFilter)" y="-13.70" style="dominant-baseline:middle" x="-1.12">VL63</text>
-        <text filter="url(#textBgFilter)" y="3.10" style="dominant-baseline:middle" x="-7.00">VL66</text>
-        <text filter="url(#textBgFilter)" y="13.14" style="dominant-baseline:middle" x="0.29">VL69</text>
+        <text filter="url(#textBgFilter)" y="2.05" x="-2.85">VL42</text>
+        <text filter="url(#textBgFilter)" y="5.70" x="5.13">VL45</text>
+        <text filter="url(#textBgFilter)" y="8.91" x="0.77">VL47</text>
+        <text filter="url(#textBgFilter)" y="8.65" x="7.39">VL48</text>
+        <text filter="url(#textBgFilter)" y="4.01" x="2.41">VL49</text>
+        <text filter="url(#textBgFilter)" y="3.93" x="9.91">VL50</text>
+        <text filter="url(#textBgFilter)" y="-1.98" x="8.78">VL51</text>
+        <text filter="url(#textBgFilter)" y="-7.69" x="12.12">VL52</text>
+        <text filter="url(#textBgFilter)" y="-9.57" x="8.78">VL53</text>
+        <text filter="url(#textBgFilter)" y="-4.95" x="3.89">VL54</text>
+        <text filter="url(#textBgFilter)" y="-8.53" x="4.28">VL55</text>
+        <text filter="url(#textBgFilter)" y="-5.44" x="7.12">VL56</text>
+        <text filter="url(#textBgFilter)" y="0.20" x="11.99">VL57</text>
+        <text filter="url(#textBgFilter)" y="-4.08" x="11.79">VL58</text>
+        <text filter="url(#textBgFilter)" y="-8.71" x="0.64">VL59</text>
+        <text filter="url(#textBgFilter)" y="-7.20" x="-3.78">VL60</text>
+        <text filter="url(#textBgFilter)" y="-9.86" x="-5.10">VL61</text>
+        <text filter="url(#textBgFilter)" y="-13.70" x="-1.12">VL63</text>
+        <text filter="url(#textBgFilter)" y="3.10" x="-7.00">VL66</text>
+        <text filter="url(#textBgFilter)" y="13.14" x="0.29">VL69</text>
     </g>
 </svg>
