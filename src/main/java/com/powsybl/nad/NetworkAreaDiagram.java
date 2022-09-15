@@ -75,7 +75,7 @@ public class NetworkAreaDiagram {
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
+        draw(svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters));
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
@@ -117,7 +117,7 @@ public class NetworkAreaDiagram {
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network));
+        draw(writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters));
     }
 
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,

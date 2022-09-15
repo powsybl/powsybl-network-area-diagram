@@ -17,7 +17,7 @@
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black; dominant-baseline: central}
 .nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -1004,19 +1004,19 @@
         <polyline id="26_edge" points="-3.19,5.05 -4.84,9.29"/>
     </g>
     <g class="nad-text-nodes">
-        <text y="8.27" style="dominant-baseline:middle" x="13.16">S6</text>
-        <text y="-0.09" style="dominant-baseline:middle" x="-15.04">S9</text>
-        <text y="-8.24" style="dominant-baseline:middle" x="-11.93">S10</text>
-        <text y="-11.69" style="dominant-baseline:middle" x="0.12">S11</text>
-        <text y="0.29" style="dominant-baseline:middle" x="-6.74">S4</text>
-        <text y="7.88" style="dominant-baseline:middle" x="-10.93">S5</text>
-        <text y="-2.51" style="dominant-baseline:middle" x="13.82">S8</text>
-        <text y="-8.37" style="dominant-baseline:middle" x="7.22">S7</text>
-        <text y="-3.29" style="dominant-baseline:middle" x="8.37">S1</text>
-        <text y="2.30" style="dominant-baseline:middle" x="12.60">S2</text>
-        <text y="-8.67" style="dominant-baseline:middle" x="-4.76">S2</text>
-        <text y="12.18" style="dominant-baseline:middle" x="-0.05">S1</text>
-        <text y="16.44" style="dominant-baseline:middle" x="6.48">S3</text>
-        <text y="9.29" style="dominant-baseline:middle" x="-4.84">S1</text>
+        <text y="8.27" x="13.16">VL1</text>
+        <text y="-0.09" x="-15.04">VL10</text>
+        <text y="-8.24" x="-11.93">VL11</text>
+        <text y="-11.69" x="0.12">VL12</text>
+        <text y="0.29" x="-6.74">VL13</text>
+        <text y="7.88" x="-10.93">VL14</text>
+        <text y="-2.51" x="13.82">VL2</text>
+        <text y="-8.37" x="7.22">VL3</text>
+        <text y="-3.29" x="8.37">VL4</text>
+        <text y="2.30" x="12.60">VL5</text>
+        <text y="-8.67" x="-4.76">VL6</text>
+        <text y="12.18" x="-0.05">VL7</text>
+        <text y="16.44" x="6.48">VL8</text>
+        <text y="9.29" x="-4.84">VL9</text>
     </g>
 </svg>
