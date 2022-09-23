@@ -11,12 +11,14 @@ package com.powsybl.nad.layout;
  */
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
+    private boolean springRepulsionForceLayout = false;
 
     public LayoutParameters() {
     }
 
     public LayoutParameters(LayoutParameters other) {
         this.textNodesForceLayout = other.textNodesForceLayout;
+        this.springRepulsionForceLayout = other.springRepulsionForceLayout;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -25,6 +27,15 @@ public class LayoutParameters {
 
     public LayoutParameters setTextNodesForceLayout(boolean textNodesForceLayout) {
         this.textNodesForceLayout = textNodesForceLayout;
+        return this;
+    }
+
+    public boolean isSpringRepulsionForceLayout() {
+        return springRepulsionForceLayout;
+    }
+
+    public LayoutParameters setSpringRepulsionForceLayout(boolean springRepulsionForceLayout) {
+        this.springRepulsionForceLayout = springRepulsionForceLayout;
         return this;
     }
 }
