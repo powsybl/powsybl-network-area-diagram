@@ -12,7 +12,9 @@ import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -24,6 +26,14 @@ public class BasicForceLayout extends AbstractLayout {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
+
+        Map<Node, com.powsybl.forcelayout.Point> fixedPoints = new LinkedHashMap<>();
+        jgraphtGraph.vertexSet().forEach(node -> {
+            if (node.isFixedPosition()) {
+                fixedPoints.put(node, new com.powsybl.forcelayout.Point(node.getPosition().getX(), node.getPosition().getY()));
+            }
+        });
+        forceLayout.setFixedPoints(fixedPoints);
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {

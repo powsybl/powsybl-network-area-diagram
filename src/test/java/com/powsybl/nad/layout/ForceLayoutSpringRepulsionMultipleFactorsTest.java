@@ -25,7 +25,7 @@ class ForceLayoutSpringRepulsionMultipleFactorsTest {
 
     // Check "A Force-Directed Algorithm that Preserves Edge Crossing Properties" François Bertault 1999
 
-    static final Path OUTPUT = Paths.get("/Users/zamarrenolm/work/temp/nad/output");
+    static final Path OUTPUT = Paths.get("/Users/zamarrenolm/work/temp/nad/spring-repulsion/output");
     static final double[][] FACTORS = {
             {0.0, 0.25},
             //{0.1, 0.5, 0.75},
