@@ -70,6 +70,7 @@ public class ForceLayout<V, E> {
     private double friction;
     private double maxSpeed;
     private double springRepulsionFactor;
+    private Map<V, Point> fixedPoints;
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -124,9 +125,20 @@ public class ForceLayout<V, E> {
         return this;
     }
 
+    public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
+        this.fixedPoints = fixedPoints;
+        return this;
+    }
+
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
-            points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
+            Point p;
+            if (fixedPoints.containsKey(vertex)) {
+                p = fixedPoints.get(vertex);
+            } else {
+                p = new Point(random.nextDouble(), random.nextDouble());
+            }
+            points.put(vertex, p);
         }
     }
 
@@ -264,7 +276,15 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        for (Point point : points.values()) {
+        // FIXME(Luma) do not compute forces/update velocities for fixed points
+        // We have computed forces and velocities for all points,
+        // even for the fixed ones (this could be optimized)
+        // But we only update the position for the ones that do not have fixed positions
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            if (fixedPoints.containsKey(vertexPoint.getKey())) {
+                continue;
+            }
+            Point point = vertexPoint.getValue();
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
