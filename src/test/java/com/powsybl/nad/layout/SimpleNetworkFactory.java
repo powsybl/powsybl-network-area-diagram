@@ -8,6 +8,31 @@ public final class SimpleNetworkFactory {
         // Empty
     }
 
+    public static Network createIdOrderBadDrawing(boolean idOrderForBadDrawing) {
+        Network network = NetworkFactory.findDefault().createNetwork("IdOrderResultsInBadDrawing", "manual");
+        network.setName("Id order of voltage levels results in bad drawing");
+
+        String[] idsForNiceDrawing = {"1 A", "2 B", "3 C", "4 D", "5 E", "6 F", "7 G"};
+        String[] idsForBadDrawing  = {"4 A", "5 B", "3 C", "6 D", "7 E", "2 F", "1 G"};
+        String[] ids = idOrderForBadDrawing ? idsForBadDrawing : idsForNiceDrawing;
+        Bus[] buses = new Bus[ids.length];
+        for (int k = 0; k < ids.length; k++) {
+            Substation s = network.newSubstation().setId(ids[k]).add();
+            buses[k] = createBus(s, 400);
+        }
+        createLine(buses[0], buses[3]);
+        createLine(buses[0], buses[5]);
+        createLine(buses[5], buses[3]);
+        createLine(buses[3], buses[1]);
+        createLine(buses[3], buses[4]);
+        createLine(buses[5], buses[4]);
+        createLine(buses[1], buses[4]);
+        createLine(buses[1], buses[2]);
+        createLine(buses[4], buses[6]);
+        createLine(buses[2], buses[6]);
+        return network;
+    }
+
     public static Network createDiamond() {
         Network network = NetworkFactory.findDefault().createNetwork("diamond", "manual");
         network.setName("diamond");

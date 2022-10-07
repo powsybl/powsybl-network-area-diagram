@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.nad.layout;
 
 import com.powsybl.iidm.network.Network;
@@ -22,6 +28,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author Luma Zamarreno <zamarrenolm at aia.es>
+ */
 class ForceLayoutWithFixedPositionsTest {
 
     static final Path OUTPUT = Paths.get("/Users/zamarrenolm/work/temp/nad/fixed-positions/output");
