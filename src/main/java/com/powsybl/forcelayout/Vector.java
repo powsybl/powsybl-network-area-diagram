@@ -76,4 +76,9 @@ public class Vector {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%10.4f, %10.4f)", x, y);
+    }
 }

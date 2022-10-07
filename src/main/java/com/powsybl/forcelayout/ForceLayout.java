@@ -191,7 +191,7 @@ public class ForceLayout<V, E> {
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.trace("iteration {}, forces:", i);
                 for (Map.Entry<V, Point> p : points.entrySet()) {
-                    LOGGER.trace("   {} {} {}", p.getValue().getForces().getX(), p.getValue().getForces().getY(), p.getKey());
+                    LOGGER.trace("   {} {}", p.getValue().getForces(), p.getKey());
                 }
             }
             updateVelocity();
@@ -199,7 +199,7 @@ public class ForceLayout<V, E> {
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.trace("iteration {}, points:", i);
                 for (Map.Entry<V, Point> p : points.entrySet()) {
-                    LOGGER.trace("   {} {} {}", p.getValue().getPosition().getX(), p.getValue().getPosition().getY(), p.getKey());
+                    LOGGER.trace("   {} {}", p.getValue().getPosition(), p.getKey());
                 }
             }
             if (isStable()) {
