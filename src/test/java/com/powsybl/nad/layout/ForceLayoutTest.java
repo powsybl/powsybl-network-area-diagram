@@ -45,7 +45,7 @@ class ForceLayoutTest extends AbstractTest {
     void testDiamondNoSpringRepulsionFactor() {
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.0.svg"),
-                generateSvgString(createDiamondNetwork(), "/diamond.svg"));
+                generateSvgString(createDiamondNetwork(), "/diamond-spring-repulsion-factor-0.0.svg"));
     }
 
     @Test
@@ -53,7 +53,7 @@ class ForceLayoutTest extends AbstractTest {
         getLayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.2.svg"),
-                generateSvgString(createDiamondNetwork(), "/diamond.svg"));
+                generateSvgString(createDiamondNetwork(), "/diamond-spring-repulsion-factor-0.2.svg"));
     }
 
     static Network createDiamondNetwork() {
