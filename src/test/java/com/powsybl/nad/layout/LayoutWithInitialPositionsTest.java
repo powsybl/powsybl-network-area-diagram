@@ -25,7 +25,7 @@ class LayoutWithInitialPositionsTest {
 
     @Test
     void testDiamond() {
-        checkLayoutWithInitialPositions(NetworkFactory.createDiamond());
+        checkLayoutWithInitialPositions(LayoutNetworkFactory.createDiamond());
     }
 
     private static void checkLayoutWithInitialPositions(Network network) {

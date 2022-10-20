@@ -32,10 +32,10 @@ public class BasicForceLayout extends AbstractLayout {
                 // Only accept positions for nodes in the graph
                 .filter(idPoint -> graph.getNode(idPoint.getKey()).isPresent())
                 .collect(Collectors.toMap(
-                        idPoint -> graph.getNode(idPoint.getKey()).orElseThrow(),
-                        idPoint -> new com.powsybl.forcelayout.Point(idPoint.getValue().getX(), idPoint.getValue().getY()),
-                        // If same node has two points, keep the first one considered
-                        (point1, point2) -> point1
+                    idPoint -> graph.getNode(idPoint.getKey()).orElseThrow(),
+                    idPoint -> new com.powsybl.forcelayout.Point(idPoint.getValue().getX(), idPoint.getValue().getY()),
+                    // If same node has two points, keep the first one considered
+                    (point1, point2) -> point1
                 ));
         forceLayout.setInitialPoints(initialPoints);
         // TODO Here we are considered all nodes with initial position as fixed
