@@ -199,6 +199,8 @@ public class ForceLayout<V, E> {
                     Vector center = q1.add(q2.subtract(q1).multiply(0.5));
                     Vector force = coulombsForce(p, center, repulsion * springRepulsionFactor);
                     point.applyForce(force);
+                    n1.applyForce(force.multiply(-0.5));
+                    n2.applyForce(force.multiply(-0.5));
                 }
             }
         }
