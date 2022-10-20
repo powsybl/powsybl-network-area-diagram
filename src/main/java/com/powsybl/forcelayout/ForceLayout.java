@@ -61,6 +61,7 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
+    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0; // Disabled by default
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -68,6 +69,7 @@ public class ForceLayout<V, E> {
     private double repulsion;
     private double friction;
     private double maxSpeed;
+    private double springRepulsionFactor;
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -82,6 +84,7 @@ public class ForceLayout<V, E> {
         this.repulsion = DEFAULT_REPULSION;
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
+        this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
 
         this.graph = Objects.requireNonNull(graph);
     }
@@ -116,6 +119,11 @@ public class ForceLayout<V, E> {
         return this;
     }
 
+    public ForceLayout<V, E> setSpringRepulsionFactor(double springRepulsionFactor) {
+        this.springRepulsionFactor = springRepulsionFactor;
+        return this;
+    }
+
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
             points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
@@ -140,7 +148,10 @@ public class ForceLayout<V, E> {
 
         int i;
         for (i = 0; i < maxSteps; i++) {
-            applyCoulombsLaw();
+            applyCoulombsLawToPoints();
+            if (springRepulsionFactor != 0.0) {
+                applyCoulombsLawToSprings();
+            }
             applyHookesLaw();
             attractToCenter();
             updateVelocity();
@@ -159,15 +170,57 @@ public class ForceLayout<V, E> {
         LOGGER.info("Elapsed time: {}", elapsedTime / 1e9);
     }
 
-    private void applyCoulombsLaw() {
+    private Vector coulombsForce(Vector p1, Vector p2, double repulsion) {
+        Vector distance = p1.subtract(p2);
+        Vector direction = distance.normalize();
+        return direction.multiply(repulsion).divide(distance.magnitudeSquare() * 0.5 + 0.1);
+    }
+
+    private void applyCoulombsLawToPoints() {
         for (Point point : points.values()) {
+            Vector p = point.getPosition();
             for (Point otherPoint : points.values()) {
                 if (!point.equals(otherPoint)) {
-                    Vector distance = point.getPosition().subtract(otherPoint.getPosition());
-                    Vector direction = distance.normalize();
+                    point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
+                }
+            }
+        }
+    }
 
-                    Vector force = direction.multiply(repulsion).divide(distance.magnitudeSquare() * 0.5 + 0.1);
+    private void applyCoulombsLawToSprings() {
+        for (Point point : points.values()) {
+            Vector p = point.getPosition();
+            for (Spring spring : springs) {
+                Point n1 = spring.getNode1();
+                Point n2 = spring.getNode2();
+                if (!n1.equals(point) && !n2.equals(point)) {
+                    Vector q1 = spring.getNode1().getPosition();
+                    Vector q2 = spring.getNode2().getPosition();
+                    Vector center = q1.add(q2.subtract(q1).multiply(0.5));
+                    Vector force = coulombsForce(p, center, repulsion * springRepulsionFactor);
                     point.applyForce(force);
+                    n1.applyForce(force.multiply(-0.5));
+                    n2.applyForce(force.multiply(-0.5));
+                }
+            }
+        }
+        for (Spring spring : springs) {
+            Point n1 = spring.getNode1();
+            Point n2 = spring.getNode2();
+            Vector p1 = spring.getNode1().getPosition();
+            Vector p2 = spring.getNode2().getPosition();
+            Vector center = p1.add(p2.subtract(p1).multiply(0.5));
+            for (Spring otherSpring : springs) {
+                if (!spring.equals(otherSpring)) {
+                    // Compute the repulsion force between centers of the springs
+                    Vector op1 = otherSpring.getNode1().getPosition();
+                    Vector op2 = otherSpring.getNode2().getPosition();
+                    Vector otherCenter = op1.add(op2.subtract(op1).multiply(0.5));
+                    Vector force = coulombsForce(center, otherCenter, repulsion * springRepulsionFactor);
+
+                    // And apply it to both points of the spring
+                    n1.applyForce(force);
+                    n2.applyForce(force);
                 }
             }
         }
