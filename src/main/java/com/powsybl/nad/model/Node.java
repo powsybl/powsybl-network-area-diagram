@@ -6,8 +6,6 @@
  */
 package com.powsybl.nad.model;
 
-import com.powsybl.commons.PowsyblException;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -22,12 +20,4 @@ public interface Node extends Identifiable {
     double getX();
 
     double getY();
-
-    default void setFixedPosition(boolean b) {
-        throw new PowsyblException("not implemented");
-    }
-
-    default boolean isFixedPosition() {
-        return false;
-    }
 }

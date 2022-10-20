@@ -12,9 +12,9 @@ import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -27,13 +27,22 @@ public class BasicForceLayout extends AbstractLayout {
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
 
-        Map<Node, com.powsybl.forcelayout.Point> fixedPoints = new LinkedHashMap<>();
-        jgraphtGraph.vertexSet().forEach(node -> {
-            if (node.isFixedPosition()) {
-                fixedPoints.put(node, new com.powsybl.forcelayout.Point(node.getPosition().getX(), node.getPosition().getY()));
-            }
-        });
-        forceLayout.setFixedPoints(fixedPoints);
+        // Define initial positions for the layout algorithm
+        Map<Node, com.powsybl.forcelayout.Point> initialPoints = layoutParameters.getInitialPositions().entrySet().stream()
+                // Only accept positions for nodes in the graph
+                .filter(idPoint -> graph.getNode(idPoint.getKey()).isPresent())
+                .collect(Collectors.toMap(
+                        idPoint -> graph.getNode(idPoint.getKey()).orElseThrow(),
+                        idPoint -> new com.powsybl.forcelayout.Point(idPoint.getValue().getX(), idPoint.getValue().getY()),
+                        // If same node has two points, keep the first one considered
+                        (point1, point2) -> point1
+                ));
+        forceLayout.setInitialPoints(initialPoints);
+        // TODO Here we are considered all nodes with initial position as fixed
+        // The fixed nodes could be a subset of the ones for which we give initial position
+        // For non-fixed nodes, initial position is just a "hint" for the layout algorithm
+        forceLayout.setFixedNodes(initialPoints.keySet());
+
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {

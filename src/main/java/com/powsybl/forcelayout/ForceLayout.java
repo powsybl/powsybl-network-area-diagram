@@ -70,7 +70,8 @@ public class ForceLayout<V, E> {
     private double friction;
     private double maxSpeed;
     private double springRepulsionFactor;
-    private Map<V, Point> fixedPoints;
+    private Map<V, Point> initialPoints; // Initial locations for some nodes
+    private Set<V> fixedNodes; // The location of these nodes should not be modified by the layout
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -88,6 +89,8 @@ public class ForceLayout<V, E> {
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
 
         this.graph = Objects.requireNonNull(graph);
+        this.initialPoints = Collections.emptyMap();
+        this.fixedNodes = Collections.emptySet();
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
@@ -125,16 +128,21 @@ public class ForceLayout<V, E> {
         return this;
     }
 
-    public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
-        this.fixedPoints = fixedPoints;
+    public ForceLayout<V, E> setInitialPoints(Map<V, Point> initialPoints) {
+        this.initialPoints = Objects.requireNonNull(initialPoints);
+        return this;
+    }
+
+    public ForceLayout<V, E> setFixedNodes(Set<V> fixedNodes) {
+        this.fixedNodes = Objects.requireNonNull(fixedNodes);
         return this;
     }
 
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
             Point p;
-            if (fixedPoints.containsKey(vertex)) {
-                p = fixedPoints.get(vertex);
+            if (initialPoints.containsKey(vertex)) {
+                p = initialPoints.get(vertex);
             } else {
                 p = new Point(random.nextDouble(), random.nextDouble());
             }
@@ -276,12 +284,12 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        // FIXME(Luma) do not compute forces/update velocities for fixed points
-        // We have computed forces and velocities for all points,
-        // even for the fixed ones (this could be optimized)
-        // But we only update the position for the ones that do not have fixed positions
+        // TODO do not compute forces or update velocities for fixed nodes
+        // We have computed forces and velocities for all nodes, even for the fixed ones
+        // We can optimize calculations by ignoring fixed nodes in those calculations
+        // Here we only update the position for the nodes that do not have fixed positions
         for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
-            if (fixedPoints.containsKey(vertexPoint.getKey())) {
+            if (fixedNodes.contains(vertexPoint.getKey())) {
                 continue;
             }
             Point point = vertexPoint.getValue();

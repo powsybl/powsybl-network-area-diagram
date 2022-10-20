@@ -14,7 +14,6 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     private int width;
     private int height;
     private Point position;
-    private boolean fixedPosition;
 
     protected AbstractNode(String diagramId, String equipmentId, String name) {
         super(diagramId, equipmentId, name);
@@ -46,16 +45,6 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     @Override
     public double getY() {
         return position.getY();
-    }
-
-    @Override
-    public boolean isFixedPosition() {
-        return fixedPosition;
-    }
-
-    @Override
-    public void setFixedPosition(boolean b) {
-        this.fixedPosition = b;
     }
 
     public int getWidth() {

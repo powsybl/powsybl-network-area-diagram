@@ -16,6 +16,8 @@ import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -29,8 +31,10 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -61,6 +65,10 @@ public class NetworkAreaDiagram {
         this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
     }
 
+    public Network getNetwork() {
+        return network;
+    }
+
     public void draw(Path svgFile) {
         draw(svgFile, new SvgParameters());
     }
@@ -88,6 +96,14 @@ public class NetworkAreaDiagram {
         draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
     }
 
+    public Map<String, Point> layout(LayoutParameters layoutParameters) {
+        return layout(layoutParameters, new BasicForceLayoutFactory());
+    }
+
+    public Map<String, Point> layout(LayoutParameters layoutParameters, LayoutFactory layoutFactory) {
+        return layout(layoutParameters, layoutFactory, new IntIdProvider());
+    }
+
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
                                    IdProvider idProvider) {
@@ -101,6 +117,17 @@ public class NetworkAreaDiagram {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
+    }
+
+    public Map<String, Point> layout(LayoutParameters layoutParameters, LayoutFactory layoutFactory, IdProvider idProvider) {
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        layoutFactory.create().run(graph, layoutParameters);
+        return graph.getVoltageLevelNodesStream()
+                .filter(VoltageLevelNode::isVisible)
+                .collect(Collectors.toMap(
+                        VoltageLevelNode::getEquipmentId,
+                        VoltageLevelNode::getPosition
+                ));
     }
 
     public void draw(Writer writer) {
