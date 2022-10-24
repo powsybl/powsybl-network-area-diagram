@@ -18,10 +18,12 @@ class LayoutParametersTest {
     @Test
     void test() {
         LayoutParameters layoutParameters0 = new LayoutParameters()
-                .setTextNodesForceLayout(true);
+                .setTextNodesForceLayout(true)
+                .setSpringRepulsionFactorForceLayout(1.0);
 
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
         assertEquals(layoutParameters0.isTextNodesForceLayout(), layoutParameters1.isTextNodesForceLayout());
+        assertEquals(layoutParameters0.getSpringRepulsionFactorForceLayout(), layoutParameters1.getSpringRepulsionFactorForceLayout());
     }
 }

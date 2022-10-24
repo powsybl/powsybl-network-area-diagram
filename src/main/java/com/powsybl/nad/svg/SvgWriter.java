@@ -413,7 +413,6 @@ public class SvgWriter {
             writer.writeAttribute(FILTER_ELEMENT_NAME, "url(#" + TEXT_BG_FILTER_ID + ")");
         }
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
-        writer.writeAttribute(STYLE_ELEMENT_NAME, "dominant-baseline:middle");
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
             writer.writeCharacters(content.get(0));

@@ -38,6 +38,8 @@ public class SvgParameters {
     private boolean edgeInfoAlongEdge = true;
     private double interAnnulusSpace = 0.05;
     private String svgPrefix = "";
+    private boolean idDisplayed = false;
+    private boolean substationDescriptionDisplayed;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -74,8 +76,10 @@ public class SvgParameters {
         this.loopControlDistance = other.loopControlDistance;
         this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
-        this.svgPrefix = other.svgPrefix;
         this.interAnnulusSpace = other.interAnnulusSpace;
+        this.svgPrefix = other.svgPrefix;
+        this.idDisplayed = other.idDisplayed;
+        this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
     }
 
     public Padding getDiagramPadding() {
@@ -302,6 +306,24 @@ public class SvgParameters {
 
     public SvgParameters setSvgPrefix(String svgPrefix) {
         this.svgPrefix = svgPrefix;
+        return this;
+    }
+
+    public boolean isIdDisplayed() {
+        return idDisplayed;
+    }
+
+    public SvgParameters setIdDisplayed(boolean idDisplayed) {
+        this.idDisplayed = idDisplayed;
+        return this;
+    }
+
+    public boolean isSubstationDescriptionDisplayed() {
+        return substationDescriptionDisplayed;
+    }
+
+    public SvgParameters setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
+        this.substationDescriptionDisplayed = substationDescriptionDisplayed;
         return this;
     }
 }

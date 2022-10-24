@@ -69,7 +69,7 @@ class GraphMetadataTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network);
+        return new DefaultLabelProvider(network, getSvgParameters());
     }
 
     @Test

@@ -8,12 +8,13 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.Identifiable;
+import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +24,11 @@ import java.util.List;
  */
 public class DefaultLabelProvider implements LabelProvider {
     private final Network network;
+    private final SvgParameters svgParameters;
 
-    public DefaultLabelProvider(Network network) {
+    public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
+        this.svgParameters = svgParameters;
     }
 
     @Override
@@ -55,8 +58,14 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelNode.getEquipmentId());
-        String descr = vl.getSubstation().map(Identifiable::getNameOrId).orElse(vl.getNameOrId());
-        return Collections.singletonList(descr);
+        List<String> description = new ArrayList<>();
+        description.add(svgParameters.isIdDisplayed() ? vl.getId() : vl.getNameOrId());
+        if (svgParameters.isSubstationDescriptionDisplayed()) {
+            vl.getSubstation()
+                    .map(s -> svgParameters.isIdDisplayed() ? s.getId() : s.getNameOrId())
+                    .ifPresent(description::add);
+        }
+        return description;
     }
 
     @Override

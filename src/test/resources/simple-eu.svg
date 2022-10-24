@@ -17,7 +17,7 @@
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black; dominant-baseline: central}
 .nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -109,9 +109,9 @@
         <nad:edges>
             <nad:edge diagramId="22" equipmentId="BBE1AA1  BBE2AA1  1"/>
             <nad:edge diagramId="23" equipmentId="BBE1AA1  BBE3AA1  1"/>
-            <nad:edge diagramId="24" equipmentId="BBE1AA1  BBE3AA1  2"/>
-            <nad:edge diagramId="25" equipmentId="BBE2AA1  BBE3AA1  1"/>
-            <nad:edge diagramId="26" equipmentId="NNL2AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="24" equipmentId="BBE2AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="25" equipmentId="NNL2AA1  BBE3AA1  1"/>
+            <nad:edge diagramId="26" equipmentId="BBE1AA1  BBE3AA1  2"/>
             <nad:edge diagramId="27" equipmentId="BBE2AA1  FFR3AA1  1"/>
             <nad:edge diagramId="28" equipmentId="DDE1AA1  DDE2AA1  1"/>
             <nad:edge diagramId="29" equipmentId="DDE1AA1  DDE3AA1  1"/>
@@ -120,8 +120,8 @@
             <nad:edge diagramId="32" equipmentId="FFR2AA1  DDE3AA1  1"/>
             <nad:edge diagramId="33" equipmentId="FFR1AA1  FFR2AA1  1"/>
             <nad:edge diagramId="34" equipmentId="FFR1AA1  FFR3AA1  1"/>
-            <nad:edge diagramId="35" equipmentId="FFR1AA1  FFR2AA1  2"/>
-            <nad:edge diagramId="36" equipmentId="FFR2AA1  FFR3AA1  1"/>
+            <nad:edge diagramId="35" equipmentId="FFR2AA1  FFR3AA1  1"/>
+            <nad:edge diagramId="36" equipmentId="FFR1AA1  FFR2AA1  2"/>
             <nad:edge diagramId="37" equipmentId="NNL1AA1  NNL2AA1  1"/>
             <nad:edge diagramId="38" equipmentId="NNL1AA1  NNL3AA1  1"/>
             <nad:edge diagramId="39" equipmentId="NNL2AA1  NNL3AA1  1"/>
@@ -261,49 +261,6 @@
             </g>
         </g>
         <g id="24">
-            <desc>BBE1AA1  BBE3AA1  2</desc>
-            <g class="nad-vl300to500">
-                <path d="M-5.28,-2.20 L-5.52,-2.25 C-5.91,-2.34 -5.90,-2.60 -5.83,-2.67"/>
-                <g class="nad-edge-infos" transform="translate(-5.52,-2.25)">
-                    <g class="nad-active nad-state-in">
-                        <g transform="rotate(-77.44)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-347.44)" x="-0.19" style="text-anchor:end">-267</text>
-                    </g>
-                    <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-77.44)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-347.44)" x="-0.19" style="text-anchor:end">8</text>
-                    </g>
-                </g>
-                <circle cx="-5.69" cy="-2.82" r="0.20"/>
-            </g>
-            <g class="nad-vl300to500">
-                <path d="M-4.82,-2.32 L-4.98,-2.84 C-5.10,-3.22 -5.36,-3.19 -5.42,-3.11"/>
-                <g class="nad-edge-infos" transform="translate(-4.98,-2.84)">
-                    <g class="nad-active nad-state-out">
-                        <g transform="rotate(-17.44)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-287.44)" x="-0.19" style="text-anchor:end">267</text>
-                    </g>
-                    <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-17.44)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-287.44)" x="-0.19" style="text-anchor:end">4</text>
-                    </g>
-                </g>
-                <circle cx="-5.56" cy="-2.96" r="0.20"/>
-            </g>
-        </g>
-        <g id="25">
             <desc>BBE2AA1  BBE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-5.38,2.12 -5.02,1.70 -4.75,0.19"/>
@@ -344,7 +301,7 @@
                 </g>
             </g>
         </g>
-        <g id="26">
+        <g id="25">
             <desc>NNL2AA1  BBE3AA1  1</desc>
             <g class="nad-vl300to500">
                 <polyline points="-1.68,-5.17 -3.01,-3.82"/>
@@ -383,6 +340,49 @@
                         <text transform="rotate(-45.19)" x="0.19">44</text>
                     </g>
                 </g>
+            </g>
+        </g>
+        <g id="26">
+            <desc>BBE1AA1  BBE3AA1  2</desc>
+            <g class="nad-vl300to500">
+                <path d="M-5.28,-2.20 L-5.52,-2.25 C-5.91,-2.34 -5.90,-2.60 -5.83,-2.67"/>
+                <g class="nad-edge-infos" transform="translate(-5.52,-2.25)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(-77.44)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-347.44)" x="-0.19" style="text-anchor:end">-267</text>
+                    </g>
+                    <g class="nad-reactive nad-state-out">
+                        <g transform="rotate(-77.44)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-347.44)" x="-0.19" style="text-anchor:end">8</text>
+                    </g>
+                </g>
+                <circle cx="-5.69" cy="-2.82" r="0.20"/>
+            </g>
+            <g class="nad-vl300to500">
+                <path d="M-4.82,-2.32 L-4.98,-2.84 C-5.10,-3.22 -5.36,-3.19 -5.42,-3.11"/>
+                <g class="nad-edge-infos" transform="translate(-4.98,-2.84)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(-17.44)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-287.44)" x="-0.19" style="text-anchor:end">267</text>
+                    </g>
+                    <g class="nad-reactive nad-state-out">
+                        <g transform="rotate(-17.44)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-287.44)" x="-0.19" style="text-anchor:end">4</text>
+                    </g>
+                </g>
+                <circle cx="-5.56" cy="-2.96" r="0.20"/>
             </g>
         </g>
         <g id="27">
@@ -714,6 +714,47 @@
             </g>
         </g>
         <g id="35">
+            <desc>FFR2AA1  FFR3AA1  1</desc>
+            <g class="nad-vl300to500">
+                <polyline points="-0.17,7.46 -0.41,7.53 -1.78,7.18"/>
+                <g class="nad-edge-infos" transform="translate(-0.70,7.46)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(-75.51)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-345.51)" x="-0.19" style="text-anchor:end">-1670</text>
+                    </g>
+                    <g class="nad-reactive nad-state-out">
+                        <g transform="rotate(-75.51)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(-345.51)" x="-0.19" style="text-anchor:end">87</text>
+                    </g>
+                </g>
+            </g>
+            <g class="nad-vl300to500">
+                <polyline points="-3.54,6.44 -3.15,6.82 -1.78,7.18"/>
+                <g class="nad-edge-infos" transform="translate(-2.86,6.90)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(104.49)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(14.49)" x="0.19">1670</text>
+                    </g>
+                    <g class="nad-reactive nad-state-out">
+                        <g transform="rotate(104.49)">
+                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
+                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
+                        </g>
+                        <text transform="rotate(14.49)" x="0.19">87</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="36">
             <desc>FFR1AA1  FFR2AA1  2</desc>
             <g class="nad-vl300to500">
                 <path d="M0.84,7.61 L1.04,7.74 C1.38,7.95 1.28,8.18 1.20,8.23"/>
@@ -754,47 +795,6 @@
                     </g>
                 </g>
                 <circle cx="0.84" cy="8.42" r="0.20"/>
-            </g>
-        </g>
-        <g id="36">
-            <desc>FFR2AA1  FFR3AA1  1</desc>
-            <g class="nad-vl300to500">
-                <polyline points="-0.17,7.46 -0.41,7.53 -1.78,7.18"/>
-                <g class="nad-edge-infos" transform="translate(-0.70,7.46)">
-                    <g class="nad-active nad-state-in">
-                        <g transform="rotate(-75.51)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-345.51)" x="-0.19" style="text-anchor:end">-1670</text>
-                    </g>
-                    <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(-75.51)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(-345.51)" x="-0.19" style="text-anchor:end">87</text>
-                    </g>
-                </g>
-            </g>
-            <g class="nad-vl300to500">
-                <polyline points="-3.54,6.44 -3.15,6.82 -1.78,7.18"/>
-                <g class="nad-edge-infos" transform="translate(-2.86,6.90)">
-                    <g class="nad-active nad-state-out">
-                        <g transform="rotate(104.49)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(14.49)" x="0.19">1670</text>
-                    </g>
-                    <g class="nad-reactive nad-state-out">
-                        <g transform="rotate(104.49)">
-                            <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
-                        </g>
-                        <text transform="rotate(14.49)" x="0.19">87</text>
-                    </g>
-                </g>
             </g>
         </g>
         <g id="37">
@@ -934,15 +934,15 @@
         <polyline id="20_edge" points="2.82,-4.42 3.52,-4.42"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-2.08" style="dominant-baseline:middle" x="-3.74">BBE1AA</text>
-        <text filter="url(#textBgFilter)" y="2.31" style="dominant-baseline:middle" x="-4.54">BBE2AA</text>
-        <text filter="url(#textBgFilter)" y="2.74" style="dominant-baseline:middle" x="8.06">DDE1AA</text>
-        <text filter="url(#textBgFilter)" y="0.01" style="dominant-baseline:middle" x="5.50">DDE2AA</text>
-        <text filter="url(#textBgFilter)" y="4.37" style="dominant-baseline:middle" x="4.75">DDE3AA</text>
-        <text filter="url(#textBgFilter)" y="7.32" style="dominant-baseline:middle" x="1.36">FFR1AA</text>
-        <text filter="url(#textBgFilter)" y="6.26" style="dominant-baseline:middle" x="-2.72">FFR3AA</text>
-        <text filter="url(#textBgFilter)" y="-8.03" style="dominant-baseline:middle" x="2.23">NNL1AA</text>
-        <text filter="url(#textBgFilter)" y="-5.35" style="dominant-baseline:middle" x="-0.50">NNL2AA</text>
-        <text filter="url(#textBgFilter)" y="-4.42" style="dominant-baseline:middle" x="3.52">NNL3AA</text>
+        <text filter="url(#textBgFilter)" y="-2.08" x="-3.74">BBE1AA1</text>
+        <text filter="url(#textBgFilter)" y="2.31" x="-4.54">BBE2AA1</text>
+        <text filter="url(#textBgFilter)" y="2.74" x="8.06">DDE1AA1</text>
+        <text filter="url(#textBgFilter)" y="0.01" x="5.50">DDE2AA1</text>
+        <text filter="url(#textBgFilter)" y="4.37" x="4.75">DDE3AA1</text>
+        <text filter="url(#textBgFilter)" y="7.32" x="1.36">FFR1AA1</text>
+        <text filter="url(#textBgFilter)" y="6.26" x="-2.72">FFR3AA1</text>
+        <text filter="url(#textBgFilter)" y="-8.03" x="2.23">NNL1AA1</text>
+        <text filter="url(#textBgFilter)" y="-5.35" x="-0.50">NNL2AA1</text>
+        <text filter="url(#textBgFilter)" y="-4.42" x="3.52">NNL3AA1</text>
     </g>
 </svg>

@@ -8,14 +8,16 @@ package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.nad.model.ThreeWtNode;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -43,22 +45,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        addGraphNodes(graph);
-        addGraphEdges(graph);
+        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream()
+                .filter(voltageLevelFilter)
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .collect(Collectors.toList());
+        voltageLevels.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
+        voltageLevels.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
     }
 
-    private void addGraphNodes(Graph graph) {
-        network.getVoltageLevelStream().filter(voltageLevelFilter).forEach(vl -> createVoltageLevelNode(vl, graph, true));
-    }
-
-    private void addGraphEdges(Graph graph) {
-        network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .forEach(vl -> vl.visitEquipments(new VisitorBuilder(graph)));
-    }
-
-    private VoltageLevelNode createVoltageLevelNode(VoltageLevel vl, Graph graph, boolean visible) {
+    private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         vl.getBusView().getBusStream()
                 .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
@@ -70,119 +66,124 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return vlNode;
     }
 
-    private class VisitorBuilder extends DefaultTopologyVisitor {
-        private final Graph graph;
+    private void addGraphEdges(VoltageLevel vl, Graph graph) {
+        vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
+        vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
+        vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
+        vl.getConnectableStream(HvdcConverterStation.class).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
+    }
 
-        public VisitorBuilder(Graph graph) {
-            this.graph = graph;
+    private void visitLine(VoltageLevel vl, Line line, Graph graph) {
+        addEdge(graph, line, vl, BranchEdge.LINE_EDGE);
+    }
+
+    private void visitTwoWindingsTransformer(VoltageLevel vl, TwoWindingsTransformer twt, Graph graph) {
+        addEdge(graph, twt, vl, BranchEdge.TWO_WT_EDGE);
+    }
+
+    private void visitThreeWindingsTransformer(VoltageLevel vl, ThreeWindingsTransformer thwt, Graph graph) {
+        // check if the transformer was not already added (at the other sides of the transformer)
+        if (graph.containsNode(thwt.getId())) {
+            return;
         }
 
-        @Override
-        public void visitLine(Line line, Branch.Side side) {
-            addEdge(line, side, BranchEdge.LINE_EDGE);
+        ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
+        graph.addNode(tn);
+
+        ThreeWindingsTransformer.Side side;
+        if (thwt.getLeg1().getTerminal().getVoltageLevel() == vl) {
+            side = ThreeWindingsTransformer.Side.ONE;
+        } else if (thwt.getLeg2().getTerminal().getVoltageLevel() == vl) {
+            side = ThreeWindingsTransformer.Side.TWO;
+        } else {
+            side = ThreeWindingsTransformer.Side.THREE;
         }
 
-        @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer twt, Branch.Side side) {
-            addEdge(twt, side, BranchEdge.TWO_WT_EDGE);
+        for (ThreeWindingsTransformer.Side s : getSidesArray(side)) {
+            addThreeWtEdge(graph, thwt, tn, s);
+        }
+    }
+
+    private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
+        // check if the hvdc line was not already added (at the other side of the line)
+        HvdcLine hvdcLine = converterStation.getHvdcLine();
+        if (graph.containsEdge(hvdcLine.getId())) {
+            return;
         }
 
-        @Override
-        public void visitThreeWindingsTransformer(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
-            // check if the transformer was not already added (at the other sides of the transformer)
-            if (graph.containsNode(twt.getId())) {
-                return;
-            }
+        HvdcLine.Side otherSide = (hvdcLine.getConverterStation1().getId().equals(converterStation.getId()))
+                ? HvdcLine.Side.TWO : HvdcLine.Side.ONE;
 
-            ThreeWtNode tn = new ThreeWtNode(idProvider.createId(twt), twt.getId(), twt.getNameOrId());
-            graph.addNode(tn);
+        Terminal terminal = converterStation.getTerminal();
+        Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
 
-            for (ThreeWindingsTransformer.Side s : getSidesArray(side)) {
-                addThreeWtEdge(twt, tn, s);
-            }
+        addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
+    }
+
+    private void addEdge(Graph graph, Branch<?> branch, VoltageLevel vl, String edgeType) {
+        Branch.Side side = branch.getTerminal(Branch.Side.ONE).getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
+        // check if the edge was not already added (at the other side of the transformer)
+        if (graph.containsEdge(branch.getId())) {
+            return;
         }
 
-        @Override
-        public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            // check if the hvdc line was not already added (at the other side of the line)
-            HvdcLine hvdcLine = converterStation.getHvdcLine();
-            if (graph.containsEdge(hvdcLine.getId())) {
-                return;
-            }
+        Terminal terminalA = branch.getTerminal(side);
+        Terminal terminalB = branch.getTerminal(IidmUtils.getOpposite(side));
 
-            HvdcLine.Side otherSide = (hvdcLine.getConverterStation1().getId().equals(converterStation.getId()))
-                    ? HvdcLine.Side.TWO : HvdcLine.Side.ONE;
+        addEdge(graph, terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
+    }
 
-            Terminal terminal = converterStation.getTerminal();
-            Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
+    private void addEdge(Graph graph, Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
+        VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
+                .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
+        VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(graph, terminalB);
 
-            addEdge(terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
+        BusNode busNodeA = getBusNode(graph, terminalA);
+        BusNode busNodeB = getBusNode(graph, terminalB);
+
+        BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
+        if (!terminalsInReversedOrder) {
+            graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
+        } else {
+            graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge);
         }
+    }
 
-        private void addEdge(Branch<?> branch, Branch.Side side, String edgeType) {
-            // check if the edge was not already added (at the other side of the transformer)
-            if (graph.containsEdge(branch.getId())) {
-                return;
-            }
+    private void addThreeWtEdge(Graph graph, ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeWindingsTransformer.Side side) {
+        Terminal terminal = twt.getTerminal(side);
+        VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(graph, terminal);
+        ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
+                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
+        graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
+    }
 
-            Terminal terminalA = branch.getTerminal(side);
-            Terminal terminalB = branch.getTerminal(IidmUtils.getOpposite(side));
-
-            addEdge(terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
+    private BusNode getBusNode(Graph graph, Terminal terminal) {
+        Bus connectableBusA = terminal.getBusView().getConnectableBus();
+        if (connectableBusA == null) {
+            graph.getVoltageLevelNode(terminal.getVoltageLevel().getId()).ifPresent(vlNode -> vlNode.setHasUnknownBusNode(true));
+            return BusNode.UNKNOWN;
         }
+        return graph.getBusNode(connectableBusA.getId());
+    }
 
-        private void addEdge(Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
-            VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
-                    .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
-            VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(terminalB);
+    private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Graph graph, Terminal terminal) {
+        VoltageLevel vl = terminal.getVoltageLevel();
+        return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> addVoltageLevelGraphNode(vl, graph, false));
+    }
 
-            BusNode busNodeA = getBusNode(terminalA);
-            BusNode busNodeB = getBusNode(terminalB);
-
-            BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
-            if (!terminalsInReversedOrder) {
-                graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
-            } else {
-                graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge);
-            }
+    private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
+        ThreeWindingsTransformer.Side sideB;
+        ThreeWindingsTransformer.Side sideC;
+        if (sideA == ThreeWindingsTransformer.Side.ONE) {
+            sideB = ThreeWindingsTransformer.Side.TWO;
+            sideC = ThreeWindingsTransformer.Side.THREE;
+        } else if (sideA == ThreeWindingsTransformer.Side.TWO) {
+            sideB = ThreeWindingsTransformer.Side.ONE;
+            sideC = ThreeWindingsTransformer.Side.THREE;
+        } else {
+            sideB = ThreeWindingsTransformer.Side.ONE;
+            sideC = ThreeWindingsTransformer.Side.TWO;
         }
-
-        private void addThreeWtEdge(ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeWindingsTransformer.Side side) {
-            Terminal terminal = twt.getTerminal(side);
-            VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(terminal);
-            ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
-                    twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
-            graph.addEdge(vlNode, getBusNode(terminal), tn, edge);
-        }
-
-        private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
-            ThreeWindingsTransformer.Side sideB;
-            ThreeWindingsTransformer.Side sideC;
-            if (sideA == ThreeWindingsTransformer.Side.ONE) {
-                sideB = ThreeWindingsTransformer.Side.TWO;
-                sideC = ThreeWindingsTransformer.Side.THREE;
-            } else if (sideA == ThreeWindingsTransformer.Side.TWO) {
-                sideB = ThreeWindingsTransformer.Side.ONE;
-                sideC = ThreeWindingsTransformer.Side.THREE;
-            } else {
-                sideB = ThreeWindingsTransformer.Side.ONE;
-                sideC = ThreeWindingsTransformer.Side.TWO;
-            }
-            return new ThreeWindingsTransformer.Side[] {sideA, sideB, sideC};
-        }
-
-        private BusNode getBusNode(Terminal terminal) {
-            Bus connectableBusA = terminal.getBusView().getConnectableBus();
-            if (connectableBusA == null) {
-                graph.getVoltageLevelNode(terminal.getVoltageLevel().getId()).ifPresent(vlNode -> vlNode.setHasUnknownBusNode(true));
-                return BusNode.UNKNOWN;
-            }
-            return graph.getBusNode(connectableBusA.getId());
-        }
-
-        private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Terminal terminal) {
-            VoltageLevel vl = terminal.getVoltageLevel();
-            return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> createVoltageLevelNode(vl, graph, false));
-        }
+        return new ThreeWindingsTransformer.Side[] {sideA, sideB, sideC};
     }
 }

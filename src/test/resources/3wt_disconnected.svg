@@ -17,7 +17,7 @@
 .nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
-.nad-text-nodes {font: 0.25px "Verdana"; fill: black}
+.nad-text-nodes {font: 0.25px "Verdana"; fill: black; dominant-baseline: central}
 .nad-edge-infos text {font: 0.2px "Verdana"; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 0.1; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -48,13 +48,13 @@
     <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
         <nad:voltageLevelNodes/>
         <nad:busNodes>
-            <nad:busNode diagramId="1" equipmentId="VL_132_0"/>
-            <nad:busNode diagramId="4" equipmentId="VL_11_0"/>
+            <nad:busNode diagramId="1" equipmentId="VL_11_0"/>
+            <nad:busNode diagramId="3" equipmentId="VL_132_0"/>
         </nad:busNodes>
         <nad:nodes>
-            <nad:node diagramId="0" equipmentId="VL_132"/>
-            <nad:node diagramId="2" equipmentId="VL_33"/>
-            <nad:node diagramId="3" equipmentId="VL_11"/>
+            <nad:node diagramId="0" equipmentId="VL_11"/>
+            <nad:node diagramId="2" equipmentId="VL_132"/>
+            <nad:node diagramId="4" equipmentId="VL_33"/>
             <nad:node diagramId="5" equipmentId="3WT"/>
         </nad:nodes>
         <nad:edges>
@@ -68,22 +68,22 @@
         </filter>
     </defs>
     <g class="nad-vl-nodes">
-        <g transform="translate(-1.99,-2.23)" id="0" class="nad-vl120to180">
-            <desc>VL_132</desc>
+        <g transform="translate(-1.99,-2.23)" id="0" class="nad-vl0to30">
+            <desc>VL_11</desc>
             <circle r="0.27" id="1"/>
         </g>
-        <g transform="translate(-1.80,3.59)" id="2" class="nad-vl30to50">
+        <g transform="translate(-1.80,3.59)" id="2" class="nad-vl120to180">
+            <desc>VL_132</desc>
+            <circle r="0.27" id="3"/>
+        </g>
+        <g transform="translate(4.55,-0.65)" id="4" class="nad-vl30to50">
             <desc>VL_33</desc>
             <circle class="nad-unknown-busnode" r="0.40"/>
-        </g>
-        <g transform="translate(4.55,-0.65)" id="3" class="nad-vl0to30">
-            <desc>VL_11</desc>
-            <circle r="0.27" id="4"/>
         </g>
     </g>
     <g class="nad-branch-edges"></g>
     <g class="nad-3wt-edges">
-        <g id="6" class="nad-vl120to180">
+        <g id="6" class="nad-vl0to30">
             <desc>3WT</desc>
             <polyline points="-1.81,-2.05 0.49,0.31"/>
             <g class="nad-edge-infos" transform="translate(-1.58,-1.81)">
@@ -103,30 +103,30 @@
                 </g>
             </g>
         </g>
-        <g id="7" class="nad-disconnected nad-vl30to50">
+        <g id="7" class="nad-vl120to180">
             <desc>3WT</desc>
-            <polyline points="-1.54,3.28 0.66,0.84"/>
-            <g class="nad-edge-infos" transform="translate(-1.33,3.04)">
+            <polyline points="-1.64,3.39 0.66,0.84"/>
+            <g class="nad-edge-infos" transform="translate(-1.42,3.15)">
                 <g class="nad-active nad-state-out">
-                    <g transform="rotate(42.05)">
+                    <g transform="rotate(41.94)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(-47.95)" x="0.19">0</text>
+                    <text transform="rotate(-48.06)" x="0.19">0</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
-                    <g transform="rotate(42.05)">
+                    <g transform="rotate(41.94)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
                         <path class="nad-arrow-out" d="M-0.1 0.1 H0.1 L0 -0.1z"/>
                     </g>
-                    <text transform="rotate(-47.95)" x="0.19">0</text>
+                    <text transform="rotate(-48.06)" x="0.19">0</text>
                 </g>
             </g>
         </g>
-        <g id="8" class="nad-vl0to30">
+        <g id="8" class="nad-disconnected nad-vl30to50">
             <desc>3WT</desc>
-            <polyline points="4.30,-0.58 1.03,0.44"/>
-            <g class="nad-edge-infos" transform="translate(3.99,-0.48)">
+            <polyline points="4.17,-0.54 1.03,0.44"/>
+            <g class="nad-edge-infos" transform="translate(3.85,-0.44)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(-107.23)">
                         <path class="nad-arrow-in" d="M-0.1 -0.1 H0.1 L0 0.1z"/>
@@ -146,19 +146,19 @@
     </g>
     <g class="nad-3wt-nodes">
         <g>
-            <circle class="nad-vl120to180" cx="0.64" cy="0.45" r="0.20"/>
-            <circle class="nad-disconnected nad-vl30to50" cx="0.70" cy="0.65" r="0.20"/>
-            <circle class="nad-vl0to30" cx="0.84" cy="0.50" r="0.20"/>
+            <circle class="nad-vl0to30" cx="0.64" cy="0.45" r="0.20"/>
+            <circle class="nad-vl120to180" cx="0.70" cy="0.65" r="0.20"/>
+            <circle class="nad-disconnected nad-vl30to50" cx="0.84" cy="0.50" r="0.20"/>
         </g>
     </g>
     <g class="nad-text-edges">
         <polyline id="0_edge" points="-1.69,-2.23 -0.99,-2.23"/>
         <polyline id="2_edge" points="-1.50,3.59 -0.80,3.59"/>
-        <polyline id="3_edge" points="4.85,-0.65 5.55,-0.65"/>
+        <polyline id="4_edge" points="4.85,-0.65 5.55,-0.65"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-2.23" style="dominant-baseline:middle" x="-0.99">SUBSTATION</text>
-        <text filter="url(#textBgFilter)" y="3.59" style="dominant-baseline:middle" x="-0.80">SUBSTATION</text>
-        <text filter="url(#textBgFilter)" y="-0.65" style="dominant-baseline:middle" x="5.55">SUBSTATION</text>
+        <text filter="url(#textBgFilter)" y="-2.23" x="-0.99">VL_11</text>
+        <text filter="url(#textBgFilter)" y="3.59" x="-0.80">VL_132</text>
+        <text filter="url(#textBgFilter)" y="-0.65" x="5.55">VL_33</text>
     </g>
 </svg>

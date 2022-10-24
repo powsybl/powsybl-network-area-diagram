@@ -23,6 +23,7 @@ public class BasicForceLayout extends AbstractLayout {
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
+        forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {

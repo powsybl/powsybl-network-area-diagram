@@ -41,8 +41,8 @@ In order to generate a SVG from a given network, we need to add some Maven depen
 
 ```xml
 <properties>
-    <powsybl.nad.version>0.5.0</powsybl.nad.version>
-    <powsybl.core.version>4.9.0</powsybl.core.version>
+    <powsybl.nad.version>0.6.0</powsybl.nad.version>
+    <powsybl.core.version>4.10.0</powsybl.core.version>
     <slf4j.version>1.7.22</slf4j.version>
 </properties>
 
@@ -75,7 +75,7 @@ In order to generate a SVG from a given network, we need to add some Maven depen
 </dependencies>
 ```
 
-Then we simply need to load the example network and then generate the corresponding network area diagram SVG.
+Then we simply need to load the IEEE 30-bus example network and then generate the corresponding network area diagram SVG.
 ```java
 Network network = IeeeCdfNetworkFactory.create30();
 new NetworkAreaDiagram(network).draw(Path.of("/tmp/diagram.svg"));
@@ -114,5 +114,3 @@ That is, the voltage levels between two voltage levels which are connected in th
 <p align="center">
 <img src=".github/partial_diagram_example_1_25.svg?sanitize=true" alt="Diagram IEEE30 partial network VL1-VL25" width="65%"/>
 </p>
-
-For information, the chosen example network is the IEEE 30-bus test case, which corresponds to a basic approximation of the American electric power system in December 1961.
