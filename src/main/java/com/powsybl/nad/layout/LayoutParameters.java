@@ -33,8 +33,9 @@ public class LayoutParameters {
         return Collections.unmodifiableMap(initialPositions);
     }
 
-    public void setInitialPositions(Map<String, Point> initialPositions) {
+    public LayoutParameters setInitialPositions(Map<String, Point> initialPositions) {
         this.initialPositions = new HashMap<>(initialPositions);
+        return this;
     }
 
     public boolean isTextNodesForceLayout() {
