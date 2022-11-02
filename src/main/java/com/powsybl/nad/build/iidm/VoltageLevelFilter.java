@@ -118,6 +118,11 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
             }
         }
 
+        @Override
+        public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
+            converterStation.getOtherConverterStation().ifPresent(c -> visitTerminal(c.getTerminal()));
+        }
+
         private void visitBranch(Branch<?> branch, Branch.Side side) {
             visitTerminal(branch.getTerminal(IidmUtils.getOpposite(side)));
         }
