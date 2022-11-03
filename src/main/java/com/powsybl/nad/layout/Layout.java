@@ -7,10 +7,22 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface Layout {
-    void run(Graph graph, LayoutParameters layoutParameters);
+    Map<String, Point> run(Graph graph, LayoutParameters layoutParameters);
+
+    void setInitialNodePositions(Map<String, Point> initialNodePositions);
+
+    void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition);
+
+    Map<String, Point> getInitialNodePositions();
+
+    Set<String> getNodesWithFixedPosition();
 }

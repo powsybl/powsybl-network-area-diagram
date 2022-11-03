@@ -35,7 +35,7 @@ class LayoutWithInitialPositionsTest {
 
         // Perform an initial layout with only a few voltage levels of the network
         NetworkAreaDiagram initialDiagram = new NetworkAreaDiagram(network, filter);
-        Map<String, Point> initialPositions = initialDiagram.layout(layoutParameters);
+        Map<String, Point> initialPositions = initialDiagram.getLayout().run(initialDiagram.buildGraph(), layoutParameters);
 
         // Check initial points contains an entry for all voltage levels filtered
         network.getVoltageLevelStream().filter(filter).forEach(vl -> assertTrue(initialPositions.containsKey(vl.getId())));
@@ -45,9 +45,11 @@ class LayoutWithInitialPositionsTest {
 
         // Perform a global layout with all the voltage levels in the network,
         // giving initial (fixed) positions for some equipment
-        layoutParameters.setInitialPositions(initialPositions);
         NetworkAreaDiagram completeNetworkDiagram = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-        Map<String, Point> allPositions = completeNetworkDiagram.layout(layoutParameters);
+        Layout layout = completeNetworkDiagram.getLayout();
+        layout.setInitialNodePositions(initialPositions);
+        layout.setNodesWithFixedPosition(initialPositions.keySet());
+        Map<String, Point> allPositions = layout.run(completeNetworkDiagram.buildGraph(), layoutParameters);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {

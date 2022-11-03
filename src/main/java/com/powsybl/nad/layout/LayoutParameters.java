@@ -6,19 +6,12 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.nad.model.Point;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private double springRepulsionFactorForceLayout = 0.0;
-    private Map<String, Point> initialPositions = Collections.emptyMap();
 
     public LayoutParameters() {
     }
@@ -26,16 +19,6 @@ public class LayoutParameters {
     public LayoutParameters(LayoutParameters other) {
         this.textNodesForceLayout = other.textNodesForceLayout;
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
-        this.initialPositions = new HashMap<>(initialPositions);
-    }
-
-    public Map<String, Point> getInitialPositions() {
-        return Collections.unmodifiableMap(initialPositions);
-    }
-
-    public LayoutParameters setInitialPositions(Map<String, Point> initialPositions) {
-        this.initialPositions = new HashMap<>(initialPositions);
-        return this;
     }
 
     public boolean isTextNodesForceLayout() {

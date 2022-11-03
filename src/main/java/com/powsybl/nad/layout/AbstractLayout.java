@@ -2,13 +2,20 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.*;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractLayout implements Layout {
 
+    private Map<String, Point> initialNodePositions = Collections.emptyMap();
+    private Set<String> nodesWithFixedPosition = Collections.emptySet();
+
     @Override
-    public void run(Graph graph, LayoutParameters layoutParameters) {
+    public Map<String, Point> run(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
 
@@ -17,6 +24,34 @@ public abstract class AbstractLayout implements Layout {
         edgesLayout(graph, layoutParameters);
 
         computeSize(graph);
+
+        return graph.getVoltageLevelNodesStream()
+                .filter(VoltageLevelNode::isVisible)
+                .collect(Collectors.toMap(
+                        VoltageLevelNode::getEquipmentId,
+                        VoltageLevelNode::getPosition
+                ));
+    }
+
+    @Override
+    public Map<String, Point> getInitialNodePositions() {
+        return initialNodePositions;
+    }
+
+    @Override
+    public void setInitialNodePositions(Map<String, Point> initialNodePositions) {
+        Objects.requireNonNull(initialNodePositions);
+        this.initialNodePositions = initialNodePositions;
+    }
+
+    @Override
+    public void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
+        this.nodesWithFixedPosition = nodesWithFixedPosition;
+    }
+
+    @Override
+    public Set<String> getNodesWithFixedPosition() {
+        return nodesWithFixedPosition;
     }
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);

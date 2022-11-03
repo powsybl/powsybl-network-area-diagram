@@ -13,11 +13,10 @@ import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
+import com.powsybl.nad.layout.Layout;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Point;
-import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -31,10 +30,8 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -92,12 +89,17 @@ public class NetworkAreaDiagram {
         draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
     }
 
-    public Map<String, Point> layout(LayoutParameters layoutParameters) {
-        return layout(layoutParameters, new BasicForceLayoutFactory());
+    public Graph buildGraph() {
+        return buildGraph(new IntIdProvider());
     }
 
-    public Map<String, Point> layout(LayoutParameters layoutParameters, LayoutFactory layoutFactory) {
-        return layout(layoutParameters, layoutFactory, new IntIdProvider());
+    public Graph buildGraph(IdProvider idProvider) {
+        Objects.requireNonNull(idProvider);
+        return new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+    }
+
+    public Layout getLayout() {
+        return new BasicForceLayoutFactory().create();
     }
 
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
@@ -110,20 +112,9 @@ public class NetworkAreaDiagram {
         Objects.requireNonNull(layoutFactory);
         Objects.requireNonNull(idProvider);
 
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        Graph graph = buildGraph(idProvider);
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
-    }
-
-    public Map<String, Point> layout(LayoutParameters layoutParameters, LayoutFactory layoutFactory, IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
-        layoutFactory.create().run(graph, layoutParameters);
-        return graph.getVoltageLevelNodesStream()
-                .filter(VoltageLevelNode::isVisible)
-                .collect(Collectors.toMap(
-                        VoltageLevelNode::getEquipmentId,
-                        VoltageLevelNode::getPosition
-                ));
     }
 
     public void draw(Writer writer) {
