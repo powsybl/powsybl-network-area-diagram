@@ -1,11 +1,9 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.*;
+import org.jgrapht.alg.util.Pair;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,7 +54,29 @@ public abstract class AbstractLayout implements Layout {
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
 
-    protected abstract void busNodesLayout(Graph graph, LayoutParameters layoutParameters);
+    protected void busNodesLayout(Graph graph, LayoutParameters ignoredLayoutParameters) {
+        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
+        graph.getVoltageLevelNodesStream().forEach(n -> {
+            n.sortBusNodes(c);
+            List<BusNode> sortedNodes = n.getBusNodes();
+            for (int i = 0; i < sortedNodes.size(); i++) {
+                BusNode busNode = sortedNodes.get(i);
+                busNode.setIndex(i);
+                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
+                busNode.setPosition(n.getPosition());
+            }
+        });
+    }
+
+    protected void fixedTextNodeLayout(TextEdge ignoredTextEdge, Pair<VoltageLevelNode, TextNode> nodes) {
+        Point fixedShift = getTextNodeFixedShift();
+        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
+        nodes.getSecond().setPosition(textPos);
+    }
+
+    protected Point getTextNodeFixedShift() {
+        return new Point(1, 0);
+    }
 
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);

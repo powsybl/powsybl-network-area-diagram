@@ -8,11 +8,10 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.forcelayout.ForceLayout;
 import com.powsybl.forcelayout.Vector;
-import com.powsybl.nad.model.*;
-import org.jgrapht.alg.util.Pair;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,28 +58,4 @@ public class BasicForceLayout extends AbstractLayout {
         forceLayout.setInitialPoints(initialPoints);
     }
 
-    @Override
-    protected void busNodesLayout(Graph graph, LayoutParameters layoutParameters) {
-        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
-        graph.getVoltageLevelNodesStream().forEach(n -> {
-            n.sortBusNodes(c);
-            List<BusNode> sortedNodes = n.getBusNodes();
-            for (int i = 0; i < sortedNodes.size(); i++) {
-                BusNode busNode = sortedNodes.get(i);
-                busNode.setIndex(i);
-                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
-                busNode.setPosition(n.getPosition());
-            }
-        });
-    }
-
-    private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
-        Point fixedShift = getTextNodeFixedShift();
-        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
-        nodes.getSecond().setPosition(textPos);
-    }
-
-    protected Point getTextNodeFixedShift() {
-        return new Point(1, 0);
-    }
 }
