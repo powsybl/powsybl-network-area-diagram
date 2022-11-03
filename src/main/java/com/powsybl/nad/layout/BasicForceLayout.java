@@ -51,10 +51,10 @@ public class BasicForceLayout extends AbstractLayout {
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
-                        nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
-                        nodePosition -> new com.powsybl.forcelayout.Point(nodePosition.getValue().getX(), nodePosition.getValue().getY()),
-                        // If same node has two points, keep the first one considered
-                        (point1, point2) -> point1
+                    nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
+                    nodePosition -> new com.powsybl.forcelayout.Point(nodePosition.getValue().getX(), nodePosition.getValue().getY()),
+                    // If same node has two points, keep the first one considered
+                    (point1, point2) -> point1
                 ));
         forceLayout.setInitialPoints(initialPoints);
     }
