@@ -17,11 +17,20 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
 class FixedLayoutTest {
+
+    @Test
+    void testPointsAreDifferent() {
+        Point p0 = new Point(1, 0);
+        Point p1 = new Point(2, 0);
+        assertNotEquals(p0, p1);
+        assertNotEquals(p0.hashCode(), p1.hashCode());
+    }
 
     @Test
     void testCurrentLimits() {
