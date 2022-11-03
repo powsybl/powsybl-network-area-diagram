@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package com.powsybl.nad.layout;
+
+import com.powsybl.nad.model.*;
+import org.jgrapht.alg.util.Pair;
+
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * @author Luma Zamarreño <zamarrenolm at aia.es>
+ */
+public class BasicFixedLayout extends AbstractLayout {
+
+    @Override
+    protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
+        org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
+
+        jgraphtGraph.vertexSet().forEach(node -> {
+            Point p = getInitialNodePositions().get(node.getEquipmentId());
+            if (p != null) {
+                node.setPosition(p.getX(), p.getY());
+            }
+        });
+
+        if (!layoutParameters.isTextNodesForceLayout()) {
+            graph.getTextEdgesMap().forEach(this::fixedTextNodeLayout);
+        }
+    }
+
+    @Override
+    protected void busNodesLayout(Graph graph, LayoutParameters layoutParameters) {
+        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
+        graph.getVoltageLevelNodesStream().forEach(n -> {
+            n.sortBusNodes(c);
+            List<BusNode> sortedNodes = n.getBusNodes();
+            for (int i = 0; i < sortedNodes.size(); i++) {
+                BusNode busNode = sortedNodes.get(i);
+                busNode.setIndex(i);
+                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
+                busNode.setPosition(n.getPosition());
+            }
+        });
+    }
+
+    private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
+        Point fixedShift = getTextNodeFixedShift();
+        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
+        nodes.getSecond().setPosition(textPos);
+    }
+
+    protected Point getTextNodeFixedShift() {
+        return new Point(1, 0);
+    }
+}
