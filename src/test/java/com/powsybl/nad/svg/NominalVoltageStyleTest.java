@@ -7,7 +7,6 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
-import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
@@ -101,21 +100,21 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Test
     void testEurope() {
-        Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         LoadFlow.run(network);
         assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
     }
 
     @Test
     void testEuropeLoopAperture80() {
-        Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(80);
         assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
     }
 
     @Test
     void testEuropeLoopAperture100() {
-        Network network = Importers.loadNetwork("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(100);
         assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
     }
