@@ -55,6 +55,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
     void testDisconnected3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+        network.getLoad("LOAD_33").remove();
         assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
     }
 
