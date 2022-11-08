@@ -28,7 +28,7 @@ public class BasicForceLayout extends AbstractLayout {
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(p.getX(), p.getY());
+            node.setPosition(100 * p.getX(), 100 * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
@@ -57,6 +57,6 @@ public class BasicForceLayout extends AbstractLayout {
     }
 
     protected Point getTextNodeFixedShift() {
-        return new Point(1, 0);
+        return new Point(100, 0);
     }
 }
