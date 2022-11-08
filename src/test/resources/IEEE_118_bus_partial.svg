@@ -1979,47 +1979,47 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_edge" points="-354.73,205.05 -284.73,205.05"/>
-        <polyline id="2_edge" points="442.94,570.23 512.94,570.23"/>
-        <polyline id="4_edge" points="6.99,891.24 76.99,891.24"/>
-        <polyline id="6_edge" points="669.20,864.66 739.20,864.66"/>
-        <polyline id="8_edge" points="171.33,400.64 241.33,400.64"/>
-        <polyline id="10_edge" points="920.72,392.93 990.72,392.93"/>
-        <polyline id="12_edge" points="808.38,-198.28 878.38,-198.28"/>
-        <polyline id="14_edge" points="1142.17,-769.45 1212.17,-769.45"/>
-        <polyline id="16_edge" points="807.95,-957.28 877.95,-957.28"/>
-        <polyline id="18_edge" points="319.01,-494.56 389.01,-494.56"/>
-        <polyline id="20_edge" points="357.81,-853.45 427.81,-853.45"/>
-        <polyline id="22_edge" points="642.02,-544.18 712.02,-544.18"/>
-        <polyline id="24_edge" points="1128.74,20.20 1198.74,20.20"/>
-        <polyline id="26_edge" points="1108.77,-408.41 1178.77,-408.41"/>
-        <polyline id="28_edge" points="-5.94,-870.64 64.06,-870.64"/>
-        <polyline id="30_edge" points="-448.40,-719.94 -378.40,-719.94"/>
-        <polyline id="32_edge" points="-579.70,-985.82 -509.70,-985.82"/>
-        <polyline id="34_edge" points="-181.93,-1369.90 -111.93,-1369.90"/>
-        <polyline id="36_edge" points="-770.22,310.03 -700.22,310.03"/>
-        <polyline id="38_edge" points="-41.36,1313.89 28.64,1313.89"/>
+        <polyline id="0_edge" points="-355.06,200.60 -284.73,190.05"/>
+        <polyline id="2_edge" points="442.61,565.78 512.94,555.23"/>
+        <polyline id="4_edge" points="6.66,886.79 76.99,876.24"/>
+        <polyline id="6_edge" points="668.87,860.21 739.20,849.66"/>
+        <polyline id="8_edge" points="170.99,396.19 241.33,385.64"/>
+        <polyline id="10_edge" points="920.39,388.48 990.72,377.93"/>
+        <polyline id="12_edge" points="808.05,-202.73 878.38,-213.28"/>
+        <polyline id="14_edge" points="1141.84,-773.90 1212.17,-784.45"/>
+        <polyline id="16_edge" points="807.62,-961.73 877.95,-972.28"/>
+        <polyline id="18_edge" points="318.68,-499.01 389.01,-509.56"/>
+        <polyline id="20_edge" points="357.48,-857.90 427.81,-868.45"/>
+        <polyline id="22_edge" points="641.69,-548.63 712.02,-559.18"/>
+        <polyline id="24_edge" points="1128.41,15.75 1198.74,5.20"/>
+        <polyline id="26_edge" points="1108.44,-412.86 1178.77,-423.41"/>
+        <polyline id="28_edge" points="-6.27,-875.09 64.06,-885.64"/>
+        <polyline id="30_edge" points="-448.73,-724.39 -378.40,-734.94"/>
+        <polyline id="32_edge" points="-580.03,-990.27 -509.70,-1000.82"/>
+        <polyline id="34_edge" points="-182.26,-1374.35 -111.93,-1384.90"/>
+        <polyline id="36_edge" points="-770.55,305.58 -700.22,295.03"/>
+        <polyline id="38_edge" points="-41.69,1309.44 28.64,1298.89"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="205.05" x="-284.73">VL42</text>
-        <text filter="url(#textBgFilter)" y="570.23" x="512.94">VL45</text>
-        <text filter="url(#textBgFilter)" y="891.24" x="76.99">VL47</text>
-        <text filter="url(#textBgFilter)" y="864.66" x="739.20">VL48</text>
-        <text filter="url(#textBgFilter)" y="400.64" x="241.33">VL49</text>
-        <text filter="url(#textBgFilter)" y="392.93" x="990.72">VL50</text>
-        <text filter="url(#textBgFilter)" y="-198.28" x="878.38">VL51</text>
-        <text filter="url(#textBgFilter)" y="-769.45" x="1212.17">VL52</text>
-        <text filter="url(#textBgFilter)" y="-957.28" x="877.95">VL53</text>
-        <text filter="url(#textBgFilter)" y="-494.56" x="389.01">VL54</text>
-        <text filter="url(#textBgFilter)" y="-853.45" x="427.81">VL55</text>
-        <text filter="url(#textBgFilter)" y="-544.18" x="712.02">VL56</text>
-        <text filter="url(#textBgFilter)" y="20.20" x="1198.74">VL57</text>
-        <text filter="url(#textBgFilter)" y="-408.41" x="1178.77">VL58</text>
-        <text filter="url(#textBgFilter)" y="-870.64" x="64.06">VL59</text>
-        <text filter="url(#textBgFilter)" y="-719.94" x="-378.40">VL60</text>
-        <text filter="url(#textBgFilter)" y="-985.82" x="-509.70">VL61</text>
-        <text filter="url(#textBgFilter)" y="-1369.90" x="-111.93">VL63</text>
-        <text filter="url(#textBgFilter)" y="310.03" x="-700.22">VL66</text>
-        <text filter="url(#textBgFilter)" y="1313.89" x="28.64">VL69</text>
+        <text filter="url(#textBgFilter)" y="190.05" x="-284.73">VL42</text>
+        <text filter="url(#textBgFilter)" y="555.23" x="512.94">VL45</text>
+        <text filter="url(#textBgFilter)" y="876.24" x="76.99">VL47</text>
+        <text filter="url(#textBgFilter)" y="849.66" x="739.20">VL48</text>
+        <text filter="url(#textBgFilter)" y="385.64" x="241.33">VL49</text>
+        <text filter="url(#textBgFilter)" y="377.93" x="990.72">VL50</text>
+        <text filter="url(#textBgFilter)" y="-213.28" x="878.38">VL51</text>
+        <text filter="url(#textBgFilter)" y="-784.45" x="1212.17">VL52</text>
+        <text filter="url(#textBgFilter)" y="-972.28" x="877.95">VL53</text>
+        <text filter="url(#textBgFilter)" y="-509.56" x="389.01">VL54</text>
+        <text filter="url(#textBgFilter)" y="-868.45" x="427.81">VL55</text>
+        <text filter="url(#textBgFilter)" y="-559.18" x="712.02">VL56</text>
+        <text filter="url(#textBgFilter)" y="5.20" x="1198.74">VL57</text>
+        <text filter="url(#textBgFilter)" y="-423.41" x="1178.77">VL58</text>
+        <text filter="url(#textBgFilter)" y="-885.64" x="64.06">VL59</text>
+        <text filter="url(#textBgFilter)" y="-734.94" x="-378.40">VL60</text>
+        <text filter="url(#textBgFilter)" y="-1000.82" x="-509.70">VL61</text>
+        <text filter="url(#textBgFilter)" y="-1384.90" x="-111.93">VL63</text>
+        <text filter="url(#textBgFilter)" y="295.03" x="-700.22">VL66</text>
+        <text filter="url(#textBgFilter)" y="1298.89" x="28.64">VL69</text>
     </g>
 </svg>
