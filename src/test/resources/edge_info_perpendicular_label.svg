@@ -79,8 +79,8 @@
                 <g class="nad-edge-infos" transform="translate(139.93,-68.29)">
                     <g class="nad-state-out">
                         <g transform="rotate(-136.40)">
-                            <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
+                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
                         </g>
                         <text transform="rotate(43.60)" y="0.29" style="text-anchor:middle">ext</text>
                         <text transform="rotate(43.60)" y="-0.25" style="text-anchor:middle">int</text>
@@ -92,8 +92,8 @@
                 <g class="nad-edge-infos" transform="translate(-65.08,146.98)">
                     <g class="nad-state-out">
                         <g transform="rotate(43.60)">
-                            <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
-                            <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
+                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
                         </g>
                         <text transform="rotate(43.60)" y="-0.25" style="text-anchor:middle">ext</text>
                         <text transform="rotate(43.60)" y="0.29" style="text-anchor:middle">int</text>

@@ -70,11 +70,11 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public String getArrowPathDIn() {
-        return "M-0.1 -0.1 H0.1 L0 0.1z";
+        return "M-10 -10 H10 L0 10z";
     }
 
     @Override
     public String getArrowPathDOut() {
-        return "M-0.1 0.1 H0.1 L0 -0.1z";
+        return "M-10 10 H10 L0 -10z";
     }
 }

@@ -59,12 +59,12 @@ class EdgeInfoLabelTest extends AbstractTest {
 
             @Override
             public String getArrowPathDIn() { // larger arrow
-                return "M-0.2 -0.1 H0.2 L0 0.1z";
+                return "M-20 -10 H20 L0 10z";
             }
 
             @Override
             public String getArrowPathDOut() { // thinner arrow
-                return "M-0.05 0.1 H0.05 L0 -0.1z";
+                return "M-5 10 H5 L0 -10z";
             }
         };
     }

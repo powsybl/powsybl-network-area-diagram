@@ -85,8 +85,8 @@
             <g class="nad-edge-infos" transform="translate(-178.72,-202.33)">
                 <g class="nad-state-in">
                     <g transform="rotate(135.72)">
-                        <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
-                        <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                        <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
+                        <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
                     </g>
                     <text transform="rotate(45.72)" x="0.20">145</text>
                     <text transform="rotate(45.72)" x="-0.20" style="text-anchor:end">243</text>
@@ -98,8 +98,8 @@
             <g class="nad-edge-infos" transform="translate(-161.65,337.17)">
                 <g class="nad-state-in">
                     <g transform="rotate(41.94)">
-                        <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
-                        <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                        <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
+                        <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
                     </g>
                     <text transform="rotate(-48.06)" x="0.20">145</text>
                     <text transform="rotate(-48.06)" x="-0.20" style="text-anchor:end">243</text>
@@ -111,8 +111,8 @@
             <g class="nad-edge-infos" transform="translate(427.42,-56.92)">
                 <g class="nad-state-in">
                     <g transform="rotate(-107.23)">
-                        <path class="nad-arrow-in" d="M-0.2 -0.1 H0.2 L0 0.1z"/>
-                        <path class="nad-arrow-out" d="M-0.05 0.1 H0.05 L0 -0.1z"/>
+                        <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
+                        <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
                     </g>
                     <text transform="rotate(-17.23)" x="-0.20" style="text-anchor:end">145</text>
                     <text transform="rotate(-17.23)" x="0.20">243</text>
