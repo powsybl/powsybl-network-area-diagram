@@ -19,11 +19,14 @@ class LayoutParametersTest {
     void test() {
         LayoutParameters layoutParameters0 = new LayoutParameters()
                 .setTextNodesForceLayout(true)
-                .setSpringRepulsionFactorForceLayout(1.0);
+                .setSpringRepulsionFactorForceLayout(1.0)
+                .setTextNodeFixedShift(50., 50.);
 
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
         assertEquals(layoutParameters0.isTextNodesForceLayout(), layoutParameters1.isTextNodesForceLayout());
         assertEquals(layoutParameters0.getSpringRepulsionFactorForceLayout(), layoutParameters1.getSpringRepulsionFactorForceLayout());
+        assertEquals(layoutParameters0.getTextNodeFixedShift().getX(), layoutParameters1.getTextNodeFixedShift().getX());
+        assertEquals(layoutParameters0.getTextNodeFixedShift().getY(), layoutParameters1.getTextNodeFixedShift().getY());
     }
 }

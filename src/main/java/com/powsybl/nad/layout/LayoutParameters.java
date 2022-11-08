@@ -6,12 +6,15 @@
  */
 package com.powsybl.nad.layout;
 
+import com.powsybl.nad.model.Point;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private double springRepulsionFactorForceLayout = 0.0;
+    private Point textNodeFixedShift = new Point(100, -15);
 
     public LayoutParameters() {
     }
@@ -19,6 +22,7 @@ public class LayoutParameters {
     public LayoutParameters(LayoutParameters other) {
         this.textNodesForceLayout = other.textNodesForceLayout;
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
+        this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
     }
 
     public boolean isTextNodesForceLayout() {
@@ -37,5 +41,14 @@ public class LayoutParameters {
 
     public double getSpringRepulsionFactorForceLayout() {
         return springRepulsionFactorForceLayout;
+    }
+
+    public Point getTextNodeFixedShift() {
+        return textNodeFixedShift;
+    }
+
+    public LayoutParameters setTextNodeFixedShift(double textNodeFixedShiftX, double textNodeFixedShiftY) {
+        this.textNodeFixedShift = new Point(textNodeFixedShiftX, textNodeFixedShiftY);
+        return this;
     }
 }
