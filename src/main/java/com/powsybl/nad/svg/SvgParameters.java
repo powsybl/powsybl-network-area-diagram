@@ -13,40 +13,42 @@ import java.util.Objects;
  */
 public class SvgParameters {
 
-    private Padding diagramPadding = new Padding(2);
+    private Padding diagramPadding = new Padding(200);
     private boolean insertNameDesc = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
-    private SizeConstraint sizeConstraint = SizeConstraint.NONE;
+    private SizeConstraint sizeConstraint = SizeConstraint.FIXED_SCALE;
     private int fixedWidth = -1;
     private int fixedHeight = -1;
-    private double arrowShift = 0.3;
-    private double arrowLabelShift = 0.19;
-    private double converterStationWidth = 0.6;
-    private double voltageLevelCircleRadius = 0.3;
-    private double fictitiousVoltageLevelCircleRadius = 0.15;
-    private double transformerCircleRadius = 0.2;
-    private double nodeHollowWidth = 0.15;
-    private double edgesForkLength = 0.8;
+    private double fixedScale = 0.2;
+    private double arrowShift = 30;
+    private double arrowLabelShift = 19;
+    private double converterStationWidth = 60;
+    private double voltageLevelCircleRadius = 30;
+    private double fictitiousVoltageLevelCircleRadius = 15;
+    private double transformerCircleRadius = 20;
+    private double nodeHollowWidth = 15;
+    private double edgesForkLength = 80;
     private double edgesForkAperture = Math.toRadians(60);
-    private double edgeStartShift = 0.02;
-    private double unknownBusNodeExtraRadius = 0.1;
-    private double loopDistance = 1.2;
+    private double edgeStartShift = 2;
+    private double unknownBusNodeExtraRadius = 10;
+    private double loopDistance = 120;
     private double loopEdgesAperture = Math.toRadians(60);
-    private double loopControlDistance = 0.4;
+    private double loopControlDistance = 40;
     private boolean textNodeBackground = true;
     private boolean edgeInfoAlongEdge = true;
-    private double interAnnulusSpace = 0.05;
+    private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
+    private double arrowHeight = 10;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
     }
 
     public enum SizeConstraint {
-        NONE, FIXED_WIDTH, FIXED_HEIGHT
+        NONE, FIXED_SCALE, FIXED_WIDTH, FIXED_HEIGHT
     }
 
     public SvgParameters() {
@@ -60,6 +62,7 @@ public class SvgParameters {
         this.sizeConstraint = other.sizeConstraint;
         this.fixedWidth = other.fixedWidth;
         this.fixedHeight = other.fixedHeight;
+        this.fixedScale = other.fixedScale;
         this.arrowShift = other.arrowShift;
         this.arrowLabelShift = other.arrowLabelShift;
         this.converterStationWidth = other.converterStationWidth;
@@ -80,6 +83,7 @@ public class SvgParameters {
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
+        this.arrowHeight = other.arrowHeight;
     }
 
     public Padding getDiagramPadding() {
@@ -126,6 +130,16 @@ public class SvgParameters {
     public SvgParameters setFixedHeight(int fixedHeight) {
         this.fixedHeight = fixedHeight;
         sizeConstraint = SizeConstraint.FIXED_HEIGHT;
+        return this;
+    }
+
+    public double getFixedScale() {
+        return fixedScale;
+    }
+
+    public SvgParameters setFixedScale(double fixedScale) {
+        this.fixedScale = fixedScale;
+        sizeConstraint = SizeConstraint.FIXED_SCALE;
         return this;
     }
 
@@ -324,6 +338,15 @@ public class SvgParameters {
 
     public SvgParameters setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
         this.substationDescriptionDisplayed = substationDescriptionDisplayed;
+        return this;
+    }
+
+    public double getArrowHeight() {
+        return arrowHeight;
+    }
+
+    public SvgParameters setArrowHeight(double arrowHeight) {
+        this.arrowHeight = arrowHeight;
         return this;
     }
 }

@@ -28,11 +28,11 @@ public class BasicForceLayout extends AbstractLayout {
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(p.getX(), p.getY());
+            node.setPosition(100 * p.getX(), 100 * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
-            graph.getTextEdgesMap().forEach(this::fixedTextNodeLayout);
+            graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
         }
     }
 
@@ -50,13 +50,9 @@ public class BasicForceLayout extends AbstractLayout {
         });
     }
 
-    private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes) {
-        Point fixedShift = getTextNodeFixedShift();
+    private void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
+        Point fixedShift = layoutParameters.getTextNodeFixedShift();
         Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
         nodes.getSecond().setPosition(textPos);
-    }
-
-    protected Point getTextNodeFixedShift() {
-        return new Point(1, 0);
     }
 }
