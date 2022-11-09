@@ -33,6 +33,9 @@ public interface StyleProvider {
     String LINE_OVERLOADED_CLASS = CLASSES_PREFIX + "overload";
     String VL_OVERVOLTAGE_CLASS = CLASSES_PREFIX + "overvoltage";
     String VL_UNDERVOLTAGE_CLASS = CLASSES_PREFIX + "undervoltage";
+    String EDGE_PATH_CLASS = CLASSES_PREFIX + "edge-path";
+    String WINDING_CLASS = CLASSES_PREFIX + "winding";
+    String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
 
     List<String> getCssFilenames();
 

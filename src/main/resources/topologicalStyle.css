@@ -1,12 +1,10 @@
-.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
-.nad-branch-edges .nad-disconnected polyline, .nad-3wt-edges .nad-disconnected polyline {stroke-dasharray: 10,10}
-.nad-vl-nodes circle, .nad-vl-nodes path {fill: var(--nad-vl-color, lightgrey)}
+.nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
-.nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -89,7 +87,7 @@
 .nad-vl300to500-7 {--nad-vl-color: #ef9a9a}
 .nad-vl300to500-8 {--nad-vl-color: #f44336}
 .nad-vl300to500-9 {--nad-vl-color: #c62828}
-.nad-branch-edges .nad-overload polyline, .nad-branch-edges .nad-overload path {animation: line-blink 3s infinite}
+.nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
 
