@@ -14,6 +14,7 @@ import com.powsybl.nad.model.Node;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -28,16 +29,18 @@ public class BasicForceLayout extends AbstractLayout {
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
 
         setInitialPositions(forceLayout, graph);
-        forceLayout.setFixedNodes(getNodesWithFixedPosition().stream()
+        Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet());
+        forceLayout.setFixedNodes(fixedNodes);
 
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(100 * p.getX(), 100 * p.getY());
+            double scale = fixedNodes.contains(node) ? 1 : 100;
+            node.setPosition(scale * p.getX(), scale * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
