@@ -24,6 +24,7 @@ class SvgParametersTest {
                 .setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT)
                 .setFixedWidth(300)
                 .setFixedHeight(500)
+                .setFixedScale(0.4)
                 .setSizeConstraint(SvgParameters.SizeConstraint.NONE)
                 .setArrowShift(1.)
                 .setArrowLabelShift(0.5)
@@ -57,6 +58,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getCssLocation(), svgParameters1.getCssLocation());
         assertEquals(svgParameters0.getFixedWidth(), svgParameters1.getFixedWidth());
         assertEquals(svgParameters0.getFixedHeight(), svgParameters1.getFixedHeight());
+        assertEquals(svgParameters0.getFixedScale(), svgParameters1.getFixedScale());
         assertEquals(svgParameters0.getSizeConstraint(), svgParameters1.getSizeConstraint());
         assertEquals(svgParameters0.getArrowShift(), svgParameters1.getArrowShift());
         assertEquals(svgParameters0.getArrowLabelShift(), svgParameters1.getArrowLabelShift());

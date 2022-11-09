@@ -612,8 +612,11 @@ public class SvgWriter {
             case FIXED_HEIGHT:
                 scale = svgParameters.getFixedHeight() / height;
                 break;
+            case FIXED_SCALE:
+                scale = svgParameters.getFixedScale();
+                break;
             default:
-                scale = 20;
+                scale = 1;
                 break;
         }
         return new double[] {width * scale, height * scale};

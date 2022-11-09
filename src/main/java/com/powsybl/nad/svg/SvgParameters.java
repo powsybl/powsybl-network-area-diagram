@@ -17,9 +17,10 @@ public class SvgParameters {
     private boolean insertNameDesc = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
-    private SizeConstraint sizeConstraint = SizeConstraint.NONE;
+    private SizeConstraint sizeConstraint = SizeConstraint.FIXED_SCALE;
     private int fixedWidth = -1;
     private int fixedHeight = -1;
+    private double fixedScale = 0.2;
     private double arrowShift = 30;
     private double arrowLabelShift = 19;
     private double converterStationWidth = 60;
@@ -46,7 +47,7 @@ public class SvgParameters {
     }
 
     public enum SizeConstraint {
-        NONE, FIXED_WIDTH, FIXED_HEIGHT
+        NONE, FIXED_SCALE, FIXED_WIDTH, FIXED_HEIGHT
     }
 
     public SvgParameters() {
@@ -60,6 +61,7 @@ public class SvgParameters {
         this.sizeConstraint = other.sizeConstraint;
         this.fixedWidth = other.fixedWidth;
         this.fixedHeight = other.fixedHeight;
+        this.fixedScale = other.fixedScale;
         this.arrowShift = other.arrowShift;
         this.arrowLabelShift = other.arrowLabelShift;
         this.converterStationWidth = other.converterStationWidth;
@@ -126,6 +128,16 @@ public class SvgParameters {
     public SvgParameters setFixedHeight(int fixedHeight) {
         this.fixedHeight = fixedHeight;
         sizeConstraint = SizeConstraint.FIXED_HEIGHT;
+        return this;
+    }
+
+    public double getFixedScale() {
+        return fixedScale;
+    }
+
+    public SvgParameters setFixedScale(double fixedScale) {
+        this.fixedScale = fixedScale;
+        sizeConstraint = SizeConstraint.FIXED_SCALE;
         return this;
     }
 
