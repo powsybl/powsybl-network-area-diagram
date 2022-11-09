@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800.00" height="721.78" viewBox="-284.74 -303.93 744.32 671.55" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
-.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
-.nad-branch-edges .nad-disconnected polyline, .nad-3wt-edges .nad-disconnected polyline {stroke-dasharray: 10,10}
-.nad-vl-nodes circle, .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue)}
+.nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
-.nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -28,7 +26,7 @@
 .nad-vl120to180 {--nad-vl-color: #00ACC1}
 .nad-vl180to300 {--nad-vl-color: #2E7D32}
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
-.nad-branch-edges .nad-overload polyline, .nad-branch-edges .nad-overload path {animation: line-blink 3s infinite}
+.nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
 
@@ -66,16 +64,16 @@
     </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(159.59,-88.93)" id="0" class="nad-vl300to500">
-            <circle r="27.50" id="1"/>
+            <circle class="nad-busnode" r="27.50" id="1"/>
         </g>
         <g transform="translate(-84.74,167.62)" id="2" class="nad-vl300to500">
-            <circle r="27.50" id="3"/>
+            <circle class="nad-busnode" r="27.50" id="3"/>
         </g>
     </g>
     <g class="nad-branch-edges">
         <g id="4">
             <g class="nad-vl300to500">
-                <polyline points="142.00,-70.46 37.43,39.35"/>
+                <polyline class="nad-edge-path" points="142.00,-70.46 37.43,39.35"/>
                 <g class="nad-edge-infos" transform="translate(119.59,-46.93)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
@@ -94,7 +92,7 @@
                 </g>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="-67.15,149.16 37.43,39.35"/>
+                <polyline class="nad-edge-path" points="-67.15,149.16 37.43,39.35"/>
                 <g class="nad-edge-infos" transform="translate(-44.74,125.62)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800.00" height="717.39" viewBox="-306.06 -354.87 838.58 751.99" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
-.nad-branch-edges polyline, .nad-branch-edges path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-branch-edges circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-3wt-edges polyline {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
-.nad-branch-edges .nad-disconnected polyline, .nad-3wt-edges .nad-disconnected polyline {stroke-dasharray: 10,10}
-.nad-vl-nodes circle, .nad-vl-nodes path {fill: var(--nad-vl-color, lightblue)}
+.nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
-.nad-3wt-nodes circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -28,7 +26,7 @@
 .nad-vl120to180 {--nad-vl-color: #00ACC1}
 .nad-vl180to300 {--nad-vl-color: #2E7D32}
 .nad-vl300to500 {--nad-vl-color: #D32F2F}
-.nad-branch-edges .nad-overload polyline, .nad-branch-edges .nad-overload path {animation: line-blink 3s infinite}
+.nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
 
@@ -73,21 +71,21 @@
     </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-34.81,-139.87)" id="0" class="nad-vl300to500">
-            <circle r="27.50" id="1"/>
-            <path d="M-43.666,37.411 A57.500,57.500 345.053 1 1 -32.539,47.407 L-15.615,28.503 A32.500,32.500 -333.556 1 0 -26.674,18.567 Z " id="2"/>
+            <circle class="nad-busnode" r="27.50" id="1"/>
+            <path class="nad-busnode" d="M-43.666,37.411 A57.500,57.500 345.053 1 1 -32.539,47.407 L-15.615,28.503 A32.500,32.500 -333.556 1 0 -26.674,18.567 Z " id="2"/>
         </g>
         <g transform="translate(-106.06,197.12)" id="3" class="nad-vl300to500">
-            <circle r="27.50" id="4"/>
+            <circle class="nad-busnode" r="27.50" id="4"/>
         </g>
         <g transform="translate(232.52,76.75)" id="5" class="nad-vl180to300">
-            <circle r="27.50" id="6"/>
-            <path d="M-39.586,-41.704 A57.500,57.500 345.053 1 1 -49.003,-30.083 L-29.261,-14.143 A32.500,32.500 -333.556 1 0 -19.901,-25.694 Z " id="7"/>
+            <circle class="nad-busnode" r="27.50" id="6"/>
+            <path class="nad-busnode" d="M-39.586,-41.704 A57.500,57.500 345.053 1 1 -49.003,-30.083 L-29.261,-14.143 A32.500,32.500 -333.556 1 0 -19.901,-25.694 Z " id="7"/>
         </g>
     </g>
     <g class="nad-branch-edges">
         <g id="8">
             <g class="nad-vl300to500">
-                <polyline points="-51.86,-120.91 -88.28,-80.37 -109.57,20.35"/>
+                <polyline class="nad-edge-path" points="-51.86,-120.91 -88.28,-80.37 -109.57,20.35"/>
                 <g class="nad-edge-infos" transform="translate(-92.42,-60.80)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-168.06)">
@@ -106,7 +104,7 @@
                 </g>
             </g>
             <g class="nad-vl300to500">
-                <polyline points="-113.97,172.88 -130.87,121.06 -109.57,20.35"/>
+                <polyline class="nad-edge-path" points="-113.97,172.88 -130.87,121.06 -109.57,20.35"/>
                 <g class="nad-edge-infos" transform="translate(-126.73,101.49)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(11.94)">
@@ -127,7 +125,7 @@
         </g>
         <g id="9">
             <g class="nad-vl300to500">
-                <polyline points="-17.61,-87.11 -10.01,-63.82 -31.30,36.90"/>
+                <polyline class="nad-edge-path" points="-17.61,-87.11 -10.01,-63.82 -31.30,36.90"/>
                 <g class="nad-edge-infos" transform="translate(-14.15,-44.25)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-168.06)">
@@ -146,7 +144,7 @@
                 </g>
             </g>
             <g class="nad-disconnected nad-vl300to500">
-                <polyline points="-89.02,178.15 -52.60,137.61 -31.30,36.90"/>
+                <polyline class="nad-edge-path" points="-89.02,178.15 -52.60,137.61 -31.30,36.90"/>
                 <g class="nad-edge-infos" transform="translate(-48.46,118.04)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(11.94)">
@@ -167,7 +165,7 @@
         </g>
         <g id="10">
             <g class="nad-vl300to500">
-                <polyline points="8.31,-104.93 87.20,-41.00"/>
+                <polyline class="nad-edge-path" points="8.31,-104.93 87.20,-41.00"/>
                 <g class="nad-edge-infos" transform="translate(25.79,-90.77)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(129.02)">
@@ -184,10 +182,10 @@
                         <text transform="rotate(39.02)" x="19.00">0</text>
                     </g>
                 </g>
-                <circle cx="102.74" cy="-28.41" r="20.00"/>
+                <circle class="nad-winding" cx="102.74" cy="-28.41" r="20.00"/>
             </g>
             <g class="nad-vl180to300">
-                <polyline points="212.71,60.70 133.82,-3.23"/>
+                <polyline class="nad-edge-path" points="212.71,60.70 133.82,-3.23"/>
                 <g class="nad-edge-infos" transform="translate(171.92,27.65)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-50.98)">
@@ -204,12 +202,12 @@
                         <text transform="rotate(-320.98)" x="-19.00" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="118.28" cy="-15.82" r="20.00"/>
+                <circle class="nad-winding" cx="118.28" cy="-15.82" r="20.00"/>
             </g>
         </g>
         <g id="11">
             <g class="nad-vl300to500">
-                <polyline points="-82.04,188.58 20.83,152.01"/>
+                <polyline class="nad-edge-path" points="-82.04,188.58 20.83,152.01"/>
                 <g class="nad-edge-infos" transform="translate(-60.84,181.04)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(70.43)">
@@ -226,10 +224,10 @@
                         <text transform="rotate(-19.57)" x="19.00">0</text>
                     </g>
                 </g>
-                <circle cx="39.67" cy="145.31" r="20.00"/>
+                <circle class="nad-winding" cx="39.67" cy="145.31" r="20.00"/>
             </g>
             <g class="nad-vl180to300">
-                <polyline points="180.23,95.34 77.36,131.91"/>
+                <polyline class="nad-edge-path" points="180.23,95.34 77.36,131.91"/>
                 <g class="nad-edge-infos" transform="translate(159.03,102.88)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-109.57)">
@@ -246,7 +244,7 @@
                         <text transform="rotate(-19.57)" x="-19.00" style="text-anchor:end">0</text>
                     </g>
                 </g>
-                <circle cx="58.52" cy="138.61" r="20.00"/>
+                <circle class="nad-winding" cx="58.52" cy="138.61" r="20.00"/>
             </g>
         </g>
     </g>
