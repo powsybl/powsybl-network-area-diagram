@@ -76,27 +76,27 @@
         <g id="4">
             <g class="nad-vl300to500">
                 <polyline points="142.00,-70.46 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(139.93,-68.29)">
+                <g class="nad-edge-infos" transform="translate(105.79,-32.45)">
                     <g class="nad-state-out">
                         <g transform="rotate(-136.40)">
-                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
-                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-0.5 1 H0.5 L0 -1z"/>
                         </g>
-                        <text transform="rotate(43.60)" y="0.29" style="text-anchor:middle">ext</text>
-                        <text transform="rotate(43.60)" y="-0.25" style="text-anchor:middle">int</text>
+                        <text transform="rotate(43.60)" y="28.75" style="text-anchor:middle">ext</text>
+                        <text transform="rotate(43.60)" y="-25.00" style="text-anchor:middle">int</text>
                     </g>
                 </g>
             </g>
             <g class="nad-vl300to500">
                 <polyline points="-67.15,149.16 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(-65.08,146.98)">
+                <g class="nad-edge-infos" transform="translate(-30.94,111.14)">
                     <g class="nad-state-out">
                         <g transform="rotate(43.60)">
-                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
-                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-0.5 1 H0.5 L0 -1z"/>
                         </g>
-                        <text transform="rotate(43.60)" y="-0.25" style="text-anchor:middle">ext</text>
-                        <text transform="rotate(43.60)" y="0.29" style="text-anchor:middle">int</text>
+                        <text transform="rotate(43.60)" y="-25.00" style="text-anchor:middle">ext</text>
+                        <text transform="rotate(43.60)" y="28.75" style="text-anchor:middle">int</text>
                     </g>
                 </g>
             </g>

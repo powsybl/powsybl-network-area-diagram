@@ -76,22 +76,22 @@
         <g id="4">
             <g class="nad-vl300to500">
                 <polyline points="142.00,-70.46 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(140.21,-68.58)">
+                <g class="nad-edge-infos" transform="translate(133.38,-61.41)">
                     <g class="nad-state-out">
                         <g transform="rotate(-136.40)">
-                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
-                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-0.5 1 H0.5 L0 -1z"/>
                         </g>
                     </g>
                 </g>
             </g>
             <g class="nad-vl300to500">
                 <polyline points="-67.15,149.16 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(-65.36,147.27)">
+                <g class="nad-edge-infos" transform="translate(-58.53,140.10)">
                     <g class="nad-state-out">
                         <g transform="rotate(43.60)">
-                            <path class="nad-arrow-in" d="M-20 -10 H20 L0 10z"/>
-                            <path class="nad-arrow-out" d="M-5 10 H5 L0 -10z"/>
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-0.5 1 H0.5 L0 -1z"/>
                         </g>
                     </g>
                 </g>
