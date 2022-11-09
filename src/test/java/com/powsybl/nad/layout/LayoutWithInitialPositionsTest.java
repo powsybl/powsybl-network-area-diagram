@@ -11,7 +11,6 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -117,10 +116,6 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         }
     }
 
-    static class LayoutResult {
-        Map<String, Point> positions;
-    }
-
     private Map<String, Point> layoutResult(NetworkAreaDiagram nad) {
         return layoutResult(nad, Collections.emptyMap(), Collections.emptySet(), Collections.emptyMap());
     }
@@ -137,25 +132,67 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                                             Map<String, Point> initialNodePositions,
                                             Set<String> nodesWithFixedPositions,
                                             Map<String, Point> fixedNodePositions
-                                            ) {
-        final LayoutResult layoutResult = new LayoutResult();
-        LayoutFactory wrappedLayoutFactory = () -> new BasicForceLayout() {
-            @Override
-            public Map<String, Point> run(Graph graph, LayoutParameters layoutParameters) {
-                setInitialNodePositions(initialNodePositions);
-                setNodesWithFixedPosition(nodesWithFixedPositions);
-                setFixedNodePositions(fixedNodePositions);
-                layoutResult.positions = super.run(graph, layoutParameters);
-                return layoutResult.positions;
-            }
-        };
+    ) {
+        LayoutFactory delegateLayoutFactory = new BasicForceLayoutFactory();
+        PositionsLayoutFactory positionsLayoutFactory = new PositionsLayoutFactory(
+                delegateLayoutFactory,
+                initialNodePositions,
+                nodesWithFixedPositions,
+                fixedNodePositions);
         StringWriter writer = new StringWriter();
         nad.draw(writer,
                 getSvgParameters(),
                 getLayoutParameters(),
                 getStyleProvider(nad.getNetwork()),
                 getLabelProvider(nad.getNetwork()),
-                wrappedLayoutFactory);
-        return layoutResult.positions;
+                positionsLayoutFactory);
+        return positionsLayoutFactory.getLayoutResult().positions;
+    }
+
+    static class PositionsLayoutFactory implements LayoutFactory {
+        static class LayoutResult {
+            Map<String, Point> positions;
+        }
+
+        private final LayoutFactory delegateLayoutFactory;
+        private final LayoutResult layoutResult = new LayoutResult();
+        private final Map<String, Point> initialNodePositions;
+        private final Set<String> nodesWithFixedPositions;
+        private final Map<String, Point> fixedNodePositions;
+
+        PositionsLayoutFactory(LayoutFactory delegateLayoutFactory,
+                               Map<String, Point> initialNodePositions,
+                               Set<String> nodesWithFixedPositions,
+                               Map<String, Point> fixedNodePositions
+                               ) {
+            this.delegateLayoutFactory = delegateLayoutFactory;
+            this.initialNodePositions = initialNodePositions;
+            this.nodesWithFixedPositions = nodesWithFixedPositions;
+            this.fixedNodePositions = fixedNodePositions;
+        }
+
+        public LayoutResult getLayoutResult() {
+            return layoutResult;
+        }
+
+        @Override
+        public Layout create() {
+            final Layout delegateLayout = delegateLayoutFactory.create();
+            return (graph, layoutParameters) -> {
+                if (!initialNodePositions.isEmpty()) {
+                    delegateLayout.setInitialNodePositions(initialNodePositions);
+                }
+                if (!nodesWithFixedPositions.isEmpty()) {
+                    delegateLayout.setNodesWithFixedPosition(nodesWithFixedPositions);
+                }
+                // only if not empty,
+                // setting nodes with fixed node positions will invalidate previous nodes with fixed positions
+                if (!fixedNodePositions.isEmpty()) {
+                    delegateLayout.setFixedNodePositions(fixedNodePositions);
+                }
+                layoutResult.positions = delegateLayout.run(graph, layoutParameters);
+                return layoutResult.positions;
+            };
+        }
     }
 }
