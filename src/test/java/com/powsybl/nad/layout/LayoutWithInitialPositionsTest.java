@@ -8,11 +8,21 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.svg.StyleProvider;
+import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
+import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -22,19 +32,38 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-class LayoutWithInitialPositionsTest {
+class LayoutWithInitialPositionsTest extends AbstractTest {
+
+    @BeforeEach
+    public void setup() {
+        setLayoutParameters(new LayoutParameters());
+        setSvgParameters(new SvgParameters()
+                .setInsertNameDesc(true)
+                .setSvgWidthAndHeightAdded(true)
+                .setFixedWidth(800));
+    }
+
+    @Override
+    protected StyleProvider getStyleProvider(Network network) {
+        return new NominalVoltageStyleProvider(network);
+    }
+
+    @Override
+    protected LabelProvider getLabelProvider(Network network) {
+        return new DefaultLabelProvider(network, getSvgParameters());
+    }
 
     @Test
     void testDiamond() {
         checkLayoutWithInitialPositions(LayoutNetworkFactory.createDiamond());
     }
 
-    private static void checkLayoutWithInitialPositions(Network network) {
+    private void checkLayoutWithInitialPositions(Network network) {
         Predicate<VoltageLevel> filter = vl -> vl.getNominalV() >= 100;
 
         // Perform an initial layout with only a few voltage levels of the network
         NetworkAreaDiagram initialDiagram = new NetworkAreaDiagram(network, filter);
-        Map<String, Point> initialPositions = initialDiagram.getLayout().run(initialDiagram.buildGraph(), getLayoutParameters());
+        Map<String, Point> initialPositions = layoutResult(initialDiagram);
 
         // Check initial points contains an entry for all voltage levels filtered
         network.getVoltageLevelStream().filter(filter).forEach(vl -> assertTrue(initialPositions.containsKey(vl.getId())));
@@ -46,13 +75,11 @@ class LayoutWithInitialPositionsTest {
         checkOnlySomeInitialPositionsFixed(network, initialPositions);
     }
 
-    private static void checkAllInitialPositionsFixed(Network network, Map<String, Point> initialPositions) {
+    private void checkAllInitialPositionsFixed(Network network, Map<String, Point> initialPositions) {
         // Perform a global layout with all the voltage levels in the network,
         // giving fixed positions for some equipment
         NetworkAreaDiagram completeNetworkDiagram = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-        Layout layout = completeNetworkDiagram.getLayout();
-        layout.setFixedNodePositions(initialPositions);
-        Map<String, Point> allPositions = layout.run(completeNetworkDiagram.buildGraph(), getLayoutParameters());
+        Map<String, Point> allPositions = layoutResult(completeNetworkDiagram, initialPositions);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {
@@ -65,23 +92,20 @@ class LayoutWithInitialPositionsTest {
         }
     }
 
-    private static void checkOnlySomeInitialPositionsFixed(Network network, Map<String, Point> initialPositions) {
+    private void checkOnlySomeInitialPositionsFixed(Network network, Map<String, Point> initialPositions) {
         // Perform a global layout with all the voltage levels in the network,
         // giving initial positions for some equipment,
         // and fixing the position for only some equipment
         NetworkAreaDiagram completeNetworkDiagram = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-        Layout layout = completeNetworkDiagram.getLayout();
-        layout.setInitialNodePositions(initialPositions);
         // Only consider fixed the first one in the initial layout
         Set<String> fixedNodes = Set.of(initialPositions.keySet().iterator().next());
-        layout.setNodesWithFixedPosition(fixedNodes);
-        Map<String, Point> allPositions1 = layout.run(completeNetworkDiagram.buildGraph(), getLayoutParameters());
+        Map<String, Point> allPositions = layoutResult(completeNetworkDiagram, initialPositions, fixedNodes);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {
             String equipmentId = l.getKey();
             Point expected = l.getValue();
-            Point actual = allPositions1.get(equipmentId);
+            Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
             if (fixedNodes.contains(equipmentId)) {
                 assertEquals(expected.getX(), actual.getX());
@@ -93,8 +117,45 @@ class LayoutWithInitialPositionsTest {
         }
     }
 
-    private static LayoutParameters getLayoutParameters() {
-        return new LayoutParameters()
-                .setSpringRepulsionFactorForceLayout(0.2);
+    static class LayoutResult {
+        Map<String, Point> positions;
+    }
+
+    private Map<String, Point> layoutResult(NetworkAreaDiagram nad) {
+        return layoutResult(nad, Collections.emptyMap(), Collections.emptySet(), Collections.emptyMap());
+    }
+
+    private Map<String, Point> layoutResult(NetworkAreaDiagram nad, Map<String, Point> initialNodePositions, Set<String> nodesWithFixedPositions) {
+        return layoutResult(nad, initialNodePositions, nodesWithFixedPositions, Collections.emptyMap());
+    }
+
+    private Map<String, Point> layoutResult(NetworkAreaDiagram nad, Map<String, Point> fixedNodePositions) {
+        return layoutResult(nad, Collections.emptyMap(), Collections.emptySet(), fixedNodePositions);
+    }
+
+    private Map<String, Point> layoutResult(NetworkAreaDiagram nad,
+                                            Map<String, Point> initialNodePositions,
+                                            Set<String> nodesWithFixedPositions,
+                                            Map<String, Point> fixedNodePositions
+                                            ) {
+        final LayoutResult layoutResult = new LayoutResult();
+        LayoutFactory wrappedLayoutFactory = () -> new BasicForceLayout() {
+            @Override
+            public Map<String, Point> run(Graph graph, LayoutParameters layoutParameters) {
+                setInitialNodePositions(initialNodePositions);
+                setNodesWithFixedPosition(nodesWithFixedPositions);
+                setFixedNodePositions(fixedNodePositions);
+                layoutResult.positions = super.run(graph, layoutParameters);
+                return layoutResult.positions;
+            }
+        };
+        StringWriter writer = new StringWriter();
+        nad.draw(writer,
+                getSvgParameters(),
+                getLayoutParameters(),
+                getStyleProvider(nad.getNetwork()),
+                getLabelProvider(nad.getNetwork()),
+                wrappedLayoutFactory);
+        return layoutResult.positions;
     }
 }

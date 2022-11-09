@@ -13,7 +13,6 @@ import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.Layout;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
@@ -62,6 +61,10 @@ public class NetworkAreaDiagram {
         this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
     }
 
+    public Network getNetwork() {
+        return network;
+    }
+
     public void draw(Path svgFile) {
         draw(svgFile, new SvgParameters());
     }
@@ -89,19 +92,6 @@ public class NetworkAreaDiagram {
         draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
     }
 
-    public Graph buildGraph() {
-        return buildGraph(new IntIdProvider());
-    }
-
-    public Graph buildGraph(IdProvider idProvider) {
-        Objects.requireNonNull(idProvider);
-        return new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
-    }
-
-    public Layout getLayout() {
-        return new BasicForceLayoutFactory().create();
-    }
-
     public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                                    StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
                                    IdProvider idProvider) {
@@ -112,7 +102,7 @@ public class NetworkAreaDiagram {
         Objects.requireNonNull(layoutFactory);
         Objects.requireNonNull(idProvider);
 
-        Graph graph = buildGraph(idProvider);
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
     }
