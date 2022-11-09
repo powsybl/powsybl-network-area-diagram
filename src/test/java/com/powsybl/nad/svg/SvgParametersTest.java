@@ -45,7 +45,8 @@ class SvgParametersTest {
                 .setInterAnnulusSpace(0.25)
                 .setSvgPrefix("TestPrefix")
                 .setIdDisplayed(true)
-                .setSubstationDescriptionDisplayed(true);
+                .setSubstationDescriptionDisplayed(true)
+                .setArrowHeight(25);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -80,5 +81,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());
         assertEquals(svgParameters0.isSubstationDescriptionDisplayed(), svgParameters1.isSubstationDescriptionDisplayed());
+        assertEquals(svgParameters0.getArrowHeight(), svgParameters1.getArrowHeight());
     }
 }

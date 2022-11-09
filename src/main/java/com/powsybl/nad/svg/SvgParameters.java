@@ -83,6 +83,7 @@ public class SvgParameters {
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
+        this.arrowHeight = other.arrowHeight;
     }
 
     public Padding getDiagramPadding() {

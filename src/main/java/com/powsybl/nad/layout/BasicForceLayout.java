@@ -32,7 +32,7 @@ public class BasicForceLayout extends AbstractLayout {
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
-            graph.getTextEdgesMap().forEach((te, pNodes) -> fixedTextNodeLayout(te, pNodes, layoutParameters));
+            graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
         }
     }
 
@@ -50,7 +50,7 @@ public class BasicForceLayout extends AbstractLayout {
         });
     }
 
-    private void fixedTextNodeLayout(TextEdge textEdge, Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
+    private void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
         Point fixedShift = layoutParameters.getTextNodeFixedShift();
         Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
         nodes.getSecond().setPosition(textPos);
