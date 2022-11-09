@@ -41,6 +41,7 @@ public class SvgParameters {
     private String svgPrefix = "";
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
+    private double arrowHeight = 10;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -336,6 +337,15 @@ public class SvgParameters {
 
     public SvgParameters setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
         this.substationDescriptionDisplayed = substationDescriptionDisplayed;
+        return this;
+    }
+
+    public double getArrowHeight() {
+        return arrowHeight;
+    }
+
+    public SvgParameters setArrowHeight(double arrowHeight) {
+        this.arrowHeight = arrowHeight;
         return this;
     }
 }

@@ -304,9 +304,11 @@ public class SvgWriter {
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
         writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn());
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_OUT_CLASS);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
         writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDOut());
         writer.writeEndElement();
     }
@@ -348,6 +350,10 @@ public class SvgWriter {
 
     private String getRotateString(double angleRad) {
         return "rotate(" + getFormattedValue(Math.toDegrees(angleRad)) + ")";
+    }
+
+    private String getScaleString(double scale) {
+        return "scale(" + getFormattedValue(scale) + ")";
     }
 
     private Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line) {
