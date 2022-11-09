@@ -26,7 +26,7 @@ class ParallelTransformerTest extends AbstractTest {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedScale(0.5));
     }
 
     @Override

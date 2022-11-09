@@ -29,7 +29,7 @@ class HvdcTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedHeight(600));
     }
 
     @Override

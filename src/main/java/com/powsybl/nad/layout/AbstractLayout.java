@@ -68,14 +68,10 @@ public abstract class AbstractLayout implements Layout {
         });
     }
 
-    protected void fixedTextNodeLayout(TextEdge ignoredTextEdge, Pair<VoltageLevelNode, TextNode> nodes) {
-        Point fixedShift = getTextNodeFixedShift();
+    protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
+        Point fixedShift = layoutParameters.getTextNodeFixedShift();
         Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
         nodes.getSecond().setPosition(textPos);
-    }
-
-    protected Point getTextNodeFixedShift() {
-        return new Point(1, 0);
     }
 
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {

@@ -28,7 +28,7 @@ public class BasicFixedLayout extends AbstractLayout {
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
-            graph.getTextEdgesMap().forEach(this::fixedTextNodeLayout);
+            graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
         }
     }
 }
