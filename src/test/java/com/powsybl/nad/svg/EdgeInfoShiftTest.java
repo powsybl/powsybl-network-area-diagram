@@ -42,7 +42,7 @@ class EdgeInfoShiftTest extends AbstractTest {
     @Test
     void testArrowShift() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setArrowShift(0.2);
+        getSvgParameters().setArrowShift(20);
         assertEquals(toString("/edge_info_shift.svg"), generateSvgString(network, "/edge_info_shift.svg"));
     }
 }

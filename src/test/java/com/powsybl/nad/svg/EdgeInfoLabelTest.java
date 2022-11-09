@@ -72,7 +72,7 @@ class EdgeInfoLabelTest extends AbstractTest {
     @Test
     void testMissingLabels() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
-        getSvgParameters().setArrowShift(0.1);
+        getSvgParameters().setArrowShift(10);
         assertEquals(toString("/edge_info_missing_label.svg"), generateSvgString(network, "/edge_info_missing_label.svg"));
     }
 
@@ -82,8 +82,8 @@ class EdgeInfoLabelTest extends AbstractTest {
         internalLabel = "int";
         externalLabel = "ext";
         getSvgParameters().setEdgeInfoAlongEdge(false)
-                .setArrowShift(0.5)
-                .setArrowLabelShift(0.25);
+                .setArrowShift(50)
+                .setArrowLabelShift(25);
         assertEquals(toString("/edge_info_perpendicular_label.svg"), generateSvgString(network, "/edge_info_perpendicular_label.svg"));
     }
 
@@ -92,8 +92,8 @@ class EdgeInfoLabelTest extends AbstractTest {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         internalLabel = "243";
         externalLabel = "145";
-        getSvgParameters().setArrowShift(0.6)
-                .setArrowLabelShift(0.2);
+        getSvgParameters().setArrowShift(60)
+                .setArrowLabelShift(20);
         assertEquals(toString("/edge_info_double_labels.svg"), generateSvgString(network, "/edge_info_double_labels.svg"));
     }
 }
