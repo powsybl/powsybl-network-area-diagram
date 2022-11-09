@@ -17,20 +17,12 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
 class FixedLayoutTest {
-
-    @Test
-    void testPointsAreDifferent() {
-        Point p0 = new Point(1, 0);
-        Point p1 = new Point(2, 0);
-        assertNotEquals(p0, p1);
-        assertNotEquals(p0.hashCode(), p1.hashCode());
-    }
 
     @Test
     void testCurrentLimits() {
@@ -43,6 +35,13 @@ class FixedLayoutTest {
         Layout fixedLayout = new BasicFixedLayoutFactory().create();
         fixedLayout.setInitialNodePositions(expected);
         Map<String, Point> actual = fixedLayout.run(graph, new LayoutParameters());
-        assertEquals(expected, actual);
+        assertEquals(expected.keySet(), actual.keySet());
+        expected.keySet().forEach(k -> {
+            Point pexpected = expected.get(k);
+            Point pactual = actual.get(k);
+            assertNotNull(pactual);
+            assertEquals(pexpected.getX(), pactual.getX());
+            assertEquals(pexpected.getY(), pactual.getY());
+        });
     }
 }

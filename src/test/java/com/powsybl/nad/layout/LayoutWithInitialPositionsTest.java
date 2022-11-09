@@ -59,7 +59,9 @@ class LayoutWithInitialPositionsTest {
             String equipmentId = l.getKey();
             Point expected = l.getValue();
             Point actual = allPositions.get(equipmentId);
-            assertEquals(expected, actual);
+            assertNotNull(actual);
+            assertEquals(expected.getX(), actual.getX());
+            assertEquals(expected.getY(), actual.getY());
         }
     }
 
@@ -80,11 +82,13 @@ class LayoutWithInitialPositionsTest {
             String equipmentId = l.getKey();
             Point expected = l.getValue();
             Point actual = allPositions1.get(equipmentId);
+            assertNotNull(actual);
             if (fixedNodes.contains(equipmentId)) {
-                assertEquals(expected, actual);
+                assertEquals(expected.getX(), actual.getX());
+                assertEquals(expected.getY(), actual.getY());
             } else {
                 // We expect that the nodes with initial position but that have not been fixed have been moved
-                assertNotEquals(expected, actual);
+                assertTrue(expected.getX() != actual.getX() || expected.getY() != actual.getY());
             }
         }
     }
