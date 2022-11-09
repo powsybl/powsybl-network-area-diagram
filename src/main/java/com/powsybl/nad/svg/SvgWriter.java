@@ -183,10 +183,12 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
                 drawBranchEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
                 drawLoopEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             }
@@ -225,6 +227,7 @@ public class SvgWriter {
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
         drawThreeWtEdgeInfo(graph, writer, edge, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
@@ -252,6 +255,7 @@ public class SvgWriter {
 
     private void draw3WtWinding(ThreeWtEdge edge, ThreeWtNode threeWtNode, XMLStreamWriter writer) throws XMLStreamException {
         List<String> styles = styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide());
+        styles.add(StyleProvider.WINDING_CLASS);
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
@@ -368,6 +372,7 @@ public class SvgWriter {
 
     private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.WINDING_CLASS);
         Point point1 = half.get(half.size() - 1); // point near 2wt
         Point point2 = half.get(half.size() - 2); // point near voltage level, or control point for loops
         double radius = svgParameters.getTransformerCircleRadius();
@@ -457,9 +462,11 @@ public class SvgWriter {
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUSNODE_CLASS);
                 writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUSNODE_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
