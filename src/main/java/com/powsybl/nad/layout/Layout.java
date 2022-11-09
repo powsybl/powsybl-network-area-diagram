@@ -22,6 +22,11 @@ public interface Layout {
 
     void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition);
 
+    default void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
+        setInitialNodePositions(fixedNodePositions);
+        setNodesWithFixedPosition(fixedNodePositions.keySet());
+    }
+
     Map<String, Point> getInitialNodePositions();
 
     Set<String> getNodesWithFixedPosition();

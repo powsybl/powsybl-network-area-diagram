@@ -53,7 +53,8 @@ import java.util.function.Function;
 public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
-    private final Random random = new Random(3L); // deterministic randomness
+    /** Deterministic randomness */
+    private final Random random = new Random(3L);
 
     private static final int DEFAULT_MAX_STEPS = 1000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
@@ -61,7 +62,8 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0; // Disabled by default
+    /** Spring repulsion is disabled by default */
+    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -70,8 +72,10 @@ public class ForceLayout<V, E> {
     private double friction;
     private double maxSpeed;
     private double springRepulsionFactor;
-    private Map<V, Point> initialPoints; // Initial locations for some nodes
-    private Set<V> fixedNodes; // The location of these nodes should not be modified by the layout
+    /** Initial location for some nodes */
+    private Map<V, Point> initialPoints = Collections.emptyMap();
+    /** The location of these nodes should not be modified by the layout */
+    private Set<V> fixedNodes = Collections.emptySet();
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -87,10 +91,7 @@ public class ForceLayout<V, E> {
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
-
         this.graph = Objects.requireNonNull(graph);
-        this.initialPoints = Collections.emptyMap();
-        this.fixedNodes = Collections.emptySet();
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
@@ -130,6 +131,12 @@ public class ForceLayout<V, E> {
 
     public ForceLayout<V, E> setInitialPoints(Map<V, Point> initialPoints) {
         this.initialPoints = Objects.requireNonNull(initialPoints);
+        return this;
+    }
+
+    public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
+        this.initialPoints = Objects.requireNonNull(fixedPoints);
+        setFixedNodes(fixedPoints.keySet());
         return this;
     }
 
