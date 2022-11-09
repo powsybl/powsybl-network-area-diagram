@@ -462,15 +462,17 @@ public class SvgWriter {
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
                 writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUSNODE_CLASS);
                 writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
-                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUSNODE_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
-            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(busNode));
+
+            List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
+            nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
+            addStylesIfAny(writer, nodeStyleClasses);
+
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
     }
