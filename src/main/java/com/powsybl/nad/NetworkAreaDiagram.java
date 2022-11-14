@@ -61,6 +61,10 @@ public class NetworkAreaDiagram {
         this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
     }
 
+    public Network getNetwork() {
+        return network;
+    }
+
     public void draw(Path svgFile) {
         draw(svgFile, new SvgParameters());
     }

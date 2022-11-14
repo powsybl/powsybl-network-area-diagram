@@ -8,27 +8,40 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.forcelayout.ForceLayout;
 import com.powsybl.forcelayout.Vector;
-import com.powsybl.nad.model.*;
-import org.jgrapht.alg.util.Pair;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class BasicForceLayout extends AbstractLayout {
 
+    private static final int SCALE = 100;
+
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
+
+        setInitialPositions(forceLayout, graph);
+        Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
+                .map(graph::getNode)
+                .flatMap(Optional::stream)
+                .collect(Collectors.toSet());
+        forceLayout.setFixedNodes(fixedNodes);
+
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(100 * p.getX(), 100 * p.getY());
+            node.setPosition(SCALE * p.getX(), SCALE * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
@@ -36,23 +49,16 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    protected void busNodesLayout(Graph graph, LayoutParameters layoutParameters) {
-        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
-        graph.getVoltageLevelNodesStream().forEach(n -> {
-            n.sortBusNodes(c);
-            List<BusNode> sortedNodes = n.getBusNodes();
-            for (int i = 0; i < sortedNodes.size(); i++) {
-                BusNode busNode = sortedNodes.get(i);
-                busNode.setIndex(i);
-                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
-                busNode.setPosition(n.getPosition());
-            }
-        });
-    }
-
-    private void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
-        Point fixedShift = layoutParameters.getTextNodeFixedShift();
-        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
-        nodes.getSecond().setPosition(textPos);
+    private void setInitialPositions(ForceLayout<Node, Edge> forceLayout, Graph graph) {
+        Map<Node, com.powsybl.forcelayout.Point> initialPoints = getInitialNodePositions().entrySet().stream()
+                // Only accept positions for nodes in the graph
+                .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
+                .collect(Collectors.toMap(
+                    nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
+                    nodePosition -> new com.powsybl.forcelayout.Point(
+                            nodePosition.getValue().getX() / SCALE,
+                            nodePosition.getValue().getY() / SCALE)
+                ));
+        forceLayout.setInitialPoints(initialPoints);
     }
 }

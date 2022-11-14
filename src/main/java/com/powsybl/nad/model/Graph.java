@@ -313,4 +313,13 @@ public class Graph {
     public boolean isLoop(Edge edge) {
         return getNode1(edge) == getNode2(edge);
     }
+
+    public Map<String, Point> getNodePositions() {
+        return getVoltageLevelNodesStream()
+                .filter(VoltageLevelNode::isVisible)
+                .collect(Collectors.toMap(
+                        VoltageLevelNode::getEquipmentId,
+                        VoltageLevelNode::getPosition
+                ));
+    }
 }

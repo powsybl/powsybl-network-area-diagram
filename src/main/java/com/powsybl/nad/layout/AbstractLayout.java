@@ -1,11 +1,15 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.*;
+import org.jgrapht.alg.util.Pair;
 
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public abstract class AbstractLayout implements Layout {
+
+    private Map<String, Point> initialNodePositions = Collections.emptyMap();
+    private Set<String> nodesWithFixedPosition = Collections.emptySet();
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {
@@ -19,9 +23,53 @@ public abstract class AbstractLayout implements Layout {
         computeSize(graph);
     }
 
+    @Override
+    public Map<String, Point> getInitialNodePositions() {
+        return initialNodePositions;
+    }
+
+    @Override
+    public void setInitialNodePositions(Map<String, Point> initialNodePositions) {
+        Objects.requireNonNull(initialNodePositions);
+        this.initialNodePositions = initialNodePositions;
+    }
+
+    @Override
+    public void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
+        this.nodesWithFixedPosition = nodesWithFixedPosition;
+    }
+
+    @Override
+    public Set<String> getNodesWithFixedPosition() {
+        return nodesWithFixedPosition;
+    }
+
+    public void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
+        setInitialNodePositions(fixedNodePositions);
+        setNodesWithFixedPosition(fixedNodePositions.keySet());
+    }
+
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
 
-    protected abstract void busNodesLayout(Graph graph, LayoutParameters layoutParameters);
+    protected void busNodesLayout(Graph graph, LayoutParameters ignoredLayoutParameters) {
+        Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
+        graph.getVoltageLevelNodesStream().forEach(n -> {
+            n.sortBusNodes(c);
+            List<BusNode> sortedNodes = n.getBusNodes();
+            for (int i = 0; i < sortedNodes.size(); i++) {
+                BusNode busNode = sortedNodes.get(i);
+                busNode.setIndex(i);
+                busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
+                busNode.setPosition(n.getPosition());
+            }
+        });
+    }
+
+    protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
+        Point fixedShift = layoutParameters.getTextNodeFixedShift();
+        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
+        nodes.getSecond().setPosition(textPos);
+    }
 
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);

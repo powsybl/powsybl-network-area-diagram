@@ -53,7 +53,8 @@ import java.util.function.Function;
 public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
-    private final Random random = new Random(3L); // deterministic randomness
+    /** Deterministic randomness */
+    private final Random random = new Random(3L);
 
     private static final int DEFAULT_MAX_STEPS = 1000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
@@ -61,7 +62,8 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0; // Disabled by default
+    /** Spring repulsion is disabled by default */
+    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -70,6 +72,10 @@ public class ForceLayout<V, E> {
     private double friction;
     private double maxSpeed;
     private double springRepulsionFactor;
+    /** Initial location for some nodes */
+    private Map<V, Point> initialPoints = Collections.emptyMap();
+    /** The location of these nodes should not be modified by the layout */
+    private Set<V> fixedNodes = Collections.emptySet();
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
@@ -85,7 +91,6 @@ public class ForceLayout<V, E> {
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
-
         this.graph = Objects.requireNonNull(graph);
     }
 
@@ -124,9 +129,31 @@ public class ForceLayout<V, E> {
         return this;
     }
 
+    public ForceLayout<V, E> setInitialPoints(Map<V, Point> initialPoints) {
+        this.initialPoints = Objects.requireNonNull(initialPoints);
+        return this;
+    }
+
+    public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
+        this.initialPoints = Objects.requireNonNull(fixedPoints);
+        setFixedNodes(fixedPoints.keySet());
+        return this;
+    }
+
+    public ForceLayout<V, E> setFixedNodes(Set<V> fixedNodes) {
+        this.fixedNodes = Objects.requireNonNull(fixedNodes);
+        return this;
+    }
+
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
-            points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
+            Point p;
+            if (initialPoints.containsKey(vertex)) {
+                p = initialPoints.get(vertex);
+            } else {
+                p = new Point(random.nextDouble(), random.nextDouble());
+            }
+            points.put(vertex, p);
         }
     }
 
@@ -264,7 +291,15 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        for (Point point : points.values()) {
+        // TODO do not compute forces or update velocities for fixed nodes
+        // We have computed forces and velocities for all nodes, even for the fixed ones
+        // We can optimize calculations by ignoring fixed nodes in those calculations
+        // Here we only update the position for the nodes that do not have fixed positions
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            if (fixedNodes.contains(vertexPoint.getKey())) {
+                continue;
+            }
+            Point point = vertexPoint.getValue();
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
