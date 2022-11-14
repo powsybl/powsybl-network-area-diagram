@@ -6,11 +6,13 @@
  */
 package com.powsybl.nad.layout;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -178,20 +180,43 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         @Override
         public Layout create() {
             final Layout delegateLayout = delegateLayoutFactory.create();
-            return (graph, layoutParameters) -> {
-                if (!initialNodePositions.isEmpty()) {
-                    delegateLayout.setInitialNodePositions(initialNodePositions);
+            return new Layout() {
+                @Override
+                public void run(Graph graph, LayoutParameters layoutParameters) {
+                    if (!initialNodePositions.isEmpty()) {
+                        delegateLayout.setInitialNodePositions(initialNodePositions);
+                    }
+                    if (!nodesWithFixedPositions.isEmpty()) {
+                        delegateLayout.setNodesWithFixedPosition(nodesWithFixedPositions);
+                    }
+                    // only if not empty,
+                    // setting nodes with fixed node positions will invalidate previous nodes with fixed positions
+                    if (!fixedNodePositions.isEmpty() && delegateLayout instanceof AbstractLayout) {
+                        ((AbstractLayout) delegateLayout).setFixedNodePositions(fixedNodePositions);
+                    }
+                    delegateLayout.run(graph, layoutParameters);
+                    layoutResult.positions = graph.getNodePositions();
                 }
-                if (!nodesWithFixedPositions.isEmpty()) {
-                    delegateLayout.setNodesWithFixedPosition(nodesWithFixedPositions);
+
+                @Override
+                public void setInitialNodePositions(Map<String, Point> initialNodePositions) {
+                    throw new PowsyblException("not implemented");
                 }
-                // only if not empty,
-                // setting nodes with fixed node positions will invalidate previous nodes with fixed positions
-                if (!fixedNodePositions.isEmpty()) {
-                    delegateLayout.setFixedNodePositions(fixedNodePositions);
+
+                @Override
+                public void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
+                    throw new PowsyblException("not implemented");
                 }
-                layoutResult.positions = delegateLayout.run(graph, layoutParameters);
-                return layoutResult.positions;
+
+                @Override
+                public Map<String, Point> getInitialNodePositions() {
+                    throw new PowsyblException("not implemented");
+                }
+
+                @Override
+                public Set<String> getNodesWithFixedPosition() {
+                    throw new PowsyblException("not implemented");
+                }
             };
         }
     }

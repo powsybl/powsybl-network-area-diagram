@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
  */
 public class BasicForceLayout extends AbstractLayout {
 
+    private static final int SCALE = 100;
+
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
@@ -39,8 +41,7 @@ public class BasicForceLayout extends AbstractLayout {
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            double scale = fixedNodes.contains(node) ? 1 : 100;
-            node.setPosition(scale * p.getX(), scale * p.getY());
+            node.setPosition(SCALE * p.getX(), SCALE * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
@@ -54,9 +55,9 @@ public class BasicForceLayout extends AbstractLayout {
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
-                    nodePosition -> new com.powsybl.forcelayout.Point(nodePosition.getValue().getX(), nodePosition.getValue().getY()),
-                    // If same node has two points, keep the first one considered
-                    (point1, point2) -> point1
+                    nodePosition -> new com.powsybl.forcelayout.Point(
+                            nodePosition.getValue().getX() / SCALE,
+                            nodePosition.getValue().getY() / SCALE)
                 ));
         forceLayout.setInitialPoints(initialPoints);
     }

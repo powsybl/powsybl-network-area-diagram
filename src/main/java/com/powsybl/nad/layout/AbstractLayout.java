@@ -4,7 +4,6 @@ import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractLayout implements Layout {
@@ -13,7 +12,7 @@ public abstract class AbstractLayout implements Layout {
     private Set<String> nodesWithFixedPosition = Collections.emptySet();
 
     @Override
-    public Map<String, Point> run(Graph graph, LayoutParameters layoutParameters) {
+    public void run(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
 
@@ -22,13 +21,6 @@ public abstract class AbstractLayout implements Layout {
         edgesLayout(graph, layoutParameters);
 
         computeSize(graph);
-
-        return graph.getVoltageLevelNodesStream()
-                .filter(VoltageLevelNode::isVisible)
-                .collect(Collectors.toMap(
-                        VoltageLevelNode::getEquipmentId,
-                        VoltageLevelNode::getPosition
-                ));
     }
 
     @Override
@@ -50,6 +42,11 @@ public abstract class AbstractLayout implements Layout {
     @Override
     public Set<String> getNodesWithFixedPosition() {
         return nodesWithFixedPosition;
+    }
+
+    public void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
+        setInitialNodePositions(fixedNodePositions);
+        setNodesWithFixedPosition(fixedNodePositions.keySet());
     }
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);

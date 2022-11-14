@@ -32,9 +32,10 @@ class FixedLayoutTest {
                 "vl1", new Point(1, 0),
                 "vl2", new Point(2, 1));
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
-        Layout fixedLayout = new BasicFixedLayoutFactory().create();
-        fixedLayout.setInitialNodePositions(expected);
-        Map<String, Point> actual = fixedLayout.run(graph, new LayoutParameters());
+        Layout fixedLayout = new BasicFixedLayoutFactory(expected).create();
+        fixedLayout.run(graph, new LayoutParameters());
+        Map<String, Point> actual = graph.getNodePositions();
+
         assertEquals(expected.keySet(), actual.keySet());
         expected.keySet().forEach(k -> {
             Point pexpected = expected.get(k);

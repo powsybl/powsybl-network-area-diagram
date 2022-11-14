@@ -6,12 +6,27 @@
  */
 package com.powsybl.nad.layout;
 
+import com.powsybl.nad.model.Point;
+
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public class BasicFixedLayoutFactory implements LayoutFactory {
+
+    private final Map<String, Point> fixedPositions;
+
+    public BasicFixedLayoutFactory(Map<String, Point> fixedPositions) {
+        Objects.requireNonNull(fixedPositions);
+        this.fixedPositions = fixedPositions;
+    }
+
     @Override
     public Layout create() {
-        return new BasicFixedLayout();
+        AbstractLayout layout = new BasicFixedLayout();
+        layout.setFixedNodePositions(fixedPositions);
+        return layout;
     }
 }

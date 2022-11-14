@@ -9,7 +9,6 @@ package com.powsybl.nad.layout;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,24 +16,13 @@ import java.util.Set;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface Layout {
-    Map<String, Point> run(Graph graph, LayoutParameters layoutParameters);
+    void run(Graph graph, LayoutParameters layoutParameters);
 
-    default void setInitialNodePositions(Map<String, Point> initialNodePositions) {
-    }
+    void setInitialNodePositions(Map<String, Point> initialNodePositions);
 
-    default void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition) {
-    }
+    void setNodesWithFixedPosition(Set<String> nodesWithFixedPosition);
 
-    default void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
-        setInitialNodePositions(fixedNodePositions);
-        setNodesWithFixedPosition(fixedNodePositions.keySet());
-    }
+    Map<String, Point> getInitialNodePositions();
 
-    default Map<String, Point> getInitialNodePositions() {
-        return Collections.emptyMap();
-    }
-
-    default Set<String> getNodesWithFixedPosition() {
-        return Collections.emptySet();
-    }
+    Set<String> getNodesWithFixedPosition();
 }
