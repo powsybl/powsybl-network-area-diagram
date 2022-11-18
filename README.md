@@ -1,3 +1,5 @@
+> :information_source: _This repository has been archived as the code has been moved to [powsybl-diagram](https://github.com/powsybl/powsybl-diagram) repository._
+---
 # PowSyBl Network Area Diagram
 
 [![Actions Status](https://github.com/powsybl/powsybl-network-area-diagram/workflows/CI/badge.svg)](https://github.com/powsybl/powsybl-network-area-diagram/actions)
